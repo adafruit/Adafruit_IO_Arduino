@@ -8,5 +8,7 @@ send/receive values.  For example a sensor device that sends sensor measurements
 to AIO and then enters deep power-saving sleep for a period is perfect to use
 with this library.
 
-Currently FONA is the only supported platform, however support for the CC3000
-and ESP8266 is planned and coming soon.
+Currently this library supports the send API to send a value to a feed and the
+receive/last API to get the latest value from a feed.
+
+The supported platforms are the Adafruit CC3000, FONA, and ESP8266 Arduino.
