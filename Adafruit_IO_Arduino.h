@@ -34,11 +34,11 @@
 
 // Macros for debug output (only enabled when debug mode is enabled.)
 #ifdef ADAFRUIT_IO_DEBUG
-    #define DEBUG_PRINT(t) { Serial.print(t); }
-    #define DEBUG_PRINTLN(t) { Serial.println(t); }
+    #define DEBUG_PRINT(...) { Serial.print(__VA_ARGS__); }
+    #define DEBUG_PRINTLN(...) { Serial.println(__VA_ARGS__); }
 #else
-    #define DEBUG_PRINT(t) {}
-    #define DEBUG_PRINTLN(t) {}
+    #define DEBUG_PRINT(...) {}
+    #define DEBUG_PRINTLN(...) {}
 #endif
 
 
@@ -85,7 +85,7 @@ public:
 };
 
 
-// Main IO feed class that uses an AIO serviec reference to send and receive
+// Main IO feed class that uses an AIO service reference to send and receive
 // data with IO.
 class Adafruit_IO_Feed {
 public:

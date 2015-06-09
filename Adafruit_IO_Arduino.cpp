@@ -34,13 +34,9 @@ FeedData::FeedData(const FeedData& copy) {
 }
 
 FeedData::FeedData(const char* value) {
-    // Copy the provided string value as the feed data value.  If the string
-    // can't fit into the feed data's memory then keep the value in an invalid
-    // state (all zeros).
+    // Copy the provided string value as the feed data value.
     memset(_value, 0, sizeof(_value));
-    if (strlen(value) <= FEEDDATA_LENGTH-1) {
-        strncpy(_value, value, sizeof(_value)-1);       
-    }
+    strncpy(_value, value, FEEDDATA_LENGTH-1);
 }
 
 FeedData::FeedData(Stream& stream, uint16_t length, uint32_t timeoutMS) {
@@ -51,11 +47,13 @@ FeedData::FeedData(Stream& stream, uint16_t length, uint32_t timeoutMS) {
     memset(_value, 0, sizeof(_value));
     if (length > FEEDDATA_LENGTH-1) {
         // Not enough space to store the value.
+        DEBUG_PRINTLN(F("Not enough space to store feed data!"));
         return;
     }
     stream.setTimeout(timeoutMS);
     if (stream.readBytes(_value, length) != length) {
         // Didn't find enough data, set the value as invalid.
+        DEBUG_PRINTLN(F("Failed to find expected data!"));
         memset(_value, 0, sizeof(_value));
     }
 }
@@ -72,7 +70,13 @@ bool FeedData::uintValue(unsigned int* value) {
     // Attempt to convert the value to an unsigned integer.  Returns true if it
     // succeeds, and false if it fails for some reason.
     char* endptr;
-    *value = (unsigned int)strtoul(_value, &endptr, 10);
+    #ifdef ESP8266
+        // For some reason strtoul is not defined on the ESP8266 platform right now.
+        // Just use a strtol function and hope for the best.
+        *value = (unsigned int)strtol(_value, &endptr, 10);
+    #else
+        *value = (unsigned int)strtoul(_value, &endptr, 10);
+    #endif
     return (*_value != 0 && *endptr == 0);
 }
 
@@ -88,7 +92,13 @@ bool FeedData::ulongValue(unsigned long* value) {
     // Attempt to convert the value to an unsigned long.  Returns true if it
     // succeeds, and false if it fails for some reason.
     char* endptr;
-    *value = strtoul(_value, &endptr, 10);
+    #ifdef ESP8266
+        // For some reason strtoul is not defined on the ESP8266 platform right now.
+        // Just use a strtol function and hope for the best.
+        *value = (unsigned long)strtol(_value, &endptr, 10);
+    #else
+        *value = strtoul(_value, &endptr, 10);
+    #endif
     return (*_value != 0 && *endptr == 0);  
 }
 
@@ -143,7 +153,13 @@ bool Adafruit_IO_Feed::send(float value) {
     // Convert float to string using scientific notation, then send the value 
     // (being careful not to quote it).
     memset(_converted, 0, sizeof(_converted));
-    dtostre(value, _converted, 10, 0);
+    #if defined(ARDUINO_ARCH_AVR)
+        // Use avrlibc dtostre function on AVR platforms.
+        dtostre(value, _converted, 10, 0);
+    #else
+        // Otherwise fall back to snprintf on other platforms.
+        snprintf(_converted, sizeof(_converted)-1, "%f", value);
+    #endif
     return _adapter->send(_name, _converted, _key, false);
 }
 
@@ -151,6 +167,12 @@ bool Adafruit_IO_Feed::send(double value) {
     // Convert double to string using scientific notation, then send the value 
     // (being careful not to quote it).
     memset(_converted, 0, sizeof(_converted));
-    dtostre(value, _converted, 10, 0);
+    #if defined(ARDUINO_ARCH_AVR)
+        // Use avrlibc dtostre function on AVR platforms.
+        dtostre(value, _converted, 10, 0);
+    #else
+        // Otherwise fall back to snprintf on other platforms.
+        snprintf(_converted, sizeof(_converted)-1, "%f", value);
+    #endif
     return _adapter->send(_name, _converted, _key, false);
 }
