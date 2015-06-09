@@ -40,6 +40,10 @@ public:
         _servicePort(servicePort)
     {}
 
+    Adafruit_IO_Feed getFeed(const char* name, const char* key = NULL) {
+        return Adafruit_IO_Feed(name, key == NULL ? _defaultKey : key, this);
+    }
+
     bool begin() {}  // Nothing to do, no initialization required.
 
     virtual bool send(const char* feed, const char* value, const char* key, 
