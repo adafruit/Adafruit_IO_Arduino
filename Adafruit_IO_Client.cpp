@@ -60,25 +60,6 @@ bool Adafruit_IO_Client::send(const char* feed, const char* value,
     }
     _client.print('}');
 
-    // Serial.println("WRITTEN");
-    // char c = 0;
-    // int timeout=5000;
-    // while (timeout > 0) {
-    //     if (!_client.connected()) {
-    //         Serial.println("DISCONNECTED!");
-    //         return false;
-    //     }
-    //     while (_client.available()) {
-    //         char c = _client.read();
-    //         Serial.print(c);
-    //     }
-    //     timeout -= 10;
-    //     delay(10);
-    // }
-    // Serial.println("DONE!");
-    // _client.stop();
-    // return false;
-
     // Now wait to read response (up to the client's configured stream timeout).
     // First read the HTTP/1.1 response.
     char recvbuffer[IO_CLIENT_RECV_SIZE] = {0};
