@@ -29,6 +29,10 @@
 // Keep at least a value of ~33 to store large numeric and float values.
 #define FEEDDATA_LENGTH 33
 
+// How large the received data buffer is in bytes.  This is used for reading
+// the response of HTTP requests like header names and response codes.
+#define IO_RECV_LENGTH 33
+
 // Uncomment/comment to enable & disable debug output.
 //#define ADAFRUIT_IO_DEBUG
 

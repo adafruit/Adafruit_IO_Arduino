@@ -27,11 +27,6 @@
 #include "Adafruit_IO_Arduino.h"
 
 
-// How large the received data buffer is in bytes.  This is used for reading
-// the response of HTTP requests like header names and response codes.
-#define IO_CLIENT_RECV_SIZE 30
-
-
 // Arduino Client class implementation of AIO REST service.  Good for using with
 // hardware like the ESP8266 or Ethernet shield.
 class Adafruit_IO_Client: public AIOService {
@@ -44,10 +39,6 @@ public:
         _serviceHost(serviceHost),
         _servicePort(servicePort)
     {}
-
-    Adafruit_IO_Feed getFeed(const char* name, const char* key = NULL) {
-        return Adafruit_IO_Feed(name, key == NULL ? _defaultKey : key, this);
-    }
 
     bool begin() {}  // Nothing to do, no initialization required.
 

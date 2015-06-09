@@ -62,7 +62,7 @@ bool Adafruit_IO_Client::send(const char* feed, const char* value,
 
     // Now wait to read response (up to the client's configured stream timeout).
     // First read the HTTP/1.1 response.
-    char recvbuffer[IO_CLIENT_RECV_SIZE] = {0};
+    char recvbuffer[IO_RECV_LENGTH] = {0};
     if ((_client.readBytesUntil(' ', recvbuffer, sizeof(recvbuffer)) != 8) ||
         (strcmp_P(recvbuffer, PSTR("HTTP/1.1")) != 0)) {
         DEBUG_PRINTLN(F("Failed to find expected HTTP/1.1 response!"));
@@ -104,7 +104,7 @@ FeedData Adafruit_IO_Client::receive(const char* feed, const char* key) {
 
     // Parse HTTP GET response.
     // First read the HTTP/1.1 response.
-    char recvbuffer[IO_CLIENT_RECV_SIZE] = {0};
+    char recvbuffer[IO_RECV_LENGTH] = {0};
     if ((_client.readBytesUntil(' ', recvbuffer, sizeof(recvbuffer)) != 8) ||
         (strcmp_P(recvbuffer, PSTR("HTTP/1.1")) != 0)) {
         DEBUG_PRINTLN(F("Failed to find expected HTTP/1.1 response!"));
@@ -143,7 +143,7 @@ FeedData Adafruit_IO_Client::receive(const char* feed, const char* key) {
             break;
         }
         // Parse a header name.
-        char recvbuffer[IO_CLIENT_RECV_SIZE] = {0};
+        char recvbuffer[IO_RECV_LENGTH] = {0};
         if (!_client.readBytesUntil(':', recvbuffer, sizeof(recvbuffer)-1)) {
             DEBUG_PRINT(F("Expected header name!"));
             _client.stop();
