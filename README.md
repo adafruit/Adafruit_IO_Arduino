@@ -8,6 +8,11 @@ send/receive values.  For example a sensor device that sends sensor measurements
 to AIO and then enters deep power-saving sleep for a period is perfect to use
 with this library.
 
+An alternative is the [Adafruit MQTT library](https://github.com/adafruit/Adafruit_MQTT_Library) 
+which uses the MQTT protocol to talk to Adafruit IO.  This is good for devices
+that are always on and need to keep a connection alive to to be quickly notified
+of changes.
+
 Currently this library supports the send API to send a value to a feed and the
 receive/last API to get the latest value from a feed.
 
