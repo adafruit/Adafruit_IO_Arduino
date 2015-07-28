@@ -1,4 +1,4 @@
-# Adafruit IO Arduino Library
+# Adafruit IO Arduino Library [![Build Status](https://travis-ci.org/adafruit/Adafruit_IO_Arduino.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_IO_Arduino)
 
 Arduino library to access the Adafruit IO REST API on platforms like the FONA,
 CC3000, and ESP8266.  This is a good library for simple send and receive access
