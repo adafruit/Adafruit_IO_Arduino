@@ -156,6 +156,9 @@ bool Adafruit_IO_Feed::send(float value) {
     #if defined(ARDUINO_ARCH_AVR)
         // Use avrlibc dtostre function on AVR platforms.
         dtostre(value, _converted, 10, 0);
+	#elif defined(ESP8266)
+		String result =  String(value, 2);
+		result.toCharArray(_converted, sizeof(_converted)-1);	
     #else
         // Otherwise fall back to snprintf on other platforms.
         snprintf(_converted, sizeof(_converted)-1, "%f", value);
@@ -170,6 +173,9 @@ bool Adafruit_IO_Feed::send(double value) {
     #if defined(ARDUINO_ARCH_AVR)
         // Use avrlibc dtostre function on AVR platforms.
         dtostre(value, _converted, 10, 0);
+	#elif defined(ESP8266)
+		String result =  String(value, 2);
+		result.toCharArray(_converted, sizeof(_converted)-1);
     #else
         // Otherwise fall back to snprintf on other platforms.
         snprintf(_converted, sizeof(_converted)-1, "%f", value);
