@@ -26,8 +26,8 @@
 #include "Arduino.h"
 
 // Control how big the buffer is for storing a data instance's value.
-// Keep at least a value of ~33 to store large numeric and float values.
-#define FEEDDATA_LENGTH 33
+// Keep at least a value of ~41 to store large numeric and float values.
+#define FEEDDATA_LENGTH 41
 
 // How large the received data buffer is in bytes.  This is used for reading
 // the response of HTTP requests like header names and response codes.
@@ -96,16 +96,16 @@ public:
     Adafruit_IO_Feed(const char* name, const char* key, AIOService* adapter):
         _name(name), _key(key), _adapter(adapter)
     {}
-    
-    bool send(const char* value) { 
+
+    bool send(const char* value) {
         return _adapter->send(_name, value, _key, true);
     }
     bool send(int value);
     bool send(unsigned int value);
     bool send(long value);
     bool send(unsigned long value);
-    bool send(float value);
-    bool send(double value);
+    bool send(float value, int precision=6);
+    bool send(double value, int precision=6);
 
     FeedData receive() {
         return _adapter->receive(_name, _key);

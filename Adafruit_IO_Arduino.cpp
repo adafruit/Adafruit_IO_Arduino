@@ -99,7 +99,7 @@ bool FeedData::ulongValue(unsigned long* value) {
     #else
         *value = strtoul(_value, &endptr, 10);
     #endif
-    return (*_value != 0 && *endptr == 0);  
+    return (*_value != 0 && *endptr == 0);
 }
 
 bool FeedData::floatValue(float* value) {
@@ -149,13 +149,17 @@ bool Adafruit_IO_Feed::send(unsigned long value) {
     return _adapter->send(_name, _converted, _key, false);
 }
 
-bool Adafruit_IO_Feed::send(float value) {
-    // Convert float to string using scientific notation, then send the value 
+bool Adafruit_IO_Feed::send(float value, int precision) {
+    // Convert float to string using scientific notation, then send the value
     // (being careful not to quote it).
     memset(_converted, 0, sizeof(_converted));
     #if defined(ARDUINO_ARCH_AVR)
         // Use avrlibc dtostre function on AVR platforms.
         dtostre(value, _converted, 10, 0);
+    #elif defined(ESP8266)
+        // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
+        // but accept a hint as to how many decimals of precision are desired.
+        dtostrf(value, 0, precision, _converted);
     #else
         // Otherwise fall back to snprintf on other platforms.
         snprintf(_converted, sizeof(_converted)-1, "%f", value);
@@ -163,13 +167,17 @@ bool Adafruit_IO_Feed::send(float value) {
     return _adapter->send(_name, _converted, _key, false);
 }
 
-bool Adafruit_IO_Feed::send(double value) {
-    // Convert double to string using scientific notation, then send the value 
+bool Adafruit_IO_Feed::send(double value, int precision) {
+    // Convert double to string using scientific notation, then send the value
     // (being careful not to quote it).
     memset(_converted, 0, sizeof(_converted));
     #if defined(ARDUINO_ARCH_AVR)
         // Use avrlibc dtostre function on AVR platforms.
         dtostre(value, _converted, 10, 0);
+    #elif defined(ESP8266)
+        // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
+        // but accept a hint as to how many decimals of precision are desired.
+        dtostrf(value, 0, precision, _converted);
     #else
         // Otherwise fall back to snprintf on other platforms.
         snprintf(_converted, sizeof(_converted)-1, "%f", value);
