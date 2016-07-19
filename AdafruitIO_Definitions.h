@@ -1,6 +1,8 @@
 #ifndef ADAFRUITIO_DEFINITIONS_H_
 #define ADAFRUITIO_DEFINITIONS_H_
 
+#define AIO_PING_INTERVAL 60000
+
 typedef enum {
     AIO_IDLE                 = 0,
     AIO_NET_DISCONNECTED     = 1,
