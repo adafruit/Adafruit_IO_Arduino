@@ -22,7 +22,6 @@ class AdafruitIO_ESP8266 : public AdafruitIO {
     const char *_ssid;
     const char *_pass;
     WiFiClientSecure *_client;
-    Adafruit_MQTT_Client *_mqtt;
 
 };
 

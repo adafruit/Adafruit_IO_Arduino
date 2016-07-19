@@ -88,4 +88,3 @@ aio_status_t AdafruitIO_ESP8266::mqttStatus()
   }
 
 }
-
