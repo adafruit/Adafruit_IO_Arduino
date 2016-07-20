@@ -20,13 +20,24 @@ void setup() {
   Serial.begin(115200);
   delay(10);
 
-  Serial.print("Connecting to Adafruit IO");
-  delay(1000);
+  Serial.println(F("Connecting to Adafruit IO"));
 
   io.connect(IO_USERNAME, IO_KEY);
+  while(io.status() != AIO_CONNECTED) {
+    Serial.print(F("."));
+    delay(500);
+  }
+
+  Serial.println(F(" Connected!"));
+
+  io.setErrorHandler(onError);
 
 }
 
 void loop() {
+  io.run();
+}
 
+void onError(char* err, uint16_t len) {
+  Serial.println(err);
 }
