@@ -4,6 +4,7 @@
 typedef void (*AdafruitIOErrorCallbackType)(char *str, uint16_t len);
 
 #define AIO_PING_INTERVAL 60000
+#define AIO_THROTTLE_RECONNECT_INTERVAL 60000
 
 #define AIO_ERROR_TOPIC "/errors"
 #define AIO_THROTTLE_TOPIC "/throttle"

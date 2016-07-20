@@ -127,7 +127,8 @@ aio_status_t AdafruitIO::mqttStatus()
       return AIO_CONNECT_FAILED;
     case 3: // mqtt service unavailable
     case 6: // throttled
-      delay(60000); // wait 60 seconds
+      // delay to prevent fast reconnects
+      delay(AIO_THROTTLE_RECONNECT_INTERVAL);
       return AIO_DISCONNECTED;
     default:
       return AIO_DISCONNECTED;
