@@ -17,9 +17,9 @@ class AdafruitIO {
 
     const __FlashStringHelper* statusText();
 
-    virtual aio_status_t status() = 0;
+    aio_status_t status();
     virtual aio_status_t networkStatus() = 0;
-    virtual aio_status_t mqttStatus() = 0;
+    aio_status_t mqttStatus();
 
   protected:
     virtual void _connect() = 0;
