@@ -22,29 +22,54 @@ void AdafruitIO::connect(const __FlashStringHelper *user, const __FlashStringHel
 
 }
 
-void AdafruitIO::_init() {
+void AdafruitIO::_init()
+{
 
+  // we have never pinged, so set last ping to now
   _last_ping = millis();
 
   // call child class connect
   _connect();
 
-  // build error topic
-  strcpy(_err_topic, _username);
-  strcat(_err_topic, AIO_ERROR_TOPIC);
+  // dynamically allocate memory for err topic
+  _err_topic = (char *)malloc(sizeof(char) * (strlen(_username) + strlen(AIO_ERROR_TOPIC) + 1));
 
-  // setup error sub
-  _subscriptions[0] = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
+  if(_err_topic) {
 
-  // build throttle topic
-  strcpy(_throttle_topic, _username);
-  strcat(_throttle_topic, AIO_THROTTLE_TOPIC);
+    // build error topic
+    strcpy(_err_topic, _username);
+    strcat(_err_topic, AIO_ERROR_TOPIC);
 
-  // setup throttle sub
-  _subscriptions[1] = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
+    // setup error sub
+    _subscriptions[0] = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
+    _mqtt->subscribe(_subscriptions[0]);
 
-  _mqtt->subscribe(_subscriptions[0]);
-  _mqtt->subscribe(_subscriptions[1]);
+  } else {
+
+    // malloc failed
+    _err_topic = 0;
+
+  }
+
+  // dynamically allocate memory for throttle topic
+  _throttle_topic = (char *)malloc(sizeof(char) * (strlen(_username) + strlen(AIO_THROTTLE_TOPIC) + 1));
+
+  if(_throttle_topic) {
+
+    // build throttle topic
+    strcpy(_throttle_topic, _username);
+    strcat(_throttle_topic, AIO_THROTTLE_TOPIC);
+
+    // setup throttle sub
+    _subscriptions[1] = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
+    _mqtt->subscribe(_subscriptions[1]);
+
+  } else {
+
+    // malloc failed
+    _throttle_topic = 0;
+
+  }
 
 }
 

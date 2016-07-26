@@ -33,8 +33,8 @@ class AdafruitIO {
     uint16_t _port = 8883;
     const char *_username;
     const char *_key;
-    char _err_topic[40];
-    char _throttle_topic[42];
+    char *_err_topic;
+    char *_throttle_topic;
 
   private:
     void _init();
