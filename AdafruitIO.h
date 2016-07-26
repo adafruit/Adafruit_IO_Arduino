@@ -4,8 +4,11 @@
 #include "Arduino.h"
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
+#include "AdafruitIO_Feed.h"
 
 class AdafruitIO {
+
+  friend class AdafruitIO_Feed;
 
   public:
     AdafruitIO();
@@ -13,8 +16,9 @@ class AdafruitIO {
     void connect(const char *user, const char *key);
     void connect(const __FlashStringHelper *user, const __FlashStringHelper *key);
     void run();
-    void setErrorHandler(AdafruitIOErrorCallbackType cb);
+    void setErrorHandler(SubscribeCallbackBufferType cb);
 
+    AdafruitIO_Feed* Feed(const char *name);
     const __FlashStringHelper* statusText();
 
     aio_status_t status();

@@ -22,6 +22,11 @@ void AdafruitIO::connect(const __FlashStringHelper *user, const __FlashStringHel
 
 }
 
+AdafruitIO_Feed* AdafruitIO::Feed(const char* name)
+{
+  return new AdafruitIO_Feed(this, name);
+}
+
 void AdafruitIO::_init()
 {
 
@@ -73,7 +78,7 @@ void AdafruitIO::_init()
 
 }
 
-void AdafruitIO::setErrorHandler(AdafruitIOErrorCallbackType cb)
+void AdafruitIO::setErrorHandler(SubscribeCallbackBufferType cb)
 {
   _subscriptions[0]->setCallback(cb);
   _subscriptions[1]->setCallback(cb);
