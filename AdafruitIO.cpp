@@ -108,9 +108,8 @@ const __FlashStringHelper* AdafruitIO::statusText()
 void AdafruitIO::run()
 {
 
-  // bail if we aren't connected
-  if(status() != AIO_CONNECTED)
-    return;
+  // loop until we have a connection
+  while(mqttStatus() != AIO_CONNECTED){}
 
   _mqtt->processPackets(1000);
 

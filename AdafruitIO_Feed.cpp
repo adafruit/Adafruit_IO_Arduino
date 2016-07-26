@@ -64,8 +64,6 @@ void AdafruitIO_Feed::_init()
     strcat(_topic, "/f/");
     strcat(_topic, _name);
 
-    Serial.println(_topic);
-
     // setup subscription
     _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
     _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
