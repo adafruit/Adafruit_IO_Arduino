@@ -51,6 +51,46 @@ void AdafruitIO_Feed::onMessage(SubscribeCallbackUInt32Type cb)
 
 }
 
+bool AdafruitIO_Feed::save(const char *s)
+{
+  if(! _pub)
+    _init();
+
+  return _pub->publish(s);
+}
+
+bool AdafruitIO_Feed::save(double f, uint8_t precision)
+{
+  if(! _pub)
+    _init();
+
+  return _pub->publish(f, precision);
+}
+
+bool AdafruitIO_Feed::save(int32_t i)
+{
+  if(! _pub)
+    _init();
+
+  return _pub->publish(i);
+}
+
+bool AdafruitIO_Feed::save(uint32_t i)
+{
+  if(! _pub)
+    _init();
+
+  return _pub->publish(i);
+}
+
+bool AdafruitIO_Feed::save(uint8_t *b, uint16_t bLen)
+{
+  if(! _pub)
+    _init();
+
+  return _pub->publish(b, bLen);
+}
+
 void AdafruitIO_Feed::_init()
 {
 

@@ -16,6 +16,12 @@ class AdafruitIO_Feed {
     void onMessage(SubscribeCallbackDoubleType cb);
     void onMessage(SubscribeCallbackUInt32Type cb);
 
+    bool save(const char *s);
+    bool save(double f, uint8_t precision=2);
+    bool save(int32_t i);
+    bool save(uint32_t i);
+    bool save(uint8_t *b, uint16_t bLen);
+
   private:
     void _init();
     const char *_name;
