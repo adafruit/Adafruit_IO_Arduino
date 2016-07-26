@@ -22,7 +22,12 @@ void AdafruitIO::connect(const __FlashStringHelper *user, const __FlashStringHel
 
 }
 
-AdafruitIO_Feed* AdafruitIO::Feed(const char* name)
+AdafruitIO_Feed* AdafruitIO::feed(const char* name)
+{
+  return new AdafruitIO_Feed(this, name);
+}
+
+AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
 {
   return new AdafruitIO_Feed(this, name);
 }

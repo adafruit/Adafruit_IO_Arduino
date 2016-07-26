@@ -18,7 +18,8 @@ class AdafruitIO {
     void run();
     void setErrorHandler(SubscribeCallbackBufferType cb);
 
-    AdafruitIO_Feed* Feed(const char *name);
+    AdafruitIO_Feed* feed(const char *name);
+    AdafruitIO_Feed* feed(const __FlashStringHelper *name);
     const __FlashStringHelper* statusText();
 
     aio_status_t status();
