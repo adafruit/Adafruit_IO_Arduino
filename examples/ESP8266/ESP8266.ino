@@ -19,6 +19,8 @@ AdafruitIO_ESP8266 io(WIFI_SSID, WIFI_PASS);
 AdafruitIO_Feed *foo = io.feed("foo");
 AdafruitIO_Feed *bar = io.feed("bar");
 
+int count = 0;
+
 void setup() {
 
   Serial.begin(115200);
@@ -44,7 +46,14 @@ void setup() {
 }
 
 void loop() {
+
   io.run();
+
+  // save count to the 'foo' feed
+  foo->save(count);
+  count++;
+  delay(1000);
+
 }
 
 void onError(char* err, uint16_t len) {
@@ -52,12 +61,12 @@ void onError(char* err, uint16_t len) {
   Serial.println(err);
 }
 
-void handleFoo(char* err, uint16_t len) {
+void handleFoo(uint32_t val) {
   Serial.print("foo: ");
-  Serial.println(err);
+  Serial.println(val);
 }
 
-void handleBar(char* err, uint16_t len) {
+void handleBar(char* val, uint16_t len) {
   Serial.print("bar: ");
-  Serial.println(err);
+  Serial.println(val);
 }
