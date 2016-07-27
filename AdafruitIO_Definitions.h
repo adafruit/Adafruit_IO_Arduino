@@ -1,6 +1,15 @@
 #ifndef ADAFRUITIO_DEFINITIONS_H_
 #define ADAFRUITIO_DEFINITIONS_H_
 
+#define ADAFRUITIO_VERSION_MAJOR 1
+#define ADAFRUITIO_VERSION_MINOR 0
+#define ADAFRUITIO_VERSION_PATCH 0
+
+// forward declaration
+class AdafruitIO_Data;
+
+typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
+
 #define AIO_PING_INTERVAL 60000
 #define AIO_THROTTLE_RECONNECT_INTERVAL 60000
 
