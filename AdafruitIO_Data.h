@@ -9,7 +9,7 @@ class AdafruitIO_Data {
     AdafruitIO_Data();
     AdafruitIO_Data(char *csv);
 
-    void setCSV(char *csv);
+    bool setCSV(char *csv);
 
     char* value();
 
@@ -27,11 +27,14 @@ class AdafruitIO_Data {
     double ele();
 
   private:
-    char *_csv;
-    char *_value;
-    double _lat;
-    double _lon;
-    double _ele;
+    char *_csv,
+         *_value;
+
+    double _lat,
+           _lon,
+           _ele;
+
+    bool _parseCSV();
 
 };
 

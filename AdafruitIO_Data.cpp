@@ -16,11 +16,14 @@ AdafruitIO_Data::AdafruitIO_Data(char *csv)
   _lat = 0;
   _lon = 0;
   _ele = 0;
+
+  _parseCSV();
 }
 
-void setCSV(char *csv)
+bool AdafruitIO_Data::setCSV(char *csv)
 {
   _csv = csv;
+  return _parseCSV();
 }
 
 char* AdafruitIO_Data::value()
@@ -89,4 +92,31 @@ double AdafruitIO_Data::lon()
 double AdafruitIO_Data::ele()
 {
   return _ele;
+}
+
+bool AdafruitIO_Data::_parseCSV()
+{
+  // parse value from csv
+  _value = strtok(_csv, ",");
+  if (! _value) return false;
+
+  // parse lat from csv and convert to float
+  char *lat = strtok(NULL, ",");
+  if (! lat) return false;
+
+  _lat = atof(lat);
+
+  // parse lon from csv and convert to float
+  char *lon = strtok(NULL, ",");
+  if (! lon) return false;
+
+  _lon = atof(lon);
+
+  // parse ele from csv and convert to float
+  char *ele = strtok(NULL, ",");
+  if (! ele) return false;
+
+  _ele = atof(ele);
+
+  return true;
 }
