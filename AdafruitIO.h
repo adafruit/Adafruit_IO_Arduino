@@ -5,6 +5,7 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Feed.h"
+#include "AdafruitIO_Data.h"
 
 class AdafruitIO {
 
