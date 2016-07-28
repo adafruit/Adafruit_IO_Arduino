@@ -3,52 +3,26 @@
 
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *name)
 {
-
   _io = io;
   _name = name;
-
 }
 
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *name)
 {
-
   _io = io;
   _name = (const char*)name;
-
 }
 
-void AdafruitIO_Feed::onMessage(SubscribeCallbackBufferType cb)
+void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
 {
-
-
   if(! _sub)
     _init();
 
+  _dataCallback = cb;
   _io->_mqtt->subscribe(_sub);
-  _sub->setCallback(cb);
 
-}
-
-void AdafruitIO_Feed::onMessage(SubscribeCallbackDoubleType cb)
-{
-
-  if(! _sub)
-    _init();
-
-  _io->_mqtt->subscribe(_sub);
-  _sub->setCallback(cb);
-
-}
-
-void AdafruitIO_Feed::onMessage(SubscribeCallbackUInt32Type cb)
-{
-
-  if(! _sub)
-    _init();
-
-  _io->_mqtt->subscribe(_sub);
-  _sub->setCallback(cb);
-
+  // TODO: fix the member-to-pointer issue here
+  //_sub->setCallback(subCallback);
 }
 
 bool AdafruitIO_Feed::save(const char *s)
@@ -91,11 +65,23 @@ bool AdafruitIO_Feed::save(uint8_t *b, uint16_t bLen)
   return _pub->publish(b, bLen);
 }
 
+void AdafruitIO_Feed::subCallback(char *val, uint16_t len)
+{
+  if(! _dataCallback)
+    return;
+
+  _data->setCSV(val);
+  _dataCallback(_data);
+}
+
 void AdafruitIO_Feed::_init()
 {
 
   // dynamically allocate memory for topic
-  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(_name) + 4)); // 4 extra is for /f/ & null termination
+  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(_name) + 8)); // 8 extra chars for /f/, /csv & null termination
+
+  // init feed data
+  _data = new AdafruitIO_Data();
 
   if(_topic) {
 
@@ -103,6 +89,7 @@ void AdafruitIO_Feed::_init()
     strcpy(_topic, _io->_username);
     strcat(_topic, "/f/");
     strcat(_topic, _name);
+    strcat(_topic, "/csv");
 
     // setup subscription
     _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
