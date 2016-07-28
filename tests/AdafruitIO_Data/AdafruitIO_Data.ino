@@ -1,3 +1,4 @@
+#include <ArduinoTap.h>
 #include "AdafruitIO_Data.h"
 
 AdafruitIO_Data *data = new AdafruitIO_Data();
@@ -7,87 +8,61 @@ void setup()
   Serial.begin(115200);
   delay(100);
 
-  Serial.println("---------- test start ----------");
-  // should fail parsing bad CSV
-  Serial.print("valid CSV passes: ");
-  check(data->setCSV((char *)"12,18.000,-25.000,9"));
+  plan(8);
 
-  Serial.print("invalid CSV fails: ");
-  check(! data->setCSV((char *)"xxxxx"));
+  nok(
+    data->setCSV((char *)"xxxxx"),
+    "invalid CSV doesn't parse"
+  );
 
-  data->setCSV((char *)"12.120,42.331427,-83.045754,233");
+  ok(
+    data->setCSV((char *)"12.120,42.331427,-83.045754,233"),
+    "valid CSV parses"
+  );
 
-  Serial.print("char value matches: ");
-  compareChar("12.120", data->value());
+  ok(
+    compareChar("12.120", data->value()),
+    "char value match"
+  );
 
-  Serial.print("int value matches: ");
-  check(12 == data->toInt());
+  ok(
+    (12 == data->toInt()),
+    "int value match"
+  );
 
-  Serial.print("double value matches: ");
-  compareDouble(12.12, data->toDouble());
+  ok(
+    compareDouble(12.12, data->toDouble()),
+    "double value match"
+  );
 
-  Serial.print("lat matches: ");
-  compareDouble(42.331427, data->lat());
+  ok(
+    compareDouble(42.331427, data->lat()),
+    "lat match"
+  );
 
-  Serial.print("lon matches: ");
-  compareDouble(-83.045754, data->lon());
+  ok(
+    compareDouble(-83.045754, data->lon()),
+    "lon match"
+  );
 
-  Serial.print("ele matches: ");
-  compareDouble(233, data->ele());
+  ok(
+    compareDouble(233, data->ele()),
+    "ele match"
+  );
 
-  Serial.println("---------- test end ----------");
-
-  Serial.println();
-
-  Serial.print("value: ");
-  Serial.println(data->value());
-
-  Serial.print("toInt: ");
-  Serial.println(data->toInt());
-
-  Serial.print("toUnsignedInt: ");
-  Serial.println(data->toUnsignedInt());
-
-  Serial.print("toLong: ");
-  Serial.println(data->toLong());
-
-  Serial.print("toUnsignedLong: ");
-  Serial.println(data->toUnsignedLong());
-
-  Serial.print("toDouble: ");
-  Serial.println(data->toDouble(),6);
-
-  Serial.print("toFloat: ");
-  Serial.println(data->toFloat(),6);
-
-  Serial.print("lat: ");
-  Serial.println(data->lat(),6);
-
-  Serial.print("lon: ");
-  Serial.println(data->lon(),6);
-
-  Serial.print("ele: ");
-  Serial.println(data->ele(),6);
+  done_testing();
 
 }
 
-void check(bool pass)
+void loop() {}
+
+bool compareDouble(double a, double b)
 {
-  if(pass) {
-    Serial.println("✓");
-  } else {
-    Serial.println("✘");
-  }
+  return abs(a-b) < 0.000001;
 }
 
-void compareDouble(double a, double b)
+bool compareChar(char *a, char *b)
 {
-  check(abs(a-b) < 0.000001);
+  return strcmp(a,b) == 0;
 }
 
-void compareChar(char *a, char *b)
-{
-  check(strcmp(a,b) == 0);
-}
-
-void loop(){}
