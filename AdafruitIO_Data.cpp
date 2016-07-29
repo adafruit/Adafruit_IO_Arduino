@@ -41,7 +41,7 @@ String AdafruitIO_Data::toString()
 bool AdafruitIO_Data::toBool()
 {
 
-  if(_value[0] == '1' || _value[0] == 't' || _value[0] == 'T')
+  if(strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
     return true;
   else
     return false;
