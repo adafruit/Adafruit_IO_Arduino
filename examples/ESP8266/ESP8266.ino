@@ -80,8 +80,12 @@ void handleBar(AdafruitIO_Data *data) {
   Serial.print(data->feed->name);
   Serial.print(": ");
 
-  // value() returns char
+  // value() returns char*
   Serial.println(data->value());
+
+  // get String value
+  Serial.print("toString: ");
+  Serial.println(data->toString());
 
   // get double value
   Serial.print("toDouble: ");
