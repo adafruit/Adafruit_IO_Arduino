@@ -62,8 +62,16 @@ void onError(char* err, uint16_t len) {
 }
 
 void handleFoo(AdafruitIO_Data *data) {
+
   Serial.print("foo: ");
-  Serial.println(data->value());
+
+  // you can use isTrue() to check if your feed value
+  // is equal to 1, t, true, T, True, or TRUE
+  if(data->isTrue())
+    Serial.println("is true");
+  else
+    Serial.println("is false");
+
 }
 
 void handleBar(AdafruitIO_Data *data) {
@@ -72,9 +80,22 @@ void handleBar(AdafruitIO_Data *data) {
   Serial.print(data->feed->name);
   Serial.print(": ");
 
-  // different types are available by using methods like toInt, toFloat, toLong, etc
+  // value() returns char
+  Serial.println(data->value());
+
+  // get double value
+  Serial.print("toDouble: ");
   Serial.println(data->toDouble());
 
+  // get int value
+  Serial.print("toInt: ");
+  Serial.println(data->toInt());
+
+  // get bool value
+  Serial.print("toBool: ");
+  Serial.println(data->toBool());
+
+  // get location info as double
   Serial.print("bar lat: ");
   Serial.println(data->lat());
   Serial.print("bar lon: ");
