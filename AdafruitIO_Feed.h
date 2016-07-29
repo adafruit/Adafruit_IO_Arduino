@@ -24,11 +24,11 @@ class AdafruitIO_Feed {
     bool save(uint8_t *b, uint16_t bLen);
 
     void subCallback(char *val, uint16_t len);
+    const char *name;
 
   private:
     void _init();
 
-    const char *_name;
     char *_topic;
 
     Adafruit_MQTT_Subscribe *_sub;

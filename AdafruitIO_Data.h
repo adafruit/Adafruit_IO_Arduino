@@ -3,11 +3,14 @@
 
 #include "Arduino.h"
 
+// forward decl
+class AdafruitIO_Feed;
+
 class AdafruitIO_Data {
 
   public:
-    AdafruitIO_Data();
-    AdafruitIO_Data(char *csv);
+    AdafruitIO_Data(AdafruitIO_Feed *f);
+    AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
 
     bool setCSV(char *csv);
 
@@ -26,7 +29,10 @@ class AdafruitIO_Data {
     double lon();
     double ele();
 
+    AdafruitIO_Feed *feed;
+
   private:
+
     char *_csv,
          *_value;
 

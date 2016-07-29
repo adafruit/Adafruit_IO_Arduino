@@ -1,7 +1,8 @@
 #include "AdafruitIO_Data.h"
 
-AdafruitIO_Data::AdafruitIO_Data()
+AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
 {
+  feed = f;
   _csv = 0;
   _value = 0;
   _lat = 0;
@@ -9,8 +10,9 @@ AdafruitIO_Data::AdafruitIO_Data()
   _ele = 0;
 }
 
-AdafruitIO_Data::AdafruitIO_Data(char *csv)
+AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
 {
+  feed = f;
   _csv = csv;
   _value = 0;
   _lat = 0;

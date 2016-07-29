@@ -1,16 +1,16 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO.h"
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *name)
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
 {
   _io = io;
-  _name = name;
+  name = n;
 }
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *name)
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
 {
   _io = io;
-  _name = (const char*)name;
+  name = (const char*)n;
 }
 
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
@@ -21,8 +21,6 @@ void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
   _dataCallback = cb;
   _io->_mqtt->subscribe(_sub);
 
-  // TODO this still fails with:
-  // Adafruit_MQTT.cpp:483:62: error: 'callback_io' was not declared in this scope
   _sub->setCallback(this, &AdafruitIO_Feed::subCallback);
 }
 
@@ -79,17 +77,17 @@ void AdafruitIO_Feed::_init()
 {
 
   // dynamically allocate memory for topic
-  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(_name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
 
   // init feed data
-  _data = new AdafruitIO_Data();
+  _data = new AdafruitIO_Data(this);
 
   if(_topic) {
 
     // build topic string
     strcpy(_topic, _io->_username);
     strcat(_topic, "/f/");
-    strcat(_topic, _name);
+    strcat(_topic, name);
     strcat(_topic, "/csv");
 
     // setup subscription
