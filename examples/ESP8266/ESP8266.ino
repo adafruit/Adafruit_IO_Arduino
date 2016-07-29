@@ -49,8 +49,8 @@ void loop() {
 
   io.run();
 
-  // save count to the 'foo' feed
-  foo->save(count);
+  // save count to the 'bar' feed
+  bar->save(count);
   count++;
   delay(1000);
 
@@ -106,5 +106,7 @@ void handleBar(AdafruitIO_Data *data) {
   Serial.println(data->lon());
   Serial.print("bar ele: ");
   Serial.println(data->ele());
+
+  Serial.println("----------------------");
 
 }
