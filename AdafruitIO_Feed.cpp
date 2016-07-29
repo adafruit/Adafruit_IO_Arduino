@@ -21,8 +21,7 @@ void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
   _dataCallback = cb;
   _io->_mqtt->subscribe(_sub);
 
-  // TODO: fix the member-to-pointer issue here
-  //_sub->setCallback(subCallback);
+  _sub->setCallback(subCallback);
 }
 
 bool AdafruitIO_Feed::save(const char *s)

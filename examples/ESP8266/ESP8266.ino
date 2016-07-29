@@ -61,12 +61,12 @@ void onError(char* err, uint16_t len) {
   Serial.println(err);
 }
 
-void handleFoo(uint32_t val) {
+void handleFoo(AdafruitIO_Data *data) {
   Serial.print("foo: ");
-  Serial.println(val);
+  Serial.println(data->value());
 }
 
-void handleBar(char* val, uint16_t len) {
+void handleBar(AdafruitIO_Data *data) {
   Serial.print("bar: ");
-  Serial.println(val);
+  Serial.println(data->value());
 }
