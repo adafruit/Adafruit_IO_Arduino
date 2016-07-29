@@ -21,7 +21,9 @@ void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
   _dataCallback = cb;
   _io->_mqtt->subscribe(_sub);
 
-  _sub->setCallback(subCallback);
+  // TODO this still fails with:
+  // Adafruit_MQTT.cpp:483:62: error: 'callback_io' was not declared in this scope
+  _sub->setCallback(&AdafruitIO_Feed::subCallback);
 }
 
 bool AdafruitIO_Feed::save(const char *s)
