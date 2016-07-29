@@ -15,6 +15,7 @@ class AdafruitIO_Data {
     bool setCSV(char *csv);
 
     char* value();
+    String toString();
 
     bool toBool();
     bool isTrue();

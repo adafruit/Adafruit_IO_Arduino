@@ -33,6 +33,11 @@ char* AdafruitIO_Data::value()
   return _value;
 }
 
+String AdafruitIO_Data::toString()
+{
+  return String(_value);
+}
+
 bool AdafruitIO_Data::toBool()
 {
 
