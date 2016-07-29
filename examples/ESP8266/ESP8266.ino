@@ -67,6 +67,19 @@ void handleFoo(AdafruitIO_Data *data) {
 }
 
 void handleBar(AdafruitIO_Data *data) {
-  Serial.print("bar: ");
-  Serial.println(data->value());
+
+  // you can get at the parent feed by using data->feed
+  Serial.print(data->feed->name);
+  Serial.print(": ");
+
+  // different types are available by using methods like toInt, toFloat, toLong, etc
+  Serial.println(data->toDouble());
+
+  Serial.print("bar lat: ");
+  Serial.println(data->lat());
+  Serial.print("bar lon: ");
+  Serial.println(data->lon());
+  Serial.print("bar ele: ");
+  Serial.println(data->ele());
+
 }
