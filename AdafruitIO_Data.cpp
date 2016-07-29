@@ -33,6 +33,26 @@ char* AdafruitIO_Data::value()
   return _value;
 }
 
+bool AdafruitIO_Data::toBool()
+{
+
+  if(_value[0] == '1' || _value[0] == 't' || _value[0] == 'T')
+    return true;
+  else
+    return false;
+
+}
+
+bool AdafruitIO_Data::isTrue()
+{
+  return toBool();
+}
+
+bool AdafruitIO_Data::isFalse()
+{
+  return !toBool();
+}
+
 int AdafruitIO_Data::toInt()
 {
   char* endptr;

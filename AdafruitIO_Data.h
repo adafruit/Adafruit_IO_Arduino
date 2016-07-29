@@ -16,6 +16,10 @@ class AdafruitIO_Data {
 
     char* value();
 
+    bool toBool();
+    bool isTrue();
+    bool isFalse();
+
     int toInt();
     unsigned int toUnsignedInt();
 
