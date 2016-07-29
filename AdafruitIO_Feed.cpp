@@ -77,27 +77,31 @@ void AdafruitIO_Feed::_init()
 {
 
   // dynamically allocate memory for topic
-  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _sub_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _pub_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 4)); // 4 extra chars for /f/ & null termination
 
   // init feed data
   _data = new AdafruitIO_Data(this);
 
-  if(_topic) {
+  if(_pub_topic && _sub_topic) {
 
     // build topic string
-    strcpy(_topic, _io->_username);
-    strcat(_topic, "/f/");
-    strcat(_topic, name);
-    strcat(_topic, "/csv");
+    strcpy(_pub_topic, _io->_username);
+    strcat(_pub_topic, "/f/");
+    strcat(_pub_topic, name);
+
+    strcpy(_sub_topic, _pub_topic);
+    strcat(_sub_topic, "/csv");
 
     // setup subscription
-    _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
-    _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
+    _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _sub_topic);
+    _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _pub_topic);
 
   } else {
 
     // malloc failed
-    _topic = 0;
+    _sub_topic = 0;
+    _pub_topic = 0;
     _sub = 0;
     _pub = 0;
 

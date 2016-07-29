@@ -29,7 +29,8 @@ class AdafruitIO_Feed {
   private:
     void _init();
 
-    char *_topic;
+    char *_sub_topic;
+    char *_pub_topic;
 
     Adafruit_MQTT_Subscribe *_sub;
     Adafruit_MQTT_Publish *_pub;
