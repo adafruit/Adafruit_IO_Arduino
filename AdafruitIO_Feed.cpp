@@ -5,12 +5,16 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
 {
   _io = io;
   name = n;
+  _sub = 0;
+  _pub = 0;
 }
 
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
 {
   _io = io;
   name = (const char*)n;
+  _sub = 0;
+  _pub = 0;
 }
 
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
