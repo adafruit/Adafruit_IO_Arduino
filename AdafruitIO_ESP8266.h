@@ -1,6 +1,8 @@
 #ifndef ADAFRUITIO_ESP8266_H
 #define ADAFRUITIO_ESP8266_H
 
+#ifdef ESP8266
+
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include "ESP8266WiFi.h"
@@ -23,4 +25,5 @@ class AdafruitIO_ESP8266 : public AdafruitIO {
 
 };
 
+#endif //ESP8266
 #endif // ADAFRUITIO_ESP8266_H

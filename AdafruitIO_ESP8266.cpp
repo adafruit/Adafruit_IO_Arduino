@@ -1,4 +1,7 @@
+#ifdef ESP8266
+
 #include "AdafruitIO_ESP8266.h"
+
 AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *ssid, const char *pass):AdafruitIO()
 {
   _ssid = ssid;
@@ -40,3 +43,5 @@ aio_status_t AdafruitIO_ESP8266::networkStatus()
   }
 
 }
+
+#endif // ESP8266
