@@ -24,6 +24,7 @@ uint32_t count = 0;
 void setup() {
 
   Serial.begin(115200);
+  while(! Serial);
   Serial.println(F("Connecting to Adafruit IO"));
 
   // connect to io.adafruit.com
