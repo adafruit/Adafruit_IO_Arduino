@@ -6,6 +6,7 @@
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include <adafruit_feather.h>
+#include "AdafruitIO_WICED_SSL.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
@@ -20,8 +21,7 @@ class AdafruitIO_WICED : public AdafruitIO {
     void _connect();
     const char *_ssid;
     const char *_pass;
-    uint16_t _port = 1883;
-    AdafruitTCP *_client;
+    AdafruitIO_WICED_SSL *_client;
 
 };
 

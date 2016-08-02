@@ -6,7 +6,7 @@ AdafruitIO_WICED::AdafruitIO_WICED(const char *ssid, const char *pass):AdafruitI
 {
   _ssid = ssid;
   _pass = pass;
-  _client = new AdafruitTCP;
+  _client = new AdafruitIO_WICED_SSL;
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
@@ -14,7 +14,7 @@ AdafruitIO_WICED::AdafruitIO_WICED(const __FlashStringHelper *ssid, const __Flas
 {
   _ssid = (const char*)ssid;
   _pass = (const char*)pass;
-  _client = new AdafruitTCP;
+  _client = new AdafruitIO_WICED_SSL;
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
