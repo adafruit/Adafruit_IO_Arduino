@@ -16,6 +16,8 @@ typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
 #define AIO_ERROR_TOPIC "/errors"
 #define AIO_THROTTLE_TOPIC "/throttle"
 
+#define AIO_SSL_FINGERPRINT "26 96 1C 2A 51 07 FD 15 80 96 93 AE F7 32 CE B9 0D 01 55 C4"
+
 typedef enum {
     AIO_IDLE                 = 0,
     AIO_NET_DISCONNECTED     = 1,
@@ -23,7 +25,9 @@ typedef enum {
     AIO_NET_CONNECTED        = 3,
     AIO_DISCONNECTED         = 4,
     AIO_CONNECT_FAILED       = 5,
-    AIO_CONNECTED            = 6
+    AIO_CONNECTED            = 6,
+    AIO_SSL_UNVERIFIED       = 7,
+    AIO_SSL_VERIFIED         = 8
 } aio_status_t;
 
 #endif /* ADAFRUITIO_DEFINITIONS_H_ */
