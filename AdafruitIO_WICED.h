@@ -1,7 +1,7 @@
 #ifndef ADAFRUITIO_WICED_H
 #define ADAFRUITIO_WICED_H
 
-#if defined(STM32_MEDIUM_DENSITY) || defined(STM32_HIGH_DENSITY)
+#ifdef ARDUINO_STM32_FEATHER
 
 #include "Arduino.h"
 #include "AdafruitIO.h"
@@ -25,6 +25,6 @@ class AdafruitIO_WICED : public AdafruitIO {
 
 };
 
-#endif // STM32
+#endif // ARDUINO_STM32_FEATHER
 
 #endif // ADAFRUITIO_WICED_H

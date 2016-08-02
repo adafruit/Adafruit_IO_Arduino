@@ -1,4 +1,4 @@
-#if defined(STM32_MEDIUM_DENSITY) || defined(STM32_HIGH_DENSITY)
+#ifdef ARDUINO_STM32_FEATHER
 
 #include "AdafruitIO_WICED.h"
 
@@ -37,5 +37,4 @@ aio_status_t AdafruitIO_WICED::networkStatus()
   return AIO_NET_DISCONNECTED;
 }
 
-
-#endif // STM32
+#endif // ARDUINO_STM32_FEATHER
