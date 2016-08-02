@@ -1,3 +1,5 @@
+#ifdef ARDUINO_ARCH_SAMD
+
 #include "AdafruitIO_WINC1500.h"
 
 Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
@@ -49,3 +51,5 @@ aio_status_t AdafruitIO_WINC1500::networkStatus()
   }
 
 }
+
+#endif // ARDUINO_ARCH_SAMD

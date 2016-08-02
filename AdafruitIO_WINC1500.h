@@ -1,6 +1,8 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
+#ifdef ARDUINO_ARCH_SAMD
+
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include "SPI.h"
@@ -27,5 +29,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
     Adafruit_WINC1500SSLClient *_client;
 
 };
+
+#endif // ARDUINO_ARCH_SAMD
 
 #endif // ADAFRUITIO_WINC1500_H
