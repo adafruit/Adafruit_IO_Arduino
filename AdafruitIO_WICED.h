@@ -20,6 +20,7 @@ class AdafruitIO_WICED : public AdafruitIO {
     void _connect();
     const char *_ssid;
     const char *_pass;
+    uint16_t _port = 1883;
     AdafruitTCP *_client;
 
 };
