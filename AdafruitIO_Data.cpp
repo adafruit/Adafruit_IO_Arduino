@@ -33,6 +33,11 @@ char* AdafruitIO_Data::value()
   return _value;
 }
 
+void AdafruitIO_Data::setValue(char *value)
+{
+  _value = value;
+}
+
 String AdafruitIO_Data::toString()
 {
   return String(_value);

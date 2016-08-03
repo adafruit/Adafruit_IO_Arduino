@@ -13,6 +13,7 @@ class AdafruitIO_Data {
     AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
 
     bool setCSV(char *csv);
+    void setValue(char *value);
 
     char* value();
     String toString();
