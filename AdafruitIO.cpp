@@ -93,14 +93,27 @@ const __FlashStringHelper* AdafruitIO::statusText()
 {
 
   switch(_status) {
+
+    // CONNECTING
     case AIO_IDLE: return F("Idle. Waiting for connect to be called...");
     case AIO_NET_DISCONNECTED: return F("Network disconnected.");
-    case AIO_NET_CONNECT_FAILED: return F("Network connection failed.");
-    case AIO_NET_CONNECTED: return F("Network connected.");
     case AIO_DISCONNECTED: return F("Disconnected from Adafruit IO.");
+
+    // FAILURE
+    case AIO_NET_CONNECT_FAILED: return F("Network connection failed.");
     case AIO_CONNECT_FAILED: return F("Adafruit IO connection failed.");
+    case AIO_FINGERPRINT_INVALID: return F("Adafruit IO SSL fingerprint verification failed.");
+    case AIO_AUTH_FAILED: return F("Adafruit IO authentication failed.");
+
+    // SUCCESS
+    case AIO_NET_CONNECTED: return F("Network connected.");
     case AIO_CONNECTED: return F("Adafruit IO connected.");
+    case AIO_CONNECTED: return F("Adafruit IO connected. **THIS CONNECTION IS INSECURE** SSL/TLS not supported for this platform.");
+    case AIO_CONNECTED: return F("Adafruit IO connected over SSL/TLS. Fingerprint verification unsupported.");
+    case AIO_CONNECTED: return F("Adafruit IO connected over SSL/TLS. Fingerprint valid.");
+
     default: return F("Unknown status code");
+
   }
 
 }
