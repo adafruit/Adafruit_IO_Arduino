@@ -35,7 +35,7 @@ class AdafruitIO {
     Adafruit_MQTT_Subscribe *_subscriptions[MAXSUBSCRIPTIONS];
 
     Adafruit_MQTT *_mqtt;
-    const char *_host = "io.adafruit.com";
+    const char *_host = IO_HOST;
     uint16_t _port = 8883;
     const char *_username;
     const char *_key;

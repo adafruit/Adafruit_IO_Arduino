@@ -170,7 +170,6 @@ aio_status_t AdafruitIO::mqttStatus()
     case 4:   // malformed user/pass
     case 5:   // unauthorized
     case 7:   // banned
-    case -1:  // general failure
       return AIO_CONNECT_FAILED;
     case 3: // mqtt service unavailable
     case 6: // throttled
