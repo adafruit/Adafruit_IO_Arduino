@@ -13,7 +13,16 @@ class AdafruitIO_Data {
     AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
 
     bool setCSV(char *csv);
-    void setValue(char *value);
+
+    void setValue(char *value, double lat=0, double lon=0, double ele=0);
+    void setValue(bool value, double lat=0, double lon=0, double ele=0);
+    void setValue(String value, double lat=0, double lon=0, double ele=0);
+    void setValue(int value, double lat=0, double lon=0, double ele=0);
+    void setValue(unsigned int value, double lat=0, double lon=0, double ele=0);
+    void setValue(long value, double lat=0, double lon=0, double ele=0);
+    void setValue(unsigned long value, double lat=0, double lon=0, double ele=0);
+    void setValue(float value, double lat=0, double lon=0, double ele=0, int precision=6);
+    void setValue(double value, double lat=0, double lon=0, double ele=0, int precision=6);
 
     char* value();
     String toString();
