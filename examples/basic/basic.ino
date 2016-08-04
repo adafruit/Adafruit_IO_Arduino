@@ -107,7 +107,7 @@ void loop() {
   // increment the count by 1
   count++;
 
-  // wait one second (1000 milliseconds == 1 seconds)
+  // wait one second (1000 milliseconds == 1 second)
   delay(1000);
 
 }
