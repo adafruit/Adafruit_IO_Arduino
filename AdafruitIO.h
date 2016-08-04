@@ -32,15 +32,18 @@ class AdafruitIO {
 
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
-    Adafruit_MQTT_Subscribe *_subscriptions[MAXSUBSCRIPTIONS];
 
     Adafruit_MQTT *_mqtt;
     const char *_host = IO_HOST;
     uint16_t _port = 8883;
     const char *_username;
     const char *_key;
+
     char *_err_topic;
     char *_throttle_topic;
+
+    Adafruit_MQTT_Subscribe *_err_sub;
+    Adafruit_MQTT_Subscribe *_throttle_sub;
 
   private:
     void _init();

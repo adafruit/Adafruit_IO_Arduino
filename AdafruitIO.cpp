@@ -4,22 +4,18 @@ AdafruitIO::AdafruitIO(){}
 
 void AdafruitIO::connect(const char *user, const char *key)
 {
-
   _username = user;
   _key = key;
 
   _init();
-
 }
 
 void AdafruitIO::connect(const __FlashStringHelper *user, const __FlashStringHelper *key)
 {
-
   _username = (const char*)user;
   _key = (const char*)key;
 
   _init();
-
 }
 
 AdafruitIO_Feed* AdafruitIO::feed(const char* name)
@@ -34,7 +30,6 @@ AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
 
 void AdafruitIO::_init()
 {
-
   // we have never pinged, so set last ping to now
   _last_ping = millis();
 
@@ -51,8 +46,8 @@ void AdafruitIO::_init()
     strcat(_err_topic, AIO_ERROR_TOPIC);
 
     // setup error sub
-    _subscriptions[0] = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
-    _mqtt->subscribe(_subscriptions[0]);
+    _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
+    _mqtt->subscribe(_err_sub);
 
   } else {
 
@@ -71,8 +66,8 @@ void AdafruitIO::_init()
     strcat(_throttle_topic, AIO_THROTTLE_TOPIC);
 
     // setup throttle sub
-    _subscriptions[1] = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
-    _mqtt->subscribe(_subscriptions[1]);
+    _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
+    _mqtt->subscribe(_throttle_sub);
 
   } else {
 
@@ -80,18 +75,16 @@ void AdafruitIO::_init()
     _throttle_topic = 0;
 
   }
-
 }
 
 void AdafruitIO::setErrorHandler(SubscribeCallbackBufferType cb)
 {
-  _subscriptions[0]->setCallback(cb);
-  _subscriptions[1]->setCallback(cb);
+  _err_sub->setCallback(cb);
+  _throttle_sub->setCallback(cb);
 }
 
 const __FlashStringHelper* AdafruitIO::statusText()
 {
-
   switch(_status) {
 
     // CONNECTING
@@ -115,12 +108,10 @@ const __FlashStringHelper* AdafruitIO::statusText()
     default: return F("Unknown status code");
 
   }
-
 }
 
 void AdafruitIO::run()
 {
-
   // loop until we have a connection
   while(mqttStatus() != AIO_CONNECTED){}
 
@@ -131,12 +122,10 @@ void AdafruitIO::run()
     _mqtt->ping();
     _last_ping = millis();
   }
-
 }
 
 aio_status_t AdafruitIO::status()
 {
-
   aio_status_t net_status = networkStatus();
 
   // if we aren't connected, return network status
@@ -148,12 +137,10 @@ aio_status_t AdafruitIO::status()
   // check mqtt status and return
   _status = mqttStatus();
   return _status;
-
 }
 
 aio_status_t AdafruitIO::mqttStatus()
 {
-
   // if the connection failed,
   // return so we don't hammer IO
   if(_status == AIO_CONNECT_FAILED)
@@ -179,5 +166,4 @@ aio_status_t AdafruitIO::mqttStatus()
     default:
       return AIO_DISCONNECTED;
   }
-
 }
