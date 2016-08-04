@@ -28,12 +28,21 @@ bool AdafruitIO_Data::setCSV(char *csv)
   return _parseCSV();
 }
 
-void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
+void AdafruitIO_Data::setLocation(double lat, double lon, double ele)
 {
-  _value = value;
+  // if lat, lon, ele == 0, don't set them
+  if((abs(0-lat) < 0.000001) && (abs(0-lon) < 0.000001) && (abs(0-ele) < 0.000001))
+    return;
+
   _lat = lat;
   _lon = lon;
   _ele = ele;
+}
+
+void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
+{
+  _value = value;
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
@@ -43,62 +52,63 @@ void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
   else
     _value = "false";
 
-  _lat = lat;
-  _lon = lon;
-  _ele = ele;
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(String value, double lat, double lon, double ele)
 {
   value.toCharArray(_value, value.length());
-
-  _lat = lat;
-  _lon = lon;
-  _ele = ele;
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(int value, double lat, double lon, double ele)
 {
   itoa(value, _value, 10);
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned int value, double lat, double lon, double ele)
 {
   utoa(value, _value, 10);
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(long value, double lat, double lon, double ele)
 {
   ltoa(value, _value, 10);
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon, double ele)
 {
   ultoa(value, _value, 10);
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, int precision)
 {
-  #if defined(ARDUINO_ARCH_AVR)
-    // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _value, 10, 0);
-  #elif defined(ESP8266)
+  #if defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
-     dtostrf(value, 0, precision, _value);
+    dtostrf(value, 0, precision, _value);
+  #else
+    dtostre(value, _value, 10, 0);
   #endif
+
+  setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele, int precision)
 {
-  #if defined(ARDUINO_ARCH_AVR)
-    // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _value, 10, 0);
-  #elif defined(ESP8266)
+  #if defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _value);
+  #else
+    dtostre(value, _value, 10, 0);
   #endif
+
+  setLocation(lat, lon, ele);
 }
 
 char* AdafruitIO_Data::value()

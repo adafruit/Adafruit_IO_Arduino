@@ -14,6 +14,8 @@ class AdafruitIO_Data {
 
     bool setCSV(char *csv);
 
+    void setLocation(double lat, double lon, double ele=0);
+
     void setValue(char *value, double lat=0, double lon=0, double ele=0);
     void setValue(bool value, double lat=0, double lon=0, double ele=0);
     void setValue(String value, double lat=0, double lon=0, double ele=0);
