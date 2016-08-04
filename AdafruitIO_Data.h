@@ -10,6 +10,7 @@ class AdafruitIO_Feed;
 class AdafruitIO_Data {
 
   public:
+    AdafruitIO_Data();
     AdafruitIO_Data(AdafruitIO_Feed *f);
     AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
 

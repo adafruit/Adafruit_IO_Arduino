@@ -1,5 +1,15 @@
 #include "AdafruitIO_Data.h"
 
+AdafruitIO_Data::AdafruitIO_Data()
+{
+  feed = 0;
+  _csv = 0;
+  _value = 0;
+  _lat = 0;
+  _lon = 0;
+  _ele = 0;
+}
+
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
 {
   feed = f;
@@ -39,7 +49,6 @@ void AdafruitIO_Data::setLocation(double lat, double lon, double ele)
   _ele = ele;
 }
 
-
 static char _converted[AIO_DATA_LENGTH];
 
 void AdafruitIO_Data::setValue(const char *value, double lat, double lon, double ele)
@@ -66,7 +75,7 @@ void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
 
 void AdafruitIO_Data::setValue(String value, double lat, double lon, double ele)
 {
-  value.toCharArray(_value, value.length());
+  value.toCharArray(_value, value.length() + 1);
   setLocation(lat, lon, ele);
 }
 
