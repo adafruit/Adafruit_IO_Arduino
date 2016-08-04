@@ -99,7 +99,7 @@ void loop() {
   // the server
   io.run();
 
-  // save count to the 'bar' feed on Adafruit IO
+  // save count to the 'counter' feed on Adafruit IO
   Serial.print("sending -> ");
   Serial.println(count);
   counter->save(count);
