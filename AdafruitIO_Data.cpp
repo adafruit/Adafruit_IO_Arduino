@@ -114,12 +114,17 @@ void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon, doub
 void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, int precision)
 {
   memset(_converted, 0, sizeof(_converted));
-  #if defined(ESP8266)
+
+  #if defined(ARDUINO_ARCH_AVR)
+    // Use avrlibc dtostre function on AVR platforms.
+    dtostre(value, _converted, 10, 0);
+  #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _converted);
   #else
-    dtostre(value, _converted, 10, 0);
+    // Otherwise fall back to snprintf on other platforms.
+    snprintf(_converted, sizeof(_converted)-1, "%f", value);
   #endif
 
   _value = _converted;
@@ -129,13 +134,19 @@ void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, 
 void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele, int precision)
 {
   memset(_converted, 0, sizeof(_converted));
-  #if defined(ESP8266)
+
+  #if defined(ARDUINO_ARCH_AVR)
+    // Use avrlibc dtostre function on AVR platforms.
+    dtostre(value, _converted, 10, 0);
+  #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _converted);
   #else
-    dtostre(value, _converted, 10, 0);
+    // Otherwise fall back to snprintf on other platforms.
+    snprintf(_converted, sizeof(_converted)-1, "%f", value);
   #endif
+
 
   _value = _converted;
   setLocation(lat, lon, ele);
@@ -255,17 +266,23 @@ double AdafruitIO_Data::ele()
 }
 
 static char _double_buffer[20];
+
 char* AdafruitIO_Data::charFromDouble(double d, int precision)
 {
   memset(_double_buffer, 0, sizeof(_double_buffer));
 
-  #if defined(ESP8266)
+  #if defined(ARDUINO_ARCH_AVR)
+    // Use avrlibc dtostre function on AVR platforms.
+    dtostre(d, _double_buffer, 10, 0);
+  #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(d, 0, precision, _double_buffer);
   #else
-    dtostre(d, _double_buffer, 10, 0);
+    // Otherwise fall back to snprintf on other platforms.
+    snprintf(_double_buffer, sizeof(_double_buffer)-1, "%f", d);
   #endif
+
   return _double_buffer;
 }
 
