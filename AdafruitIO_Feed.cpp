@@ -28,8 +28,7 @@ void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
   _sub->setCallback(this, &AdafruitIO_Feed::subCallback);
 }
 
-
-bool AdafruitIO_Feed::save(char *value, double lat=0, double lon=0, double ele=0)
+bool AdafruitIO_Feed::save(char *value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -38,7 +37,7 @@ bool AdafruitIO_Feed::save(char *value, double lat=0, double lon=0, double ele=0
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(bool value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(bool value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -47,7 +46,7 @@ bool AdafruitIO_Feed::save(bool value, double lat=0, double lon=0, double ele=0)
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(String value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(String value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -56,7 +55,7 @@ bool AdafruitIO_Feed::save(String value, double lat=0, double lon=0, double ele=
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(int value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(int value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -65,7 +64,7 @@ bool AdafruitIO_Feed::save(int value, double lat=0, double lon=0, double ele=0);
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(unsigned int value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(unsigned int value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -74,7 +73,7 @@ bool AdafruitIO_Feed::save(unsigned int value, double lat=0, double lon=0, doubl
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(long value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(long value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -83,7 +82,7 @@ bool AdafruitIO_Feed::save(long value, double lat=0, double lon=0, double ele=0)
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(unsigned long value, double lat=0, double lon=0, double ele=0);
+bool AdafruitIO_Feed::save(unsigned long value, double lat, double lon, double ele)
 {
   if(! _pub)
     init();
@@ -92,7 +91,7 @@ bool AdafruitIO_Feed::save(unsigned long value, double lat=0, double lon=0, doub
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(float value, double lat=0, double lon=0, double ele=0, int precision=6);
+bool AdafruitIO_Feed::save(float value, double lat, double lon, double ele, int precision)
 {
   if(! _pub)
     init();
@@ -101,7 +100,7 @@ bool AdafruitIO_Feed::save(float value, double lat=0, double lon=0, double ele=0
   return _pub->publish(_data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(double value, double lat=0, double lon=0, double ele=0, int precision=6);
+bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int precision)
 {
   if(! _pub)
     init();
@@ -110,7 +109,7 @@ bool AdafruitIO_Feed::save(double value, double lat=0, double lon=0, double ele=
   return _pub->publish(_data->toCSV());
 }
 
-void setLocation(double lat, double lon, double ele)
+void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
 {
   _data->setLocation(lat, lon, ele);
 }

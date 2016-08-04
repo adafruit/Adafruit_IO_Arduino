@@ -39,6 +39,15 @@ void AdafruitIO_Data::setLocation(double lat, double lon, double ele)
   _ele = ele;
 }
 
+
+static char _converted[AIO_DATA_LENGTH];
+
+void AdafruitIO_Data::setValue(const char *value, double lat, double lon, double ele)
+{
+  _value = (char *)value;
+  setLocation(lat, lon, ele);
+}
+
 void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
 {
   _value = value;
@@ -48,9 +57,9 @@ void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
 void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
 {
   if(value)
-    _value = "true";
+    _value = (char *)"true";
   else
-    _value = "false";
+    _value = (char *)"false";
 
   setLocation(lat, lon, ele);
 }
@@ -63,51 +72,63 @@ void AdafruitIO_Data::setValue(String value, double lat, double lon, double ele)
 
 void AdafruitIO_Data::setValue(int value, double lat, double lon, double ele)
 {
-  itoa(value, _value, 10);
+  memset(_converted, 0, sizeof(_converted));
+  itoa(value, _converted, 10);
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned int value, double lat, double lon, double ele)
 {
-  utoa(value, _value, 10);
+  memset(_converted, 0, sizeof(_converted));
+  utoa(value, _converted, 10);
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(long value, double lat, double lon, double ele)
 {
-  ltoa(value, _value, 10);
+  memset(_converted, 0, sizeof(_converted));
+  ltoa(value, _converted, 10);
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon, double ele)
 {
-  ultoa(value, _value, 10);
+  memset(_converted, 0, sizeof(_converted));
+  ultoa(value, _converted, 10);
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, int precision)
 {
+  memset(_converted, 0, sizeof(_converted));
   #if defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
-    dtostrf(value, 0, precision, _value);
+    dtostrf(value, 0, precision, _converted);
   #else
-    dtostre(value, _value, 10, 0);
+    dtostre(value, _converted, 10, 0);
   #endif
 
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele, int precision)
 {
+  memset(_converted, 0, sizeof(_converted));
   #if defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
-    dtostrf(value, 0, precision, _value);
+    dtostrf(value, 0, precision, _converted);
   #else
-    dtostre(value, _value, 10, 0);
+    dtostre(value, _converted, 10, 0);
   #endif
 
+  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
@@ -128,12 +149,10 @@ String AdafruitIO_Data::toString()
 
 bool AdafruitIO_Data::toBool()
 {
-
   if(strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
     return true;
   else
     return false;
-
 }
 
 bool AdafruitIO_Data::isTrue()
@@ -194,6 +213,23 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
   #endif
 }
 
+char* AdafruitIO_Data::toCSV()
+{
+  char csv[150];
+
+  strcpy(csv, _value);
+  strcat(csv, ",");
+  strcat(csv, charFromDouble(_lat));
+  strcat(csv, ",");
+  strcat(csv, charFromDouble(_lon));
+  strcat(csv, ",");
+  strcat(csv, charFromDouble(_ele, 2));
+
+  _csv = csv;
+
+  return _csv;
+}
+
 double AdafruitIO_Data::lat()
 {
   return _lat;
@@ -207,6 +243,21 @@ double AdafruitIO_Data::lon()
 double AdafruitIO_Data::ele()
 {
   return _ele;
+}
+
+static char _double_buffer[20];
+char* AdafruitIO_Data::charFromDouble(double d, int precision)
+{
+  memset(_double_buffer, 0, sizeof(_double_buffer));
+
+  #if defined(ESP8266)
+    // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
+    // but accept a hint as to how many decimals of precision are desired.
+    dtostrf(d, 0, precision, _double_buffer);
+  #else
+    dtostre(d, _double_buffer, 10, 0);
+  #endif
+  return _double_buffer;
 }
 
 bool AdafruitIO_Data::_parseCSV()

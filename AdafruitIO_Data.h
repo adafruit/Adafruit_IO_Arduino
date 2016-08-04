@@ -2,6 +2,7 @@
 #define ADAFRUITIO_DATA_H
 
 #include "Arduino.h"
+#include "AdafruitIO_Definitions.h"
 
 // forward decl
 class AdafruitIO_Feed;
@@ -16,6 +17,7 @@ class AdafruitIO_Data {
 
     void setLocation(double lat, double lon, double ele=0);
 
+    void setValue(const char *value, double lat=0, double lon=0, double ele=0);
     void setValue(char *value, double lat=0, double lon=0, double ele=0);
     void setValue(bool value, double lat=0, double lon=0, double ele=0);
     void setValue(String value, double lat=0, double lon=0, double ele=0);
@@ -42,6 +44,9 @@ class AdafruitIO_Data {
 
     long toLong();
     unsigned long toUnsignedLong();
+
+    char* toCSV();
+    char* charFromDouble(double d, int precision=6);
 
     double lat();
     double lon();
