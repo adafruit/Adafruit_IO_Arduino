@@ -78,7 +78,7 @@ void setup() {
   // connect to io.adafruit.com
   io.connect(IO_USERNAME, IO_KEY);
 
-  // set up a message handler for the count feed.
+  // set up a message handler for the location feed.
   // the handleMessage function (defined below)
   // will be called whenever a message is
   // received from adafruit io.
