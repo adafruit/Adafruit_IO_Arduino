@@ -28,11 +28,6 @@ bool AdafruitIO_Data::setCSV(char *csv)
   return _parseCSV();
 }
 
-char* AdafruitIO_Data::value()
-{
-  return _value;
-}
-
 void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
 {
   _value = value;
@@ -104,6 +99,16 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _value);
   #endif
+}
+
+char* AdafruitIO_Data::value()
+{
+  return toChar();
+}
+
+char* AdafruitIO_Data::toChar()
+{
+  return _value;
 }
 
 String AdafruitIO_Data::toString()

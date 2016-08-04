@@ -25,6 +25,7 @@ class AdafruitIO_Data {
     void setValue(double value, double lat=0, double lon=0, double ele=0, int precision=6);
 
     char* value();
+    char* toChar();
     String toString();
 
     bool toBool();
