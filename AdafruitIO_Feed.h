@@ -17,11 +17,17 @@ class AdafruitIO_Feed {
 
     void onMessage(AdafruitIODataCallbackType cb);
 
-    bool save(const char *s);
-    bool save(double f, uint8_t precision=2);
-    bool save(int32_t i);
-    bool save(uint32_t i);
-    bool save(uint8_t *b, uint16_t bLen);
+    bool save(char *value, double lat=0, double lon=0, double ele=0);
+    bool save(bool value, double lat=0, double lon=0, double ele=0);
+    bool save(String value, double lat=0, double lon=0, double ele=0);
+    bool save(int value, double lat=0, double lon=0, double ele=0);
+    bool save(unsigned int value, double lat=0, double lon=0, double ele=0);
+    bool save(long value, double lat=0, double lon=0, double ele=0);
+    bool save(unsigned long value, double lat=0, double lon=0, double ele=0);
+    bool save(float value, double lat=0, double lon=0, double ele=0, int precision=6);
+    bool save(double value, double lat=0, double lon=0, double ele=0, int precision=6);
+
+    void setLocation(double lat, double lon, double ele=0);
 
     void subCallback(char *val, uint16_t len);
     const char *name;
@@ -29,8 +35,7 @@ class AdafruitIO_Feed {
   private:
     void _init();
 
-    char *_sub_topic;
-    char *_pub_topic;
+    char *_topic;
 
     Adafruit_MQTT_Subscribe *_sub;
     Adafruit_MQTT_Publish *_pub;
