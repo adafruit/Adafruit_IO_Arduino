@@ -1,4 +1,5 @@
 #include "AdafruitIO_Data.h"
+#include "AdafruitIO_Feed.h"
 
 AdafruitIO_Data::AdafruitIO_Data()
 {
@@ -150,6 +151,14 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
 
   _value = _converted;
   setLocation(lat, lon, ele);
+}
+
+char* AdafruitIO_Data::feedName()
+{
+  if(! feed)
+    return (char*)"";
+
+  return (char *)feed->name;
 }
 
 char* AdafruitIO_Data::value()

@@ -31,6 +31,10 @@ bool is_on = false;
 
 // set up the 'counter' feed
 AdafruitIO_Feed *counter = io.feed("counter");
+
+// set up the 'counter-two' feed
+AdafruitIO_Feed *counter_two = io.feed("counter-two");
+
 // set up the 'light' feed
 AdafruitIO_Feed *light = io.feed("light");
 
@@ -47,10 +51,13 @@ void setup() {
   // connect to io.adafruit.com
   io.connect(IO_USERNAME, IO_KEY);
 
-  // set up a message handler for the counter feed.
+  // attach message handler for the counter feed.
   counter->onMessage(handleCount);
 
-  // set up a message handler for the light feed.
+  // attach the same message handler for the second counter feed.
+  counter_two->onMessage(handleCount);
+
+  // attach a new message handler for the light feed.
   light->onMessage(handleLight);
 
   // wait for a connection
@@ -70,13 +77,17 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  // print out the count we are sending to Adafruit IO
   Serial.println();
-  Serial.print("sending -> count ");
-  Serial.println(count);
 
-  // save current count to 'counter' feed
+  // save current count to 'counter'
+  Serial.print("sending -> counter ");
+  Serial.println(count);
   counter->save(count);
+
+  // increment the count by 1 and save the value to 'counter-two'
+  Serial.print("sending -> counter-two ");
+  Serial.println(count + 1);
+  counter_two->save(count + 1);
 
   // print out the light value we are sending to Adafruit IO
   Serial.print("sending -> light ");
@@ -84,7 +95,6 @@ void loop() {
     Serial.println("is on.\n");
   else
     Serial.println("is off.\n");
-
 
   // save state of light to 'light' feed
   light->save(is_on);
@@ -104,9 +114,8 @@ void loop() {
 
 }
 
-// you can set a separate message handler for each
-// feed (as we do in this example), or attach
-// multiple feeds to the same meesage handler function.
+// you can set a separate message handler for a single feed,
+// as we do in this example for the light feed
 void handleLight(AdafruitIO_Data *data) {
 
   // print out the received light value
@@ -121,10 +130,21 @@ void handleLight(AdafruitIO_Data *data) {
 
 }
 
+// you can also attach multiple feeds to the same
+// meesage handler function. both counter and counter-two
+// are attached to this callback function, and messages
+// will be received by this function.
 void handleCount(AdafruitIO_Data *data) {
 
-  // print out the received count value
-  Serial.print("received <- count ");
+  Serial.print("received <- ");
+
+  // since we are using the same function to handle
+  // messages for two feeds, we can use feedName() in
+  // order to find out which feed the message came from.
+  Serial.print(data->feedName());
+  Serial.print(" ");
+
+  // print out the received count or counter-two value
   Serial.println(data->value());
 
 }
