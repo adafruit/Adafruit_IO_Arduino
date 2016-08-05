@@ -59,6 +59,14 @@ AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
   return new AdafruitIO_Feed(this, name);
 }
 
+void errorCallback(char *err, uint16_t len)
+{
+  AIO_ERR_PRINTLN();
+  AIO_ERR_PRINT("ERROR: ");
+  AIO_ERR_PRINTLN(err);
+  AIO_ERR_PRINTLN();
+}
+
 void AdafruitIO::_init()
 {
   // we have never pinged, so set last ping to now
@@ -79,6 +87,7 @@ void AdafruitIO::_init()
     // setup error sub
     _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
     _mqtt->subscribe(_err_sub);
+    _err_sub->setCallback(errorCallback);
 
   } else {
 
@@ -99,6 +108,7 @@ void AdafruitIO::_init()
     // setup throttle sub
     _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
     _mqtt->subscribe(_throttle_sub);
+    _throttle_sub->setCallback(errorCallback);
 
   } else {
 
@@ -106,12 +116,6 @@ void AdafruitIO::_init()
     _throttle_topic = 0;
 
   }
-}
-
-void AdafruitIO::setErrorHandler(SubscribeCallbackBufferType cb)
-{
-  _err_sub->setCallback(cb);
-  _throttle_sub->setCallback(cb);
 }
 
 const __FlashStringHelper* AdafruitIO::statusText()
