@@ -11,6 +11,21 @@ AdafruitIO::AdafruitIO()
   _throttle_sub = 0;
 }
 
+AdafruitIO::~AdafruitIO()
+{
+  if(_err_topic)
+    free(_err_topic);
+
+  if(_throttle_topic)
+    free(_throttle_topic);
+
+  if(_err_sub)
+    delete _err_sub;
+
+  if(_throttle_sub)
+    delete _throttle_sub;
+}
+
 void AdafruitIO::connect(const char *user, const char *key)
 {
   _username = user;
