@@ -104,6 +104,9 @@ void loop() {
 
 }
 
+// you can set a separate message handler for each
+// feed (as we do in this example), or attach
+// multiple feeds to the same meesage handler function.
 void handleLight(AdafruitIO_Data *data) {
 
   // print out the received light value

@@ -112,6 +112,9 @@ void loop() {
 
 }
 
+// this function is called whenever a 'counter' message
+// is received from Adafruit IO. it was attached to
+// the counter feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
