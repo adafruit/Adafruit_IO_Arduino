@@ -18,6 +18,14 @@ AdafruitIO_WICED::AdafruitIO_WICED(const __FlashStringHelper *ssid, const __Flas
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
+AdafruitIO_WICED::~AdafruitIO_WICED()
+{
+  if(_client)
+    delete _client;
+  if(_mqtt)
+    delete _mqtt;
+}
+
 void AdafruitIO_WICED::_connect()
 {
   Feather.connect(_ssid, _pass);
