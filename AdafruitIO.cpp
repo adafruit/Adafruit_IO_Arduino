@@ -1,3 +1,10 @@
+//
+// Copyright (c) 2015-2016 Adafruit Industries
+// Authors: Tony DiCola, Todd Treece
+// Licensed under the MIT license.
+//
+// All text above must be included in any redistribution.
+//
 #include "AdafruitIO.h"
 
 AdafruitIO::AdafruitIO()
