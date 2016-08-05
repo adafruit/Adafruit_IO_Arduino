@@ -7,12 +7,21 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO_Data.h"
 
+#ifndef ADAFRUIT_MQTT_VERSION_MAJOR
+  #error "This sketch requires Adafruit MQTT Library v0.15.0 or higher. Please install or upgrade using the Library Manager."
+#endif
+
+#if ADAFRUIT_MQTT_VERSION_MAJOR == 0 && ADAFRUIT_MQTT_VERSION_MINOR < 15
+  #error "This sketch requires Adafruit MQTT Library v0.15.0 or higher. Please install or upgrade using the Library Manager."
+#endif
+
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
 
   public:
     AdafruitIO();
+    ~AdafruitIO();
 
     void connect(const char *user, const char *key);
     void connect(const __FlashStringHelper *user, const __FlashStringHelper *key);

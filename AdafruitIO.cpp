@@ -1,6 +1,15 @@
 #include "AdafruitIO.h"
 
-AdafruitIO::AdafruitIO(){}
+AdafruitIO::AdafruitIO()
+{
+  _mqtt = 0;
+  _username = 0;
+  _key = 0;
+  _err_topic = 0;
+  _throttle_topic = 0;
+  _err_sub = 0;
+  _throttle_sub = 0;
+}
 
 void AdafruitIO::connect(const char *user, const char *key)
 {
