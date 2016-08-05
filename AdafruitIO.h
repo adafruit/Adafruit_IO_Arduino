@@ -21,7 +21,7 @@ class AdafruitIO {
 
   public:
     AdafruitIO();
-    ~AdafruitIO();
+    virtual ~AdafruitIO();
 
     void connect(const char *user, const char *key);
     void connect(const __FlashStringHelper *user, const __FlashStringHelper *key);

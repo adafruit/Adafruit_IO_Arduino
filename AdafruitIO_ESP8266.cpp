@@ -18,6 +18,14 @@ AdafruitIO_ESP8266::AdafruitIO_ESP8266(const __FlashStringHelper *ssid, const __
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
+AdafruitIO_ESP8266::~AdafruitIO_ESP8266()
+{
+  if(_client)
+    delete _client;
+  if(_mqtt)
+    delete _mqtt;
+}
+
 void AdafruitIO_ESP8266::_connect()
 {
 
