@@ -26,11 +26,9 @@ typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
 #ifdef AIO_ERROR
   #define AIO_ERR_PRINT(...) { AIO_PRINTER.print(__VA_ARGS__); }
   #define AIO_ERR_PRINTLN(...) { AIO_PRINTER.println(__VA_ARGS__); }
-  #define AIO_ERR_PRINTBUFFER(buffer, len) { printBuffer(buffer, len); }
 #else
   #define AIO_ERR_PRINT(...) {}
   #define AIO_ERR_PRINTLN(...) {}
-  #define AIO_ERR_PRINTBUFFER(buffer, len) {}
 #endif
 
 #define AIO_PING_INTERVAL 60000
