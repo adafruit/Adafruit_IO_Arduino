@@ -17,6 +17,21 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
   _pub = 0;
 }
 
+AdafruitIO_Feed::~AdafruitIO_Feed()
+{
+  if(_sub)
+    delete _sub;
+
+  if(_pub)
+    delete _pub;
+
+  if(_data)
+    delete _data;
+
+  if(_topic)
+    free(_topic);
+}
+
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
 {
   if(! _sub)
@@ -150,6 +165,7 @@ void AdafruitIO_Feed::_init()
     _topic = 0;
     _sub = 0;
     _pub = 0;
+    _data = 0;
 
   }
 
