@@ -20,6 +20,14 @@ AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *ssid, const 
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
+AdafruitIO_WINC1500::~AdafruitIO_WINC1500()
+{
+  if(_client)
+    delete _client;
+  if(_mqtt)
+    delete _mqtt;
+}
+
 void AdafruitIO_WINC1500::_connect()
 {
 

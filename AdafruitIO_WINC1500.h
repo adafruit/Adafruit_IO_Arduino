@@ -20,6 +20,8 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
   public:
     AdafruitIO_WINC1500(const char *ssid, const char *pass);
     AdafruitIO_WINC1500(const __FlashStringHelper *ssid, const __FlashStringHelper *pass);
+    ~AdafruitIO_WINC1500();
+
     aio_status_t networkStatus();
 
   protected:
