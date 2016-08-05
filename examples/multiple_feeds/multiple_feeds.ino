@@ -133,7 +133,7 @@ void handleLight(AdafruitIO_Data *data) {
 // you can also attach multiple feeds to the same
 // meesage handler function. both counter and counter-two
 // are attached to this callback function, and messages
-// will be received by this function.
+// for both will be received by this function.
 void handleCount(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
