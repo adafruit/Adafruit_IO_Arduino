@@ -1,34 +1,10 @@
-//
-//         Adafruit IO Location Example
-//
-//                        ▄████
-//                      ▄███████
-//                     █████████▌
-//                    ███████████
-//                   ████████████▌
-//  ███████████████▄ ████████████▌
-//   █████████████████████▀▀█████ ▄▄▄▄▄▄▄
-//    ▐██████████████████   █████████████████▄▄
-//      ▀█████████  ▀▀███  ██████████████████████
-//        █████████▄▄  ▐████▀    ▐█████████████▀
-//          ▀▀███████████████▄▄█████████████▀
-//           ▄███████   ██  ▀████████████▀
-//          ███████▀  ▄████  ▐█████▄
-//         █████████████████▄▄██████▄
-//        ███████████████████████████
-//       ██████████████ ▐████████████▌
-//      ▐██████████▀▀    ▀███████████▌
-//      █████▀▀            ▀█████████▌
-//                            ▀██████
-//                               ▀███
-//
+// Adafruit IO Location Example
 //
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
-//
 
 /************************* WiFi Access Point *********************************/
 
@@ -41,12 +17,6 @@
 #define IO_KEY         "your_key"
 
 /*************************** Client Setup ***********************************/
-
-// The Adafruit IO WiFi client will work with the following boards:
-//   - HUZZAH ESP8266 Breakout -> https://www.adafruit.com/products/2471
-//   - Feather HUZZAH ESP8266 -> https://www.adafruit.com/products/2821
-//   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
-//   - Feather WICED -> https://www.adafruit.com/products/3056
 
 // set up the wifi client using the supplied ssid & pass:
 #include "AdafruitIO_WiFi.h"
@@ -79,9 +49,6 @@ void setup() {
   io.connect(IO_USERNAME, IO_KEY);
 
   // set up a message handler for the location feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
   location->onMessage(handleMessage);
 
   // wait for a connection
@@ -98,10 +65,7 @@ void setup() {
 
 void loop() {
 
-  // this should be present at the top of your loop
-  // function. it keeps the client connected to
-  // io.adafruit.com, and processes any data from
-  // the server
+  // process messages and keep connection alive
   io.run();
 
   Serial.println("----- sending -----");
@@ -114,7 +78,8 @@ void loop() {
   Serial.print("ele: ");
   Serial.println(ele, 2);
 
-  // save value and location data to the 'location' feed on Adafruit IO
+  // save value and location data to the
+  // 'location' feed on Adafruit IO
   location->save(value, lat, lon, ele);
 
   // increment all values (for demo purposes)
@@ -142,6 +107,7 @@ void handleMessage(AdafruitIO_Data *data) {
   double received_lon = data->lon();
   double received_ele = data->ele();
 
+  // print out the received values
   Serial.println("----- received -----");
   Serial.print("value: ");
   Serial.println(received_value);
