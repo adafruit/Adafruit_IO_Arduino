@@ -1,27 +1,4 @@
-//
-//      Adafruit IO Basic Subscription Example
-//
-//                        ▄████
-//                      ▄███████
-//                     █████████▌
-//                    ███████████
-//                   ████████████▌
-//  ███████████████▄ ████████████▌
-//   █████████████████████▀▀█████ ▄▄▄▄▄▄▄
-//    ▐██████████████████   █████████████████▄▄
-//      ▀█████████  ▀▀███  ██████████████████████
-//        █████████▄▄  ▐████▀    ▐█████████████▀
-//          ▀▀███████████████▄▄█████████████▀
-//           ▄███████   ██  ▀████████████▀
-//          ███████▀  ▄████  ▐█████▄
-//         █████████████████▄▄██████▄
-//        ███████████████████████████
-//       ██████████████ ▐████████████▌
-//      ▐██████████▀▀    ▀███████████▌
-//      █████▀▀            ▀█████████▌
-//                            ▀██████
-//                               ▀███
-//
+// Adafruit IO Basic Subscription Example
 //
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
@@ -50,7 +27,7 @@
 
 // set up the wifi client using the supplied ssid & pass:
 #include "AdafruitIO_WiFi.h"
-AdafruitIO_WiFi io(WIFI_SSID, WIFI_PASS);
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 /************************ Example Starts Here *******************************/
 
@@ -68,7 +45,7 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
-  io.connect(IO_USERNAME, IO_KEY);
+  io.connect();
 
   // set up a message handler for the count feed.
   // the handleMessage function (defined below)
