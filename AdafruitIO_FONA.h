@@ -12,9 +12,9 @@
 
 #include "Arduino.h"
 #include <SoftwareSerial.h>
+#include "Adafruit_MQTT.h"
 #include "Adafruit_FONA.h"
 #include "AdafruitIO.h"
-#include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_FONA.h"
 
 #define FONA_RX  9
