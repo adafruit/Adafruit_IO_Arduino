@@ -16,6 +16,7 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
   _throttle_topic = 0;
   _err_sub = 0;
   _throttle_sub = 0;
+  _packetread_timeout = 100;
 
   _init();
 }
@@ -29,6 +30,7 @@ AdafruitIO::AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelpe
   _throttle_topic = 0;
   _err_sub = 0;
   _throttle_sub = 0;
+  _packetread_timeout = 100;
 
   _init();
 }
@@ -159,7 +161,10 @@ void AdafruitIO::run(uint16_t busywait_ms)
   // loop until we have a connection
   while(mqttStatus() != AIO_CONNECTED){}
 
-  _mqtt->processPackets(busywait_ms);
+  if(busywait_ms > 0)
+    _packetread_timeout = busywait_ms;
+
+  _mqtt->processPackets(_packetread_timeout);
 
   // ping to keep connection alive if needed
   if(millis() > (_last_ping + AIO_PING_INTERVAL)) {

@@ -33,7 +33,7 @@ class AdafruitIO {
 
     void connect();
 
-    void run(uint16_t busywait_ms = 100);
+    void run(uint16_t busywait_ms = 0);
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const __FlashStringHelper *name);
@@ -50,8 +50,12 @@ class AdafruitIO {
     uint32_t _last_ping = 0;
 
     Adafruit_MQTT *_mqtt;
+
     const char *_host = "io.adafruit.com";
     uint16_t _port = 8883;
+
+    uint16_t _packetread_timeout;
+
     const char *_username;
     const char *_key;
 

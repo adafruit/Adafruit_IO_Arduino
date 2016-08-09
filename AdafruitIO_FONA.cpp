@@ -14,6 +14,7 @@ AdafruitIO_FONA::AdafruitIO_FONA(const char *user, const char *key):AdafruitIO(u
   _serial = new SoftwareSerial(FONA_TX, FONA_RX);
   _fona = new Adafruit_FONA(FONA_RST);
   _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
+  _packetread_timeout = 1000;
 }
 
 AdafruitIO_FONA::AdafruitIO_FONA(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
@@ -21,6 +22,7 @@ AdafruitIO_FONA::AdafruitIO_FONA(const __FlashStringHelper *user, const __FlashS
   _serial = new SoftwareSerial(FONA_TX, FONA_RX);
   _fona = new Adafruit_FONA(FONA_RST);
   _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
+  _packetread_timeout = 1000;
 }
 
 void AdafruitIO_FONA::setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username=0, FONAFlashStringPtr password=0)
