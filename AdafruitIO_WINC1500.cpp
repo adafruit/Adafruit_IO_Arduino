@@ -11,7 +11,7 @@
 
 Adafruit_WINC1500 WiFi(WINC_CS, WINC_IRQ, WINC_RST);
 
-AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *ssid, const char *pass):AdafruitIO()
+AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
 {
   _ssid = ssid;
   _pass = pass;
@@ -19,7 +19,7 @@ AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *ssid, const char *pass):Ada
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
-AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO()
+AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
 {
   _ssid = (const char*)ssid;
   _pass = (const char*)pass;

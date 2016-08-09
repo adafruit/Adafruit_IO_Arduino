@@ -15,10 +15,10 @@
 class AdafruitIO_WiFi: public AdafruitIO_WINC1500 {
 
   public:
-    AdafruitIO_WiFi(const char *ssid, const char *pass) :
-      AdafruitIO_WINC1500(ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_WINC1500(ssid, pass) {}
+    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
+      AdafruitIO_WINC1500(user, key, ssid, pass) {}
+    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
+      AdafruitIO_WINC1500(user, key, ssid, pass) {}
 
 };
 
