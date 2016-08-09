@@ -1,5 +1,5 @@
 //
-//         Adafruit IO Basic Counter Example
+//   Adafruit IO Basic Publish & Subscribe Example
 //
 //                        ▄████
 //                      ▄███████
@@ -93,10 +93,10 @@ void setup() {
 
 void loop() {
 
-  // this should be present at the top of your loop
+  // io.run(); is required for all sketches.
+  // it should always be present at the top of your loop
   // function. it keeps the client connected to
-  // io.adafruit.com, and processes any data from
-  // the server
+  // io.adafruit.com, and processes any incoming data.
   io.run();
 
   // save count to the 'counter' feed on Adafruit IO
