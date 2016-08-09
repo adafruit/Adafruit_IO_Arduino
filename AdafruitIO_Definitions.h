@@ -41,8 +41,6 @@ typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
 
 #define AIO_DATA_LENGTH 41
 
-const char IO_HOST[] PROGMEM = "io.adafruit.com";
-
 typedef enum {
 
     // CONNECTING

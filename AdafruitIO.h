@@ -50,7 +50,7 @@ class AdafruitIO {
     uint32_t _last_ping = 0;
 
     Adafruit_MQTT *_mqtt;
-    const char *_host = IO_HOST;
+    const char *_host = "io.adafruit.com";
     uint16_t _port = 8883;
     const char *_username;
     const char *_key;
