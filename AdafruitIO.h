@@ -33,7 +33,7 @@ class AdafruitIO {
     void connect(const char *user, const char *key);
     void connect(const __FlashStringHelper *user, const __FlashStringHelper *key);
 
-    void run();
+    void run(uint16_t busywait_ms = 100);
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const __FlashStringHelper *name);

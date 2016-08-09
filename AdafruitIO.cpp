@@ -145,12 +145,12 @@ const __FlashStringHelper* AdafruitIO::statusText()
   }
 }
 
-void AdafruitIO::run()
+void AdafruitIO::run(uint16_t busywait_ms)
 {
   // loop until we have a connection
   while(mqttStatus() != AIO_CONNECTED){}
 
-  _mqtt->processPackets(1000);
+  _mqtt->processPackets(busywait_ms);
 
   // ping to keep connection alive if needed
   if(millis() > (_last_ping + AIO_PING_INTERVAL)) {
