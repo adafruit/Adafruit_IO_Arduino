@@ -27,11 +27,11 @@ class AdafruitIO {
   friend class AdafruitIO_Feed;
 
   public:
-    AdafruitIO();
+    AdafruitIO(const char *user, const char *key);
+    AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key);
     virtual ~AdafruitIO();
 
-    void connect(const char *user, const char *key);
-    void connect(const __FlashStringHelper *user, const __FlashStringHelper *key);
+    void connect();
 
     void run(uint16_t busywait_ms = 100);
 
@@ -46,7 +46,6 @@ class AdafruitIO {
 
   protected:
     virtual void _connect() = 0;
-
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
 

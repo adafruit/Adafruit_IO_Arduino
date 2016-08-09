@@ -7,15 +7,59 @@
 //
 #include "AdafruitIO.h"
 
-AdafruitIO::AdafruitIO()
+AdafruitIO::AdafruitIO(const char *user, const char *key)
 {
   _mqtt = 0;
-  _username = 0;
-  _key = 0;
+  _username = user;
+  _key = key;
   _err_topic = 0;
   _throttle_topic = 0;
   _err_sub = 0;
   _throttle_sub = 0;
+
+  _init();
+}
+
+AdafruitIO::AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key)
+{
+  _mqtt = 0;
+  _username = (const char*)user;
+  _key = (const char*)key;
+  _err_topic = 0;
+  _throttle_topic = 0;
+  _err_sub = 0;
+  _throttle_sub = 0;
+
+  _init();
+}
+
+void errorCallback(char *err, uint16_t len)
+{
+  AIO_ERR_PRINTLN();
+  AIO_ERR_PRINT("ERROR: ");
+  AIO_ERR_PRINTLN(err);
+  AIO_ERR_PRINTLN();
+}
+
+void AdafruitIO::connect()
+{
+
+  if(_err_sub) {
+    // setup error sub
+    _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
+    _mqtt->subscribe(_err_sub);
+    _err_sub->setCallback(errorCallback);
+  }
+
+  if(_throttle_sub) {
+    // setup throttle sub
+    _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
+    _mqtt->subscribe(_throttle_sub);
+    _throttle_sub->setCallback(errorCallback);
+  }
+
+  _connect();
+
 }
 
 AdafruitIO::~AdafruitIO()
@@ -33,22 +77,6 @@ AdafruitIO::~AdafruitIO()
     delete _throttle_sub;
 }
 
-void AdafruitIO::connect(const char *user, const char *key)
-{
-  _username = user;
-  _key = key;
-
-  _init();
-}
-
-void AdafruitIO::connect(const __FlashStringHelper *user, const __FlashStringHelper *key)
-{
-  _username = (const char*)user;
-  _key = (const char*)key;
-
-  _init();
-}
-
 AdafruitIO_Feed* AdafruitIO::feed(const char* name)
 {
   return new AdafruitIO_Feed(this, name);
@@ -59,21 +87,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
   return new AdafruitIO_Feed(this, name);
 }
 
-void errorCallback(char *err, uint16_t len)
-{
-  AIO_ERR_PRINTLN();
-  AIO_ERR_PRINT("ERROR: ");
-  AIO_ERR_PRINTLN(err);
-  AIO_ERR_PRINTLN();
-}
-
 void AdafruitIO::_init()
 {
+
   // we have never pinged, so set last ping to now
   _last_ping = millis();
-
-  // call child class connect
-  _connect();
 
   // dynamically allocate memory for err topic
   _err_topic = (char *)malloc(sizeof(char) * (strlen(_username) + strlen(AIO_ERROR_TOPIC) + 1));
@@ -83,11 +101,6 @@ void AdafruitIO::_init()
     // build error topic
     strcpy(_err_topic, _username);
     strcat(_err_topic, AIO_ERROR_TOPIC);
-
-    // setup error sub
-    _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
-    _mqtt->subscribe(_err_sub);
-    _err_sub->setCallback(errorCallback);
 
   } else {
 
@@ -105,17 +118,13 @@ void AdafruitIO::_init()
     strcpy(_throttle_topic, _username);
     strcat(_throttle_topic, AIO_THROTTLE_TOPIC);
 
-    // setup throttle sub
-    _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
-    _mqtt->subscribe(_throttle_sub);
-    _throttle_sub->setCallback(errorCallback);
-
   } else {
 
     // malloc failed
     _throttle_topic = 0;
 
   }
+
 }
 
 const __FlashStringHelper* AdafruitIO::statusText()

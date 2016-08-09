@@ -14,6 +14,8 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
   name = n;
   _sub = 0;
   _pub = 0;
+
+  _init();
 }
 
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
@@ -22,6 +24,8 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
   name = (const char*)n;
   _sub = 0;
   _pub = 0;
+
+  _init();
 }
 
 AdafruitIO_Feed::~AdafruitIO_Feed()
@@ -41,9 +45,6 @@ AdafruitIO_Feed::~AdafruitIO_Feed()
 
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
 {
-  if(! _sub)
-    _init();
-
   _dataCallback = cb;
   _io->_mqtt->subscribe(_sub);
 
@@ -52,81 +53,54 @@ void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
 
 bool AdafruitIO_Feed::save(char *value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(bool value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(String value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(int value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(unsigned int value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(long value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(unsigned long value, double lat, double lon, double ele)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(float value, double lat, double lon, double ele, int precision)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(_data->toCSV());
 }
 
 bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int precision)
 {
-  if(! _pub)
-    init();
-
   _data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(_data->toCSV());
 }
@@ -138,9 +112,6 @@ void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
 
 void AdafruitIO_Feed::subCallback(char *val, uint16_t len)
 {
-  if(! _dataCallback)
-    return;
-
   _data->setCSV(val);
   _dataCallback(_data);
 }
