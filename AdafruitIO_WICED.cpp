@@ -9,7 +9,7 @@
 
 #include "AdafruitIO_WICED.h"
 
-AdafruitIO_WICED::AdafruitIO_WICED(const char *ssid, const char *pass):AdafruitIO()
+AdafruitIO_WICED::AdafruitIO_WICED(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
 {
   _ssid = ssid;
   _pass = pass;
@@ -17,7 +17,7 @@ AdafruitIO_WICED::AdafruitIO_WICED(const char *ssid, const char *pass):AdafruitI
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
 }
 
-AdafruitIO_WICED::AdafruitIO_WICED(const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO()
+AdafruitIO_WICED::AdafruitIO_WICED(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
 {
   _ssid = (const char*)ssid;
   _pass = (const char*)pass;

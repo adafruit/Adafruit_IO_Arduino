@@ -43,10 +43,10 @@ class AdafruitIO_WiFi: public AdafruitIO_ESP8266 {
 class AdafruitIO_WiFi: public AdafruitIO_WICED {
 
   public:
-    AdafruitIO_WiFi(const char *ssid, const char *pass) :
-      AdafruitIO_WICED(ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_WICED(ssid, pass) {}
+    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
+      AdafruitIO_WICED(user, key, ssid, pass) {}
+    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
+      AdafruitIO_WICED(user, key, ssid, pass) {}
 
 };
 
