@@ -9,24 +9,23 @@
 
 #include "AdafruitIO_FONA.h"
 
-AdafruitIO_FONA::AdafruitIO_FONA(const char *apn, const char *apn_user, const char *apn_pass):AdafruitIO()
+AdafruitIO_FONA::AdafruitIO_FONA(const char *user, const char *key):AdafruitIO(user, key)
 {
-  _apn = apn;
-  _apn_user = apn_user;
-  _apn_pass = apn_pass;
   _serial = new SoftwareSerial(FONA_TX, FONA_RX);
   _fona = new Adafruit_FONA(FONA_RST);
   _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
 }
 
-AdafruitIO_FONA::AdafruitIO_FONA(const __FlashStringHelper *apn, const __FlashStringHelper *apn_user, const __FlashStringHelper *apn_pass):AdafruitIO()
+AdafruitIO_FONA::AdafruitIO_FONA(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
 {
-  _apn = (const char*)apn;
-  _apn_user = (const char*)apn_user;
-  _apn_pass = (const char*)apn_pass;
   _serial = new SoftwareSerial(FONA_TX, FONA_RX);
   _fona = new Adafruit_FONA(FONA_RST);
   _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
+}
+
+void AdafruitIO_FONA::setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username=0, FONAFlashStringPtr password=0)
+{
+  _fona->setGPRSNetworkSettings(apn, username, password);
 }
 
 void AdafruitIO_FONA::_connect()
@@ -62,9 +61,6 @@ aio_status_t AdafruitIO_FONA::networkStatus()
   // wait for connection to network
   if(_fona->getNetworkStatus() != 1)
     return AIO_NET_DISCONNECTED;
-
-  // set apn info
-  // _fona->setGPRSNetworkSettings(_apn, _apn_user, _apn_pass);
 
   _fona->enableGPRS(true);
   return AIO_NET_CONNECTED;

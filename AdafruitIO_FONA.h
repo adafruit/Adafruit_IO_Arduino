@@ -26,8 +26,11 @@
 class AdafruitIO_FONA : public AdafruitIO {
 
   public:
-    AdafruitIO_FONA(const char *apn, const char *apn_user, const char *apn_pass);
-    AdafruitIO_FONA(const __FlashStringHelper *apn, const __FlashStringHelper *apn_user, const __FlashStringHelper *apn_pass);
+    AdafruitIO_FONA(const char *user, const char *key);
+    AdafruitIO_FONA(const __FlashStringHelper *user, const __FlashStringHelper *key);
+
+    void setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username=0, FONAFlashStringPtr password=0);
+
     aio_status_t networkStatus();
 
   protected:

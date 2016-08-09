@@ -8,12 +8,6 @@
 // All text above must be included in any redistribution.
 //
 
-/************************** Cellular Setup **********************************/
-
-#define APN ""
-#define APN_USER ""
-#define APN_PASS ""
-
 /************************* Adafruit IO Setup ********************************/
 
 #define IO_USERNAME    "your_username"
@@ -22,7 +16,7 @@
 /*************************** Client Setup ***********************************/
 
 #include "AdafruitIO_FONA.h"
-AdafruitIO_FONA io(APN, APN_USER, APN_PASS);
+AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
 
 /************************ Example Starts Here *******************************/
 
@@ -43,7 +37,7 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
-  io.connect(IO_USERNAME, IO_KEY);
+  io.connect();
 
   // set up a message handler for the count feed.
   // the handleMessage function (defined below)
