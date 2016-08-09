@@ -1,27 +1,4 @@
-//
-//      Adafruit IO Basic Publish Example
-//
-//                        ▄████
-//                      ▄███████
-//                     █████████▌
-//                    ███████████
-//                   ████████████▌
-//  ███████████████▄ ████████████▌
-//   █████████████████████▀▀█████ ▄▄▄▄▄▄▄
-//    ▐██████████████████   █████████████████▄▄
-//      ▀█████████  ▀▀███  ██████████████████████
-//        █████████▄▄  ▐████▀    ▐█████████████▀
-//          ▀▀███████████████▄▄█████████████▀
-//           ▄███████   ██  ▀████████████▀
-//          ███████▀  ▄████  ▐█████▄
-//         █████████████████▄▄██████▄
-//        ███████████████████████████
-//       ██████████████ ▐████████████▌
-//      ▐██████████▀▀    ▀███████████▌
-//      █████▀▀            ▀█████████▌
-//                            ▀██████
-//                               ▀███
-//
+// Adafruit IO Basic Publish & Subscribe Example
 //
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
@@ -73,6 +50,12 @@ void setup() {
   // connect to io.adafruit.com
   io.connect(IO_USERNAME, IO_KEY);
 
+  // set up a message handler for the count feed.
+  // the handleMessage function (defined below)
+  // will be called whenever a message is
+  // received from adafruit io.
+  counter->onMessage(handleMessage);
+
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
     Serial.print(".");
@@ -103,5 +86,15 @@ void loop() {
 
   // wait one second (1000 milliseconds == 1 second)
   delay(1000);
+
+}
+
+// this function is called whenever a 'counter' message
+// is received from Adafruit IO. it was attached to
+// the counter feed in the setup() function above.
+void handleMessage(AdafruitIO_Data *data) {
+
+  Serial.print("received <- ");
+  Serial.println(data->value());
 
 }
