@@ -10,21 +10,12 @@
 //
 // All text above must be included in any redistribution.
 
-/************************* WiFi Access Point *********************************/
+/************************** Configuration ***********************************/
 
-#define WIFI_SSID       "your_ssid"
-#define WIFI_PASS       "your_pass"
-
-/************************* Adafruit IO Setup ********************************/
-
-#define IO_USERNAME    "your_username"
-#define IO_KEY         "your_key"
-
-/*************************** Client Setup ***********************************/
-
-// set up the wifi client using the supplied ssid & pass
-#include "AdafruitIO_WiFi.h"
-AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+// edit the config.h tab and enter your Adafruit IO credentials
+// and any additional configuration needed for WiFi, cellular,
+// or ethernet clients.
+#include "config.h"
 
 /************************ Example Starts Here *******************************/
 
