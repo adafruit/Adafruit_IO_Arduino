@@ -1,5 +1,9 @@
 // Adafruit IO Location Example
 //
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
 // Licensed under the MIT license.
@@ -18,9 +22,9 @@
 
 /*************************** Client Setup ***********************************/
 
-// set up the wifi client using the supplied ssid & pass:
+// set up the wifi client using the supplied ssid & pass
 #include "AdafruitIO_WiFi.h"
-AdafruitIO_WiFi io(WIFI_SSID, WIFI_PASS);
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 /************************ Example Starts Here *******************************/
 
@@ -46,7 +50,7 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com
-  io.connect(IO_USERNAME, IO_KEY);
+  io.connect();
 
   // set up a message handler for the location feed.
   location->onMessage(handleMessage);
@@ -82,10 +86,10 @@ void loop() {
   // 'location' feed on Adafruit IO
   location->save(value, lat, lon, ele);
 
-  // increment all values (for demo purposes)
+ // shift all values (for demo purposes)
   value += 1;
-  lat += 0.1;
-  lon += 0.2;
+  lat -= 0.01;
+  lon += 0.02;
   ele += 1;
 
   // wait one second (1000 milliseconds == 1 second)

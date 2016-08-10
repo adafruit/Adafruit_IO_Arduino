@@ -1,5 +1,9 @@
 // Adafruit IO Type Conversion Example
 //
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
 // Licensed under the MIT license.
@@ -18,7 +22,7 @@
 
 /*************************** Client Setup ***********************************/
 
-// set up the wifi client using the supplied ssid & pass:
+// set up the wifi client using the supplied ssid & pass
 #include "AdafruitIO_WiFi.h"
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
@@ -76,8 +80,9 @@ void loop() {
 
   Serial.println("----- sending -----");
 
-  // send a different type depending on
-  // value of the current_type var
+  // in order to demonstrate sending values
+  // as different types, we will switch between
+  // types in a loop using the current_type variable
   if(current_type == 0) {
     Serial.print("char: ");
     Serial.println(char_val);
@@ -130,6 +135,8 @@ void loop() {
 
 }
 
+// this function will demonstrate how to convert
+// the received data to each available type.
 void handleMessage(AdafruitIO_Data *data) {
 
   // print out the received count value
@@ -139,6 +146,7 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.print("value: ");
   Serial.println(data->value());
 
+  // get char* value
   Serial.print("toChar: ");
   Serial.println(data->toChar());
 

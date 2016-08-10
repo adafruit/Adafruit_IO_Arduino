@@ -1,4 +1,8 @@
-// Adafruit IO Basic Publish & Subscribe Example
+// Adafruit IO Publish & Subscribe Example
+//
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
@@ -19,13 +23,7 @@
 
 /*************************** Client Setup ***********************************/
 
-// The Adafruit IO WiFi client will work with the following boards:
-//   - HUZZAH ESP8266 Breakout -> https://www.adafruit.com/products/2471
-//   - Feather HUZZAH ESP8266 -> https://www.adafruit.com/products/2821
-//   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
-//   - Feather WICED -> https://www.adafruit.com/products/3056
-
-// set up the wifi client using the supplied ssid & pass:
+// set up the wifi client using the supplied ssid & pass
 #include "AdafruitIO_WiFi.h"
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 

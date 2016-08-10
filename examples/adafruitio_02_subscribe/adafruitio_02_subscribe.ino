@@ -1,4 +1,8 @@
-// Adafruit IO Basic Publish Example
+// Adafruit IO Subscription Example
+//
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
@@ -19,20 +23,11 @@
 
 /*************************** Client Setup ***********************************/
 
-// The Adafruit IO WiFi client will work with the following boards:
-//   - HUZZAH ESP8266 Breakout -> https://www.adafruit.com/products/2471
-//   - Feather HUZZAH ESP8266 -> https://www.adafruit.com/products/2821
-//   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
-//   - Feather WICED -> https://www.adafruit.com/products/3056
-
-// set up the wifi client using the supplied ssid & pass:
+// set up the wifi client using the supplied ssid & pass
 #include "AdafruitIO_WiFi.h"
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 /************************ Example Starts Here *******************************/
-
-// this int will hold the current count for our sketch
-int count = 0;
 
 // set up the 'counter' feed
 AdafruitIO_Feed *counter = io.feed("counter");
@@ -49,6 +44,12 @@ void setup() {
 
   // connect to io.adafruit.com
   io.connect();
+
+  // set up a message handler for the count feed.
+  // the handleMessage function (defined below)
+  // will be called whenever a message is
+  // received from adafruit io.
+  counter->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -70,15 +71,14 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // save count to the 'counter' feed on Adafruit IO
-  Serial.print("sending -> ");
-  Serial.println(count);
-  counter->save(count);
+}
 
-  // increment the count by 1
-  count++;
+// this function is called whenever a 'counter' message
+// is received from Adafruit IO. it was attached to
+// the counter feed in the setup() function above.
+void handleMessage(AdafruitIO_Data *data) {
 
-  // wait one second (1000 milliseconds == 1 second)
-  delay(1000);
+  Serial.print("received <- ");
+  Serial.println(data->value());
 
 }

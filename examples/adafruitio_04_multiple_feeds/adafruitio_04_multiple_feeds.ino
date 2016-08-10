@@ -1,5 +1,9 @@
 // Adafruit IO Multiple Feed Example
 //
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
 // Written by Todd Treece for Adafruit Industries
 // Copyright (c) 2016 Adafruit Industries
 // Licensed under the MIT license.
@@ -18,7 +22,7 @@
 
 /*************************** Client Setup ***********************************/
 
-// set up the wifi client using the supplied ssid & pass:
+// set up the wifi client using the supplied ssid & pass
 #include "AdafruitIO_WiFi.h"
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
