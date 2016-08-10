@@ -1,4 +1,8 @@
 //
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
 // Copyright (c) 2015-2016 Adafruit Industries
 // Authors: Tony DiCola, Todd Treece
 // Licensed under the MIT license.
@@ -13,9 +17,8 @@
 #include "Arduino.h"
 #include <SoftwareSerial.h>
 #include "Adafruit_MQTT.h"
-#include "Adafruit_FONA.h"
 #include "AdafruitIO.h"
-#include "Adafruit_MQTT_FONA.h"
+#include "Adafruit_MQTT_Client.h"
 
 #define FONA_RX  9
 #define FONA_TX  8
@@ -35,10 +38,6 @@ class AdafruitIO_FONA : public AdafruitIO {
 
   protected:
     void _connect();
-
-    const char *_apn;
-    const char *_apn_user;
-    const char *_apn_pass;
 
     uint16_t _port = 1883;
 
