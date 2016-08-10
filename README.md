@@ -51,19 +51,26 @@ The examples below demonstrate how to switch between platforms.
 
 ### WiFi (ESP8266, M0 WINC1500, WICED)
 
-```ino
-#include "AdafruitIO_WiFi.h"
-AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, "your_wifi_ssid", "your_wifi_pass");
-```
+If you are using the included examples, you do not need to change anything for the Adafruit WiFi Feathers. All WiFi based Feathers (ESP8266, M0 WiFi, WICED) will work with the examples out of the box.
 
 ### Cellular (32u4 FONA)
+
+For FONA, you will only need to change from the default WiFi constructor to the FONA specific constructor. The rest of the sketch remains the same.
+
+You will need to change these lines:
+
+```ino
+#include "AdafruitIO_WiFi.h"
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+```
+to this:
 
 ```ino
 #include "AdafruitIO_FONA.h"
 AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
 ```
 
-If you need to set APN info, you can do so by adding a call to `io.setAPN()` after `io.connect()` in the `setup()` function.
+If your carrier requires APN info, you can set it by adding a call to `io.setAPN()` after `io.connect()` in the `setup()` function of the sketch.
 
 ```ino
 void setup() {
@@ -80,6 +87,17 @@ void setup() {
 ```
 
 ### Ethernet (Ethernet FeatherWing)
+
+For Ethernet, you will only need to change from the default WiFi constructor to the Ethernet specific constructor. The rest of the sketch remains the same.
+
+You will need to change these lines:
+
+```ino
+#include "AdafruitIO_WiFi.h"
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+```
+
+to this:
 
 ```ino
 #include "AdafruitIO_Ethernet.h"
