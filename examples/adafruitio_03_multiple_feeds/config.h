@@ -27,7 +27,7 @@ AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 //   - Feather 32u4 FONA -> https://www.adafruit.com/product/3027
 
 // uncomment the following two lines for 32u4 FONA,
-// and comment out the AdafruitIO_WiFi client in the WIFI section above
+// and comment out the AdafruitIO_WiFi client in the WIFI section
 // #include "AdafruitIO_FONA.h"
 // AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
 
@@ -37,7 +37,7 @@ AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 // the AdafruitIO_Ethernet client will work with the following boards:
 //   - Ethernet FeatherWing -> https://www.adafruit.com/products/3201
 
-// uncomment the following two lines for 32u4 FONA,
-// and comment out the AdafruitIO_WiFi client in the WIFI section above
+// uncomment the following two lines for ethernet,
+// and comment out the AdafruitIO_WiFi client in the WIFI section
 // #include "AdafruitIO_Ethernet.h"
 // AdafruitIO_Ethernet io(IO_USERNAME, IO_KEY);
