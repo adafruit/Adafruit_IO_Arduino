@@ -19,6 +19,8 @@ This library requires the latest version of the [Arduino IDE](https://www.arduin
 * Latest version of the [Adafruit SAMD Arduino Core](https://github.com/adafruit/ArduinoCore-samd)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
 
+You will also need to add the SSL certificate for `io.adafruit.com` using the [guide on the Adafruit Learning System.](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/updating-ssl-certificates)
+
 ### Adafruit WICED Feather WiFi
 
 * Latest version of the [Adafruit WICED Arduino Core](https://github.com/adafruit/Adafruit_WICED_Arduino)
@@ -97,7 +99,7 @@ Example            | ESP8266      | M0 WINC1500  | WICED       | FONA 32u4   | E
 04_location        |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
 05_type_conversion |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
 
-* * Feather ethernet wing tested with Feather M0 Proto*
+*Ethernet FeatherWing tested with Feather M0 Basic Proto
 
 ## License
 Copyright (c) 2016 [Adafruit Industries](https://adafruit.com). Licensed under the [MIT license](/LICENSE?raw=true).
