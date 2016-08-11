@@ -12,7 +12,7 @@
 #ifndef ADAFRUITIO_Ethernet_H
 #define ADAFRUITIO_Ethernet_H
 
-#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_SAMD)
+#if defined(ARDUINO_ARCH_AVR) || (defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN))
 
 #include "Arduino.h"
 #include <SPI.h>

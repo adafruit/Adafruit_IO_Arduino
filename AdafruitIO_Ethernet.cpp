@@ -9,7 +9,7 @@
 //
 // All text above must be included in any redistribution.
 //
-#if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_SAMD)
+#if defined(ARDUINO_ARCH_AVR) || (defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN))
 
 #include "AdafruitIO_Ethernet.h"
 
