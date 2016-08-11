@@ -9,8 +9,6 @@
 //
 // All text above must be included in any redistribution.
 //
-#if defined(ARDUINO_ARCH_AVR) || (defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN))
-
 #include "AdafruitIO_Ethernet.h"
 
 AdafruitIO_Ethernet::AdafruitIO_Ethernet(const char *user, const char *key):AdafruitIO(user, key)
@@ -43,5 +41,3 @@ aio_status_t AdafruitIO_Ethernet::networkStatus()
   _connect();
   return _status;
 }
-
-#endif // ARDUINO_ARCH_AVR || ARDUINO_ARCH_SAMD

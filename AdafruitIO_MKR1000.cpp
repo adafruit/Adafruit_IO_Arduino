@@ -9,7 +9,7 @@
 //
 // All text above must be included in any redistribution.
 //
-#if defined(ARDUINO_ARCH_SAMD) && defined(WINC1501_RESET_PIN)
+#if defined(ARDUINO_SAMD_MKR1000)
 
 #include "AdafruitIO_MKR1000.h"
 

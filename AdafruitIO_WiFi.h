@@ -12,61 +12,25 @@
 #ifndef ADAFRUITIO_WIFI_H
 #define ADAFRUITIO_WIFI_H
 
-#if defined(ARDUINO_ARCH_SAMD) && defined(WINC1501_RESET_PIN)
+#if defined(ARDUINO_SAMD_MKR1000)
 
-#include "AdafruitIO_MKR1000.h"
+  #include "AdafruitIO_MKR1000.h"
+  typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
 
-class AdafruitIO_WiFi: public AdafruitIO_MKR1000 {
+#elif !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
 
-  public:
-    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
-      AdafruitIO_MKR1000(user, key, ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_MKR1000(user, key, ssid, pass) {}
-
-};
-
-#elif defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN)
-
-#include "AdafruitIO_WINC1500.h"
-
-class AdafruitIO_WiFi: public AdafruitIO_WINC1500 {
-
-  public:
-    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
-      AdafruitIO_WINC1500(user, key, ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_WINC1500(user, key, ssid, pass) {}
-
-};
+  #include "AdafruitIO_WINC1500.h"
+  typedef AdafruitIO_WINC1500 AdafruitIO_WiFi;
 
 #elif defined(ESP8266)
 
-#include "AdafruitIO_ESP8266.h"
-
-class AdafruitIO_WiFi: public AdafruitIO_ESP8266 {
-
-  public:
-    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
-      AdafruitIO_ESP8266(user, key, ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_ESP8266(user, key, ssid, pass) {}
-
-};
+  #include "AdafruitIO_ESP8266.h"
+  typedef AdafruitIO_ESP8266 AdafruitIO_WiFi;
 
 #elif defined(ARDUINO_STM32_FEATHER)
 
-#include "AdafruitIO_WICED.h"
-
-class AdafruitIO_WiFi: public AdafruitIO_WICED {
-
-  public:
-    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
-      AdafruitIO_WICED(user, key, ssid, pass) {}
-    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
-      AdafruitIO_WICED(user, key, ssid, pass) {}
-
-};
+  #include "AdafruitIO_WICED.h"
+  typedef AdafruitIO_WICED AdafruitIO_WiFi;
 
 #endif
 

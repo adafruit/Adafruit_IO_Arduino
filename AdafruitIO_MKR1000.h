@@ -12,7 +12,7 @@
 #ifndef ADAFRUITIO_MKR1000_H
 #define ADAFRUITIO_MKR1000_H
 
-#if defined(ARDUINO_ARCH_SAMD) && defined(WINC1501_RESET_PIN)
+#if defined(ARDUINO_SAMD_MKR1000)
 
 #include "Arduino.h"
 #include "AdafruitIO.h"

@@ -12,14 +12,18 @@
 #ifndef ADAFRUITIO_Ethernet_H
 #define ADAFRUITIO_Ethernet_H
 
-#if defined(ARDUINO_ARCH_AVR) || (defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN))
 
 #include "Arduino.h"
 #include <SPI.h>
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-#include <Ethernet2.h>
+#if __has_include("Ethernet2.h")
+  #include <Ethernet2.h>
+#else
+  #include <Ethernet.h>
+#endif
+
 #include <EthernetClient.h>
 #include <Dns.h>
 #include <Dhcp.h>
@@ -43,7 +47,5 @@ class AdafruitIO_Ethernet : public AdafruitIO {
     EthernetClient *_client;
 
 };
-
-#endif // ARDUINO_ARCH_AVR || ARDUINO_ARCH_SAMD
 
 #endif // ADAFRUITIO_Ethernet_H
