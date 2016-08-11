@@ -12,7 +12,21 @@
 #ifndef ADAFRUITIO_WIFI_H
 #define ADAFRUITIO_WIFI_H
 
-#ifdef ARDUINO_ARCH_SAMD
+#if defined(ARDUINO_ARCH_SAMD) && defined(WINC1501_RESET_PIN)
+
+#include "AdafruitIO_MKR1000.h"
+
+class AdafruitIO_WiFi: public AdafruitIO_MKR1000 {
+
+  public:
+    AdafruitIO_WiFi(const char *user, const char *key, const char *ssid, const char *pass) :
+      AdafruitIO_MKR1000(user, key, ssid, pass) {}
+    AdafruitIO_WiFi(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass) :
+      AdafruitIO_MKR1000(user, key, ssid, pass) {}
+
+};
+
+#elif defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN)
 
 #include "AdafruitIO_WINC1500.h"
 
@@ -26,7 +40,7 @@ class AdafruitIO_WiFi: public AdafruitIO_WINC1500 {
 
 };
 
-#elif ESP8266
+#elif defined(ESP8266)
 
 #include "AdafruitIO_ESP8266.h"
 
@@ -40,7 +54,7 @@ class AdafruitIO_WiFi: public AdafruitIO_ESP8266 {
 
 };
 
-#elif ARDUINO_STM32_FEATHER
+#elif defined(ARDUINO_STM32_FEATHER)
 
 #include "AdafruitIO_WICED.h"
 

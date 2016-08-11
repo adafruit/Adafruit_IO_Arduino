@@ -12,7 +12,7 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
-#ifdef ARDUINO_ARCH_SAMD
+#if defined(ARDUINO_ARCH_SAMD) && !defined(WINC1501_RESET_PIN)
 
 #include "Arduino.h"
 #include "AdafruitIO.h"
@@ -21,6 +21,7 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
+// feather wifi m0
 #define WINC_CS   8
 #define WINC_IRQ  7
 #define WINC_RST  4
