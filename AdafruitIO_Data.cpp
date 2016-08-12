@@ -78,9 +78,9 @@ void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
 void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
 {
   if(value)
-    _value = (char *)"true";
+    _value = (char *)"1";
   else
-    _value = (char *)"false";
+    _value = (char *)"0";
 
   setLocation(lat, lon, ele);
 }
