@@ -211,6 +211,14 @@ int AdafruitIO_Data::toInt()
   return (int)strtol(_value, &endptr, 10);
 }
 
+int AdafruitIO_Data::toPinLevel()
+{
+  if(isTrue())
+    return HIGH;
+  else
+    return LOW;
+}
+
 unsigned int AdafruitIO_Data::toUnsignedInt()
 {
   char* endptr;

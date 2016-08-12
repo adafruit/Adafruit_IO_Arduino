@@ -51,6 +51,7 @@ class AdafruitIO_Data {
     bool isFalse();
 
     int toInt();
+    int toPinLevel();
     unsigned int toUnsignedInt();
 
     double toDouble();
