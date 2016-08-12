@@ -44,6 +44,8 @@ class AdafruitIO_Feed {
     void subCallback(char *val, uint16_t len);
     const char *name;
 
+    AdafruitIO_Data *data;
+
   private:
     void _init();
 
