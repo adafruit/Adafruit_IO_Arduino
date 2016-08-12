@@ -9,43 +9,60 @@
 //
 // All text above must be included in any redistribution.
 //
-#ifndef ADAFRUITIO_Ethernet_H
-#define ADAFRUITIO_Ethernet_H
-
+#ifndef ADAFRUITIO_ETHERNET_H
+#define ADAFRUITIO_ETHERNET_H
 
 #include "Arduino.h"
 #include <SPI.h>
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-#if __has_include("Ethernet2.h")
-  #include <Ethernet2.h>
-#else
-  #include <Ethernet.h>
-#endif
-
+#include <Ethernet2.h>
 #include <EthernetClient.h>
 #include <Dns.h>
 #include <Dhcp.h>
 
 #include "AdafruitIO.h"
 
+// all logic in .h to avoid auto compile
 class AdafruitIO_Ethernet : public AdafruitIO {
 
   public:
-    AdafruitIO_Ethernet(const char *user, const char *key);
-    AdafruitIO_Ethernet(const __FlashStringHelper *user, const __FlashStringHelper *key);
+    AdafruitIO_Ethernet(const char *user, const char *key):AdafruitIO(user, key)
+    {
+      _client = new EthernetClient();
+      _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
+    }
 
-    aio_status_t networkStatus();
+    AdafruitIO_Ethernet(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
+    {
+      _client = new EthernetClient();
+      _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
+    }
+
+    aio_status_t networkStatus()
+    {
+      if(_status == AIO_NET_CONNECTED)
+        return _status;
+
+      _connect();
+      return _status;
+    }
 
   protected:
-    void _connect();
-
     byte _mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
     uint16_t _port = 1883;
 
     EthernetClient *_client;
 
+    void _connect()
+    {
+      if(Ethernet.begin(_mac) == 0)
+        _status = AIO_NET_DISCONNECTED;
+      else
+        _status = AIO_NET_CONNECTED;
+    }
+
 };
 
-#endif // ADAFRUITIO_Ethernet_H
+#endif // ADAFRUITIO_ETHERNET_H
