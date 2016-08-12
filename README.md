@@ -116,14 +116,15 @@ AdafruitIO_Ethernet io(IO_USERNAME, IO_KEY);
 
 Last test with `v2.0.0` on 08/10/2016.
 
-Example            | ESP8266      | M0 WINC1500  | WICED       | FONA 32u4   | Ethernet*  |
------------------- | :----------: | :----------: | :---------: | :---------: | :--------: |
-00_publish         |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
-01_subscribe       |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
-02_pubsub          |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
-03_multiple_feeds  |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
-04_location        |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
-05_type_conversion |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |
+Example            | ESP8266      | M0 WINC1500  | WICED       | FONA 32u4   | Ethernet*  | MKR1000    |
+------------------ | :----------: | :----------: | :---------: | :---------: | :--------: | :--------: |
+00_publish         |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+01_subscribe       |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+02_pubsub          |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+03_multiple_feeds  |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+04_location        |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+05_type_conversion |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
+06_digital_in      |      ✓       |      ✓       |      ✓      |      ✓      |      ?     |      ?     |
 
 *Ethernet FeatherWing tested with Feather M0 Basic Proto
 
