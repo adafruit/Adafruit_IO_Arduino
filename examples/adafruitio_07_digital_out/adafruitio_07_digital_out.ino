@@ -22,8 +22,8 @@
 // digital pin 5
 #define LED_PIN 5
 
-// set up the 'led' feed
-AdafruitIO_Feed *led = io.feed("led");
+// set up the 'digital' feed
+AdafruitIO_Feed *digital = io.feed("digital");
 
 void setup() {
 
@@ -39,6 +39,12 @@ void setup() {
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
+
+  // set up a message handler for the 'digital' feed.
+  // the handleMessage function (defined below)
+  // will be called whenever a message is
+  // received from adafruit io.
+  digital->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -60,8 +66,21 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // write the current state to the led
-  digitalWrite(LED_PIN, led->data->toPinLevel());
-
 }
 
+// this function is called whenever an 'digital' feed message
+// is received from Adafruit IO. it was attached to
+// the 'digital' feed in the setup() function above.
+void handleMessage(AdafruitIO_Data *data) {
+
+  Serial.print("received <- ");
+
+  if(data->toPinLevel() == HIGH)
+    Serial.println("HIGH");
+  else
+    Serial.println("LOW");
+
+  // write the current state to the led
+  digitalWrite(LED_PIN, data->toPinLevel());
+
+}

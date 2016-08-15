@@ -26,8 +26,8 @@
 bool current = false;
 bool last = false;
 
-// set up the 'button' feed
-AdafruitIO_Feed *button = io.feed("button");
+// set up the 'digital' feed
+AdafruitIO_Feed *digital = io.feed("digital");
 
 void setup() {
 
@@ -76,10 +76,10 @@ void loop() {
   if(current == last)
     return;
 
-  // save the current state to the button feed
+  // save the current state to the 'digital' feed on adafruit io
   Serial.print("sending button -> ");
   Serial.println(current);
-  button->save(current);
+  digital->save(current);
 
   // store last button state
   last = current;
