@@ -184,11 +184,17 @@ char* AdafruitIO_Data::toChar()
 
 String AdafruitIO_Data::toString()
 {
+  if(! _value)
+    return String();
+
   return String(_value);
 }
 
 bool AdafruitIO_Data::toBool()
 {
+  if(! _value)
+    return false;
+
   if(strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
     return true;
   else
@@ -207,6 +213,9 @@ bool AdafruitIO_Data::isFalse()
 
 int AdafruitIO_Data::toInt()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   return (int)strtol(_value, &endptr, 10);
 }
@@ -221,6 +230,9 @@ int AdafruitIO_Data::toPinLevel()
 
 unsigned int AdafruitIO_Data::toUnsignedInt()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   #ifdef ESP8266
     // For some reason strtoul is not defined on the ESP8266 platform right now.
@@ -233,24 +245,36 @@ unsigned int AdafruitIO_Data::toUnsignedInt()
 
 float AdafruitIO_Data::toFloat()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   return (float)strtod(_value, &endptr);
 }
 
 double AdafruitIO_Data::toDouble()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   return strtod(_value, &endptr);
 }
 
 long AdafruitIO_Data::toLong()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   return strtol(_value, &endptr, 10);
 }
 
 unsigned long AdafruitIO_Data::toUnsignedLong()
 {
+  if(! _value)
+    return 0;
+
   char* endptr;
   #ifdef ESP8266
       // For some reason strtoul is not defined on the ESP8266 platform right now.
@@ -264,6 +288,9 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
 char* AdafruitIO_Data::toCSV()
 {
   char csv[150];
+
+  if(! _value)
+    return _csv;
 
   strcpy(csv, _value);
   strcat(csv, ",");
