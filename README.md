@@ -1,4 +1,4 @@
-# Adafruit IO Arduino Library [![Build Status](https://travis-ci.org/adafruit/Adafruit_IO_Arduino.svg?branch=master)](https://travis-ci.org/adafruit/Adafruit_IO_Arduino)
+# Adafruit IO Arduino Library
 
 This library provides a simple device independent interface for interacting with [Adafruit IO](https://io.adafruit.com) using Arduino.
 It allows you to switch beween WiFi (ESP8266, M0 WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing)
