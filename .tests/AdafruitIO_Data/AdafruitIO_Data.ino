@@ -15,13 +15,16 @@ void loop() {
 
   plan(8);
 
+  char bad_csv[] = "xxxxx";
+  char good_csv[] = "12.120,42.331427,-83.045754,233";
+
   nok(
-    data->setCSV((char *)"xxxxx"),
+    data->setCSV(bad_csv),
     "invalid CSV doesn't parse"
   );
 
   ok(
-    data->setCSV((char *)"12.120,42.331427,-83.045754,233"),
+    data->setCSV(good_csv),
     "valid CSV parses"
   );
 
