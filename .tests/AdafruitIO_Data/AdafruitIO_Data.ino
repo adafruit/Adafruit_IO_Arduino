@@ -7,10 +7,11 @@ void setup()
 {
   Serial.begin(115200);
   while(! Serial);
-  delay(1000);
 }
 
 void loop() {
+
+  delay(5000);
 
   plan(8);
 
