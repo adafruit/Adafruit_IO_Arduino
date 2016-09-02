@@ -65,7 +65,11 @@ void loop() {
 
 bool compareDouble(double a, double b)
 {
+#ifdef __AVR__
+  return abs(a-b) < 0.00001;
+#elif
   return abs(a-b) < 0.000001;
+#endif
 }
 
 bool compareChar(char *a, char *b)
