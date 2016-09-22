@@ -17,7 +17,7 @@
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include "SPI.h"
-#include "Adafruit_WINC1500.h"
+#include "WiFi101.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
@@ -40,7 +40,8 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
     void _connect();
     const char *_ssid;
     const char *_pass;
-    Adafruit_WINC1500SSLClient *_client;
+
+    WiFiSSLClient *_client;
 
 };
 
