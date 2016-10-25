@@ -18,26 +18,32 @@ AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *user, const char *key, cons
 {
   _ssid = ssid;
   _pass = pass;
-  _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
+  _mqtt_client = new WiFiSSLClient;
+  _mqtt = new Adafruit_MQTT_Client(_mqtt_client, _host, _mqtt_port);
+  _http_client = new WiFiSSLClient;
+  _http = new HttpClient(*_http_client, _host, _http_port);
 }
 
 AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
 {
   _ssid = (const char*)ssid;
   _pass = (const char*)pass;
-  _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
+  _mqtt_client = new WiFiSSLClient;
+  _mqtt = new Adafruit_MQTT_Client(_mqtt_client, _host, _mqtt_port);
+  _http_client = new WiFiSSLClient;
+  _http = new HttpClient(*_http_client, _host, _http_port);
 }
 
 AdafruitIO_WINC1500::~AdafruitIO_WINC1500()
 {
-  if(_client)
-    delete _client;
+  if(_mqtt_client)
+    delete _http_client;
+  if(_http_client)
+    delete _mqtt_client;
   if(_mqtt)
     delete _mqtt;
+  if(_http)
+    delete _http;
 }
 
 void AdafruitIO_WINC1500::_connect()

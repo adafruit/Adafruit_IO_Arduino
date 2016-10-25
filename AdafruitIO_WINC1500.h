@@ -41,7 +41,8 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
     const char *_ssid;
     const char *_pass;
 
-    WiFiSSLClient *_client;
+    WiFiSSLClient *_http_client;
+    WiFiSSLClient *_mqtt_client;
 
 };
 
