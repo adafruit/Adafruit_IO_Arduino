@@ -39,6 +39,9 @@ class AdafruitIO_Feed {
     bool save(float value, double lat=0, double lon=0, double ele=0, int precision=6);
     bool save(double value, double lat=0, double lon=0, double ele=0, int precision=6);
 
+    bool exists();
+    bool create();
+
     void setLocation(double lat, double lon, double ele=0);
 
     void subCallback(char *val, uint16_t len);
@@ -50,6 +53,8 @@ class AdafruitIO_Feed {
     void _init();
 
     char *_topic;
+    char *_create_url;
+    char *_feed_url;
 
     Adafruit_MQTT_Subscribe *_sub;
     Adafruit_MQTT_Publish *_pub;
