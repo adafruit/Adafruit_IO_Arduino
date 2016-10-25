@@ -116,7 +116,7 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
 
 bool AdafruitIO_Feed::exists()
 {
-  _io->_http->get(_feed_url);
+  _io->_http->startRequest(_feed_url, HTTP_METHOD_GET);
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
   int status = _io->_http->responseStatusCode();
   return status == 200;
@@ -124,7 +124,18 @@ bool AdafruitIO_Feed::exists()
 
 bool AdafruitIO_Feed::create()
 {
+  String body = "name=";
+  body += name;
 
+  _io->_http->startRequest(_create_url, HTTP_METHOD_POST);
+  _io->_http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded");
+  _io->_http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+  _io->_http->write((const byte*)body.c_str(), body.length());
+
+  int status = _io->_http->responseStatusCode();
+  return status == 201;
 }
 
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
