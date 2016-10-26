@@ -118,7 +118,9 @@ bool AdafruitIO_Feed::exists()
 {
   _io->_http->startRequest(_feed_url, HTTP_METHOD_GET);
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
   int status = _io->_http->responseStatusCode();
+  _io->_http->responseBody(); // needs to be read even if not used
   return status == 200;
 }
 
@@ -135,6 +137,7 @@ bool AdafruitIO_Feed::create()
   _io->_http->write((const byte*)body.c_str(), body.length());
 
   int status = _io->_http->responseStatusCode();
+  _io->_http->responseBody(); // needs to be read even if not used
   return status == 201;
 }
 
