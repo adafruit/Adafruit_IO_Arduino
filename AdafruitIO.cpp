@@ -95,6 +95,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
   return new AdafruitIO_Feed(this, name);
 }
 
+AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)
+{
+  return new AdafruitIO_Dashboard(this, name);
+}
+
 void AdafruitIO::_init()
 {
 

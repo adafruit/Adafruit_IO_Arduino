@@ -16,6 +16,7 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Feed.h"
+#include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
 #include "ArduinoHttpClient.h"
 
@@ -43,6 +44,8 @@ class AdafruitIO {
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const __FlashStringHelper *name);
+
+    AdafruitIO_Dashboard* dashboard(const char *name);
 
     const __FlashStringHelper* statusText();
 
