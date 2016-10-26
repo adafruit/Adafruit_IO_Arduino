@@ -63,3 +63,8 @@ ToggleBlock* AdafruitIO_Dashboard::addToggleBlock(AdafruitIO_Feed *feed)
 {
   return new ToggleBlock(this, feed);
 }
+
+MomentaryBlock* AdafruitIO_Dashboard::addMomentaryBlock(AdafruitIO_Feed *feed)
+{
+  return new MomentaryBlock(this, feed);
+}
