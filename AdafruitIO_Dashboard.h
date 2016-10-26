@@ -21,9 +21,13 @@ class AdafruitIO;
 class AdafruitIO_Dashboard {
 
   public:
-    AdafruitIO_Dashboard(AdafruitIO *io, const char *key);
+    AdafruitIO_Dashboard(AdafruitIO *io, const char *name);
     ~AdafruitIO_Dashboard();
-    const char *key;
+
+    const char *name;
+
+    bool exists();
+    bool create();
 
   private:
     AdafruitIO *_io;
