@@ -59,3 +59,7 @@ bool AdafruitIO_Dashboard::create()
   return status == 201;
 }
 
+ToggleBlock* AdafruitIO_Dashboard::addToggleBlock(AdafruitIO_Feed *feed)
+{
+  return new ToggleBlock(this, feed);
+}

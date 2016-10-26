@@ -14,9 +14,11 @@
 
 #include "Arduino.h"
 #include "AdafruitIO_Definitions.h"
+#include "blocks/ToggleBlock.h"
 
 // forward declaration
 class AdafruitIO;
+class AdafruitIO_Feed;
 
 class AdafruitIO_Dashboard {
 
@@ -28,6 +30,8 @@ class AdafruitIO_Dashboard {
 
     bool exists();
     bool create();
+
+    ToggleBlock* addToggleBlock(AdafruitIO_Feed *feed);
 
   private:
     AdafruitIO *_io;
