@@ -27,10 +27,13 @@ class ChartBlock : public AdafruitIO_Block {
     int yAxisMin;
     int yAxisMax;
 
+    int width = 6;
+    int height = 4;
+
     String properties();
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "line_chart";
 
 };
 

@@ -15,9 +15,8 @@ GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
 {
   min = 0;
   max = 100;
-  width = "thin";
+  ringWidth = "thin";
   label = "Value";
-  _visual_type = "gauge";
 }
 
 GaugeBlock::~GaugeBlock(){}
@@ -26,7 +25,7 @@ String GaugeBlock::properties()
 {
   int w = 0;
 
-  if(width == "thin") {
+  if(ringWidth == "thin") {
     w = 25;
   } else {
     w = 50;

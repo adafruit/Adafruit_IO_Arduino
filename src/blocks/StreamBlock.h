@@ -26,11 +26,14 @@ class StreamBlock : public AdafruitIO_Block {
     bool showTimestamp;
     bool showName;
 
+    int width = 6;
+    int height = 4;
+
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "stream";
 
 };
 

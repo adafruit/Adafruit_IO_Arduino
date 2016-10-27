@@ -18,7 +18,6 @@ StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : Adafruit
   showErrors = true;
   showTimestamp = true;
   showName = true;
-  _visual_type = "stream";
 }
 
 StreamBlock::~StreamBlock(){}

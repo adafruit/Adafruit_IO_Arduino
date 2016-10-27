@@ -23,11 +23,14 @@ class ToggleBlock : public AdafruitIO_Block {
     const char *onText;
     const char *offText;
 
+    int width = 4;
+    int height = 2;
+
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "toggle_button";
 
 };
 

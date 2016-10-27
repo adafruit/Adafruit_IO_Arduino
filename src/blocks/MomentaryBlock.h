@@ -24,11 +24,14 @@ class MomentaryBlock : public AdafruitIO_Block {
     const char *value;
     const char *release;
 
+    int width = 2;
+    int height = 2;
+
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "momentary_button";
 
 };
 

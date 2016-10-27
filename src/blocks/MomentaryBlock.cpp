@@ -16,7 +16,6 @@ MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : Ad
   text = "RESET";
   value = "1";
   release = "0";
-  _visual_type = "momentary_button";
 }
 
 MomentaryBlock::~MomentaryBlock(){}

@@ -25,11 +25,14 @@ class SliderBlock : public AdafruitIO_Block {
     int step;
     const char *label;
 
+    int width = 4;
+    int height = 2;
+
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "slider";
 
 };
 

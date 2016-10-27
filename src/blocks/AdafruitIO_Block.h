@@ -26,6 +26,8 @@ class AdafruitIO_Block {
 
     int width = 2;
     int height = 2;
+    int row;
+    int column;
 
     virtual String properties();
     virtual const char* type();

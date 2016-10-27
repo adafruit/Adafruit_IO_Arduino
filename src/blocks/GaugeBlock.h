@@ -22,14 +22,18 @@ class GaugeBlock : public AdafruitIO_Block {
 
     int min;
     int max;
-    const char *width;
+
+    const char *ringWidth;
     const char *label;
+
+    int width = 4;
+    int height = 4;
 
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "gauge";
 
 };
 

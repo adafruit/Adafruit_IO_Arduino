@@ -20,6 +20,9 @@ class ColorBlock : public AdafruitIO_Block {
     ColorBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
     ~ColorBlock() {}
 
+    int width = 4;
+    int height = 4;
+
     const char* type() { return _visual_type; }
 
   private:

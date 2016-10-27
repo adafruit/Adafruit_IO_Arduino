@@ -22,11 +22,14 @@ class TextBlock : public AdafruitIO_Block {
 
     const char *fontSize;
 
+    int width = 2;
+    int height = 1;
+
     String properties();
     const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type;
+    const char *_visual_type = "text";
 
 };
 

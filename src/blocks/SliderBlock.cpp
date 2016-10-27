@@ -17,7 +17,6 @@ SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : Adafruit
   max = 100;
   step = 10;
   label = "Value";
-  _visual_type = "slider";
 }
 
 SliderBlock::~SliderBlock(){}

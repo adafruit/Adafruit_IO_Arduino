@@ -15,7 +15,6 @@ MapBlock::MapBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Blo
 {
   historyHours = 0;
   tile = "contrast";
-  _visual_type = "map";
 }
 
 MapBlock::~MapBlock(){}

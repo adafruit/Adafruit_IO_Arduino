@@ -18,7 +18,6 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
   yAxisLabel = "Y";
   yAxisMin = 0;
   yAxisMax = 100;
-  _visual_type = "line_chart";
 }
 
 ChartBlock::~ChartBlock(){}
