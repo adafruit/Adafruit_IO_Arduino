@@ -93,3 +93,8 @@ ColorBlock* AdafruitIO_Dashboard::addColorBlock(AdafruitIO_Feed *feed)
 {
   return new ColorBlock(this, feed);
 }
+
+MapBlock* AdafruitIO_Dashboard::addMapBlock(AdafruitIO_Feed *feed)
+{
+  return new MapBlock(this, feed);
+}
