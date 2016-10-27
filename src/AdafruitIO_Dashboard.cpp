@@ -78,3 +78,8 @@ GaugeBlock* AdafruitIO_Dashboard::addGaugeBlock(AdafruitIO_Feed *feed)
 {
   return new GaugeBlock(this, feed);
 }
+
+TextBlock* AdafruitIO_Dashboard::addTextBlock(AdafruitIO_Feed *feed)
+{
+  return new TextBlock(this, feed);
+}
