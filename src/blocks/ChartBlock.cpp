@@ -18,6 +18,7 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
   yAxisLabel = "Y";
   yAxisMin = 0;
   yAxisMax = 100;
+  _visual_type = "line_chart";
 }
 
 ChartBlock::~ChartBlock(){}
@@ -27,13 +28,13 @@ String ChartBlock::properties()
 
   String props = "{\"historyHours\":\"";
   props += historyHours;
-  props += "\",\"xAxisLabel\":";
+  props += "\",\"xAxisLabel\":\"";
   props += xAxisLabel;
-  props += "\",\"yAxisLabel\":";
+  props += "\",\"yAxisLabel\":\"";
   props += yAxisLabel;
-  props += "\",\"yAxisMin\":";
+  props += "\",\"yAxisMin\":\"";
   props += yAxisMin;
-  props += "\",\"yAxisMax\":";
+  props += "\",\"yAxisMax\":\"";
   props += yAxisMax;
   props += "\"}";
 

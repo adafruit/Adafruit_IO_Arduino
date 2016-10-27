@@ -14,6 +14,7 @@
 TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
 {
   fontSize = "small";
+  _visual_type = "text";
 }
 
 TextBlock::~TextBlock(){}

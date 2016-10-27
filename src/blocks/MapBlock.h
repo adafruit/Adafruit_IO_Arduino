@@ -24,9 +24,10 @@ class MapBlock : public AdafruitIO_Block {
     const char *tile;
 
     String properties();
+    const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type = "map";
+    const char *_visual_type;
 
 };
 

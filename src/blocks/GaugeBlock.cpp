@@ -17,6 +17,7 @@ GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
   max = 100;
   width = "thin";
   label = "Value";
+  _visual_type = "gauge";
 }
 
 GaugeBlock::~GaugeBlock(){}

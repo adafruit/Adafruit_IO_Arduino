@@ -59,6 +59,14 @@ bool AdafruitIO_Dashboard::create()
   return status == 201;
 }
 
+const char* AdafruitIO_Dashboard::user() {
+  return _io->_username;
+}
+
+AdafruitIO* AdafruitIO_Dashboard::io() {
+  return _io;
+}
+
 ToggleBlock* AdafruitIO_Dashboard::addToggleBlock(AdafruitIO_Feed *feed)
 {
   return new ToggleBlock(this, feed);

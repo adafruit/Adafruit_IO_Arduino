@@ -18,6 +18,7 @@ StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : Adafruit
   showErrors = true;
   showTimestamp = true;
   showName = true;
+  _visual_type = "stream";
 }
 
 StreamBlock::~StreamBlock(){}
@@ -36,13 +37,13 @@ String StreamBlock::properties()
 
   String props = "{\"fontSize\":\"";
   props += s;
-  props += "\",\"fontColor\":";
+  props += "\",\"fontColor\":\"";
   props += fontColor == "white" ? "#ffffff" : "#63de00";
-  props += "\",\"errors\":";
+  props += "\",\"errors\":\"";
   props += showErrors ? "yes" : "no";
-  props += "\",\"showTimestamp\":";
+  props += "\",\"showTimestamp\":\"";
   props += showTimestamp ? "yes" : "no";
-  props += "\",\"showName\":";
+  props += "\",\"showName\":\"";
   props += showName ? "yes" : "no";
   props += "\"}";
 

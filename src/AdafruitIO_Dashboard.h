@@ -35,7 +35,10 @@ class AdafruitIO_Dashboard {
     AdafruitIO_Dashboard(AdafruitIO *io, const char *name);
     ~AdafruitIO_Dashboard();
 
-    const char *name;
+    const char* name;
+    const char* user();
+
+    AdafruitIO* io();
 
     bool exists();
     bool create();

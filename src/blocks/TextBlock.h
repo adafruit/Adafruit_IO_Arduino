@@ -23,9 +23,10 @@ class TextBlock : public AdafruitIO_Block {
     const char *fontSize;
 
     String properties();
+    const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type = "text";
+    const char *_visual_type;
 
 };
 

@@ -26,9 +26,10 @@ class SliderBlock : public AdafruitIO_Block {
     const char *label;
 
     String properties();
+    const char* type() { return _visual_type; }
 
   private:
-    const char *_visual_type = "slider";
+    const char *_visual_type;
 
 };
 

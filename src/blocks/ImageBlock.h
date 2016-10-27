@@ -19,6 +19,7 @@ class ImageBlock : public AdafruitIO_Block {
   public:
     ImageBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
     ~ImageBlock() {}
+    const char* type() { return _visual_type; }
 
   private:
     const char *_visual_type = "image";

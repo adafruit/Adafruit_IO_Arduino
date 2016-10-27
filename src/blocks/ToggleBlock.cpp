@@ -15,6 +15,7 @@ ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : Adafruit
 {
   onText = "1";
   offText = "0";
+  _visual_type = "toggle_button";
 }
 
 ToggleBlock::~ToggleBlock(){}

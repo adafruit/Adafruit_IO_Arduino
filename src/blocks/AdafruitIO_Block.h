@@ -24,14 +24,18 @@ class AdafruitIO_Block {
     AdafruitIO_Block(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
     ~AdafruitIO_Block();
 
+    int width = 2;
+    int height = 2;
+
     virtual String properties();
+    virtual const char* type();
 
     bool save();
 
   private:
     AdafruitIO_Dashboard *_dashboard;
     AdafruitIO_Feed *_feed;
-    const char *_visual_type = "block";
+    const char *_visual_type;
 
 };
 

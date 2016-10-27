@@ -32,6 +32,7 @@ class AdafruitIO {
 
   friend class AdafruitIO_Feed;
   friend class AdafruitIO_Dashboard;
+  friend class AdafruitIO_Block;
 
   public:
     AdafruitIO(const char *user, const char *key);

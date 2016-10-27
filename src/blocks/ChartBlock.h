@@ -20,6 +20,7 @@ class ChartBlock : public AdafruitIO_Block {
     ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
     ~ChartBlock();
 
+    const char* type() { return _visual_type; }
     int historyHours;
     const char *xAxisLabel;
     const char *yAxisLabel;
@@ -29,7 +30,7 @@ class ChartBlock : public AdafruitIO_Block {
     String properties();
 
   private:
-    const char *_visual_type = "line_chart";
+    const char *_visual_type;
 
 };
 
