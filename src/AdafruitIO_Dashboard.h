@@ -17,6 +17,7 @@
 #include "blocks/ToggleBlock.h"
 #include "blocks/MomentaryBlock.h"
 #include "blocks/SliderBlock.h"
+#include "blocks/GaugeBlock.h"
 
 // forward declaration
 class AdafruitIO;
@@ -36,6 +37,7 @@ class AdafruitIO_Dashboard {
     ToggleBlock* addToggleBlock(AdafruitIO_Feed *feed);
     MomentaryBlock* addMomentaryBlock(AdafruitIO_Feed *feed);
     SliderBlock* addSliderBlock(AdafruitIO_Feed *feed);
+    GaugeBlock* addGaugeBlock(AdafruitIO_Feed *feed);
 
   private:
     AdafruitIO *_io;

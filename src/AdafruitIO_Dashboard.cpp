@@ -73,3 +73,8 @@ SliderBlock* AdafruitIO_Dashboard::addSliderBlock(AdafruitIO_Feed *feed)
 {
   return new SliderBlock(this, feed);
 }
+
+GaugeBlock* AdafruitIO_Dashboard::addGaugeBlock(AdafruitIO_Feed *feed)
+{
+  return new GaugeBlock(this, feed);
+}
