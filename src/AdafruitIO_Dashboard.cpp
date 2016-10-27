@@ -98,3 +98,8 @@ MapBlock* AdafruitIO_Dashboard::addMapBlock(AdafruitIO_Feed *feed)
 {
   return new MapBlock(this, feed);
 }
+
+StreamBlock* AdafruitIO_Dashboard::addStreamBlock(AdafruitIO_Feed *feed)
+{
+  return new StreamBlock(this, feed);
+}

@@ -15,7 +15,7 @@ GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
 {
   min = 0;
   max = 100;
-  width = "THIN";
+  width = "thin";
   label = "Value";
 }
 
@@ -25,7 +25,7 @@ String GaugeBlock::properties()
 {
   int w = 0;
 
-  if(width == "THIN") {
+  if(width == "thin") {
     w = 25;
   } else {
     w = 50;

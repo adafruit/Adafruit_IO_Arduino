@@ -9,16 +9,20 @@
 //
 // All text above must be included in any redistribution.
 //
-#include "TextBlock.h"
+#include "StreamBlock.h"
 
-TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
+StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
 {
   fontSize = "small";
+  fontColor = "green";
+  showErrors = true;
+  showTimestamp = true;
+  showName = true;
 }
 
-TextBlock::~TextBlock(){}
+StreamBlock::~StreamBlock(){}
 
-String TextBlock::properties()
+String StreamBlock::properties()
 {
   int s = 0;
 
@@ -32,6 +36,14 @@ String TextBlock::properties()
 
   String props = "{\"fontSize\":\"";
   props += s;
+  props += "\",\"fontColor\":";
+  props += fontColor == "white" ? "#ffffff" : "#63de00";
+  props += "\",\"errors\":";
+  props += showErrors ? "yes" : "no";
+  props += "\",\"showTimestamp\":";
+  props += showTimestamp ? "yes" : "no";
+  props += "\",\"showName\":";
+  props += showName ? "yes" : "no";
   props += "\"}";
 
   return props;
