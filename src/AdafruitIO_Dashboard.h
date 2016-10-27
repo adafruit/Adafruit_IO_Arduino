@@ -19,6 +19,7 @@
 #include "blocks/SliderBlock.h"
 #include "blocks/GaugeBlock.h"
 #include "blocks/TextBlock.h"
+#include "blocks/ChartBlock.h"
 
 // forward declaration
 class AdafruitIO;
@@ -40,6 +41,7 @@ class AdafruitIO_Dashboard {
     SliderBlock* addSliderBlock(AdafruitIO_Feed *feed);
     GaugeBlock* addGaugeBlock(AdafruitIO_Feed *feed);
     TextBlock* addTextBlock(AdafruitIO_Feed *feed);
+    ChartBlock* addChartBlock(AdafruitIO_Feed *feed);
 
   private:
     AdafruitIO *_io;

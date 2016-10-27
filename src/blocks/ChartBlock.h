@@ -1,0 +1,36 @@
+//
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
+// Copyright (c) 2015-2016 Adafruit Industries
+// Authors: Tony DiCola, Todd Treece
+// Licensed under the MIT license.
+//
+// All text above must be included in any redistribution.
+//
+#ifndef ADAFRUITIO_CHARTBLOCK_H
+#define ADAFRUITIO_CHARTBLOCK_H
+
+#include "AdafruitIO_Block.h"
+
+class ChartBlock : public AdafruitIO_Block {
+
+  public:
+    ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+    ~ChartBlock();
+
+    int historyHours;
+    const char *xAxisLabel;
+    const char *yAxisLabel;
+    int yAxisMin;
+    int yAxisMax;
+
+    String properties();
+
+  private:
+    const char *_visual_type = "line_chart";
+
+};
+
+#endif // ADAFRUITIO_CHARTBLOCK_H
