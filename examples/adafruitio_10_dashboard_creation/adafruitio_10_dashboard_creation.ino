@@ -83,7 +83,6 @@ void loop() {
 
 }
 
-
 void addBlocks() {
 
   bool added = false;
@@ -164,4 +163,3 @@ void addBlocks() {
   Serial.println(added ? "added" : "failed");
 
 }
-
