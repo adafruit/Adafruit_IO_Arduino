@@ -39,6 +39,9 @@ bool AdafruitIO_Dashboard::exists()
 
 bool AdafruitIO_Dashboard::create()
 {
+  if(exists())
+    return true;
+
   String url = "/api/v2/";
   url += _io->_username;
   url += "/dashboards";
