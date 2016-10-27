@@ -126,9 +126,6 @@ bool AdafruitIO_Feed::exists()
 
 bool AdafruitIO_Feed::create()
 {
-  if(exists())
-    return true;
-
   String body = "name=";
   body += name;
 

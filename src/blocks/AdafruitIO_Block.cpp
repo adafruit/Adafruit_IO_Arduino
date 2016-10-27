@@ -80,8 +80,6 @@ bool AdafruitIO_Block::save()
   body += block_feeds;
   body += "}";
 
-  Serial.println(body);
-
   http->startRequest(url.c_str(), HTTP_METHOD_POST);
   http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/json");
   http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
