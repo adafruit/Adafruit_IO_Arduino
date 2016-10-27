@@ -103,3 +103,8 @@ StreamBlock* AdafruitIO_Dashboard::addStreamBlock(AdafruitIO_Feed *feed)
 {
   return new StreamBlock(this, feed);
 }
+
+ImageBlock* AdafruitIO_Dashboard::addImageBlock(AdafruitIO_Feed *feed)
+{
+  return new ImageBlock(this, feed);
+}

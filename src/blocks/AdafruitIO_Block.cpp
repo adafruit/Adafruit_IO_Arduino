@@ -21,7 +21,7 @@ AdafruitIO_Block::~AdafruitIO_Block(){}
 
 String AdafruitIO_Block::properties()
 {
-  String props = "";
+  String props = "{}";
   return props;
 }
 

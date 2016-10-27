@@ -23,6 +23,7 @@
 #include "blocks/ColorBlock.h"
 #include "blocks/MapBlock.h"
 #include "blocks/StreamBlock.h"
+#include "blocks/ImageBlock.h"
 
 // forward declaration
 class AdafruitIO;
@@ -48,6 +49,7 @@ class AdafruitIO_Dashboard {
     ColorBlock* addColorBlock(AdafruitIO_Feed *feed);
     MapBlock* addMapBlock(AdafruitIO_Feed *feed);
     StreamBlock* addStreamBlock(AdafruitIO_Feed *feed);
+    ImageBlock* addImageBlock(AdafruitIO_Feed *feed);
 
   private:
     AdafruitIO *_io;

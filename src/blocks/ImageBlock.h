@@ -9,14 +9,20 @@
 //
 // All text above must be included in any redistribution.
 //
-#include "ColorBlock.h"
+#ifndef ADAFRUITIO_IMAGEBLOCK_H
+#define ADAFRUITIO_IMAGEBLOCK_H
 
-ColorBlock::ColorBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
+#include "AdafruitIO_Block.h"
 
-ColorBlock::~ColorBlock(){}
+class ImageBlock : public AdafruitIO_Block {
 
-String ColorBlock::properties()
-{
-  String props = "{}";
-  return props;
-}
+  public:
+    ImageBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
+    ~ImageBlock() {}
+
+  private:
+    const char *_visual_type = "image";
+
+};
+
+#endif // ADAFRUITIO_IMAGEBLOCK_H
