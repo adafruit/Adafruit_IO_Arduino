@@ -88,3 +88,8 @@ ChartBlock* AdafruitIO_Dashboard::addChartBlock(AdafruitIO_Feed *feed)
 {
   return new ChartBlock(this, feed);
 }
+
+ColorBlock* AdafruitIO_Dashboard::addColorBlock(AdafruitIO_Feed *feed)
+{
+  return new ColorBlock(this, feed);
+}

@@ -20,6 +20,7 @@
 #include "blocks/GaugeBlock.h"
 #include "blocks/TextBlock.h"
 #include "blocks/ChartBlock.h"
+#include "blocks/ColorBlock.h"
 
 // forward declaration
 class AdafruitIO;
@@ -42,6 +43,7 @@ class AdafruitIO_Dashboard {
     GaugeBlock* addGaugeBlock(AdafruitIO_Feed *feed);
     TextBlock* addTextBlock(AdafruitIO_Feed *feed);
     ChartBlock* addChartBlock(AdafruitIO_Feed *feed);
+    ColorBlock* addColorBlock(AdafruitIO_Feed *feed);
 
   private:
     AdafruitIO *_io;
