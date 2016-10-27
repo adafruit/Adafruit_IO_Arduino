@@ -68,3 +68,8 @@ MomentaryBlock* AdafruitIO_Dashboard::addMomentaryBlock(AdafruitIO_Feed *feed)
 {
   return new MomentaryBlock(this, feed);
 }
+
+SliderBlock* AdafruitIO_Dashboard::addSliderBlock(AdafruitIO_Feed *feed)
+{
+  return new SliderBlock(this, feed);
+}

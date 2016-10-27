@@ -13,8 +13,8 @@
 
 ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
 {
-  onText = 0;
-  offText = 0;
+  onText = "1";
+  offText = "0";
 }
 
 ToggleBlock::~ToggleBlock(){}

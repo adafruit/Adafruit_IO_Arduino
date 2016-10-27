@@ -13,9 +13,9 @@
 
 MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
 {
-  text = 0;
-  value = 0;
-  release = 0;
+  text = "RESET";
+  value = "1";
+  release = "0";
 }
 
 MomentaryBlock::~MomentaryBlock(){}
