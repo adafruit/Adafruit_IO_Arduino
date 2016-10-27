@@ -27,6 +27,26 @@ String AdafruitIO_Block::properties()
   return props;
 }
 
+String AdafruitIO_Block::dimensions()
+{
+  String dim = "\",\"size_x\":\"";
+  dim += _width();
+  dim += "\",\"size_y\":\"";
+  dim += _height();
+
+  if(_row() > 0) {
+    dim += "\",\"row\":\"";
+    dim += _row();
+  }
+
+  if(_column() > 0) {
+    dim += "\",\"column\":\"";
+    dim += _column();
+  }
+
+  return dim;
+}
+
 const char* AdafruitIO_Block::type()
 {
   return _visual_type;
@@ -53,15 +73,14 @@ bool AdafruitIO_Block::save()
 
   String body = "{\"visual_type\":\"";
   body += type();
+  body += dimensions();
   body += "\",\"properties\":";
   body += properties();
-  body += "\,\"size_x\":\"";
-  body += width;
-  body += "\",\"size_y\":\"";
-  body += height;
-  body += "\",\"block_feeds\":";
+  body += ",\"block_feeds\":";
   body += block_feeds;
   body += "}";
+
+  Serial.println(body);
 
   http->startRequest(url.c_str(), HTTP_METHOD_POST);
   http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/json");

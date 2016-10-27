@@ -31,9 +31,13 @@ class GaugeBlock : public AdafruitIO_Block {
 
     String properties();
     const char* type() { return _visual_type; }
-
-  private:
+  protected:
     const char *_visual_type = "gauge";
+
+    int _width() { return width; }
+    int _height() { return height; }
+    int _row() { return row; }
+    int _column() { return column; }
 
 };
 
