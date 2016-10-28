@@ -62,12 +62,8 @@ bool AdafruitIO_Block::save()
   url += _dashboard->name;
   url += "/blocks";
 
-  String user = _dashboard->user();
-  user.replace("_", "-");
-
-  String block_feeds = "[{\"group_id\": \"";
-  block_feeds += user;
-  block_feeds += "\",\"feed_id\":\"";
+  String block_feeds = "[{\"group_id\":\"default\",";
+  block_feeds += "\"feed_id\":\"";
   block_feeds += _feed->name;
   block_feeds += "\"}]";
 
