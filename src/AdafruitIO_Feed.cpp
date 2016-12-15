@@ -23,17 +23,6 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
   _init();
 }
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *n)
-{
-  _io = io;
-  name = (const char*)n;
-  _sub = 0;
-  _pub = 0;
-  _dataCallback = 0;
-
-  _init();
-}
-
 AdafruitIO_Feed::~AdafruitIO_Feed()
 {
   if(_sub)

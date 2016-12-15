@@ -26,7 +26,6 @@ class AdafruitIO_MKR1000 : public AdafruitIO {
 
   public:
     AdafruitIO_MKR1000(const char *user, const char *key, const char *ssid, const char *pass);
-    AdafruitIO_MKR1000(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass);
     ~AdafruitIO_MKR1000();
 
     aio_status_t networkStatus();

@@ -36,7 +36,6 @@ class AdafruitIO {
 
   public:
     AdafruitIO(const char *user, const char *key);
-    AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key);
     virtual ~AdafruitIO();
 
     void connect();
@@ -44,7 +43,6 @@ class AdafruitIO {
     void run(uint16_t busywait_ms = 0);
 
     AdafruitIO_Feed* feed(const char *name);
-    AdafruitIO_Feed* feed(const __FlashStringHelper *name);
 
     AdafruitIO_Dashboard* dashboard(const char *name);
 

@@ -25,7 +25,6 @@ class AdafruitIO_WICED : public AdafruitIO {
 
   public:
     AdafruitIO_WICED(const char *user, const char *key, const char *ssid, const char *pass);
-    AdafruitIO_WICED(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass);
     ~AdafruitIO_WICED();
 
     aio_status_t networkStatus();

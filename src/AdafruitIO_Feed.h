@@ -24,7 +24,6 @@ class AdafruitIO_Feed {
 
   public:
     AdafruitIO_Feed(AdafruitIO *io, const char *name);
-    AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *name);
     ~AdafruitIO_Feed();
 
     void onMessage(AdafruitIODataCallbackType cb);
