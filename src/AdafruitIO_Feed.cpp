@@ -47,6 +47,12 @@ AdafruitIO_Feed::~AdafruitIO_Feed()
 
   if(_topic)
     free(_topic);
+
+  if(_feed_url)
+    free(_feed_url);
+
+  if(_create_url)
+    free(_create_url);
 }
 
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
@@ -108,6 +114,33 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
   return _pub->publish(data->toCSV());
 }
 
+bool AdafruitIO_Feed::exists()
+{
+  _io->_http->startRequest(_feed_url, HTTP_METHOD_GET);
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+  int status = _io->_http->responseStatusCode();
+  _io->_http->responseBody(); // needs to be read even if not used
+  return status == 200;
+}
+
+bool AdafruitIO_Feed::create()
+{
+  String body = "name=";
+  body += name;
+
+  _io->_http->startRequest(_create_url, HTTP_METHOD_POST);
+  _io->_http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded");
+  _io->_http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+  _io->_http->write((const byte*)body.c_str(), body.length());
+
+  int status = _io->_http->responseStatusCode();
+  _io->_http->responseBody(); // needs to be read even if not used
+  return status == 201;
+}
+
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
 {
   data->setLocation(lat, lon, ele);
@@ -125,19 +158,32 @@ void AdafruitIO_Feed::subCallback(char *val, uint16_t len)
 void AdafruitIO_Feed::_init()
 {
 
-  // dynamically allocate memory for topic
+  // dynamically allocate memory for mqtt topic and REST URLs
   _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _feed_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 16)); // 16 extra for api path & null term
+  _create_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + 15)); // 15 extra for api path & null term
 
   // init feed data
   data = new AdafruitIO_Data(this);
 
-  if(_topic) {
+  if(_topic && _create_url && _feed_url) {
 
     // build topic string
     strcpy(_topic, _io->_username);
     strcat(_topic, "/f/");
     strcat(_topic, name);
     strcat(_topic, "/csv");
+
+    // build feed url string
+    strcpy(_feed_url, "/api/v2/");
+    strcat(_feed_url, _io->_username);
+    strcat(_feed_url, "/feeds/");
+    strcat(_feed_url, name);
+
+    // build create url string
+    strcpy(_create_url, "/api/v2/");
+    strcat(_create_url, _io->_username);
+    strcat(_create_url, "/feeds");
 
     // setup subscription
     _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
@@ -150,6 +196,8 @@ void AdafruitIO_Feed::_init()
 
     // malloc failed
     _topic = 0;
+    _create_url = 0;
+    _feed_url = 0;
     _sub = 0;
     _pub = 0;
     data = 0;

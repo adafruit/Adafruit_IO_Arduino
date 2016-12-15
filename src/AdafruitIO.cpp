@@ -14,6 +14,7 @@
 AdafruitIO::AdafruitIO(const char *user, const char *key)
 {
   _mqtt = 0;
+  _http = 0;
   _username = user;
   _key = key;
   _err_topic = 0;
@@ -28,6 +29,7 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
 AdafruitIO::AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key)
 {
   _mqtt = 0;
+  _http = 0;
   _username = (const char*)user;
   _key = (const char*)key;
   _err_topic = 0;
@@ -91,6 +93,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const char* name)
 AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
 {
   return new AdafruitIO_Feed(this, name);
+}
+
+AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)
+{
+  return new AdafruitIO_Dashboard(this, name);
 }
 
 void AdafruitIO::_init()

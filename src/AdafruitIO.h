@@ -16,7 +16,9 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Feed.h"
+#include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
+#include "ArduinoHttpClient.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
   #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
@@ -29,6 +31,8 @@
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
+  friend class AdafruitIO_Dashboard;
+  friend class AdafruitIO_Block;
 
   public:
     AdafruitIO(const char *user, const char *key);
@@ -42,6 +46,8 @@ class AdafruitIO {
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const __FlashStringHelper *name);
 
+    AdafruitIO_Dashboard* dashboard(const char *name);
+
     const __FlashStringHelper* statusText();
 
     aio_status_t status();
@@ -54,9 +60,11 @@ class AdafruitIO {
     uint32_t _last_ping = 0;
 
     Adafruit_MQTT *_mqtt;
+    HttpClient *_http;
 
     const char *_host = "io.adafruit.com";
-    uint16_t _port = 8883;
+    uint16_t _mqtt_port = 8883;
+    uint16_t _http_port = 443;
 
     uint16_t _packetread_timeout;
 

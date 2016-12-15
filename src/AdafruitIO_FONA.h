@@ -33,7 +33,7 @@ class AdafruitIO_FONA : public AdafruitIO {
     {
       _serial = new SoftwareSerial(FONA_TX, FONA_RX);
       _fona = new Adafruit_FONA(FONA_RST);
-      _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
+      _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _mqtt_port);
       _packetread_timeout = 500;
     }
 
@@ -41,7 +41,7 @@ class AdafruitIO_FONA : public AdafruitIO {
     {
       _serial = new SoftwareSerial(FONA_TX, FONA_RX);
       _fona = new Adafruit_FONA(FONA_RST);
-      _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _port);
+      _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _mqtt_port);
       _packetread_timeout = 500;
     }
 
@@ -69,7 +69,7 @@ class AdafruitIO_FONA : public AdafruitIO {
     }
 
   protected:
-    uint16_t _port = 1883;
+    uint16_t _mqtt_port = 1883;
 
     SoftwareSerial *_serial;
     Adafruit_FONA *_fona;

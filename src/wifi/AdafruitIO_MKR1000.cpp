@@ -9,28 +9,29 @@
 //
 // All text above must be included in any redistribution.
 //
-#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
+#if defined(ARDUINO_SAMD_MKR1000)
 
-#include "AdafruitIO_WINC1500.h"
+#include "AdafruitIO_MKR1000.h"
 
-
-AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
+AdafruitIO_MKR1000::AdafruitIO_MKR1000(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
 {
   _ssid = ssid;
   _pass = pass;
   _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
+  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
+AdafruitIO_MKR1000::AdafruitIO_MKR1000(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
 {
   _ssid = (const char*)ssid;
   _pass = (const char*)pass;
   _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
+  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_WINC1500::~AdafruitIO_WINC1500()
+AdafruitIO_MKR1000::~AdafruitIO_MKR1000()
 {
   if(_client)
     delete _client;
@@ -38,10 +39,8 @@ AdafruitIO_WINC1500::~AdafruitIO_WINC1500()
     delete _mqtt;
 }
 
-void AdafruitIO_WINC1500::_connect()
+void AdafruitIO_MKR1000::_connect()
 {
-
-  WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
   // no shield? bail
   if(WiFi.status() == WL_NO_SHIELD)
@@ -52,7 +51,7 @@ void AdafruitIO_WINC1500::_connect()
 
 }
 
-aio_status_t AdafruitIO_WINC1500::networkStatus()
+aio_status_t AdafruitIO_MKR1000::networkStatus()
 {
 
   switch(WiFi.status()) {
