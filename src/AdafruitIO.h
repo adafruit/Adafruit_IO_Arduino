@@ -22,11 +22,11 @@
 #include "ArduinoHttpClient.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
-  #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
+  #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
-#if ADAFRUIT_MQTT_VERSION_MAJOR == 0 && ADAFRUIT_MQTT_VERSION_MINOR < 16
-  #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
+#if ADAFRUIT_MQTT_VERSION_MAJOR == 0 && ADAFRUIT_MQTT_VERSION_MINOR < 17
+  #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
 class AdafruitIO {
