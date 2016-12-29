@@ -14,32 +14,64 @@
 
 AdafruitIO_Data::AdafruitIO_Data()
 {
-  feed = 0;
+  _feed = 0;
   _csv = 0;
-  _value = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
+  next_data = 0;
+
+  memset(_value, 0, AIO_DATA_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
 {
-  feed = f;
+  _feed = f->name;
   _csv = 0;
-  _value = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
+  next_data = 0;
+
+  memset(_value, 0, AIO_DATA_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
 {
-  feed = f;
+  _feed = f->name;
   _csv = csv;
-  _value = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
+  next_data = 0;
+
+  memset(_value, 0, AIO_DATA_LENGTH);
+
+  _parseCSV();
+}
+
+AdafruitIO_Data::AdafruitIO_Data(const char *f)
+{
+  _feed = f;
+  _csv = 0;
+  _lat = 0;
+  _lon = 0;
+  _ele = 0;
+  next_data = 0;
+
+  memset(_value, 0, AIO_DATA_LENGTH);
+}
+
+AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
+{
+  _feed = f;
+  _csv = csv;
+  _lat = 0;
+  _lon = 0;
+  _ele = 0;
+  next_data = 0;
+
+  memset(_value, 0, AIO_DATA_LENGTH);
 
   _parseCSV();
 }
@@ -61,26 +93,24 @@ void AdafruitIO_Data::setLocation(double lat, double lon, double ele)
   _ele = ele;
 }
 
-static char _converted[AIO_DATA_LENGTH];
-
 void AdafruitIO_Data::setValue(const char *value, double lat, double lon, double ele)
 {
-  _value = (char *)value;
+  strcpy(_value, value);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(char *value, double lat, double lon, double ele)
 {
-  _value = value;
+  strcpy(_value, value);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele)
 {
   if(value)
-    _value = (char *)"1";
+    strcpy(_value, "1");
   else
-    _value = (char *)"0";
+    strcpy(_value, "0");
 
   setLocation(lat, lon, ele);
 }
@@ -93,83 +123,76 @@ void AdafruitIO_Data::setValue(String value, double lat, double lon, double ele)
 
 void AdafruitIO_Data::setValue(int value, double lat, double lon, double ele)
 {
-  memset(_converted, 0, sizeof(_converted));
-  itoa(value, _converted, 10);
-  _value = _converted;
+  memset(_value, 0, AIO_DATA_LENGTH);
+  itoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned int value, double lat, double lon, double ele)
 {
-  memset(_converted, 0, sizeof(_converted));
-  utoa(value, _converted, 10);
-  _value = _converted;
+  memset(_value, 0, AIO_DATA_LENGTH);
+  utoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(long value, double lat, double lon, double ele)
 {
-  memset(_converted, 0, sizeof(_converted));
-  ltoa(value, _converted, 10);
-  _value = _converted;
+  memset(_value, 0, AIO_DATA_LENGTH);
+  ltoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon, double ele)
 {
-  memset(_converted, 0, sizeof(_converted));
-  ultoa(value, _converted, 10);
-  _value = _converted;
+  memset(_value, 0, AIO_DATA_LENGTH);
+  ultoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, int precision)
 {
-  memset(_converted, 0, sizeof(_converted));
+  memset(_value, 0, AIO_DATA_LENGTH);
 
   #if defined(ARDUINO_ARCH_AVR)
     // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _converted, 10, 0);
+    dtostre(value, _value, 10, 0);
   #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
-    dtostrf(value, 0, precision, _converted);
+    dtostrf(value, 0, precision, _value);
   #else
     // Otherwise fall back to snprintf on other platforms.
-    snprintf(_converted, sizeof(_converted)-1, "%f", value);
+    snprintf(_value, sizeof(_value)-1, "%f", value);
   #endif
 
-  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele, int precision)
 {
-  memset(_converted, 0, sizeof(_converted));
+  memset(_value, 0, AIO_DATA_LENGTH);
 
   #if defined(ARDUINO_ARCH_AVR)
     // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _converted, 10, 0);
+    dtostre(value, _value, 10, 0);
   #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
-    dtostrf(value, 0, precision, _converted);
+    dtostrf(value, 0, precision, _value);
   #else
     // Otherwise fall back to snprintf on other platforms.
-    snprintf(_converted, sizeof(_converted)-1, "%f", value);
+    snprintf(_value, sizeof(_value)-1, "%f", value);
   #endif
 
-
-  _value = _converted;
   setLocation(lat, lon, ele);
 }
 
 char* AdafruitIO_Data::feedName()
 {
-  if(! feed)
+  if(! _feed)
     return (char*)"";
 
-  return (char *)feed->name;
+  return (char *)_feed;
 }
 
 char* AdafruitIO_Data::value()
@@ -344,7 +367,7 @@ char* AdafruitIO_Data::charFromDouble(double d, int precision)
 bool AdafruitIO_Data::_parseCSV()
 {
   // parse value from csv
-  _value = strtok(_csv, ",");
+  strcpy(_value, strtok(_csv, ","));
   if (! _value) return false;
 
   // parse lat from csv and convert to float
