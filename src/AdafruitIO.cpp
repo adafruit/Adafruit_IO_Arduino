@@ -75,6 +75,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const char* name)
   return new AdafruitIO_Feed(this, name);
 }
 
+AdafruitIO_Group* AdafruitIO::group(const char* name)
+{
+  return new AdafruitIO_Group(this, name);
+}
+
 AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)
 {
   return new AdafruitIO_Dashboard(this, name);

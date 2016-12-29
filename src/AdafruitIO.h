@@ -16,6 +16,7 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Feed.h"
+#include "AdafruitIO_Group.h"
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
 #include "ArduinoHttpClient.h"
@@ -31,6 +32,7 @@
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
+  friend class AdafruitIO_Group;
   friend class AdafruitIO_Dashboard;
   friend class AdafruitIO_Block;
 
@@ -43,7 +45,7 @@ class AdafruitIO {
     void run(uint16_t busywait_ms = 0);
 
     AdafruitIO_Feed* feed(const char *name);
-
+    AdafruitIO_Group* group(const char *name);
     AdafruitIO_Dashboard* dashboard(const char *name);
 
     const __FlashStringHelper* statusText();
