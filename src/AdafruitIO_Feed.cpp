@@ -12,13 +12,12 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO.h"
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT()
 {
   _io = io;
   name = n;
   _sub = 0;
   _pub = 0;
-  _dataCallback = 0;
 
   _init();
 }
@@ -179,7 +178,7 @@ void AdafruitIO_Feed::_init()
     _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
     _io->_mqtt->subscribe(_sub);
 
-    _sub->setCallback(this, &AdafruitIO_Feed::subCallback);
+    _sub->setCallback(this, &AdafruitIO_MQTT::subCallback);
 
   } else {
 
