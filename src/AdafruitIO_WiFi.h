@@ -14,12 +14,12 @@
 
 #if defined(ARDUINO_SAMD_MKR1000)
 
-  #include "AdafruitIO_MKR1000.h"
+  #include "wifi/AdafruitIO_MKR1000.h"
   typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
 
 #elif !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
 
-  #include "AdafruitIO_WINC1500.h"
+  #include "wifi/AdafruitIO_WINC1500.h"
   typedef AdafruitIO_WINC1500 AdafruitIO_WiFi;
 
 #elif defined(ARDUINO_ARCH_ESP32)
@@ -29,12 +29,12 @@
 
 #elif defined(ESP8266)
 
-  #include "AdafruitIO_ESP8266.h"
+  #include "wifi/AdafruitIO_ESP8266.h"
   typedef AdafruitIO_ESP8266 AdafruitIO_WiFi;
 
 #elif defined(ARDUINO_STM32_FEATHER)
 
-  #include "AdafruitIO_WICED.h"
+  #include "wifi/AdafruitIO_WICED.h"
   typedef AdafruitIO_WICED AdafruitIO_WiFi;
 
 #endif
