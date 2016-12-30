@@ -24,7 +24,7 @@
 
 #elif defined(ARDUINO_ARCH_ESP32)
 
-  #include "AdafruitIO_ESP32.h"
+  #include "wifi/AdafruitIO_ESP32.h"
   typedef AdafruitIO_ESP32 AdafruitIO_WiFi;
 
 #elif defined(ESP8266)
