@@ -57,6 +57,7 @@ class AdafruitIO {
 
     char* boardID();
     const char* boardType();
+    char* version();
     virtual const char* connectionType() = 0;
 
   protected:
@@ -66,6 +67,8 @@ class AdafruitIO {
 
     Adafruit_MQTT *_mqtt;
     HttpClient *_http;
+
+    char _version[10];
 
     const char *_host = "io.adafruit.com";
     uint16_t _mqtt_port = 8883;
