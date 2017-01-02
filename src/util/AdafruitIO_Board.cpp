@@ -69,6 +69,15 @@ const char* AdafruitIO_Board::type()
     return AdafruitIO_Board::_id;
   }
 
+#elif defined(ARDUINO_STM32_FEATHER)
+
+  char* AdafruitIO_Board::id()
+  {
+    uint32_t* p_unique_id = (uint32_t*) (0x1FFF7A10);
+    sprintf(AdafruitIO_Board::_id, "%08lX%08lX%08lX", p_unique_id[2], p_unique_id[1], p_unique_id[0]);
+    return AdafruitIO_Board::_id;
+  }
+
 #else
 
   char* AdafruitIO_Board::id()
