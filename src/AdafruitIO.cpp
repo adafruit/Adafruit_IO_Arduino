@@ -199,6 +199,11 @@ aio_status_t AdafruitIO::status()
   return _status;
 }
 
+char* AdafruitIO::id()
+{
+  return AdafruitIO_Board::id();
+}
+
 aio_status_t AdafruitIO::mqttStatus()
 {
   // if the connection failed,
