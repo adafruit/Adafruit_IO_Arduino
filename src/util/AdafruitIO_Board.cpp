@@ -13,6 +13,25 @@
 
 char AdafruitIO_Board::_id[64] = "";
 
+#if defined(ARDUINO_SAMD_MKR1000)
+    const char AdafruitIO_Board::_type[] = "mkr1000";
+#elif defined(ARDUINO_SAMD_FEATHER_M0)
+    const char AdafruitIO_Board::_type[] = "feather_m0";
+#elif defined(ARDUINO_AVR_FEATHER32U4)
+    const char AdafruitIO_Board::_type[] = "feather_32u4";
+#elif defined(ARDUINO_STM32_FEATHER)
+    const char AdafruitIO_Board::_type[] = "feather_wiced";
+#elif defined(ESP8266)
+    const char AdafruitIO_Board::_type[] = "esp8266";
+#else
+    const char AdafruitIO_Board::_type[] = "unknown";
+#endif
+
+const char* AdafruitIO_Board::type()
+{
+  return AdafruitIO_Board::_type;
+}
+
 #if defined(ARDUINO_ARCH_SAMD)
 
   char* AdafruitIO_Board::id()

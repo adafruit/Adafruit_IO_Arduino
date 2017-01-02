@@ -53,8 +53,10 @@ class AdafruitIO {
 
     aio_status_t status();
     virtual aio_status_t networkStatus() = 0;
-    char* id();
     aio_status_t mqttStatus();
+
+    char* boardID();
+    const char* boardType();
 
   protected:
     virtual void _connect() = 0;

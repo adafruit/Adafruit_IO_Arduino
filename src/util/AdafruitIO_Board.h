@@ -25,6 +25,10 @@ class AdafruitIO_Board {
     static char _id[64];
     static char* id();
 
+    static const char _type[];
+    static const char* type();
+
+
 };
 
 #endif // ADAFRUITIO_BOARD_H

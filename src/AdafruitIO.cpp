@@ -199,9 +199,14 @@ aio_status_t AdafruitIO::status()
   return _status;
 }
 
-char* AdafruitIO::id()
+char* AdafruitIO::boardID()
 {
   return AdafruitIO_Board::id();
+}
+
+const char* AdafruitIO::boardType()
+{
+  return AdafruitIO_Board::type();
 }
 
 aio_status_t AdafruitIO::mqttStatus()
