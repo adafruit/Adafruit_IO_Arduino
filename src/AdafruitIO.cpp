@@ -199,6 +199,22 @@ aio_status_t AdafruitIO::status()
   return _status;
 }
 
+char* AdafruitIO::boardID()
+{
+  return AdafruitIO_Board::id();
+}
+
+const char* AdafruitIO::boardType()
+{
+  return AdafruitIO_Board::type();
+}
+
+char* AdafruitIO::version()
+{
+  sprintf(_version, "%d.%d.%d", ADAFRUITIO_VERSION_MAJOR, ADAFRUITIO_VERSION_MINOR, ADAFRUITIO_VERSION_PATCH);
+  return _version;
+}
+
 aio_status_t AdafruitIO::mqttStatus()
 {
   // if the connection failed,

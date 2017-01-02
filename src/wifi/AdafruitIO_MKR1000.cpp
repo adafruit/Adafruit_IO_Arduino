@@ -67,4 +67,9 @@ aio_status_t AdafruitIO_MKR1000::networkStatus()
 
 }
 
+const char* AdafruitIO_MKR1000::connectionType()
+{
+  return "wifi";
+}
+
 #endif // ARDUINO_ARCH_SAMD

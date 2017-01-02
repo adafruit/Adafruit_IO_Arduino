@@ -19,6 +19,7 @@
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
 #include "ArduinoHttpClient.h"
+#include "util/AdafruitIO_Board.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
   #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
@@ -54,6 +55,11 @@ class AdafruitIO {
     virtual aio_status_t networkStatus() = 0;
     aio_status_t mqttStatus();
 
+    char* boardID();
+    const char* boardType();
+    char* version();
+    virtual const char* connectionType() = 0;
+
   protected:
     virtual void _connect() = 0;
     aio_status_t _status = AIO_IDLE;
@@ -61,6 +67,8 @@ class AdafruitIO {
 
     Adafruit_MQTT *_mqtt;
     HttpClient *_http;
+
+    char _version[10];
 
     const char *_host = "io.adafruit.com";
     uint16_t _mqtt_port = 8883;

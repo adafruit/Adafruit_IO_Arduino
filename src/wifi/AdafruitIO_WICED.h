@@ -29,6 +29,7 @@ class AdafruitIO_WICED : public AdafruitIO {
     ~AdafruitIO_WICED();
 
     aio_status_t networkStatus();
+    const char* connectionType();
 
   protected:
     void _connect();
