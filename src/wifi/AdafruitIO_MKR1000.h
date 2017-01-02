@@ -30,6 +30,7 @@ class AdafruitIO_MKR1000 : public AdafruitIO {
     ~AdafruitIO_MKR1000();
 
     aio_status_t networkStatus();
+    const char* connectionType();
 
   protected:
     void _connect();

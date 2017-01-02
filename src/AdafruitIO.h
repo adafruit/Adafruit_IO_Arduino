@@ -57,6 +57,7 @@ class AdafruitIO {
 
     char* boardID();
     const char* boardType();
+    virtual const char* connectionType() = 0;
 
   protected:
     virtual void _connect() = 0;

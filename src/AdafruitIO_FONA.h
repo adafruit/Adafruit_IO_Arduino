@@ -68,6 +68,11 @@ class AdafruitIO_FONA : public AdafruitIO {
       return AIO_NET_CONNECTED;
     }
 
+    const char* connectionType()
+    {
+      return "fona";
+    }
+
   protected:
     uint16_t _mqtt_port = 1883;
 
