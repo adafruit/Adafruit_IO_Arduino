@@ -58,6 +58,7 @@ class AdafruitIO {
     char* boardID();
     const char* boardType();
     char* version();
+    char* userAgent();
     virtual const char* connectionType() = 0;
 
   protected:
@@ -81,6 +82,7 @@ class AdafruitIO {
 
     char *_err_topic;
     char *_throttle_topic;
+    char *_user_agent;
 
     Adafruit_MQTT_Subscribe *_err_sub;
     Adafruit_MQTT_Subscribe *_throttle_sub;

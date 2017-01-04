@@ -22,6 +22,7 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
   _err_sub = 0;
   _throttle_sub = 0;
   _packetread_timeout = 100;
+  _user_agent = 0;
 
   _init();
 }
@@ -37,6 +38,7 @@ AdafruitIO::AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelpe
   _err_sub = 0;
   _throttle_sub = 0;
   _packetread_timeout = 100;
+  _user_agent = 0;
 
   _init();
 }
@@ -213,6 +215,21 @@ char* AdafruitIO::version()
 {
   sprintf(_version, "%d.%d.%d", ADAFRUITIO_VERSION_MAJOR, ADAFRUITIO_VERSION_MINOR, ADAFRUITIO_VERSION_PATCH);
   return _version;
+}
+
+char* AdafruitIO::userAgent()
+{
+  if(!_user_agent) {
+    _user_agent = (char *)malloc(sizeof(char) * (strlen(version()) + strlen(boardType()) + strlen(connectionType()) + 24));
+    strcpy(_user_agent, "AdafruitIO-Arduino/");
+    strcat(_user_agent, version());
+    strcat(_user_agent, " (");
+    strcat(_user_agent, boardType());
+    strcat(_user_agent, "-");
+    strcat(_user_agent, connectionType());
+    strcat(_user_agent, ")");
+  }
+  return _user_agent;
 }
 
 aio_status_t AdafruitIO::mqttStatus()
