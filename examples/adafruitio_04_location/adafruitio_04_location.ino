@@ -38,7 +38,7 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
 
   // connect to io.adafruit.com
   io.connect();
@@ -48,7 +48,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -63,14 +63,14 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  Serial.println("----- sending -----");
-  Serial.print("value: ");
+  Serial.println(F("----- sending -----"));
+  Serial.print(F("value: "));
   Serial.println(value);
-  Serial.print("lat: ");
+  Serial.print(F("lat: "));
   Serial.println(lat, 6);
-  Serial.print("lon: ");
+  Serial.print(F("lon: "));
   Serial.println(lon, 6);
-  Serial.print("ele: ");
+  Serial.print(F("ele: "));
   Serial.println(ele, 2);
 
   // save value and location data to the
@@ -103,14 +103,14 @@ void handleMessage(AdafruitIO_Data *data) {
   double received_ele = data->ele();
 
   // print out the received values
-  Serial.println("----- received -----");
-  Serial.print("value: ");
+  Serial.println(F("----- received -----"));
+  Serial.print(F("value: "));
   Serial.println(received_value);
-  Serial.print("lat: ");
+  Serial.print(F("lat: "));
   Serial.println(received_lat, 6);
-  Serial.print("lon: ");
+  Serial.print(F("lon: "));
   Serial.println(received_lon, 6);
-  Serial.print("ele: ");
+  Serial.print(F("ele: "));
   Serial.println(received_ele, 2);
 
 }

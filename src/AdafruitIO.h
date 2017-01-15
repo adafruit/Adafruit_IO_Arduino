@@ -18,7 +18,11 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
-#include "ArduinoHttpClient.h"
+#if defined(ARDUINO_AVR_YUN)
+  #include "BridgeHttpClient.h"
+#else
+  #include "ArduinoHttpClient.h"
+#endif
 #include "util/AdafruitIO_Board.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
@@ -67,7 +71,11 @@ class AdafruitIO {
     uint32_t _last_ping = 0;
 
     Adafruit_MQTT *_mqtt;
+#if defined(ARDUINO_AVR_YUN)
+    BridgeHttpClient *_http;
+#else
     HttpClient *_http;
+#endif
 
     char _version[10];
 

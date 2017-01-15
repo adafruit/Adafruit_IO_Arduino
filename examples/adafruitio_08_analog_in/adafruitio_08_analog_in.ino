@@ -38,12 +38,12 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -69,7 +69,7 @@ void loop() {
     return;
 
   // save the current state to the analog feed
-  Serial.print("sending -> ");
+  Serial.print(F("sending -> "));
   Serial.println(current);
   analog->save(current);
 

@@ -44,7 +44,7 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
 
   // connect to io.adafruit.com
   io.connect();
@@ -54,7 +54,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -69,45 +69,45 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  Serial.println("----- sending -----");
+  Serial.println(F("----- sending -----"));
 
   // in order to demonstrate sending values
   // as different types, we will switch between
   // types in a loop using the current_type variable
   if(current_type == 0) {
-    Serial.print("char: ");
+    Serial.print(F("char: "));
     Serial.println(char_val);
     type->save(char_val);
   } else if(current_type == 1) {
-    Serial.print("string: ");
+    Serial.print(F("string: "));
     Serial.println(string_val);
     type->save(string_val);
   } else if(current_type == 2) {
-    Serial.print("bool: ");
+    Serial.print(F("bool: "));
     Serial.println(bool_val);
     type->save(bool_val);
   } else if(current_type == 3) {
-    Serial.print("int: ");
+    Serial.print(F("int: "));
     Serial.println(int_val);
     type->save(int_val);
   } else if(current_type == 4) {
-    Serial.print("unsigned int: ");
+    Serial.print(F("unsigned int: "));
     Serial.println(uint_val);
     type->save(uint_val);
   } else if(current_type == 5) {
-    Serial.print("long: ");
+    Serial.print(F("long: "));
     Serial.println(long_val);
     type->save(long_val);
   } else if(current_type == 6) {
-    Serial.print("unsigned long: ");
+    Serial.print(F("unsigned long: "));
     Serial.println(ulong_val);
     type->save(ulong_val);
   } else if(current_type == 7) {
-    Serial.print("double: ");
+    Serial.print(F("double: "));
     Serial.println(double_val);
     type->save(double_val);
   } else if(current_type == 8) {
-    Serial.print("float: ");
+    Serial.print(F("float: "));
     Serial.println(float_val);
     type->save(float_val);
   }
@@ -131,54 +131,54 @@ void loop() {
 void handleMessage(AdafruitIO_Data *data) {
 
   // print out the received count value
-  Serial.println("----- received -----");
+  Serial.println(F("----- received -----"));
 
   // value() returns char*
-  Serial.print("value: ");
+  Serial.print(F("value: "));
   Serial.println(data->value());
 
   // get char* value
-  Serial.print("toChar: ");
+  Serial.print(F("toChar: "));
   Serial.println(data->toChar());
 
   // get String value
-  Serial.print("toString: ");
+  Serial.print(F("toString: "));
   Serial.println(data->toString());
 
   // get double value
-  Serial.print("toDouble: ");
+  Serial.print(F("toDouble: "));
   Serial.println(data->toDouble(), 6);
 
   // get double value
-  Serial.print("toFloat: ");
+  Serial.print(F("toFloat: "));
   Serial.println(data->toFloat(), 6);
 
   // get int value
-  Serial.print("toInt: ");
+  Serial.print(F("toInt: "));
   Serial.println(data->toInt());
 
   // get unsigned int value
-  Serial.print("toUnsignedInt: ");
+  Serial.print(F("toUnsignedInt: "));
   Serial.println(data->toUnsignedInt());
 
   // get long value
-  Serial.print("toLong: ");
+  Serial.print(F("toLong: "));
   Serial.println(data->toLong());
 
   // get unsigned long value
-  Serial.print("toUnsignedLong: ");
+  Serial.print(F("toUnsignedLong: "));
   Serial.println(data->toUnsignedLong());
 
   // get bool value
-  Serial.print("toBool: ");
+  Serial.print(F("toBool: "));
   Serial.println(data->toBool());
 
   // get isTrue (bool) value
-  Serial.print("isTrue: ");
+  Serial.print(F("isTrue: "));
   Serial.println(data->isTrue());
 
   // get isFalse (bool) value
-  Serial.print("isFalse: ");
+  Serial.print(F("isFalse: "));
   Serial.println(data->isFalse());
 
   Serial.println();

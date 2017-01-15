@@ -20,6 +20,16 @@
 #include "AdafruitIO_WiFi.h"
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
+/******************************* Yun **************************************/
+
+// the AdafruitIO_Yun client will work with the following boards:
+//   - Arduino Yun -> https://www.adafruit.com/products/1498
+//   - Seeeduino Cloud -> https://www.adafruit.com/products/3034
+
+// uncomment the following two lines for Arduino Yun,
+// and comment out the AdafruitIO_WiFi client in the WIFI section
+// #include "AdafruitIO_Yun.h"
+// AdafruitIO_Yun io(IO_USERNAME, IO_KEY);
 
 /******************************* FONA **************************************/
 

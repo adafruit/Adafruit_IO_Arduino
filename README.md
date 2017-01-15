@@ -1,8 +1,7 @@
 # Adafruit IO Arduino Library [![Build Status](http://jenkins.adafruit.com/job/Adafruit%20IO%20Arduino/badge/icon)](http://jenkins.adafruit.com/job/Adafruit%20IO%20Arduino/)
 
 This library provides a simple device independent interface for interacting with [Adafruit IO](https://io.adafruit.com) using Arduino.
-It allows you to switch beween WiFi (ESP8266, M0 WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing)
-with only a two line change in your sketch.
+It allows you to switch beween WiFi (ESP8266, M0 WINC1500, & WICED), Cellular (32u4 FONA), Ethernet (Ethernet FeatherWing) and the Yun (Arduino Yun, Seeeduino Coud) with only a two line change in your sketch.
 
 ## Dependencies
 
@@ -47,6 +46,16 @@ The Ethernet FeatherWing will also require a 32u4, M0, or ESP8266 based Feather.
 required by the host Feather board will also be required.
 
 * Latest version of the [Adafruit Ethernet2 Library](https://github.com/adafruit/Ethernet2)
+* Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
+
+### Arduino Yun and Seeeduino Cloud
+
+The Arduino Yun and its copy the Seeeduino Cloud is a combination of the 32u4 and the Atheros AR9331 with a version of OpenWrt Linux on it.
+The Bridge library connects the two parts using the on-board serial connection between the two ICs.
+The latest official firmware for the Arduino Yun (version 1.5.3) ships with the Bridge version 101, which lacks support for SSL. However the Bridge version 161 is available on GitHub, but has not been released yet.
+For the reasons above this version of the Adafruit IO library supports the insecure MQTT connection only for the Arduino Yun and Seeeduino Cloud. However the REST API used for feeds and dashboard manipulation uses SSL already (delegates the task to cURL).
+
+* Latest version of the [BridgeHttpClient](https://github.com/imrehorvath/BridgeHttpClient)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
 
 ## Usage
@@ -121,19 +130,42 @@ and uncomment the Ethernet lines in `config.h`:
 AdafruitIO_Ethernet io(IO_USERNAME, IO_KEY);
 ```
 
+### Yun (Arduino Yun and Seeeduino Cloud)
+
+For Yun, you will only need to change from the default WiFi constructor to the Yun specific constructor in the `config.h` tab.
+The rest of the sketch remains the same.
+
+You will need to comment out these WiFi lines in `config.h`:
+
+```ino
+#include "AdafruitIO_WiFi.h"
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+```
+
+and uncomment the Yun lines in `config.h`:
+
+```ino
+#include "AdafruitIO_Yun.h"
+AdafruitIO_Yun io(IO_USERNAME, IO_KEY);
+```
+
+Note: The 32u4 has 2.5kB SRAM only, which gets filled really quick. It's known that the Yun starts to behave unstable if the sketch you upload leaves about 1540 bytes of RAM or less free! So please pay attention to your RAM usage!
+
 ## Compatibility
 
 Last test with `v2.0.0` on 08/10/2016.
 
-Example            | ESP8266      | M0 WINC1500  | WICED       | FONA 32u4   | Ethernet*  | MKR1000    |
------------------- | :----------: | :----------: | :---------: | :---------: | :--------: | :--------: |
-00_publish         |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-01_subscribe       |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-02_pubsub          |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-03_multiple_feeds  |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-04_location        |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-05_type_conversion |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |
-06_digital_in      |      ✓       |      ✓       |      ✓      |      ✓      |      ?     |      ?     |
+Example            | ESP8266      | M0 WINC1500  | WICED       | FONA 32u4   | Ethernet*  | MKR1000    | Yun        |
+------------------ | :----------: | :----------: | :---------: | :---------: | :--------: | :--------: | :--------: |
+00_publish         |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      ✓     |
+01_subscribe       |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      x     |
+02_pubsub          |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      ✓     |
+03_multiple_feeds  |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      ✓     |
+04_location        |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      ✓     |
+05_type_conversion |      ✓       |      ✓       |      ✓      |      ✓      |      ✓     |      ?     |      ✓     |
+06_digital_in      |      ✓       |      ✓       |      ✓      |      ✓      |      ?     |      ?     |      ✓     |
+
+Only the part of the example adafruitio_10_dashboard_creation which checks and creates the feed and the dashboard works with the Yun. The other part which would add blocks to the dashboard does not.
 
 *Ethernet FeatherWing tested with Feather M0 Basic Proto
 

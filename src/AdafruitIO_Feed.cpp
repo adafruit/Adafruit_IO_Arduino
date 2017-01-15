@@ -116,11 +116,27 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
 
 bool AdafruitIO_Feed::exists()
 {
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += _feed_url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  _io->_http->get(req.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->startRequest(_feed_url, HTTP_METHOD_GET);
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
   _io->_http->endRequest();
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
   return status == 200;
 }
 
@@ -129,6 +145,22 @@ bool AdafruitIO_Feed::create()
   String body = "name=";
   body += name;
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += _create_url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  // Content-Type and Content-Length are implicit
+  _io->_http->post(req.c_str(), body.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->startRequest(_create_url, HTTP_METHOD_POST);
   _io->_http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/x-www-form-urlencoded");
   _io->_http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
@@ -138,6 +170,7 @@ bool AdafruitIO_Feed::create()
 
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
   return status == 201;
 }
 

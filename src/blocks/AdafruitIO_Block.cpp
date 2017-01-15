@@ -54,7 +54,11 @@ const char* AdafruitIO_Block::type()
 
 bool AdafruitIO_Block::save()
 {
+#if defined(ARDUINO_AVR_YUN)
+  BridgeHttpClient *http = _dashboard->io()->_http;
+#else
   HttpClient *http = _dashboard->io()->_http;
+#endif // defined(ARDUINO_AVR_YUN)
 
   String url = "/api/v2/";
   url += _dashboard->user();
@@ -75,6 +79,23 @@ bool AdafruitIO_Block::save()
   body += block_feeds;
   body += "}";
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _dashboard->io()->_key;
+
+  String req = "https://";
+  req += _dashboard->io()->_host;
+  req += url;
+
+  http->startRequest();
+  http->addHeader("Content-Type: application/json");
+  http->addHeader(aiokey.c_str());
+  http->enableInsecure();
+  // Content-Length is implicit
+  http->post(req.c_str(), body.c_str());
+
+  int status = http->getResponseCode();
+#else
   http->startRequest(url.c_str(), HTTP_METHOD_POST);
   http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/json");
   http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
@@ -84,6 +105,7 @@ bool AdafruitIO_Block::save()
 
   int status = http->responseStatusCode();
   http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
 
   return status == 200;
 }
