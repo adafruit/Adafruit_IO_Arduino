@@ -73,7 +73,7 @@ class AdafruitIO_Data {
 
   private:
 
-    const char *_feed;
+    char _feed[AIO_FEED_NAME_LENGTH];
 
     char *_csv;
     char _value[AIO_DATA_LENGTH];

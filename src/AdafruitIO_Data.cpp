@@ -14,37 +14,39 @@
 
 AdafruitIO_Data::AdafruitIO_Data()
 {
-  _feed = 0;
   _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
   next_data = 0;
 
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
   memset(_value, 0, AIO_DATA_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
 {
-  _feed = f->name;
   _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
   next_data = 0;
 
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f->name);
   memset(_value, 0, AIO_DATA_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
 {
-  _feed = f->name;
   _csv = csv;
   _lat = 0;
   _lon = 0;
   _ele = 0;
   next_data = 0;
 
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f->name);
   memset(_value, 0, AIO_DATA_LENGTH);
 
   _parseCSV();
@@ -52,25 +54,27 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
 
 AdafruitIO_Data::AdafruitIO_Data(const char *f)
 {
-  _feed = f;
   _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
   next_data = 0;
 
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f);
   memset(_value, 0, AIO_DATA_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
 {
-  _feed = f;
   _csv = csv;
   _lat = 0;
   _lon = 0;
   _ele = 0;
   next_data = 0;
 
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f);
   memset(_value, 0, AIO_DATA_LENGTH);
 
   _parseCSV();
@@ -192,7 +196,7 @@ char* AdafruitIO_Data::feedName()
   if(! _feed)
     return (char*)"";
 
-  return (char *)_feed;
+  return _feed;
 }
 
 char* AdafruitIO_Data::value()

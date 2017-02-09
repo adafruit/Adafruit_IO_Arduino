@@ -63,6 +63,7 @@ class AdafruitIOGroupCallback {
 
 #define AIO_SSL_FINGERPRINT "26 96 1C 2A 51 07 FD 15 80 96 93 AE F7 32 CE B9 0D 01 55 C4"
 
+#define AIO_FEED_NAME_LENGTH 20
 #define AIO_DATA_LENGTH 45
 
 typedef enum {
