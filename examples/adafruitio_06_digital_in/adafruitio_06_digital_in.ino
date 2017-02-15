@@ -66,7 +66,7 @@ void loop() {
 
   // grab the current state of the button.
   // we have to flip the logic because we are
-  // using INPUT_PULLUP.
+  // using a pullup resistor.
   if(digitalRead(BUTTON_PIN) == LOW)
     current = true;
   else
