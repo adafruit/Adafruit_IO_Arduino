@@ -66,4 +66,9 @@ aio_status_t AdafruitIO_WINC1500::networkStatus()
 
 }
 
+const char* AdafruitIO_WINC1500::connectionType()
+{
+  return "winc1500";
+}
+
 #endif // ARDUINO_ARCH_SAMD

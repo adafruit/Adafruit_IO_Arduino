@@ -56,4 +56,9 @@ aio_status_t AdafruitIO_ESP8266::networkStatus()
 
 }
 
+const char* AdafruitIO_ESP8266::connectionType()
+{
+  return "wifi";
+}
+
 #endif // ESP8266

@@ -44,6 +44,11 @@ class AdafruitIO_Ethernet : public AdafruitIO {
       return _status;
     }
 
+    const char* connectionType()
+    {
+      return "ethernet_wing";
+    }
+
   protected:
     byte _mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
     uint16_t _port = 1883;

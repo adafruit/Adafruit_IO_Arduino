@@ -49,4 +49,9 @@ aio_status_t AdafruitIO_WICED::networkStatus()
   return AIO_NET_DISCONNECTED;
 }
 
+const char* AdafruitIO_WICED::connectionType()
+{
+  return "wifi";
+}
+
 #endif // ARDUINO_STM32_FEATHER
