@@ -18,6 +18,7 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT(
   name = n;
   _sub = 0;
   _pub = 0;
+  _dataCallback = 0;
 
   _init();
 }
