@@ -24,6 +24,8 @@ class AdafruitIO_Data {
     AdafruitIO_Data();
     AdafruitIO_Data(AdafruitIO_Feed *f);
     AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
+    AdafruitIO_Data(const char *f);
+    AdafruitIO_Data(const char *f, char *csv);
 
     bool setCSV(char *csv);
 
@@ -67,12 +69,14 @@ class AdafruitIO_Data {
     double lon();
     double ele();
 
-    AdafruitIO_Feed *feed;
+    AdafruitIO_Data *next_data;
 
   private:
 
-    char *_csv,
-         *_value;
+    char _feed[AIO_FEED_NAME_LENGTH];
+
+    char *_csv;
+    char _value[AIO_DATA_LENGTH];
 
     double _lat,
            _lon,

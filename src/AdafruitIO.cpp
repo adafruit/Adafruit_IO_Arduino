@@ -27,22 +27,6 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
   _init();
 }
 
-AdafruitIO::AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key)
-{
-  _mqtt = 0;
-  _http = 0;
-  _username = (const char*)user;
-  _key = (const char*)key;
-  _err_topic = 0;
-  _throttle_topic = 0;
-  _err_sub = 0;
-  _throttle_sub = 0;
-  _packetread_timeout = 100;
-  _user_agent = 0;
-
-  _init();
-}
-
 void errorCallback(char *err, uint16_t len)
 {
   AIO_ERR_PRINTLN();
@@ -92,9 +76,9 @@ AdafruitIO_Feed* AdafruitIO::feed(const char* name)
   return new AdafruitIO_Feed(this, name);
 }
 
-AdafruitIO_Feed* AdafruitIO::feed(const __FlashStringHelper *name)
+AdafruitIO_Group* AdafruitIO::group(const char* name)
 {
-  return new AdafruitIO_Feed(this, name);
+  return new AdafruitIO_Group(this, name);
 }
 
 AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)

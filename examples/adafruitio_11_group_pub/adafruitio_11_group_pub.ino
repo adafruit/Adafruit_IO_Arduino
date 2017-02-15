@@ -1,4 +1,4 @@
-// Adafruit IO Digital Input Example
+// Adafruit IO Group Publish Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -19,20 +19,13 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define BUTTON_PIN 5
+// set up the group
+AdafruitIO_Group *group = io.group("example");
 
-// button state
-bool current = false;
-bool last = false;
-
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+int count_1 = 0;
+int count_2 = 0;
 
 void setup() {
-
-  // set button pin as an input
-  pinMode(BUTTON_PIN, INPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -64,24 +57,20 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // grab the current state of the button.
-  // we have to flip the logic because we are
-  // using INPUT_PULLUP.
-  if(digitalRead(BUTTON_PIN) == LOW)
-    current = true;
-  else
-    current = false;
+  group->set("count-1", count_1);
+  group->set("count-2", count_2);
+  group->save();
 
-  // return if the value hasn't changed
-  if(current == last)
-    return;
+  Serial.print("sending example.count-1 -> ");
+  Serial.println(count_1);
+  Serial.print("sending example.count-2 -> ");
+  Serial.println(count_2);
 
-  // save the current state to the 'digital' feed on adafruit io
-  Serial.print("sending button -> ");
-  Serial.println(current);
-  digital->save(current);
+  // increment the count_1 by 1
+  count_1 += 1;
+  // increment the count_2 by 2
+  count_2 *= 2;
 
-  // store last button state
-  last = current;
-
+  // wait one second (1000 milliseconds == 1 second)
+  delay(1000);
 }
