@@ -32,7 +32,7 @@ AdafruitIO_Feed *digital = io.feed("digital");
 void setup() {
 
   // set button pin as an input
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_PIN, INPUT);
 
   // start the serial connection
   Serial.begin(115200);
