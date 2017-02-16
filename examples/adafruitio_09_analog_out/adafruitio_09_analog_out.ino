@@ -19,7 +19,6 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
 // this should correspond to a pin with PWM capability
 #define LED_PIN 5
 
@@ -71,10 +70,8 @@ void loop() {
 // the analog feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
-  // LED gets brighter the darker it is at the sensor
-  // that means we have to invert the reading
-  // from 0-1023 back to 1023-0
-  int reading = 1023 - data->toInt();
+  // convert the data to integer
+  int reading = data->toInt();
 
   Serial.print("received <- ");
   Serial.println(reading);
