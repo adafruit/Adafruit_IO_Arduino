@@ -312,6 +312,17 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
   #endif
 }
 
+long AdafruitIO_Data::toNeoPixel()
+{
+  if(! _value)
+    return 0;
+
+  char rgb_string[9] = "0x";
+  strncat(rgb_string, toChar() + 1, 6);
+
+  return strtol(rgb_string, NULL, 0);
+}
+
 char* AdafruitIO_Data::toCSV()
 {
   char csv[150];

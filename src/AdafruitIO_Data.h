@@ -62,6 +62,8 @@ class AdafruitIO_Data {
     long toLong();
     unsigned long toUnsignedLong();
 
+    long toNeoPixel();
+
     char* toCSV();
     char* charFromDouble(double d, int precision=6);
 
