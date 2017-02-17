@@ -312,6 +312,39 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
   #endif
 }
 
+int AdafruitIO_Data::toRed()
+{
+  if(! _value)
+    return 0;
+
+  char r[] = "0x";
+  strncat(r, toChar() + 1, 2);
+
+  return (int)strtol(r, NULL, 0);
+}
+
+int AdafruitIO_Data::toGreen()
+{
+  if(! _value)
+    return 0;
+
+  char g[] = "0x";
+  strncat(g, toChar() + 3, 2);
+
+  return (int)strtol(g, NULL, 0);
+}
+
+int AdafruitIO_Data::toBlue()
+{
+  if(! _value)
+    return 0;
+
+  char b[] = "0x";
+  strncat(b, toChar() + 5, 2);
+
+  return (int)strtol(b, NULL, 0);
+}
+
 long AdafruitIO_Data::toNeoPixel()
 {
   if(! _value)

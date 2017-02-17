@@ -62,6 +62,9 @@ class AdafruitIO_Data {
     long toLong();
     unsigned long toUnsignedLong();
 
+    int toRed();
+    int toGreen();
+    int toBlue();
     long toNeoPixel();
 
     char* toCSV();
