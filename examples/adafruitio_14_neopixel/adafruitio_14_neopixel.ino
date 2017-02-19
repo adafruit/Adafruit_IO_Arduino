@@ -1,11 +1,11 @@
-// Adafruit IO Digital Input Example
+// Adafruit IO RGB LED Output Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Copyright (c) 2016-2017 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -19,20 +19,18 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define BUTTON_PIN 5
+#include "Adafruit_NeoPixel.h"
 
-// button state
-bool current = false;
-bool last = false;
+#define PIXEL_PIN     5
+#define PIXEL_COUNT   24
+#define PIXEL_TYPE    NEO_GRB + NEO_KHZ800
 
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+
+// set up the 'color' feed
+AdafruitIO_Feed *color = io.feed("color");
 
 void setup() {
-
-  // set button pin as an input
-  pinMode(BUTTON_PIN, INPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -41,18 +39,28 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print(F("Connecting to Adafruit IO"));
+  Serial.print("Connecting to Adafruit IO");
   io.connect();
+
+  // set up a message handler for the 'color' feed.
+  // the handleMessage function (defined below)
+  // will be called whenever a message is
+  // received from adafruit io.
+  color->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(F("."));
+    Serial.print(".");
     delay(500);
   }
 
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+
+  // neopixel init
+  pixels.begin();
+  pixels.show();
 
 }
 
@@ -64,24 +72,23 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // grab the current state of the button.
-  // we have to flip the logic because we are
-  // using a pullup resistor.
-  if(digitalRead(BUTTON_PIN) == LOW)
-    current = true;
-  else
-    current = false;
+}
 
-  // return if the value hasn't changed
-  if(current == last)
-    return;
+// this function is called whenever a 'color' message
+// is received from Adafruit IO. it was attached to
+// the color feed in the setup() function above.
+void handleMessage(AdafruitIO_Data *data) {
 
-  // save the current state to the 'digital' feed on adafruit io
-  Serial.print(F("sending button -> "));
-  Serial.println(current);
-  digital->save(current);
+  // print RGB values and hex value
+  Serial.println("Received HEX: ");
+  Serial.println(data->value());
 
-  // store last button state
-  last = current;
+  long color = data->toNeoPixel();
+
+  for(int i=0; i<PIXEL_COUNT; ++i) {
+    pixels.setPixelColor(i, color);
+  }
+
+  pixels.show();
 
 }
