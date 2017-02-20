@@ -1,4 +1,5 @@
 // Adafruit IO RGB LED Output Example
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-color
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
