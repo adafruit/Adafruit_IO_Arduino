@@ -1,5 +1,5 @@
 // Adafruit IO Digital Input Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-output
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-input
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
