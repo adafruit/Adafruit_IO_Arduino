@@ -80,16 +80,16 @@ void loop() {
 void handleMessage(AdafruitIO_Data *data) {
 
   // convert the data to integer
-  int reading = data->toInt();
+  int angle = data->toInt();
 
   // make sure we don't exceed the limit
   // of the servo. the range is from 0
   // to 180.
-  if(reading < 0)
-    reading = 0;
-  else if(reading > 180)
-    reading = 180;
+  if(angle < 0)
+    angle = 0;
+  else if(angle > 180)
+    angle = 180;
 
-  servo.write(reading);
+  servo.write(angle);
 
 }
