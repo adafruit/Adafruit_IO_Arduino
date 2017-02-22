@@ -1,5 +1,5 @@
-// Adafruit IO RGB LED Output Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-color
+// Adafruit IO Temperature & Humidity Example
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-temperature-and-humidity
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -19,15 +19,19 @@
 #include "config.h"
 
 /************************ Example Starts Here *******************************/
+#include <Adafruit_Sensor.h>
+#include <DHT.h>
+#include <DHT_U.h>
 
-// default PWM pins for ESP8266.
-// you should change these to match PWM pins on other platforms.
-#define RED_PIN   4
-#define GREEN_PIN 5
-#define BLUE_PIN  2
+// pin connected to DH22 data line
+#define DATA_PIN 2
 
-// set up the 'color' feed
-AdafruitIO_Feed *color = io.feed("color");
+// create DHT22 instance
+DHT_Unified dht(DATA_PIN, DHT22);
+
+// set up the 'temperature' and 'humidity' feeds
+AdafruitIO_Feed *temperature = io.feed("temperature");
+AdafruitIO_Feed *humidity = io.feed("humidity");
 
 void setup() {
 
@@ -37,15 +41,12 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
+  // initialize dht22
+  dht.begin();
+
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
-
-  // set up a message handler for the 'color' feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
-  color->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -57,11 +58,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
 
-  // set analogWrite range for ESP8266
-  #ifdef ESP8266
-    analogWriteRange(255);
-  #endif
-
 }
 
 void loop() {
@@ -72,27 +68,33 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-}
+  sensors_event_t event;
+  dht.temperature().getEvent(&event);
 
-// this function is called whenever a 'color' message
-// is received from Adafruit IO. it was attached to
-// the color feed in the setup() function above.
-void handleMessage(AdafruitIO_Data *data) {
+  float celsius = event.temperature;
+  float fahrenheit = (celsius * 1.8) + 32;
 
-  // print RGB values and hex value
-  Serial.println("Received:");
-  Serial.print("  - R: ");
-  Serial.println(data->toRed());
-  Serial.print("  - G: ");
-  Serial.println(data->toGreen());
-  Serial.print("  - B: ");
-  Serial.println(data->toBlue());
-  Serial.print("  - HEX: ");
-  Serial.println(data->value());
+  Serial.print("celsius: ");
+  Serial.print(celsius);
+  Serial.println("C");
 
-  // invert RGB values for common anode LEDs
-  analogWrite(RED_PIN, 255 - data->toRed());
-  analogWrite(GREEN_PIN, 255 - data->toGreen());
-  analogWrite(BLUE_PIN, 255 - data->toBlue());
+  Serial.print("fahrenheit: ");
+  Serial.print(fahrenheit);
+  Serial.println("F");
+
+  // save fahrenheit (or celsius) to Adafruit IO
+  temperature->save(fahrenheit);
+
+  dht.humidity().getEvent(&event);
+
+  Serial.print("humidity: ");
+  Serial.print(event.relative_humidity);
+  Serial.println("%");
+
+  // save humidity to Adafruit IO
+  humidity->save(event.relative_humidity);
+
+  // wait 5 seconds (5000 milliseconds == 5 seconds)
+  delay(5000);
 
 }

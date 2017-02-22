@@ -14,7 +14,7 @@
 
 #define ADAFRUITIO_VERSION_MAJOR 2
 #define ADAFRUITIO_VERSION_MINOR 4
-#define ADAFRUITIO_VERSION_PATCH 0
+#define ADAFRUITIO_VERSION_PATCH 3
 
 // forward declaration
 class AdafruitIO_Data;
