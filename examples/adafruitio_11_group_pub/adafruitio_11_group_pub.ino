@@ -34,12 +34,12 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -61,9 +61,9 @@ void loop() {
   group->set("count-2", count_2);
   group->save();
 
-  Serial.print("sending example.count-1 -> ");
+  Serial.print(F("sending example.count-1 -> "));
   Serial.println(count_1);
-  Serial.print("sending example.count-2 -> ");
+  Serial.print(F("sending example.count-2 -> "));
   Serial.println(count_2);
 
   // increment the count_1 by 1

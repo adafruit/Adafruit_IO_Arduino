@@ -23,13 +23,6 @@ AdafruitIO_Yun::AdafruitIO_Yun(const char *user, const char *key):AdafruitIO(use
   _http = new BridgeHttpClient;
 }
 
-AdafruitIO_Yun::AdafruitIO_Yun(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
-{
-  _client = new BridgeClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new BridgeHttpClient;
-}
-
 AdafruitIO_Yun::~AdafruitIO_Yun()
 {
   if(_client)

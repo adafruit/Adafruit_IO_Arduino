@@ -31,7 +31,7 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   group->onMessage("count-1", one);
@@ -39,7 +39,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -64,7 +64,7 @@ void loop() {
 // is received from Adafruit IO. it was attached to
 // the counter-1 feed in the setup() function above.
 void one(AdafruitIO_Data *data) {
-  Serial.print("received example.count-1 <- ");
+  Serial.print(F("received example.count-1 <- "));
   Serial.println(data->value());
 }
 
@@ -72,6 +72,6 @@ void one(AdafruitIO_Data *data) {
 // is received from Adafruit IO. it was attached to
 // the counter-2 feed in the setup() function above.
 void two(AdafruitIO_Data *data) {
-  Serial.print("received example.count-2 <- ");
+  Serial.print(F("received example.count-2 <- "));
   Serial.println(data->value());
 }

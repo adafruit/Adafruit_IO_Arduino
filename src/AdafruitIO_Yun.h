@@ -24,7 +24,6 @@ class AdafruitIO_Yun : public AdafruitIO {
 
   public:
     AdafruitIO_Yun(const char *user, const char *key);
-    AdafruitIO_Yun(const __FlashStringHelper *user, const __FlashStringHelper *key);
     ~AdafruitIO_Yun();
 
     aio_status_t networkStatus();

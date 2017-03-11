@@ -43,7 +43,7 @@ void setup() {
   servo.attach(SERVO_PIN);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // set up a message handler for the 'servo' feed.
@@ -54,7 +54,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
