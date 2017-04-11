@@ -1,4 +1,5 @@
 // Adafruit IO Digital Input Example
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-input
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -32,7 +33,7 @@ AdafruitIO_Feed *digital = io.feed("digital");
 void setup() {
 
   // set button pin as an input
-  pinMode(BUTTON_PIN, INPUT_PULLUP);
+  pinMode(BUTTON_PIN, INPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -66,7 +67,7 @@ void loop() {
 
   // grab the current state of the button.
   // we have to flip the logic because we are
-  // using INPUT_PULLUP.
+  // using a pullup resistor.
   if(digitalRead(BUTTON_PIN) == LOW)
     current = true;
   else

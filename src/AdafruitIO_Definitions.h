@@ -13,13 +13,33 @@
 #define ADAFRUITIO_DEFINITIONS_H_
 
 #define ADAFRUITIO_VERSION_MAJOR 2
-#define ADAFRUITIO_VERSION_MINOR 0
-#define ADAFRUITIO_VERSION_PATCH 0
+#define ADAFRUITIO_VERSION_MINOR 4
+#define ADAFRUITIO_VERSION_PATCH 3
 
 // forward declaration
 class AdafruitIO_Data;
 
 typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
+
+class AdafruitIOGroupCallback {
+  public:
+    AdafruitIOGroupCallback(const char *f, AdafruitIODataCallbackType cb) {
+      feed = f;
+      dataCallback = cb;
+      next_cb = 0;
+    }
+
+    AdafruitIOGroupCallback(AdafruitIODataCallbackType cb) {
+      feed = 0;
+      dataCallback = cb;
+      next_cb = 0;
+    }
+
+    const char *feed;
+    AdafruitIODataCallbackType dataCallback;
+    AdafruitIOGroupCallback *next_cb;
+
+};
 
 // uncomment/comment to turn on/off error output
 #define AIO_ERROR
@@ -43,7 +63,8 @@ typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
 
 #define AIO_SSL_FINGERPRINT "26 96 1C 2A 51 07 FD 15 80 96 93 AE F7 32 CE B9 0D 01 55 C4"
 
-#define AIO_DATA_LENGTH 41
+#define AIO_FEED_NAME_LENGTH 20
+#define AIO_DATA_LENGTH 45
 
 typedef enum {
 

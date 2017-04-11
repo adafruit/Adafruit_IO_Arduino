@@ -16,27 +16,29 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Feed.h"
+#include "AdafruitIO_Group.h"
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
 #include "ArduinoHttpClient.h"
+#include "util/AdafruitIO_Board.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
-  #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
+  #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
-#if ADAFRUIT_MQTT_VERSION_MAJOR == 0 && ADAFRUIT_MQTT_VERSION_MINOR < 16
-  #error "This sketch requires Adafruit MQTT Library v0.16.0 or higher. Please install or upgrade using the Library Manager."
+#if ADAFRUIT_MQTT_VERSION_MAJOR == 0 && ADAFRUIT_MQTT_VERSION_MINOR < 17
+  #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
+  friend class AdafruitIO_Group;
   friend class AdafruitIO_Dashboard;
   friend class AdafruitIO_Block;
 
   public:
     AdafruitIO(const char *user, const char *key);
-    AdafruitIO(const __FlashStringHelper *user, const __FlashStringHelper *key);
     virtual ~AdafruitIO();
 
     void connect();
@@ -44,8 +46,7 @@ class AdafruitIO {
     void run(uint16_t busywait_ms = 0);
 
     AdafruitIO_Feed* feed(const char *name);
-    AdafruitIO_Feed* feed(const __FlashStringHelper *name);
-
+    AdafruitIO_Group* group(const char *name);
     AdafruitIO_Dashboard* dashboard(const char *name);
 
     const __FlashStringHelper* statusText();
@@ -54,6 +55,12 @@ class AdafruitIO {
     virtual aio_status_t networkStatus() = 0;
     aio_status_t mqttStatus();
 
+    char* boardID();
+    const char* boardType();
+    char* version();
+    char* userAgent();
+    virtual const char* connectionType() = 0;
+
   protected:
     virtual void _connect() = 0;
     aio_status_t _status = AIO_IDLE;
@@ -61,6 +68,8 @@ class AdafruitIO {
 
     Adafruit_MQTT *_mqtt;
     HttpClient *_http;
+
+    char _version[10];
 
     const char *_host = "io.adafruit.com";
     uint16_t _mqtt_port = 8883;
@@ -73,6 +82,7 @@ class AdafruitIO {
 
     char *_err_topic;
     char *_throttle_topic;
+    char *_user_agent;
 
     Adafruit_MQTT_Subscribe *_err_sub;
     Adafruit_MQTT_Subscribe *_throttle_sub;

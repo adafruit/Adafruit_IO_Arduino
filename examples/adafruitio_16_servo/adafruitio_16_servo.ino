@@ -1,12 +1,12 @@
-// Adafruit IO Digital Output Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-output
+// Adafruit IO Servo Example
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-servo
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Copyright (c) 2016-2017 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -20,16 +20,18 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define LED_PIN 5
+#include <Servo.h>
 
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+// pin used to control the servo
+#define SERVO_PIN 2
+
+// create an instance of the servo class
+Servo servo;
+
+// set up the 'servo' feed
+AdafruitIO_Feed *servo_feed = io.feed("servo");
 
 void setup() {
-
-  // set led pin as a digital output
-  pinMode(LED_PIN, OUTPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -37,15 +39,18 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
+  // tell the servo class which pin we are using
+  servo.attach(SERVO_PIN);
+
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
-  // set up a message handler for the 'digital' feed.
+  // set up a message handler for the 'servo' feed.
   // the handleMessage function (defined below)
   // will be called whenever a message is
   // received from adafruit io.
-  digital->onMessage(handleMessage);
+  servo_feed->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -69,19 +74,22 @@ void loop() {
 
 }
 
-// this function is called whenever an 'digital' feed message
+// this function is called whenever a 'servo' message
 // is received from Adafruit IO. it was attached to
-// the 'digital' feed in the setup() function above.
+// the servo feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
-  Serial.print("received <- ");
+  // convert the data to integer
+  int angle = data->toInt();
 
-  if(data->toPinLevel() == HIGH)
-    Serial.println("HIGH");
-  else
-    Serial.println("LOW");
+  // make sure we don't exceed the limit
+  // of the servo. the range is from 0
+  // to 180.
+  if(angle < 0)
+    angle = 0;
+  else if(angle > 180)
+    angle = 180;
 
-  // write the current state to the led
-  digitalWrite(LED_PIN, data->toPinLevel());
+  servo.write(angle);
 
 }

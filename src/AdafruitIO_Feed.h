@@ -16,18 +16,16 @@
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Data.h"
+#include "AdafruitIO_MQTT.h"
 
 // forward declaration
 class AdafruitIO;
 
-class AdafruitIO_Feed {
+class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
   public:
     AdafruitIO_Feed(AdafruitIO *io, const char *name);
-    AdafruitIO_Feed(AdafruitIO *io, const __FlashStringHelper *name);
     ~AdafruitIO_Feed();
-
-    void onMessage(AdafruitIODataCallbackType cb);
 
     bool save(char *value, double lat=0, double lon=0, double ele=0);
     bool save(bool value, double lat=0, double lon=0, double ele=0);
@@ -44,12 +42,16 @@ class AdafruitIO_Feed {
 
     void setLocation(double lat, double lon, double ele=0);
 
+    void onMessage(AdafruitIODataCallbackType cb);
     void subCallback(char *val, uint16_t len);
+
     const char *name;
 
     AdafruitIO_Data *data;
 
   private:
+    AdafruitIODataCallbackType _dataCallback;
+
     void _init();
 
     char *_topic;
@@ -61,7 +63,6 @@ class AdafruitIO_Feed {
 
     AdafruitIO *_io;
     AdafruitIO_Data *_data;
-    AdafruitIODataCallbackType _dataCallback;
 
 };
 

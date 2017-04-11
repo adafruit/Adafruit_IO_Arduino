@@ -25,10 +25,10 @@ class AdafruitIO_ESP8266 : public AdafruitIO {
 
   public:
     AdafruitIO_ESP8266(const char *user, const char *key, const char *ssid, const char *pass);
-    AdafruitIO_ESP8266(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass);
     ~AdafruitIO_ESP8266();
 
     aio_status_t networkStatus();
+    const char* connectionType();
 
   protected:
     void _connect();

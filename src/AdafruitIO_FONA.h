@@ -37,14 +37,6 @@ class AdafruitIO_FONA : public AdafruitIO {
       _packetread_timeout = 500;
     }
 
-    AdafruitIO_FONA(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
-    {
-      _serial = new SoftwareSerial(FONA_TX, FONA_RX);
-      _fona = new Adafruit_FONA(FONA_RST);
-      _mqtt = new Adafruit_MQTT_FONA(_fona, _host, _mqtt_port);
-      _packetread_timeout = 500;
-    }
-
     void setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username=0, FONAFlashStringPtr password=0)
     {
       _fona->setGPRSNetworkSettings(apn, username, password);
@@ -66,6 +58,11 @@ class AdafruitIO_FONA : public AdafruitIO {
 
       _fona->enableGPRS(true);
       return AIO_NET_CONNECTED;
+    }
+
+    const char* connectionType()
+    {
+      return "fona";
     }
 
   protected:

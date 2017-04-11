@@ -1,12 +1,11 @@
-// Adafruit IO Digital Output Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-output
+// Adafruit IO RGB LED Output Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Copyright (c) 2016-2017 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -20,16 +19,18 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define LED_PIN 5
+#include "Adafruit_NeoPixel.h"
 
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+#define PIXEL_PIN     5
+#define PIXEL_COUNT   24
+#define PIXEL_TYPE    NEO_GRB + NEO_KHZ800
+
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+
+// set up the 'color' feed
+AdafruitIO_Feed *color = io.feed("color");
 
 void setup() {
-
-  // set led pin as a digital output
-  pinMode(LED_PIN, OUTPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -41,11 +42,11 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
-  // set up a message handler for the 'digital' feed.
+  // set up a message handler for the 'color' feed.
   // the handleMessage function (defined below)
   // will be called whenever a message is
   // received from adafruit io.
-  digital->onMessage(handleMessage);
+  color->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -56,6 +57,10 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+
+  // neopixel init
+  pixels.begin();
+  pixels.show();
 
 }
 
@@ -69,19 +74,21 @@ void loop() {
 
 }
 
-// this function is called whenever an 'digital' feed message
+// this function is called whenever a 'color' message
 // is received from Adafruit IO. it was attached to
-// the 'digital' feed in the setup() function above.
+// the color feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
-  Serial.print("received <- ");
+  // print RGB values and hex value
+  Serial.println("Received HEX: ");
+  Serial.println(data->value());
 
-  if(data->toPinLevel() == HIGH)
-    Serial.println("HIGH");
-  else
-    Serial.println("LOW");
+  long color = data->toNeoPixel();
 
-  // write the current state to the led
-  digitalWrite(LED_PIN, data->toPinLevel());
+  for(int i=0; i<PIXEL_COUNT; ++i) {
+    pixels.setPixelColor(i, color);
+  }
+
+  pixels.show();
 
 }

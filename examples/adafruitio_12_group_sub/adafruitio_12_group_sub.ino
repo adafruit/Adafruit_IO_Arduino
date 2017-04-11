@@ -1,5 +1,4 @@
-// Adafruit IO Digital Output Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-output
+// Adafruit IO Group Subscribe Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -20,16 +19,10 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define LED_PIN 5
-
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+// set up the group
+AdafruitIO_Group *group = io.group("example");
 
 void setup() {
-
-  // set led pin as a digital output
-  pinMode(LED_PIN, OUTPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -41,11 +34,8 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
-  // set up a message handler for the 'digital' feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
-  digital->onMessage(handleMessage);
+  group->onMessage("count-1", one);
+  group->onMessage("count-2", two);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -69,19 +59,19 @@ void loop() {
 
 }
 
-// this function is called whenever an 'digital' feed message
+
+// this function is called whenever a 'counter-1' message
 // is received from Adafruit IO. it was attached to
-// the 'digital' feed in the setup() function above.
-void handleMessage(AdafruitIO_Data *data) {
+// the counter-1 feed in the setup() function above.
+void one(AdafruitIO_Data *data) {
+  Serial.print("received example.count-1 <- ");
+  Serial.println(data->value());
+}
 
-  Serial.print("received <- ");
-
-  if(data->toPinLevel() == HIGH)
-    Serial.println("HIGH");
-  else
-    Serial.println("LOW");
-
-  // write the current state to the led
-  digitalWrite(LED_PIN, data->toPinLevel());
-
+// this function is called whenever a 'counter-2' message
+// is received from Adafruit IO. it was attached to
+// the counter-2 feed in the setup() function above.
+void two(AdafruitIO_Data *data) {
+  Serial.print("received example.count-2 <- ");
+  Serial.println(data->value());
 }

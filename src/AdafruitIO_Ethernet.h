@@ -35,13 +35,6 @@ class AdafruitIO_Ethernet : public AdafruitIO {
       _http = new HttpClient(*_client, _host, _http_port);
     }
 
-    AdafruitIO_Ethernet(const __FlashStringHelper *user, const __FlashStringHelper *key):AdafruitIO(user, key)
-    {
-      _client = new EthernetClient();
-      _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-      _http = new HttpClient(*_client, _host, _http_port);
-    }
-
     aio_status_t networkStatus()
     {
       if(_status == AIO_NET_CONNECTED)
@@ -49,6 +42,11 @@ class AdafruitIO_Ethernet : public AdafruitIO {
 
       _connect();
       return _status;
+    }
+
+    const char* connectionType()
+    {
+      return "ethernet_wing";
     }
 
   protected:

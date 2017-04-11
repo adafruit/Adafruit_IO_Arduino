@@ -75,12 +75,21 @@ bool AdafruitIO_Block::save()
   body += block_feeds;
   body += "}";
 
-  http->startRequest(url.c_str(), HTTP_METHOD_POST);
-  http->sendHeader(HTTP_HEADER_CONTENT_TYPE, "application/json");
-  http->sendHeader(HTTP_HEADER_CONTENT_LENGTH, body.length());
+  http->beginRequest();
+  http->post(url.c_str());
+
+  http->sendHeader("Content-Type", "application/json");
+  http->sendHeader("Content-Length", body.length());
   http->sendHeader("X-AIO-Key", _dashboard->io()->_key);
+
+  // the following call to endRequest
+  // should be replaced by beginBody once the
+  // Arduino HTTP Client Library is updated
+  // http->beginBody();
   http->endRequest();
-  http->write((const byte*)body.c_str(), body.length());
+
+  http->print(body);
+  http->endRequest();
 
   int status = http->responseStatusCode();
   http->responseBody(); // needs to be read even if not used

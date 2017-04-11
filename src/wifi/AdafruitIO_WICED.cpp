@@ -22,15 +22,6 @@ AdafruitIO_WICED::AdafruitIO_WICED(const char *user, const char *key, const char
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_WICED::AdafruitIO_WICED(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
-{
-  _ssid = (const char*)ssid;
-  _pass = (const char*)pass;
-  _client = new AdafruitIO_WICED_SSL;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
-}
-
 AdafruitIO_WICED::~AdafruitIO_WICED()
 {
   if(_client)
@@ -56,6 +47,11 @@ aio_status_t AdafruitIO_WICED::networkStatus()
   // for now we will try connecting again and return disconnected status
   Feather.connect(_ssid, _pass);
   return AIO_NET_DISCONNECTED;
+}
+
+const char* AdafruitIO_WICED::connectionType()
+{
+  return "wifi";
 }
 
 #endif // ARDUINO_STM32_FEATHER

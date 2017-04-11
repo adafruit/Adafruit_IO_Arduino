@@ -24,16 +24,6 @@ AdafruitIO_WINC1500::AdafruitIO_WINC1500(const char *user, const char *key, cons
   _http = new HttpClient(*_http_client, _host, _http_port);
 }
 
-AdafruitIO_WINC1500::AdafruitIO_WINC1500(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
-{
-  _ssid = (const char*)ssid;
-  _pass = (const char*)pass;
-  _mqtt_client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_mqtt_client, _host, _mqtt_port);
-  _http_client = new WiFiSSLClient;
-  _http = new HttpClient(*_http_client, _host, _http_port);
-}
-
 AdafruitIO_WINC1500::~AdafruitIO_WINC1500()
 {
   if(_mqtt_client)
@@ -74,6 +64,11 @@ aio_status_t AdafruitIO_WINC1500::networkStatus()
       return AIO_NET_DISCONNECTED;
   }
 
+}
+
+const char* AdafruitIO_WINC1500::connectionType()
+{
+  return "winc1500";
 }
 
 #endif // ARDUINO_ARCH_SAMD

@@ -22,15 +22,6 @@ AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *user, const char *key, const 
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_ESP8266::AdafruitIO_ESP8266(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
-{
-  _ssid = (const char*)ssid;
-  _pass = (const char*)pass;
-  _client = new WiFiClientSecure;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
-}
-
 AdafruitIO_ESP8266::~AdafruitIO_ESP8266()
 {
   if(_client)
@@ -63,6 +54,11 @@ aio_status_t AdafruitIO_ESP8266::networkStatus()
       return AIO_NET_DISCONNECTED;
   }
 
+}
+
+const char* AdafruitIO_ESP8266::connectionType()
+{
+  return "wifi";
 }
 
 #endif // ESP8266

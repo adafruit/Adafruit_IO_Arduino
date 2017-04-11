@@ -22,15 +22,6 @@ AdafruitIO_MKR1000::AdafruitIO_MKR1000(const char *user, const char *key, const 
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_MKR1000::AdafruitIO_MKR1000(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
-{
-  _ssid = (const char*)ssid;
-  _pass = (const char*)pass;
-  _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
-}
-
 AdafruitIO_MKR1000::~AdafruitIO_MKR1000()
 {
   if(_client)
@@ -65,6 +56,11 @@ aio_status_t AdafruitIO_MKR1000::networkStatus()
       return AIO_NET_DISCONNECTED;
   }
 
+}
+
+const char* AdafruitIO_MKR1000::connectionType()
+{
+  return "wifi";
 }
 
 #endif // ARDUINO_ARCH_SAMD

@@ -1,5 +1,4 @@
-// Adafruit IO Digital Output Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-digital-output
+// Adafruit IO Group Publish Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -20,16 +19,13 @@
 
 /************************ Example Starts Here *******************************/
 
-// digital pin 5
-#define LED_PIN 5
+// set up the group
+AdafruitIO_Group *group = io.group("example");
 
-// set up the 'digital' feed
-AdafruitIO_Feed *digital = io.feed("digital");
+int count_1 = 0;
+int count_2 = 0;
 
 void setup() {
-
-  // set led pin as a digital output
-  pinMode(LED_PIN, OUTPUT);
 
   // start the serial connection
   Serial.begin(115200);
@@ -40,12 +36,6 @@ void setup() {
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
-
-  // set up a message handler for the 'digital' feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
-  digital->onMessage(handleMessage);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -67,21 +57,20 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-}
+  group->set("count-1", count_1);
+  group->set("count-2", count_2);
+  group->save();
 
-// this function is called whenever an 'digital' feed message
-// is received from Adafruit IO. it was attached to
-// the 'digital' feed in the setup() function above.
-void handleMessage(AdafruitIO_Data *data) {
+  Serial.print("sending example.count-1 -> ");
+  Serial.println(count_1);
+  Serial.print("sending example.count-2 -> ");
+  Serial.println(count_2);
 
-  Serial.print("received <- ");
+  // increment the count_1 by 1
+  count_1 += 1;
+  // increment the count_2 by 2
+  count_2 *= 2;
 
-  if(data->toPinLevel() == HIGH)
-    Serial.println("HIGH");
-  else
-    Serial.println("LOW");
-
-  // write the current state to the led
-  digitalWrite(LED_PIN, data->toPinLevel());
-
+  // wait one second (1000 milliseconds == 1 second)
+  delay(1000);
 }
