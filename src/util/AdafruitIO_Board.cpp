@@ -21,6 +21,9 @@ char AdafruitIO_Board::_id[64] = "";
     const char AdafruitIO_Board::_type[] = "feather_32u4";
 #elif defined(ARDUINO_STM32_FEATHER)
     const char AdafruitIO_Board::_type[] = "feather_wiced";
+#elif defined(ARDUINO_ARCH_ESP32)
+    #include <WiFi.h>
+    const char AdafruitIO_Board::_type[] = "esp32";
 #elif defined(ESP8266)
     const char AdafruitIO_Board::_type[] = "esp8266";
 #else
@@ -57,6 +60,18 @@ const char* AdafruitIO_Board::type()
   {
     for(int i=0; i < 32; i++) {
       sprintf(&AdafruitIO_Board::_id[i*2],"%02x", boot_signature_byte_get(i));
+    }
+    return AdafruitIO_Board::_id;
+  }
+
+#elif defined(ARDUINO_ARCH_ESP32)
+
+  char* AdafruitIO_Board::id()
+  {
+    byte mac[6];
+    WiFi.macAddress(mac);
+    for(int i=0; i < 6; i++) {
+      sprintf(&AdafruitIO_Board::_id[i*2],"%02x", mac[i]);
     }
     return AdafruitIO_Board::_id;
   }
