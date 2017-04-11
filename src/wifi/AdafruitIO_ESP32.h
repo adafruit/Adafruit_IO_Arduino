@@ -17,6 +17,7 @@
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include <WiFi.h>
+#include "WiFiClientSecure.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
@@ -24,17 +25,17 @@ class AdafruitIO_ESP32 : public AdafruitIO {
 
   public:
     AdafruitIO_ESP32(const char *user, const char *key, const char *ssid, const char *pass);
-    AdafruitIO_ESP32(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass);
     ~AdafruitIO_ESP32();
 
     aio_status_t networkStatus();
+    const char* connectionType();
 
   protected:
     void _connect();
 
     const char *_ssid;
     const char *_pass;
-    WiFiClient *_client;
+    WiFiClientSecure *_client;
 
 };
 

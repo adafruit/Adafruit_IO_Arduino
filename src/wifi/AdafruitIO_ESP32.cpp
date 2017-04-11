@@ -17,16 +17,9 @@ AdafruitIO_ESP32::AdafruitIO_ESP32(const char *user, const char *key, const char
 {
   _ssid = ssid;
   _pass = pass;
-  _client = new WiFiClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
-}
-
-AdafruitIO_ESP32::AdafruitIO_ESP32(const __FlashStringHelper *user, const __FlashStringHelper *key, const __FlashStringHelper *ssid, const __FlashStringHelper *pass):AdafruitIO(user, key)
-{
-  _ssid = (const char*)ssid;
-  _pass = (const char*)pass;
-  _client = new WiFiClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _port);
+  _client = new WiFiClientSecure;
+  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  _http = new HttpClient(*_client, _host, _http_port);
 }
 
 AdafruitIO_ESP32::~AdafruitIO_ESP32()
@@ -61,6 +54,11 @@ aio_status_t AdafruitIO_ESP32::networkStatus()
       return AIO_NET_DISCONNECTED;
   }
 
+}
+
+const char* AdafruitIO_ESP32::connectionType()
+{
+  return "wifi";
 }
 
 #endif // ESP32
