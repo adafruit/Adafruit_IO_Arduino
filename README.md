@@ -12,6 +12,7 @@ This library requires the latest version of the [Arduino IDE](https://www.arduin
 
 * Latest version of the [ESP8266 Arduino Core](https://github.com/esp8266/Arduino#installing-with-boards-manager)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 ### Adafruit Feather M0 WiFi with ATWINC1500
 
@@ -19,6 +20,7 @@ This library requires the latest version of the [Arduino IDE](https://www.arduin
 * Latest version of the [Adafruit SAMD Arduino Core](https://github.com/adafruit/ArduinoCore-samd)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
 * Latest version of the [WiFi101 Library](https://github.com/arduino-libraries/WiFi101)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 You will also need to add the SSL certificate for `io.adafruit.com` using the [guide on the Adafruit Learning System.](https://learn.adafruit.com/adafruit-feather-m0-wifi-atwinc1500/updating-ssl-certificates)
 
@@ -27,6 +29,7 @@ You will also need to add the SSL certificate for `io.adafruit.com` using the [g
 * Latest version of the [Arduino SAMD Arduino Core](https://github.com/arduino/ArduinoCore-samd)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
 * Latest version of the [WiFi101 Library](https://github.com/arduino-libraries/WiFi101)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 You will also need to add the SSL certificate for `io.adafruit.com` using the MKR1000 SSL utility.
 
@@ -34,6 +37,7 @@ You will also need to add the SSL certificate for `io.adafruit.com` using the MK
 
 * Latest version of the [Adafruit WICED Arduino Core](https://github.com/adafruit/Adafruit_WICED_Arduino)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 ### Adafruit Feather 32u4 FONA
 
@@ -48,6 +52,7 @@ required by the host Feather board will also be required.
 
 * Latest version of the [Adafruit Ethernet2 Library](https://github.com/adafruit/Ethernet2)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
 ## Usage
 
