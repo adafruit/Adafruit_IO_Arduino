@@ -65,6 +65,7 @@ class AdafruitIOGroupCallback {
 
 #define AIO_FEED_NAME_LENGTH 20
 #define AIO_DATA_LENGTH 45
+#define AIO_CSV_LENGTH 150
 
 typedef enum {
 

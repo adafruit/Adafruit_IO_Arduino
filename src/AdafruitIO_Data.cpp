@@ -14,7 +14,6 @@
 
 AdafruitIO_Data::AdafruitIO_Data()
 {
-  _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
@@ -22,11 +21,11 @@ AdafruitIO_Data::AdafruitIO_Data()
 
   memset(_feed, 0, AIO_FEED_NAME_LENGTH);
   memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
 {
-  _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
@@ -35,11 +34,11 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f)
   memset(_feed, 0, AIO_FEED_NAME_LENGTH);
   strcpy(_feed, f->name);
   memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
 }
 
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
 {
-  _csv = csv;
   _lat = 0;
   _lon = 0;
   _ele = 0;
@@ -48,13 +47,14 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
   memset(_feed, 0, AIO_FEED_NAME_LENGTH);
   strcpy(_feed, f->name);
   memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
+  strcpy(_csv, csv);
 
   _parseCSV();
 }
 
 AdafruitIO_Data::AdafruitIO_Data(const char *f)
 {
-  _csv = 0;
   _lat = 0;
   _lon = 0;
   _ele = 0;
@@ -67,7 +67,6 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f)
 
 AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
 {
-  _csv = csv;
   _lat = 0;
   _lon = 0;
   _ele = 0;
@@ -76,13 +75,16 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
   memset(_feed, 0, AIO_FEED_NAME_LENGTH);
   strcpy(_feed, f);
   memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
+  strcpy(_csv, csv);
 
   _parseCSV();
 }
 
 bool AdafruitIO_Data::setCSV(char *csv)
 {
-  _csv = csv;
+  memset(_csv, 0, AIO_CSV_LENGTH);
+  strcpy(_csv, csv);
   return _parseCSV();
 }
 
@@ -91,7 +93,6 @@ void AdafruitIO_Data::setLocation(double lat, double lon, double ele)
   // if lat, lon, ele == 0, don't set them
   if((abs(0-lat) < 0.000001) && (abs(0-lon) < 0.000001) && (abs(0-ele) < 0.000001))
     return;
-
   _lat = lat;
   _lon = lon;
   _ele = ele;
@@ -358,20 +359,18 @@ long AdafruitIO_Data::toNeoPixel()
 
 char* AdafruitIO_Data::toCSV()
 {
-  char csv[150];
-
   if(! _value)
     return _csv;
 
-  strcpy(csv, _value);
-  strcat(csv, ",");
-  strcat(csv, charFromDouble(_lat));
-  strcat(csv, ",");
-  strcat(csv, charFromDouble(_lon));
-  strcat(csv, ",");
-  strcat(csv, charFromDouble(_ele, 2));
+  memset(_csv, 0, AIO_CSV_LENGTH);
 
-  _csv = csv;
+  strcpy(_csv, _value);
+  strcat(_csv, ",");
+  strcat(_csv, charFromDouble(_lat));
+  strcat(_csv, ",");
+  strcat(_csv, charFromDouble(_lon));
+  strcat(_csv, ",");
+  strcat(_csv, charFromDouble(_ele, 2));
 
   return _csv;
 }

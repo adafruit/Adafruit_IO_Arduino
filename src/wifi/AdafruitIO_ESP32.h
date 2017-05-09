@@ -35,6 +35,7 @@ class AdafruitIO_ESP32 : public AdafruitIO {
 
     const char *_ssid;
     const char *_pass;
+
     WiFiClientSecure *_client;
 
 };
