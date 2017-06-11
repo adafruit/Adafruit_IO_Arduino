@@ -80,7 +80,7 @@ class AdafruitIO_Data {
 
     char _feed[AIO_FEED_NAME_LENGTH];
 
-    char *_csv;
+    char _csv[AIO_CSV_LENGTH];
     char _value[AIO_DATA_LENGTH];
 
     double _lat,

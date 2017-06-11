@@ -13,8 +13,8 @@
 #define ADAFRUITIO_DEFINITIONS_H_
 
 #define ADAFRUITIO_VERSION_MAJOR 2
-#define ADAFRUITIO_VERSION_MINOR 4
-#define ADAFRUITIO_VERSION_PATCH 3
+#define ADAFRUITIO_VERSION_MINOR 5
+#define ADAFRUITIO_VERSION_PATCH 0
 
 // forward declaration
 class AdafruitIO_Data;
@@ -65,6 +65,7 @@ class AdafruitIOGroupCallback {
 
 #define AIO_FEED_NAME_LENGTH 20
 #define AIO_DATA_LENGTH 45
+#define AIO_CSV_LENGTH 150
 
 typedef enum {
 
