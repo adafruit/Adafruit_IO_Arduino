@@ -13,7 +13,7 @@
 #define ADAFRUITIO_DEFINITIONS_H_
 
 #define ADAFRUITIO_VERSION_MAJOR 2
-#define ADAFRUITIO_VERSION_MINOR 5
+#define ADAFRUITIO_VERSION_MINOR 6
 #define ADAFRUITIO_VERSION_PATCH 0
 
 // forward declaration
@@ -61,7 +61,9 @@ class AdafruitIOGroupCallback {
 #define AIO_ERROR_TOPIC "/errors"
 #define AIO_THROTTLE_TOPIC "/throttle"
 
-#define AIO_SSL_FINGERPRINT "26 96 1C 2A 51 07 FD 15 80 96 93 AE F7 32 CE B9 0D 01 55 C4"
+// latest fingerprint can be generated with
+// echo | openssl s_client -connect io.adafruit.com:443 |& openssl x509 -fingerprint -noout
+#define AIO_SSL_FINGERPRINT "AD 4B 64 B3 67 40 B5 FC 0E 51 9B BD 25 E9 7F 88 B6 2A A3 5B"
 
 #define AIO_FEED_NAME_LENGTH 20
 #define AIO_DATA_LENGTH 45
