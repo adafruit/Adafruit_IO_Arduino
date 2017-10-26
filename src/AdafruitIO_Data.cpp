@@ -364,8 +364,9 @@ char* AdafruitIO_Data::toCSV()
 
   memset(_csv, 0, AIO_CSV_LENGTH);
 
-  strcpy(_csv, _value);
-  strcat(_csv, ",");
+  strcpy(_csv, "\"");
+  strcat(_csv, _value);
+  strcat(_csv, "\",");
   strcat(_csv, charFromDouble(_lat));
   strcat(_csv, ",");
   strcat(_csv, charFromDouble(_lon));
