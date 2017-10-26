@@ -364,8 +364,9 @@ char* AdafruitIO_Data::toCSV()
 
   memset(_csv, 0, AIO_CSV_LENGTH);
 
-  strcpy(_csv, _value);
-  strcat(_csv, ",");
+  strcpy(_csv, "\"");
+  strcat(_csv, _value);
+  strcat(_csv, "\",");
   strcat(_csv, charFromDouble(_lat));
   strcat(_csv, ",");
   strcat(_csv, charFromDouble(_lon));
@@ -413,8 +414,19 @@ char* AdafruitIO_Data::charFromDouble(double d, int precision)
 
 bool AdafruitIO_Data::_parseCSV()
 {
-  // parse value from csv
-  strcpy(_value, strtok(_csv, ","));
+  char *csv = _csv;
+
+  if(csv[0] == '"') {
+    // handle quoted values
+    csv++;
+    int end = strstr(csv, "\",") - csv;
+    strncpy(_value, csv, end);
+    csv += (end + 2);
+  } else {
+    // handle normal values
+    strcpy(_value, strtok(csv, ","));
+  }
+
   if (! _value) return false;
 
   // parse lat from csv and convert to float
