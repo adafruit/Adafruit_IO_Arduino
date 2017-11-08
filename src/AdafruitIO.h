@@ -30,6 +30,37 @@
   #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
+// Uncomment/comment to turn on/off debug output messages.
+// #define IO_DEBUG
+// Uncomment/comment to turn on/off error output messages.
+#define IO_ERROR
+
+// Set where debug messages will be printed.
+#define IO_DEBUG_PRINTER Serial
+// If using something like Zero or Due, change the above to SerialUSB
+
+// Define actual debug output functions when necessary.
+#ifdef IO_DEBUG
+  #define IO_DEBUG_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
+  #define IO_DEBUG_PRINTLN(...) { DEBUG_PRINTER.println(__VA_ARGS__); }
+  #define IO_DEBUG_PRINTBUFFER(buffer, len) { printBuffer(buffer, len); }
+#else
+  #define IO_DEBUG_PRINT(...) {}
+  #define IO_DEBUG_PRINTLN(...) {}
+  #define IO_DEBUG_PRINTBUFFER(buffer, len) {}
+#endif
+
+#ifdef IO_ERROR
+  #define IO_ERROR_PRINT(...) { DEBUG_PRINTER.print(__VA_ARGS__); }
+  #define IO_ERROR_PRINTLN(...) { DEBUG_PRINTER.println(__VA_ARGS__); }
+  #define IO_ERROR_PRINTBUFFER(buffer, len) { printBuffer(buffer, len); }
+#else
+  #define IO_ERROR_PRINT(...) {}
+  #define IO_ERROR_PRINTLN(...) {}
+  #define IO_ERROR_PRINTBUFFER(buffer, len) {}
+#endif
+
+
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
