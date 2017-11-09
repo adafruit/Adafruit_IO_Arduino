@@ -14,6 +14,12 @@ This library requires the latest version of the [Arduino IDE](https://www.arduin
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
 * Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
 
+### Adafruit Feather HUZZAH32 (ESP32)
+
+* Latest version of the [ESP32 Arduino Core](https://github.com/espressif/arduino-esp32#using-through-arduino-ide)
+* Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
+* Latest version of the [Arduino HTTP Client Library](https://github.com/arduino-libraries/ArduinoHttpClient)
+
 ### Adafruit Feather M0 WiFi with ATWINC1500
 
 * Latest version of the [Arduino SAMD Arduino Core](https://github.com/arduino/ArduinoCore-samd)
