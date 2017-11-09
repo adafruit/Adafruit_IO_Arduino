@@ -4,7 +4,7 @@
 // products from Adafruit!
 //
 // Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
+// Authors: Tony DiCola, Todd Treece, Adam Bachman
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
