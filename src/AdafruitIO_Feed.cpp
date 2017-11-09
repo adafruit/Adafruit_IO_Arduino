@@ -143,6 +143,44 @@ bool AdafruitIO_Feed::create()
   return status == 201;
 }
 
+AdafruitIO_Data* AdafruitIO_Feed::lastValue()
+{
+  // 15 extra for api path, 12 for /data/retain, 1 for null
+  String url = "/api/v2/";
+  url += _io->_username;
+  url += "/feeds/";
+  url += name;
+  url += "/data/retain";
+
+  IO_DEBUG_PRINT("lastValue get ");
+  IO_DEBUG_PRINTLN(url);
+
+  _io->_http->beginRequest();
+  _io->_http->get(url.c_str());
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+
+  int status = _io->_http->responseStatusCode();
+  String body = _io->_http->responseBody();
+
+  if (status >= 200 && status <= 299) {
+
+    if (body.length() > 0) {
+      return new AdafruitIO_Data(this, body.c_str());
+    }
+
+  } else {
+
+    IO_ERROR_PRINT("error retrieving lastValue, status: ");
+    IO_ERROR_PRINTLN(status);
+    IO_ERROR_PRINT("response body: ");
+    IO_ERROR_PRINTLN(_io->_http->responseBody());
+
+    return NULL;
+
+  }
+}
+
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
 {
   data->setLocation(lat, lon, ele);

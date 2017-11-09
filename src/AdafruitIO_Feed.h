@@ -47,6 +47,7 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
     const char *name;
 
+    AdafruitIO_Data *lastValue();
     AdafruitIO_Data *data;
 
   private:
