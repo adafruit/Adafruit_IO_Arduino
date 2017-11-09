@@ -24,10 +24,12 @@ class AdafruitIO_Data {
     AdafruitIO_Data();
     AdafruitIO_Data(AdafruitIO_Feed *f);
     AdafruitIO_Data(AdafruitIO_Feed *f, char *csv);
+    AdafruitIO_Data(AdafruitIO_Feed *f, const char *csv);
     AdafruitIO_Data(const char *f);
     AdafruitIO_Data(const char *f, char *csv);
 
     bool setCSV(char *csv);
+    bool setCSV(const char *csv);
 
     void setLocation(double lat, double lon, double ele=0);
 

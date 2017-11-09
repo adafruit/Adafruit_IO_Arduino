@@ -53,6 +53,22 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
   _parseCSV();
 }
 
+AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, const char *csv)
+{
+  _lat = 0;
+  _lon = 0;
+  _ele = 0;
+  next_data = 0;
+
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f->name);
+  memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
+  strcpy(_csv, csv);
+
+  _parseCSV();
+}
+
 AdafruitIO_Data::AdafruitIO_Data(const char *f)
 {
   _lat = 0;
@@ -83,6 +99,12 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
 
 bool AdafruitIO_Data::setCSV(char *csv)
 {
+  return setCSV((const char *)(csv));
+}
+
+bool AdafruitIO_Data::setCSV(const char *csv)
+{
+
   memset(_csv, 0, AIO_CSV_LENGTH);
   strcpy(_csv, csv);
   return _parseCSV();
