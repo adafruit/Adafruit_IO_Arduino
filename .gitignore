@@ -1,3 +1,5 @@
 *.swo
 *.swp
 .DS_Store
+.sync
+.syntastic_cpp_config
