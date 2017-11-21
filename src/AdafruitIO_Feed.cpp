@@ -152,8 +152,8 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
   url += name;
   url += "/data/retain";
 
-  IO_DEBUG_PRINT("lastValue get ");
-  IO_DEBUG_PRINTLN(url);
+  AIO_DEBUG_PRINT("lastValue get ");
+  AIO_DEBUG_PRINTLN(url);
 
   _io->_http->beginRequest();
   _io->_http->get(url.c_str());
@@ -171,10 +171,10 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
 
   } else {
 
-    IO_ERROR_PRINT("error retrieving lastValue, status: ");
-    IO_ERROR_PRINTLN(status);
-    IO_ERROR_PRINT("response body: ");
-    IO_ERROR_PRINTLN(_io->_http->responseBody());
+    AIO_ERROR_PRINT("error retrieving lastValue, status: ");
+    AIO_ERROR_PRINTLN(status);
+    AIO_ERROR_PRINT("response body: ");
+    AIO_ERROR_PRINTLN(_io->_http->responseBody());
 
     return NULL;
 
