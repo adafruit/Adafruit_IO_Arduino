@@ -30,6 +30,7 @@
   #error "This sketch requires Adafruit MQTT Library v0.17.0 or higher. Please install or upgrade using the Library Manager."
 #endif
 
+
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;

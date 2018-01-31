@@ -29,14 +29,16 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
 
 void errorCallback(char *err, uint16_t len)
 {
-  AIO_ERR_PRINTLN();
-  AIO_ERR_PRINT("ERROR: ");
-  AIO_ERR_PRINTLN(err);
-  AIO_ERR_PRINTLN();
+  AIO_ERROR_PRINTLN();
+  AIO_ERROR_PRINT("ERROR: ");
+  AIO_ERROR_PRINTLN(err);
+  AIO_ERROR_PRINTLN();
 }
 
 void AdafruitIO::connect()
 {
+
+  AIO_DEBUG_PRINTLN("AdafruitIO::connect()");
 
   if(_err_sub) {
     // setup error sub
@@ -221,7 +223,11 @@ aio_status_t AdafruitIO::mqttStatus()
   // if the connection failed,
   // return so we don't hammer IO
   if(_status == AIO_CONNECT_FAILED)
+  {
+    AIO_ERROR_PRINT("mqttStatus() failed to connect");
+    AIO_ERROR_PRINTLN(_mqtt->connectErrorString(_status));
     return _status;
+  }
 
   if(_mqtt->connected())
     return AIO_CONNECTED;

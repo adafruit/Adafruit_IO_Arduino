@@ -32,7 +32,15 @@ void setup() {
 
   Serial.print("Connecting to Adafruit IO");
 
-  // connect to io.adafruit.com
+  // because Adafruit IO doesn't support the MQTT
+  // retain flag right now, we need to load the
+  // last value for the "counter" feed manually and
+  // send it our handleMessage function
+  if (counter->exists()) {
+    handleMessage(counter->lastValue());
+  }
+
+  // start MQTT connection to io.adafruit.com
   io.connect();
 
   // set up a message handler for the count feed.
@@ -41,8 +49,11 @@ void setup() {
   // received from adafruit io.
   counter->onMessage(handleMessage);
 
-  // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  // wait for an MQTT connection
+  // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
+  // method to check on MQTT connection status specifically
+
+  while(io.mqttStatus() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }

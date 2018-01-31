@@ -4,7 +4,7 @@
 // products from Adafruit!
 //
 // Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
+// Authors: Tony DiCola, Todd Treece, Adam Bachman
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -141,6 +141,44 @@ bool AdafruitIO_Feed::create()
   _io->_http->responseBody(); // needs to be read even if not used
 
   return status == 201;
+}
+
+AdafruitIO_Data* AdafruitIO_Feed::lastValue()
+{
+  // 15 extra for api path, 12 for /data/retain, 1 for null
+  String url = "/api/v2/";
+  url += _io->_username;
+  url += "/feeds/";
+  url += name;
+  url += "/data/retain";
+
+  AIO_DEBUG_PRINT("lastValue get ");
+  AIO_DEBUG_PRINTLN(url);
+
+  _io->_http->beginRequest();
+  _io->_http->get(url.c_str());
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+
+  int status = _io->_http->responseStatusCode();
+  String body = _io->_http->responseBody();
+
+  if (status >= 200 && status <= 299) {
+
+    if (body.length() > 0) {
+      return new AdafruitIO_Data(this, body.c_str());
+    }
+
+  } else {
+
+    AIO_ERROR_PRINT("error retrieving lastValue, status: ");
+    AIO_ERROR_PRINTLN(status);
+    AIO_ERROR_PRINT("response body: ");
+    AIO_ERROR_PRINTLN(_io->_http->responseBody());
+
+    return NULL;
+
+  }
 }
 
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
