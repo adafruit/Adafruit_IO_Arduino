@@ -650,6 +650,13 @@ bool AdafruitIO_Data::_parseCSV()
       field_count--;
     }
 
+    // cleanup to avoid leaks
+    int i = 0;
+    while (fields[i] != NULL){
+      free(fields[i++]);
+    }
+    free(fields);
+
     return field_count == 0;
   }
   else
