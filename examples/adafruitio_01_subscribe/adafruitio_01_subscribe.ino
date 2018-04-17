@@ -32,14 +32,6 @@ void setup() {
 
   Serial.print("Connecting to Adafruit IO");
 
-  // because Adafruit IO doesn't support the MQTT
-  // retain flag right now, we need to load the
-  // last value for the "counter" feed manually and
-  // send it our handleMessage function
-  if (counter->exists()) {
-    handleMessage(counter->lastValue());
-  }
-
   // start MQTT connection to io.adafruit.com
   io.connect();
 
@@ -52,11 +44,22 @@ void setup() {
   // wait for an MQTT connection
   // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
   // method to check on MQTT connection status specifically
-
   while(io.mqttStatus() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
+
+  // Because Adafruit IO doesn't support the MQTT retain flag, we can use the
+  // get() function to ask IO to resend the last value for this feed to just
+  // this MQTT client.
+  //
+  // Behind the scenes, the library is MQTT publishing an empty message to the
+  // {username}/f/counter/csv/get topic to trigger a resend on the
+  // {username}/f/counter/csv topic that this client is already subscribed to.
+  // That means calling get() will cause the handleMessage function we attached
+  // to this feed to be called with the most recent data record published to
+  // the feed.
+  counter->get();
 
   // we are connected
   Serial.println();
