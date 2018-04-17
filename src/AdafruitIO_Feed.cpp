@@ -119,7 +119,7 @@ bool AdafruitIO_Feed::get()
     strcat(_get_topic, name);
     strcat(_get_topic, "/csv/get");
 
-    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
+    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
   }
 
   return _get_pub->publish('\0');
