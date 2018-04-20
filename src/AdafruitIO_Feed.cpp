@@ -118,7 +118,10 @@ bool AdafruitIO_Feed::get()
     strcat(_get_topic, "/f/");
     strcat(_get_topic, name);
     strcat(_get_topic, "/csv/get");
+  }
 
+  if (!_get_pub)
+  {
     _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
   }
 
