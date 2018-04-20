@@ -24,6 +24,11 @@ int count = 0;
 // holds the boolean (true/false) state of the light
 bool is_on = false;
 
+// track time of last published messages and limit feed->save events to once
+// every IO_LOOP_DELAY milliseconds
+#define IO_LOOP_DELAY 15000
+unsigned long lastUpdate;
+
 // set up the 'counter' feed
 AdafruitIO_Feed *counter = io.feed("counter");
 
@@ -65,6 +70,11 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
 
+  // make sure all feeds get their current values right away
+  counter->get();
+  counter_two->get();
+  light->get();
+
 }
 
 void loop() {
@@ -72,40 +82,42 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  Serial.println();
+  if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
+    Serial.println();
 
-  // save current count to 'counter'
-  Serial.print("sending -> counter ");
-  Serial.println(count);
-  counter->save(count);
+    // save current count to 'counter'
+    Serial.print("sending -> counter ");
+    Serial.println(count);
+    counter->save(count);
 
-  // increment the count by 1 and save the value to 'counter-two'
-  Serial.print("sending -> counter-two ");
-  Serial.println(count + 1);
-  counter_two->save(count + 1);
+    // increment the count by 1 and save the value to 'counter-two'
+    Serial.print("sending -> counter-two ");
+    Serial.println(count + 1);
+    counter_two->save(count + 1);
 
-  // print out the light value we are sending to Adafruit IO
-  Serial.print("sending -> light ");
-  if(is_on)
-    Serial.println("is on.\n");
-  else
-    Serial.println("is off.\n");
+    // print out the light value we are sending to Adafruit IO
+    Serial.print("sending -> light ");
+    if(is_on)
+      Serial.println("is on.\n");
+    else
+      Serial.println("is off.\n");
 
-  // save state of light to 'light' feed
-  light->save(is_on);
+    // save state of light to 'light' feed
+    light->save(is_on);
 
-  // increment count value
-  count++;
+    // increment count value
+    count++;
 
-  // for the purpose of this demo, toggle the
-  // light state based on the count value
-  if((count % 2) == 0)
-    is_on = true;
-  else
-    is_on = false;
+    // for the purpose of this demo, toggle the
+    // light state based on the count value
+    if((count % 2) == 0)
+      is_on = true;
+    else
+      is_on = false;
 
-  // wait two seconds (2000 milliseconds == 2 seconds)
-  delay(2000);
+    // update timer
+    lastUpdate = millis();
+  }
 
 }
 

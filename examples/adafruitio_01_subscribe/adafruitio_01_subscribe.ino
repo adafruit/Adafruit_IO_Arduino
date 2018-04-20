@@ -51,14 +51,7 @@ void setup() {
 
   // Because Adafruit IO doesn't support the MQTT retain flag, we can use the
   // get() function to ask IO to resend the last value for this feed to just
-  // this MQTT client.
-  //
-  // Behind the scenes, the library is MQTT publishing an empty message to the
-  // {username}/f/counter/csv/get topic to trigger a resend on the
-  // {username}/f/counter/csv topic that this client is already subscribed to.
-  // That means calling get() will cause the handleMessage function we attached
-  // to this feed to be called with the most recent data record published to
-  // the feed.
+  // this MQTT client after the io client is connected.
   counter->get();
 
   // we are connected
@@ -74,6 +67,9 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
+
+  // Because this sketch isn't publishing, we don't need
+  // a delay() in the main program loop.
 
 }
 

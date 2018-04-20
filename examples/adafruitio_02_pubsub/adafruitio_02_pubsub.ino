@@ -22,6 +22,19 @@
 // this int will hold the current count for our sketch
 int count = 0;
 
+// Track time of last published messages and limit feed->save events to once
+// every IO_LOOP_DELAY milliseconds.
+//
+// Because this sketch is publishing AND subscribing, we can't use a long
+// delay() function call in the main loop since that would prevent io.run()
+// from being called often enough to receive all incoming messages.
+//
+// Instead, we can use the millis() function to get the current time in
+// milliseconds and avoid publishing until IO_LOOP_DELAY milliseconds have
+// passed.
+#define IO_LOOP_DELAY 5000
+unsigned long lastUpdate = 0;
+
 // set up the 'counter' feed
 AdafruitIO_Feed *counter = io.feed("counter");
 
@@ -53,6 +66,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  counter->get();
 
 }
 
@@ -64,16 +78,18 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  // save count to the 'counter' feed on Adafruit IO
-  Serial.print("sending -> ");
-  Serial.println(count);
-  counter->save(count);
+  if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
+    // save count to the 'counter' feed on Adafruit IO
+    Serial.print("sending -> ");
+    Serial.println(count);
+    counter->save(count);
 
-  // increment the count by 1
-  count++;
+    // increment the count by 1
+    count++;
 
-  // wait one second (1000 milliseconds == 1 second)
-  delay(1000);
+    // after publishing, store the current time
+    lastUpdate = millis();
+  }
 
 }
 

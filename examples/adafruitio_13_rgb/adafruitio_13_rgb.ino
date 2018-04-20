@@ -56,6 +56,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  color->get();
 
   // set analogWrite range for ESP8266
   #ifdef ESP8266

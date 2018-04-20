@@ -27,6 +27,11 @@ double lat = 42.331427;
 double lon = -83.045754;
 double ele = 0;
 
+// track time of last published messages and limit feed->save events to once
+// every IO_LOOP_DELAY milliseconds
+#define IO_LOOP_DELAY 5000
+unsigned long lastUpdate;
+
 // set up the 'location' feed
 AdafruitIO_Feed *location = io.feed("location");
 
@@ -55,6 +60,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  location->get();
 
 }
 
@@ -63,28 +69,30 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  Serial.println("----- sending -----");
-  Serial.print("value: ");
-  Serial.println(value);
-  Serial.print("lat: ");
-  Serial.println(lat, 6);
-  Serial.print("lon: ");
-  Serial.println(lon, 6);
-  Serial.print("ele: ");
-  Serial.println(ele, 2);
+  if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
+    Serial.println("----- sending -----");
+    Serial.print("value: ");
+    Serial.println(value);
+    Serial.print("lat: ");
+    Serial.println(lat, 6);
+    Serial.print("lon: ");
+    Serial.println(lon, 6);
+    Serial.print("ele: ");
+    Serial.println(ele, 2);
 
-  // save value and location data to the
-  // 'location' feed on Adafruit IO
-  location->save(value, lat, lon, ele);
+    // save value and location data to the
+    // 'location' feed on Adafruit IO
+    location->save(value, lat, lon, ele);
 
- // shift all values (for demo purposes)
-  value += 1;
-  lat -= 0.01;
-  lon += 0.02;
-  ele += 1;
+    // shift all values (for demo purposes)
+    value += 1;
+    lat -= 0.01;
+    lon += 0.02;
+    ele += 1;
 
-  // wait one second (1000 milliseconds == 1 second)
-  delay(1000);
+    // wait one second (1000 milliseconds == 1 second)
+    lastUpdate = millis();
+  }
 
 }
 

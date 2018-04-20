@@ -33,6 +33,11 @@ float float_val = 2.4901;
 // set up variable that will allow us to flip between sending types
 int current_type = 0;
 
+// track time of last published messages and limit feed->save events to once
+// every IO_LOOP_DELAY milliseconds
+#define IO_LOOP_DELAY 5000
+unsigned long lastUpdate;
+
 // set up the 'type' feed
 AdafruitIO_Feed *type = io.feed("type");
 
@@ -69,60 +74,61 @@ void loop() {
   // process messages and keep connection alive
   io.run();
 
-  Serial.println("----- sending -----");
+  if (millis() > (lastUpdate + IO_LOOP_DELAY)) {
+    Serial.println("----- sending -----");
 
-  // in order to demonstrate sending values
-  // as different types, we will switch between
-  // types in a loop using the current_type variable
-  if(current_type == 0) {
-    Serial.print("char: ");
-    Serial.println(char_val);
-    type->save(char_val);
-  } else if(current_type == 1) {
-    Serial.print("string: ");
-    Serial.println(string_val);
-    type->save(string_val);
-  } else if(current_type == 2) {
-    Serial.print("bool: ");
-    Serial.println(bool_val);
-    type->save(bool_val);
-  } else if(current_type == 3) {
-    Serial.print("int: ");
-    Serial.println(int_val);
-    type->save(int_val);
-  } else if(current_type == 4) {
-    Serial.print("unsigned int: ");
-    Serial.println(uint_val);
-    type->save(uint_val);
-  } else if(current_type == 5) {
-    Serial.print("long: ");
-    Serial.println(long_val);
-    type->save(long_val);
-  } else if(current_type == 6) {
-    Serial.print("unsigned long: ");
-    Serial.println(ulong_val);
-    type->save(ulong_val);
-  } else if(current_type == 7) {
-    Serial.print("double: ");
-    Serial.println(double_val);
-    type->save(double_val);
-  } else if(current_type == 8) {
-    Serial.print("float: ");
-    Serial.println(float_val);
-    type->save(float_val);
+    // in order to demonstrate sending values
+    // as different types, we will switch between
+    // types in a loop using the current_type variable
+    if(current_type == 0) {
+      Serial.print("char: ");
+      Serial.println(char_val);
+      type->save(char_val);
+    } else if(current_type == 1) {
+      Serial.print("string: ");
+      Serial.println(string_val);
+      type->save(string_val);
+    } else if(current_type == 2) {
+      Serial.print("bool: ");
+      Serial.println(bool_val);
+      type->save(bool_val);
+    } else if(current_type == 3) {
+      Serial.print("int: ");
+      Serial.println(int_val);
+      type->save(int_val);
+    } else if(current_type == 4) {
+      Serial.print("unsigned int: ");
+      Serial.println(uint_val);
+      type->save(uint_val);
+    } else if(current_type == 5) {
+      Serial.print("long: ");
+      Serial.println(long_val);
+      type->save(long_val);
+    } else if(current_type == 6) {
+      Serial.print("unsigned long: ");
+      Serial.println(ulong_val);
+      type->save(ulong_val);
+    } else if(current_type == 7) {
+      Serial.print("double: ");
+      Serial.println(double_val);
+      type->save(double_val);
+    } else if(current_type == 8) {
+      Serial.print("float: ");
+      Serial.println(float_val);
+      type->save(float_val);
+    }
+
+    // move to the next type
+    current_type++;
+
+    // reset type if we have reached the end
+    if(current_type > 8)
+      current_type = 0;
+
+    Serial.println();
+
+    lastUpdate = millis();
   }
-
-  // move to the next type
-  current_type++;
-
-  // reset type if we have reached the end
-  if(current_type > 8)
-    current_type = 0;
-
-  Serial.println();
-
-  // wait two seconds (2000 milliseconds == 2 seconds)
-  delay(2000);
 
 }
 
