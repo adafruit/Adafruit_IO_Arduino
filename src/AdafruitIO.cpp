@@ -239,10 +239,10 @@ aio_status_t AdafruitIO::mqttStatus()
     case 2:   // client id rejected
     case 4:   // malformed user/pass
     case 5:   // unauthorized
-    case 7:   // banned
       return AIO_CONNECT_FAILED;
-    case 3: // mqtt service unavailable
-    case 6: // throttled
+    case 3:   // mqtt service unavailable
+    case 6:   // throttled
+    case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
       // delay to prevent fast reconnects
       delay(AIO_THROTTLE_RECONNECT_INTERVAL);
       return AIO_DISCONNECTED;
