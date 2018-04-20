@@ -31,11 +31,17 @@ AdafruitIO_Feed::~AdafruitIO_Feed()
   if(_pub)
     delete _pub;
 
+  if(_get_pub)
+    delete _pub;
+
   if(data)
     delete data;
 
   if(_topic)
     free(_topic);
+
+  if (_get_topic)
+    free(_get_topic);
 
   if(_feed_url)
     free(_feed_url);
@@ -101,6 +107,25 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
 {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
+}
+
+bool AdafruitIO_Feed::get()
+{
+  if (!_get_topic)
+  {
+    _get_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
+    strcpy(_get_topic, _io->_username);
+    strcat(_get_topic, "/f/");
+    strcat(_get_topic, name);
+    strcat(_get_topic, "/csv/get");
+  }
+
+  if (!_get_pub)
+  {
+    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
+  }
+
+  return _get_pub->publish('\0');
 }
 
 bool AdafruitIO_Feed::exists()

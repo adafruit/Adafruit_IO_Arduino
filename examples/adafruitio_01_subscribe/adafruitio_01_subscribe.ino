@@ -32,14 +32,6 @@ void setup() {
 
   Serial.print("Connecting to Adafruit IO");
 
-  // because Adafruit IO doesn't support the MQTT
-  // retain flag right now, we need to load the
-  // last value for the "counter" feed manually and
-  // send it our handleMessage function
-  if (counter->exists()) {
-    handleMessage(counter->lastValue());
-  }
-
   // start MQTT connection to io.adafruit.com
   io.connect();
 
@@ -52,11 +44,15 @@ void setup() {
   // wait for an MQTT connection
   // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
   // method to check on MQTT connection status specifically
-
   while(io.mqttStatus() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
+
+  // Because Adafruit IO doesn't support the MQTT retain flag, we can use the
+  // get() function to ask IO to resend the last value for this feed to just
+  // this MQTT client after the io client is connected.
+  counter->get();
 
   // we are connected
   Serial.println();
@@ -71,6 +67,9 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
+
+  // Because this sketch isn't publishing, we don't need
+  // a delay() in the main program loop.
 
 }
 
