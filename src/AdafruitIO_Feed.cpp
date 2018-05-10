@@ -125,7 +125,7 @@ bool AdafruitIO_Feed::get()
     _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
   }
 
-  return _get_pub->publish('\0');
+  return _get_pub->publish("\0");
 }
 
 bool AdafruitIO_Feed::exists()
