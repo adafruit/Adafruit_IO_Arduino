@@ -71,6 +71,6 @@ void loop() {
   // increment the count_2 by 2
   count_2 *= 2;
 
-  // wait one second (1000 milliseconds == 1 second)
-  delay(1000);
+  // wait four seconds (1000 milliseconds == 1 second)
+  delay(4000);
 }

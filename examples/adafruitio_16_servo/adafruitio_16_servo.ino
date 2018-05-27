@@ -61,6 +61,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  servo_feed->get();
 
 }
 

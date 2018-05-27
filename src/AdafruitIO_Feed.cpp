@@ -4,7 +4,7 @@
 // products from Adafruit!
 //
 // Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
+// Authors: Tony DiCola, Todd Treece, Adam Bachman
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -31,11 +31,17 @@ AdafruitIO_Feed::~AdafruitIO_Feed()
   if(_pub)
     delete _pub;
 
+  if(_get_pub)
+    delete _pub;
+
   if(data)
     delete data;
 
   if(_topic)
     free(_topic);
+
+  if (_get_topic)
+    free(_get_topic);
 
   if(_feed_url)
     free(_feed_url);
@@ -101,6 +107,25 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
 {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
+}
+
+bool AdafruitIO_Feed::get()
+{
+  if (!_get_topic)
+  {
+    _get_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
+    strcpy(_get_topic, _io->_username);
+    strcat(_get_topic, "/f/");
+    strcat(_get_topic, name);
+    strcat(_get_topic, "/csv/get");
+  }
+
+  if (!_get_pub)
+  {
+    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
+  }
+
+  return _get_pub->publish("\0");
 }
 
 bool AdafruitIO_Feed::exists()
@@ -174,6 +199,44 @@ bool AdafruitIO_Feed::create()
 #endif // defined(ARDUINO_AVR_YUN)
 
   return status == 201;
+}
+
+AdafruitIO_Data* AdafruitIO_Feed::lastValue()
+{
+  // 15 extra for api path, 12 for /data/retain, 1 for null
+  String url = "/api/v2/";
+  url += _io->_username;
+  url += "/feeds/";
+  url += name;
+  url += "/data/retain";
+
+  AIO_DEBUG_PRINT("lastValue get ");
+  AIO_DEBUG_PRINTLN(url);
+
+  _io->_http->beginRequest();
+  _io->_http->get(url.c_str());
+  _io->_http->sendHeader("X-AIO-Key", _io->_key);
+  _io->_http->endRequest();
+
+  int status = _io->_http->responseStatusCode();
+  String body = _io->_http->responseBody();
+
+  if (status >= 200 && status <= 299) {
+
+    if (body.length() > 0) {
+      return new AdafruitIO_Data(this, body.c_str());
+    }
+
+  } else {
+
+    AIO_ERROR_PRINT("error retrieving lastValue, status: ");
+    AIO_ERROR_PRINTLN(status);
+    AIO_ERROR_PRINT("response body: ");
+    AIO_ERROR_PRINTLN(_io->_http->responseBody());
+
+    return NULL;
+
+  }
 }
 
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)

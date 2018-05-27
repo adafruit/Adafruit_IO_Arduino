@@ -77,6 +77,9 @@ void loop() {
   // store last photocell state
   last = current;
 
-  // wait one second (1000 milliseconds == 1 second)
-  delay(1000);
+  // wait three seconds (1000 milliseconds == 1 second)
+  //
+  // because there are no active subscriptions, we can use delay()
+  // instead of tracking millis()
+  delay(3000);
 }

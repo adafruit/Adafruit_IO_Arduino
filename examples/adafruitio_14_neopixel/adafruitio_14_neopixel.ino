@@ -57,6 +57,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  color->get();
 
   // neopixel init
   pixels.begin();

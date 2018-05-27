@@ -41,18 +41,30 @@ class AdafruitIOGroupCallback {
 
 };
 
+// Uncomment/comment to turn on/off debug output messages.
+#define AIO_DEBUG
 // uncomment/comment to turn on/off error output
 #define AIO_ERROR
 
 // where debug messages will be printed
 #define AIO_PRINTER Serial
+// If using something like Zero or Due, change the above to SerialUSB
+
+// Define actual debug output functions when necessary.
+#ifdef AIO_DEBUG
+  #define AIO_DEBUG_PRINT(...) { AIO_PRINTER.print(__VA_ARGS__); }
+  #define AIO_DEBUG_PRINTLN(...) { AIO_PRINTER.println(__VA_ARGS__); }
+#else
+  #define AIO_DEBUG_PRINT(...) {}
+  #define AIO_DEBUG_PRINTLN(...) {}
+#endif
 
 #ifdef AIO_ERROR
-  #define AIO_ERR_PRINT(...) { AIO_PRINTER.print(__VA_ARGS__); }
-  #define AIO_ERR_PRINTLN(...) { AIO_PRINTER.println(__VA_ARGS__); }
+  #define AIO_ERROR_PRINT(...) { AIO_PRINTER.print(__VA_ARGS__); }
+  #define AIO_ERROR_PRINTLN(...) { AIO_PRINTER.println(__VA_ARGS__); }
 #else
-  #define AIO_ERR_PRINT(...) {}
-  #define AIO_ERR_PRINTLN(...) {}
+  #define AIO_ERROR_PRINT(...) {}
+  #define AIO_ERROR_PRINTLN(...) {}
 #endif
 
 #define AIO_PING_INTERVAL 60000
@@ -63,7 +75,7 @@ class AdafruitIOGroupCallback {
 
 // latest fingerprint can be generated with
 // echo | openssl s_client -connect io.adafruit.com:443 |& openssl x509 -fingerprint -noout
-#define AIO_SSL_FINGERPRINT "AD 4B 64 B3 67 40 B5 FC 0E 51 9B BD 25 E9 7F 88 B6 2A A3 5B"
+#define AIO_SSL_FINGERPRINT "77 00 54 2D DA E7 D8 03 27 31 23 99 EB 27 DB CB A5 4C 57 18"
 
 #define AIO_FEED_NAME_LENGTH 20
 #define AIO_DATA_LENGTH 45

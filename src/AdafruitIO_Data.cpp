@@ -4,7 +4,7 @@
 // products from Adafruit!
 //
 // Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
+// Authors: Tony DiCola, Todd Treece, Adam Bachman
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -53,6 +53,22 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv)
   _parseCSV();
 }
 
+AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, const char *csv)
+{
+  _lat = 0;
+  _lon = 0;
+  _ele = 0;
+  next_data = 0;
+
+  memset(_feed, 0, AIO_FEED_NAME_LENGTH);
+  strcpy(_feed, f->name);
+  memset(_value, 0, AIO_DATA_LENGTH);
+  memset(_csv, 0, AIO_CSV_LENGTH);
+  strcpy(_csv, csv);
+
+  _parseCSV();
+}
+
 AdafruitIO_Data::AdafruitIO_Data(const char *f)
 {
   _lat = 0;
@@ -83,6 +99,12 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv)
 
 bool AdafruitIO_Data::setCSV(char *csv)
 {
+  return setCSV((const char *)(csv));
+}
+
+bool AdafruitIO_Data::setCSV(const char *csv)
+{
+
   memset(_csv, 0, AIO_CSV_LENGTH);
   strcpy(_csv, csv);
   return _parseCSV();
@@ -364,8 +386,9 @@ char* AdafruitIO_Data::toCSV()
 
   memset(_csv, 0, AIO_CSV_LENGTH);
 
-  strcpy(_csv, _value);
-  strcat(_csv, ",");
+  strcpy(_csv, "\"");
+  strcat(_csv, _value);
+  strcat(_csv, "\",");
   strcat(_csv, charFromDouble(_lat));
   strcat(_csv, ",");
   strcat(_csv, charFromDouble(_lon));
@@ -411,29 +434,236 @@ char* AdafruitIO_Data::charFromDouble(double d, int precision)
   return _double_buffer;
 }
 
+/*
+ * From the csv_parser project by semitrivial
+ * https://github.com/semitrivial/csv_parser/blob/93246cac509f85da12c6bb8c641fa75cd863c34f/csv.c - retrieved 2017-11-09
+ *
+ * MIT License
+ *
+ * Copyright 2016 Samuel Alexander
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to
+ * deal in the Software without restriction, including without limitation the
+ * rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+ * sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in
+ * all copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+ * IN THE SOFTWARE.
+ *
+ */
+
+static int count_fields( const char *line )
+{
+  const char *ptr;
+  int cnt, fQuote;
+
+  for ( cnt = 1, fQuote = 0, ptr = line; *ptr; ptr++ )
+  {
+    if ( fQuote )
+    {
+      if ( *ptr == '\"' )
+      {
+        if ( ptr[1] == '\"' )
+        {
+          ptr++;
+          continue;
+        }
+        fQuote = 0;
+      }
+      continue;
+    }
+
+    switch( *ptr )
+    {
+      case '\"':
+        fQuote = 1;
+        continue;
+      case ',':
+        cnt++;
+        continue;
+      default:
+        continue;
+    }
+  }
+
+  if ( fQuote )
+  {
+    return -1;
+  }
+
+  return cnt;
+}
+
+/*
+ *  Given a string containing no linebreaks, or containing line breaks
+ *  which are escaped by "double quotes", extract a NULL-terminated
+ *  array of strings, one for every cell in the row.
+ */
+char **parse_csv( const char *line )
+{
+  char **buf, **bptr, *tmp, *tptr;
+  const char *ptr;
+  int fieldcnt, fQuote, fEnd;
+
+  fieldcnt = count_fields( line );
+
+  if ( fieldcnt == -1 )
+  {
+    return NULL;
+  }
+
+  buf = (char **)malloc( sizeof(char*) * (fieldcnt+1) );
+
+  if ( !buf )
+  {
+    return NULL;
+  }
+
+  tmp = (char *)malloc( strlen(line) + 1 );
+
+  if ( !tmp )
+  {
+    free( buf );
+    return NULL;
+  }
+
+  bptr = buf;
+
+  for ( ptr = line, fQuote = 0, *tmp = '\0', tptr = tmp, fEnd = 0; ; ptr++ )
+  {
+    if ( fQuote )
+    {
+      if ( !*ptr )
+      {
+        break;
+      }
+
+      if ( *ptr == '\"' )
+      {
+        if ( ptr[1] == '\"' )
+        {
+          *tptr++ = '\"';
+          ptr++;
+          continue;
+        }
+        fQuote = 0;
+      }
+      else {
+        *tptr++ = *ptr;
+      }
+
+      continue;
+    }
+
+    switch( *ptr )
+    {
+      case '\"':
+        fQuote = 1;
+        continue;
+      case '\0':
+        fEnd = 1;
+      case ',':
+        *tptr = '\0';
+        *bptr = strdup( tmp );
+
+        if ( !*bptr )
+        {
+          for ( bptr--; bptr >= buf; bptr-- )
+          {
+            free( *bptr );
+          }
+          free( buf );
+          free( tmp );
+
+          return NULL;
+        }
+
+        bptr++;
+        tptr = tmp;
+
+        if ( fEnd )
+        {
+          break;
+        } else
+        {
+          continue;
+        }
+
+      default:
+        *tptr++ = *ptr;
+        continue;
+    }
+
+    if ( fEnd )
+    {
+      break;
+    }
+  }
+
+  *bptr = NULL;
+  free( tmp );
+  return buf;
+}
+
+//// END simple_csv SECTION
+
 bool AdafruitIO_Data::_parseCSV()
 {
-  // parse value from csv
-  strcpy(_value, strtok(_csv, ","));
-  if (! _value) return false;
 
-  // parse lat from csv and convert to float
-  char *lat = strtok(NULL, ",");
-  if (! lat) return false;
+  int field_count = count_fields(_csv);
 
-  _lat = atof(lat);
+  if (field_count > 0)
+  {
+    // this is normal IO data in `value,lat,lon,ele` format
+    char **fields = parse_csv(_csv);
 
-  // parse lon from csv and convert to float
-  char *lon = strtok(NULL, ",");
-  if (! lon) return false;
+    // first field is handled as string
+    strcpy(_value, fields[0]);
+    field_count--;
 
-  _lon = atof(lon);
+    // locations fields are handled with char * to float conversion
+    if (field_count > 0)
+    {
+      _lat = atof(fields[1]);
+      field_count--;
+    }
 
-  // parse ele from csv and convert to float
-  char *ele = strtok(NULL, ",");
-  if (! ele) return false;
+    if (field_count > 0)
+    {
+      _lon = atof(fields[1]);
+      field_count--;
+    }
 
-  _ele = atof(ele);
+    if (field_count > 0)
+    {
+      _ele = atof(fields[1]);
+      field_count--;
+    }
+
+    // cleanup to avoid leaks
+    int i = 0;
+    while (fields[i] != NULL){
+      free(fields[i++]);
+    }
+    free(fields);
+
+    return field_count == 0;
+  }
+  else
+  {
+    return false;
+  }
 
   return true;
 }
+

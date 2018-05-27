@@ -4,7 +4,7 @@
 // products from Adafruit!
 //
 // Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
+// Authors: Tony DiCola, Todd Treece, Adam Bachman
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -37,6 +37,8 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
     bool save(float value, double lat=0, double lon=0, double ele=0, int precision=6);
     bool save(double value, double lat=0, double lon=0, double ele=0, int precision=6);
 
+    bool get();
+
     bool exists();
     bool create();
 
@@ -47,6 +49,7 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
     const char *name;
 
+    AdafruitIO_Data *lastValue();
     AdafruitIO_Data *data;
 
   private:
@@ -55,11 +58,13 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
     void _init();
 
     char *_topic;
+    char *_get_topic;
     char *_create_url;
     char *_feed_url;
 
     Adafruit_MQTT_Subscribe *_sub;
     Adafruit_MQTT_Publish *_pub;
+    Adafruit_MQTT_Publish *_get_pub;
 
     AdafruitIO *_io;
     AdafruitIO_Data *_data;
