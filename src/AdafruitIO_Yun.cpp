@@ -41,6 +41,9 @@ void AdafruitIO_Yun::_connect()
   Bridge.begin();
   digitalWrite(13, HIGH);
 
+  AIO_DEBUG_PRINT(F("Bridge version: "));
+  AIO_DEBUG_PRINTLN(Bridge.getBridgeVersion());
+
   _status = AIO_NET_DISCONNECTED;
 }
 

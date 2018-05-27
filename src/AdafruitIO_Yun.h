@@ -3,7 +3,7 @@
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
-// Copyright (c) 2017 Imre Horvath
+// Copyright (c) 2017, 2018 Imre Horvath
 // Authors: Imre Horvath
 // Licensed under the MIT license.
 //
@@ -18,7 +18,7 @@
 #include "AdafruitIO.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
-#include "BridgeClient.h"
+#include "BridgeSSLClient.h"
 
 class AdafruitIO_Yun : public AdafruitIO {
 
@@ -32,16 +32,9 @@ class AdafruitIO_Yun : public AdafruitIO {
   protected:
     void _connect();
 
-    // At the time writing this, the latest Yun firmware (OPENWRT-YÚN 1.5.3),
-    // comes with Bridge version 101 included, which does not support SSL yet.
-    // Therefore we use the insecure- BridgeClient, and MQTT port this time.
+    BridgeSSLClient *_client;
 
-    // TODO: Once a new Yun firmware with Bridge 161 or later gets released,
-    //       change the library to BridgeSSLClient and MQTT port 8883!
-
-    BridgeClient *_client;  // insecure MQTT client
-
-    uint16_t _mqtt_port = 1883; // insecure MQTT port
+    uint16_t _mqtt_port = 8883;
 
 };
 
