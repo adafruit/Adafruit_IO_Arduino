@@ -63,8 +63,6 @@ required by the host Feather board will also be required.
 
 The Arduino Yun and its copy the Seeeduino Cloud is a combination of the 32u4 and the Atheros AR9331 with a version of OpenWrt Linux on it.
 The Bridge library connects the two parts using the on-board serial connection between the two ICs.
-The latest official firmware for the Arduino Yun (version 1.5.3) ships with the Bridge version 101, which lacks support for SSL. However the Bridge version 161 is available on GitHub, but has not been released yet.
-For the reasons above this version of the Adafruit IO library supports the insecure MQTT connection only for the Arduino Yun and Seeeduino Cloud. However the REST API used for feeds and dashboard manipulation uses SSL already (delegates the task to cURL).
 
 * Latest version of the [BridgeHttpClient](https://github.com/imrehorvath/BridgeHttpClient)
 * Latest version of the [Adafruit MQTT Library](https://github.com/adafruit/Adafruit_MQTT_Library)
