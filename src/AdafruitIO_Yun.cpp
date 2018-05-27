@@ -3,7 +3,7 @@
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
-// Copyright (c) 2017 Imre Horvath
+// Copyright (c) 2017, 2018 Imre Horvath
 // Authors: Imre Horvath
 // Licensed under the MIT license.
 //
