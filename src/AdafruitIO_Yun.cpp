@@ -37,11 +37,7 @@ void AdafruitIO_Yun::_connect()
 {
   AIO_DEBUG_PRINTLN(F("AdafruitIO_Yun::_connect()"));
 
-  // Initialize Bridge and use the on-board LED as a visual indicator
-  pinMode(13, OUTPUT);
-  digitalWrite(13, LOW);
   Bridge.begin();
-  digitalWrite(13, HIGH);
 
   AIO_DEBUG_PRINT(F("Bridge version: "));
   AIO_DEBUG_PRINTLN(Bridge.getBridgeVersion());
