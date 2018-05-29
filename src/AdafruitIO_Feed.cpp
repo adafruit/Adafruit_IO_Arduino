@@ -130,6 +130,21 @@ bool AdafruitIO_Feed::get()
 
 bool AdafruitIO_Feed::exists()
 {
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += _feed_url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  _io->_http->get(req.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->beginRequest();
   _io->_http->get(_feed_url);
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
@@ -137,6 +152,7 @@ bool AdafruitIO_Feed::exists()
 
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
 
   return status == 200;
 }
@@ -146,6 +162,22 @@ bool AdafruitIO_Feed::create()
   String body = "name=";
   body += name;
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += _create_url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  // Content-Type and Content-Length are implicit
+  _io->_http->post(req.c_str(), body.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->beginRequest();
   _io->_http->post(_create_url);
 
@@ -164,6 +196,7 @@ bool AdafruitIO_Feed::create()
 
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
 
   return status == 201;
 }
@@ -180,6 +213,25 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
   AIO_DEBUG_PRINT("lastValue get ");
   AIO_DEBUG_PRINTLN(url);
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  _io->_http->get(url.c_str());
+
+  int status = _io->_http->getResponseCode();
+
+  // Collect the response body into this string
+  String body;
+
+  while (_io->_http->available() > 0) {
+    char c = _io->_http->read();
+    body += c;
+  }
+#else
   _io->_http->beginRequest();
   _io->_http->get(url.c_str());
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
@@ -187,6 +239,7 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
 
   int status = _io->_http->responseStatusCode();
   String body = _io->_http->responseBody();
+#endif // defined(ARDUINO_AVR_YUN)
 
   if (status >= 200 && status <= 299) {
 
@@ -199,7 +252,7 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
     AIO_ERROR_PRINT("error retrieving lastValue, status: ");
     AIO_ERROR_PRINTLN(status);
     AIO_ERROR_PRINT("response body: ");
-    AIO_ERROR_PRINTLN(_io->_http->responseBody());
+    AIO_ERROR_PRINTLN(body);
 
     return NULL;
 

@@ -35,7 +35,7 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // set up a message handler for the 'analog' feed.
@@ -46,7 +46,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -75,7 +75,7 @@ void handleMessage(AdafruitIO_Data *data) {
   // convert the data to integer
   int reading = data->toInt();
 
-  Serial.print("received <- ");
+  Serial.print(F("received <- "));
   Serial.println(reading);
   analogWrite(LED_PIN, reading);
 

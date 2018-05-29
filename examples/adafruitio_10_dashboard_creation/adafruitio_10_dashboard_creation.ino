@@ -34,12 +34,12 @@ void setup() {
   while(! Serial);
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -49,25 +49,25 @@ void setup() {
 
   // create the example feed if it doesn't exist
   if(feed->exists()) {
-    Serial.println("Example feed exists.");
+    Serial.println(F("Example feed exists."));
   } else {
     if(feed->create()) {
-      Serial.println("Example feed created.");
+      Serial.println(F("Example feed created."));
     } else {
-      Serial.println("Example feed creation failed.");
+      Serial.println(F("Example feed creation failed."));
     }
   }
 
   // create the example dashboard if it doesn't exist
   if(dashboard->exists()) {
-    Serial.println("Example dashboard exists.");
+    Serial.println(F("Example dashboard exists."));
   } else {
     if(dashboard->create()) {
-      Serial.println("Example dashboard created.");
+      Serial.println(F("Example dashboard created."));
       // add blocks to the dashboard using the function below
       addBlocks();
     } else {
-      Serial.println("Example dashboard creation failed.");
+      Serial.println(F("Example dashboard creation failed."));
     }
   }
 
@@ -87,55 +87,55 @@ void addBlocks() {
 
   bool added = false;
 
-  Serial.print("Adding momentary button block... ");
+  Serial.print(F("Adding momentary button block... "));
   MomentaryBlock *button = dashboard->addMomentaryBlock(feed);
   button->text = "Button";
   button->value = "1";
   button->release = "0";
   added = button->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding toggle button block... ");
+  Serial.print(F("Adding toggle button block... "));
   ToggleBlock *toggle = dashboard->addToggleBlock(feed);
   toggle->onText = "1";
   toggle->offText = "0";
   added = toggle->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding slider block... ");
+  Serial.print(F("Adding slider block... "));
   SliderBlock *slider = dashboard->addSliderBlock(feed);
   slider->min = 0;
   slider->max = 100;
   slider->step = 10;
   slider->label = "Value";
   added = slider->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding gauge block... ");
+  Serial.print(F("Adding gauge block... "));
   GaugeBlock *gauge = dashboard->addGaugeBlock(feed);
   gauge->min = 0;
   gauge->max = 100;
   gauge->ringWidth = "thin"; // thin or thick
   gauge->label = "Value";
   added = gauge->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding line chart block... ");
+  Serial.print(F("Adding line chart block... "));
   ChartBlock *chart = dashboard->addChartBlock(feed);
   chart->yAxisMin = 0;
   chart->yAxisMax = 100;
   chart->xAxisLabel = "X";
   chart->yAxisLabel = "Y";
   added = chart->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding text block... ");
+  Serial.print(F("Adding text block... "));
   TextBlock *text = dashboard->addTextBlock(feed);
   text->fontSize = "small"; // small, medium, or large
   added = text->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding stream block... ");
+  Serial.print(F("Adding stream block... "));
   StreamBlock *stream = dashboard->addStreamBlock(feed);
   stream->fontSize = "small"; // small, medium, or large
   stream->fontColor = "green"; // green or white
@@ -143,23 +143,22 @@ void addBlocks() {
   stream->showTimestamp = true;
   stream->showName = true;
   added = stream->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding color picker block... ");
+  Serial.print(F("Adding color picker block... "));
   ColorBlock *color = dashboard->addColorBlock(feed);
   added = color->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding map block... ");
+  Serial.print(F("Adding map block... "));
   MapBlock *map = dashboard->addMapBlock(feed);
   map->historyHours = 0;
   map->tile = "contrast"; // street, sat, or contrast
   added = map->save();
-  Serial.println(added ? "added" : "failed");
+  Serial.println(added ? F("added") : F("failed"));
 
-  Serial.print("Adding image block... ");
+  Serial.print(F("Adding image block... "));
   ImageBlock *image = dashboard->addImageBlock(feed);
   added = image->save();
-  Serial.println(added ? "added" : "failed");
-
+  Serial.println(added ? F("added") : F("failed"));
 }

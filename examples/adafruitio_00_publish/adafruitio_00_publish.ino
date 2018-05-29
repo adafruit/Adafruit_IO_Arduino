@@ -33,14 +33,14 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
 
   // connect to io.adafruit.com
   io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -59,7 +59,7 @@ void loop() {
   io.run();
 
   // save count to the 'counter' feed on Adafruit IO
-  Serial.print("sending -> ");
+  Serial.print(F("sending -> "));
   Serial.println(count);
   counter->save(count);
 

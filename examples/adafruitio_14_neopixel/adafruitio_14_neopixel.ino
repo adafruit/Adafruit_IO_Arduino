@@ -50,7 +50,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 

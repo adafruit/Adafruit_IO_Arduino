@@ -30,7 +30,7 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
 
   // start MQTT connection to io.adafruit.com
   io.connect();
@@ -45,7 +45,7 @@ void setup() {
   // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
   // method to check on MQTT connection status specifically
   while(io.mqttStatus() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -78,7 +78,7 @@ void loop() {
 // the counter feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
-  Serial.print("received <- ");
+  Serial.print(F("received <- "));
   Serial.println(data->value());
 
 }

@@ -46,7 +46,7 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
 
   // connect to io.adafruit.com
   io.connect();
@@ -62,7 +62,7 @@ void setup() {
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -86,21 +86,21 @@ void loop() {
     Serial.println();
 
     // save current count to 'counter'
-    Serial.print("sending -> counter ");
+    Serial.print(F("sending -> counter "));
     Serial.println(count);
     counter->save(count);
 
     // increment the count by 1 and save the value to 'counter-two'
-    Serial.print("sending -> counter-two ");
+    Serial.print(F("sending -> counter-two "));
     Serial.println(count + 1);
     counter_two->save(count + 1);
 
     // print out the light value we are sending to Adafruit IO
-    Serial.print("sending -> light ");
+    Serial.print(F("sending -> light "));
     if(is_on)
-      Serial.println("is on.\n");
+      Serial.println(F("is on.\n"));
     else
-      Serial.println("is off.\n");
+      Serial.println(F("is off.\n"));
 
     // save state of light to 'light' feed
     light->save(is_on);
@@ -126,14 +126,14 @@ void loop() {
 void handleLight(AdafruitIO_Data *data) {
 
   // print out the received light value
-  Serial.print("received <- light ");
+  Serial.print(F("received <- light "));
 
   // use the isTrue helper to get the
   // boolean state of the light
   if(data->isTrue())
-    Serial.println("is on.");
+    Serial.println(F("is on."));
   else
-    Serial.println("is off.");
+    Serial.println(F("is off."));
 
 }
 
@@ -143,13 +143,13 @@ void handleLight(AdafruitIO_Data *data) {
 // for both will be received by this function.
 void handleCount(AdafruitIO_Data *data) {
 
-  Serial.print("received <- ");
+  Serial.print(F("received <- "));
 
   // since we are using the same function to handle
   // messages for two feeds, we can use feedName() in
   // order to find out which feed the message came from.
   Serial.print(data->feedName());
-  Serial.print(" ");
+  Serial.print(F(" "));
 
   // print out the received count or counter-two value
   Serial.println(data->value());

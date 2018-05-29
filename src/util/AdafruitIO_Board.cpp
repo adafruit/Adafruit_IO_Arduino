@@ -26,6 +26,8 @@ char AdafruitIO_Board::_id[64] = "";
     const char AdafruitIO_Board::_type[] = "esp32";
 #elif defined(ESP8266)
     const char AdafruitIO_Board::_type[] = "esp8266";
+#elif defined(ARDUINO_AVR_YUN)
+    const char AdafruitIO_Board::_type[] = "yun";
 #else
     const char AdafruitIO_Board::_type[] = "unknown";
 #endif

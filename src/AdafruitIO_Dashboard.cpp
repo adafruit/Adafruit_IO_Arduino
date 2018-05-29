@@ -27,6 +27,21 @@ bool AdafruitIO_Dashboard::exists()
   url += "/dashboards/";
   url += name;
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  _io->_http->get(req.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->beginRequest();
   _io->_http->get(url.c_str());
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
@@ -34,6 +49,7 @@ bool AdafruitIO_Dashboard::exists()
 
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
 
   return status == 200;
 }
@@ -47,6 +63,22 @@ bool AdafruitIO_Dashboard::create()
   String body = "name=";
   body += name;
 
+#if defined(ARDUINO_AVR_YUN)
+  String aiokey = "X-AIO-Key: ";
+  aiokey += _io->_key;
+
+  String req = "https://";
+  req += _io->_host;
+  req += url;
+
+  _io->_http->startRequest();
+  _io->_http->addHeader(aiokey.c_str());
+  _io->_http->enableInsecure();
+  // Content-Type and Content-Length are implicit
+  _io->_http->post(req.c_str(), body.c_str());
+
+  int status = _io->_http->getResponseCode();
+#else
   _io->_http->beginRequest();
   _io->_http->post(url.c_str());
 
@@ -65,6 +97,7 @@ bool AdafruitIO_Dashboard::create()
 
   int status = _io->_http->responseStatusCode();
   _io->_http->responseBody(); // needs to be read even if not used
+#endif // defined(ARDUINO_AVR_YUN)
 
   return status == 201;
 }

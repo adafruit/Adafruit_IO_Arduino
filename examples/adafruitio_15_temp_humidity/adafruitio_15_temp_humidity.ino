@@ -45,12 +45,12 @@ void setup() {
   dht.begin();
 
   // connect to io.adafruit.com
-  Serial.print("Connecting to Adafruit IO");
+  Serial.print(F("Connecting to Adafruit IO"));
   io.connect();
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
-    Serial.print(".");
+    Serial.print(F("."));
     delay(500);
   }
 
@@ -74,22 +74,22 @@ void loop() {
   float celsius = event.temperature;
   float fahrenheit = (celsius * 1.8) + 32;
 
-  Serial.print("celsius: ");
+  Serial.print(F("celsius: "));
   Serial.print(celsius);
-  Serial.println("C");
+  Serial.println(F("C"));
 
-  Serial.print("fahrenheit: ");
+  Serial.print(F("fahrenheit: "));
   Serial.print(fahrenheit);
-  Serial.println("F");
+  Serial.println(F("F"));
 
   // save fahrenheit (or celsius) to Adafruit IO
   temperature->save(fahrenheit);
 
   dht.humidity().getEvent(&event);
 
-  Serial.print("humidity: ");
+  Serial.print(F("humidity: "));
   Serial.print(event.relative_humidity);
-  Serial.println("%");
+  Serial.println(F("%"));
 
   // save humidity to Adafruit IO
   humidity->save(event.relative_humidity);
