@@ -2,6 +2,11 @@
 
 Adafruit IO Arduino Library
 ---------------------------
+This library provides a simple device independent interface for interacting with Adafruit IO using Arduino.
+It allows you to switch beween WiFi (ESP8266, M0 WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing)
+with only a two line change in your sketch.
+
+
 Table of Contents
 =================
 
@@ -28,6 +33,13 @@ Table of Contents
     :maxdepth: 1
 
     usage
+
+
+.. toctree::
+    :caption: Hardware Compatability
+    :maxdepth: 1
+
+    compatibility
 
 
 .. toctree::
