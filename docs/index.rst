@@ -1,5 +1,7 @@
 .. include:: ../README.rst
 
+Adafruit IO Arduino Library
+---------------------------
 Table of Contents
 =================
 
@@ -15,6 +17,20 @@ Table of Contents
     examples
 
 .. toctree::
+    :caption: Dependencies
+    :maxdepth: 1
+
+    dependencies
+
+
+.. toctree::
+    :caption: Usage
+    :maxdepth: 1
+
+    usage
+
+
+.. toctree::
     :caption: API Reference
     :maxdepth: 3
 
@@ -22,9 +38,8 @@ Table of Contents
 
 .. toctree::
     :caption: Tutorials
+    `Adafruit IO Basics <https://learn.adafruit.com/series/adafruit-io-basics>`_
 
-.. todo:: Add any Learn guide links here. If there are none, then simply delete this todo and leave
-    the toctree above for use later.
 
 .. toctree::
     :caption: Related Products
@@ -35,9 +50,7 @@ Table of Contents
 .. toctree::
     :caption: Other Links
 
-    Download <https://github.com/adafruit/CircuitPython_Adafruit IO Arduino/releases/latest>
-    CircuitPython Reference Documentation <https://circuitpython.readthedocs.io>
-    CircuitPython Support Forum <https://forums.adafruit.com/viewforum.php?f=60>
+    Adafruit IO Support Forum <https://forums.adafruit.com/viewforum.php?f=56>
     Discord Chat <https://adafru.it/discord>
     Adafruit Learning System <https://learn.adafruit.com>
     Adafruit Blog <https://blog.adafruit.com>
