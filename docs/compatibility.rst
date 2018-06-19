@@ -6,6 +6,7 @@ Last tested with library `v2.7.4` on 06/18/2018 for ESP8266, ESP32 and M0 WiFi T
 Previously tested on all targets using v2.0.0 on 08/10/2016.
 
 
+
 +----------------------+---------+-------+---------+-------+-----------+-----------+---------+
 | Example              | ESP8266 | ESP82 | M0 WiFi | WICED | Ethernet* | FONA 32u4 | MKR1000 |
 +======================+=========+=======+=========+=======+===========+===========+=========+

@@ -4,7 +4,7 @@
 
 
 This library provides a simple device independent interface for interacting with [Adafruit IO](https://io.adafruit.com) using Arduino. It allows you to switch between WiFi (ESP8266, M0 WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing)
-with only a two line change in your sketch.
+
 
 ## Documentation
 Documentation including installation, configuration and usage for this library is found on [the Adafruit IO Arduino ReadTheDocs pages](https://adafruit-io-arduino.readthedocs.io/en/latest/).
