@@ -11,7 +11,6 @@ with only a two line change in your sketch.
     :titlesonly:
     :maxdepth: 5
 
-    self
     dependencies
     usage
     examples
