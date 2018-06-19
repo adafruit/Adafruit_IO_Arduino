@@ -1,0 +1,21 @@
+language: c
+sudo: false
+
+# Blacklist
+branches:
+  except:
+    - gh-pages
+
+env:
+  global:
+     - PRETTYNAME="Adafruit IO Arduino Library"
+
+
+before_install:
+   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+
+install:
+    - arduino --install-library "Adafruit IO Arduino Library", "Adafruit MQTT Library","ArduinoHttpClient","WiFi101"
+
+script:
+   - build_main_platforms
