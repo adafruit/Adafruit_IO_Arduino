@@ -27,14 +27,8 @@
 AdafruitIO_Feed *digital = io.feed("digital");
 
 void setup() {
-   
-  // set led pin as a digital output
-  #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode()
-    ledcAttachPin(LED_PIN, 1);
-    ledcSetup(1, 1200, 8);
-  #else
-    pinMode(LED_PIN, OUTPUT);
-  #endif
+  
+  pinMode(LED_PIN, OUTPUT);
   
   // start the serial connection
   Serial.begin(115200);
@@ -86,11 +80,6 @@ void handleMessage(AdafruitIO_Data *data) {
   else
     Serial.println("LOW");
 
-  // write the current state to the led
-  #if defined(ARDUINO_ARCH_ESP32) // ESP32 digitalWrite()
-    ledcWrite(1, data->toPinLevel());
-  #else
-    digitalWrite(LED_PIN, data->toPinLevel());
-  #endif
-  
+
+  digitalWrite(LED_PIN, data->toPinLevel());
 }
