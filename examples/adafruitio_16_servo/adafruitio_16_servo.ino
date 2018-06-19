@@ -20,7 +20,13 @@
 
 /************************ Example Starts Here *******************************/
 
-#include <Servo.h>
+#if defined(ARDUINO_ARCH_ESP32)
+  // ESP32Servo Library (https://github.com/madhephaestus/ESP32Servo)
+  // installation: library manager -> search -> "ESP32Servo"
+  #include <ESP32Servo.h>
+#else
+  #include <Servo.h>
+#endif
 
 // pin used to control the servo
 #define SERVO_PIN 2
@@ -61,7 +67,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-  servo_feed->get();
 
 }
 
