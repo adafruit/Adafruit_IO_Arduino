@@ -15,7 +15,7 @@ before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 install:
-    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","WiFi101"
+    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","WiFi101", "Adafruit Unified Sensor", "Adafruit NeoPixel Library"
 
 script:
     # Build Espressif Platforms
