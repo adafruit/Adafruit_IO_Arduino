@@ -18,4 +18,7 @@ install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","WiFi101"
 
 script:
-   - build_main_platforms
+    # Build Espressif Platforms
+    - build_platform esp8266
+    - build_platform esp32
+    # Build M0 Platforms
