@@ -16,7 +16,10 @@ before_install:
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
-    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","WiFi101","DHT sensor library"
+    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library","ESP32_Servo"
 
 script:
-    - build_io_platforms
+    - build_platform esp8266
+    - build_platform esp32
+    - arduino --install-library "WiFi101"
+    - build_platform zero
