@@ -7,6 +7,4 @@
 # platformio (testing)
 .pioenvs
 .piolibdeps
-.travis.yml
 platformio.ini
-
