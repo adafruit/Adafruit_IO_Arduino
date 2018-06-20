@@ -19,7 +19,8 @@ install:
     - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library","ESP32_Servo"
 
 script:
-    - build_platform esp8266
     - build_platform esp32
+    - build_platform esp8266
+    # now try the SAMD platforms
     - arduino --install-library "WiFi101"
     - build_platform zero
