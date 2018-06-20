@@ -37,6 +37,22 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
+  
+  #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
+    // assign rgb pins to channels
+    ledcAttachPin(RED_PIN, 1);
+    ledcAttachPin(GREEN_PIN, 2);
+    ledcAttachPin(BLUE_PIN, 3);
+    // init. channels
+    ledcSetup(1, 12000, 8);
+    ledcSetup(2, 12000, 8);
+    ledcSetup(3, 12000, 8);
+  #else
+    pinMode(RED_PIN, OUTPUT);
+    pinMode(GREEN_PIN, OUTPUT);
+    pinMode(BLUE_PIN, OUTPUT);
+  #endif
+
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
@@ -92,8 +108,14 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.println(data->value());
 
   // invert RGB values for common anode LEDs
-  analogWrite(RED_PIN, 255 - data->toRed());
-  analogWrite(GREEN_PIN, 255 - data->toGreen());
-  analogWrite(BLUE_PIN, 255 - data->toBlue());
-
+  #if defined(ARDUINO_ARCH_ESP32) // ESP32 analogWrite
+    ledcWrite(1, 255 - data->toRed());
+    ledcWrite(2, 255 - data->toGreen());
+    ledcWrite(3, 255 - data->toBlue());
+  #else
+    analogWrite(RED_PIN, 255 - data->toRed());
+    analogWrite(GREEN_PIN, 255 - data->toGreen());
+    analogWrite(BLUE_PIN, 255 - data->toBlue());
+  #endif
+  
 }
