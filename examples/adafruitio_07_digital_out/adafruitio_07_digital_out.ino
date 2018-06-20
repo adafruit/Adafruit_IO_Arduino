@@ -55,6 +55,7 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+  digital->get();
 
 }
 
