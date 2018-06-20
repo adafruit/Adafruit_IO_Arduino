@@ -18,6 +18,7 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT(
   name = n;
   _sub = 0;
   _pub = 0;
+  _get_pub = 0;
   _dataCallback = 0;
 
   _init();
@@ -111,20 +112,6 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int
 
 bool AdafruitIO_Feed::get()
 {
-  if (!_get_topic)
-  {
-    _get_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
-    strcpy(_get_topic, _io->_username);
-    strcat(_get_topic, "/f/");
-    strcat(_get_topic, name);
-    strcat(_get_topic, "/csv/get");
-  }
-
-  if (!_get_pub)
-  {
-    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
-  }
-
   return _get_pub->publish("\0");
 }
 
@@ -225,6 +212,7 @@ void AdafruitIO_Feed::_init()
 
   // dynamically allocate memory for mqtt topic and REST URLs
   _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _get_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
   _feed_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 16)); // 16 extra for api path & null term
   _create_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + 15)); // 15 extra for api path & null term
 
@@ -250,9 +238,16 @@ void AdafruitIO_Feed::_init()
     strcat(_create_url, _io->_username);
     strcat(_create_url, "/feeds");
 
+    // build /get topic string
+    strcpy(_get_topic, _io->_username);
+    strcat(_get_topic, "/f/");
+    strcat(_get_topic, name);
+    strcat(_get_topic, "/csv/get");
+
     // setup subscription
     _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
     _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
+    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
     _io->_mqtt->subscribe(_sub);
 
     _sub->setCallback(this, &AdafruitIO_MQTT::subCallback);
@@ -265,6 +260,7 @@ void AdafruitIO_Feed::_init()
     _feed_url = 0;
     _sub = 0;
     _pub = 0;
+    _get_pub = 0;
     data = 0;
 
   }
