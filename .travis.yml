@@ -15,7 +15,7 @@ before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 install:
-    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient", "Adafruit_Sensor", "Adafruit_NeoPixel"
+    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient", "Adafruit_Sensor", "Adafruit NeoPixel"
 
 script:
     # Build Espressif Platforms
@@ -24,4 +24,6 @@ script:
 
     # Build M0/M4 Platforms
     # install the WiFi101 library, installing it before espressif causes conflicts
-    #- arduino --install-library "WiFi101"
+    - arduino --install-library "WiFi101"
+    - build_platform samd_platforms
+    - build_platform m4_platforms
