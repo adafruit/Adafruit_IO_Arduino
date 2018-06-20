@@ -15,11 +15,11 @@ before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 install:
-    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","ESP32_Servo"
-    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library"
+    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","ESP32Servo","Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library"
 
 script:
-    - build_platform esp8266
     - build_platform esp32
+    - build_platform esp8266
+    # trying to fix the colliding wifi.h libs...
     - arduino --install-library "WiFi101"
     - build_platform zero
