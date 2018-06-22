@@ -8,3 +8,4 @@
 .pioenvs
 .piolibdeps
 platformio.ini
+.tests
