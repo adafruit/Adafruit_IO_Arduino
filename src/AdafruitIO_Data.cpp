@@ -245,7 +245,7 @@ bool AdafruitIO_Data::toBool()
   if(! _value)
     return false;
 
-  if(strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
+  if(strcmp(_value, "ON") == 0 || strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
     return true;
   else
     return false;
