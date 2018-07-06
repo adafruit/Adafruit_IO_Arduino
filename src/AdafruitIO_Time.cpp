@@ -60,7 +60,7 @@ void AdafruitIO_Time::_init()
     case AIO_TIME_MILLIS:
       formatString = "millis";
       break;
-    case AIO_TIME_ISO8601:
+    case AIO_TIME_ISO:
       formatString = "ISO-8601";
       break;
   }

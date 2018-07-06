@@ -108,7 +108,7 @@ typedef enum {
 
   AIO_TIME_SECONDS = 0,
   AIO_TIME_MILLIS = 1,
-  AIO_TIME_ISO8601 = 2
+  AIO_TIME_ISO = 2
 
 } aio_time_format_t;
 
