@@ -19,6 +19,7 @@
 #include "AdafruitIO_Group.h"
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO_Data.h"
+#include "AdafruitIO_Time.h"
 #include "ArduinoHttpClient.h"
 #include "util/AdafruitIO_Board.h"
 
@@ -37,6 +38,7 @@ class AdafruitIO {
   friend class AdafruitIO_Group;
   friend class AdafruitIO_Dashboard;
   friend class AdafruitIO_Block;
+  friend class AdafruitIO_Time;
 
   public:
     AdafruitIO(const char *user, const char *key);
@@ -49,6 +51,7 @@ class AdafruitIO {
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Group* group(const char *name);
     AdafruitIO_Dashboard* dashboard(const char *name);
+    AdafruitIO_Time* time(aio_time_format_t format);
 
     const __FlashStringHelper* statusText();
 
