@@ -72,7 +72,6 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
-  delay(5);
   // Because this sketch isn't publishing, we don't need
   // a delay() in the main program loop.
 
