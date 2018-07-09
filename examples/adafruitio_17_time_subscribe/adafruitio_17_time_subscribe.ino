@@ -1,11 +1,11 @@
-// Adafruit IO Time Subscription Example
+// Adafruit IO Time Topic Subscription Example
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
 // products from Adafruit!
 //
-// Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Written by Adam Bachman, Brent Rubell for Adafruit Industries
+// Copyright (c) 2018 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -22,6 +22,12 @@
 // set up the 'time/seconds' topic
 AdafruitIO_Time *seconds = io.time(AIO_TIME_SECONDS);
 
+// set up the 'time/milliseconds' topic
+AdafruitIO_Time *msecs = io.time(AIO_TIME_MILLIS);
+
+// set up the 'time/ISO-8601' topic
+AdafruitIO_Time *iso = io.time(AIO_TIME_ISO);
+
 void setup() {
 
   // start the serial connection
@@ -35,11 +41,14 @@ void setup() {
   // start MQTT connection to io.adafruit.com
   io.connect();
 
-  // set up a message handler for the count feed.
-  // the handleMessage function (defined below)
-  // will be called whenever a message is
-  // received from adafruit io.
-  seconds->onMessage(handleMessage);
+  // attach message handler for the seconds feed
+  seconds->onMessage(handleSecs);
+
+  // attach a message handler for the msecs feed
+  msecs->onMessage(handleMillis);
+
+  // attach a message handler for the ISO feed
+  iso->onMessage(handleISO);
 
   // wait for an MQTT connection
   // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
@@ -63,17 +72,29 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
+  delay(5);
   // Because this sketch isn't publishing, we don't need
   // a delay() in the main program loop.
 
 }
 
-// this function is called whenever a 'counter' message
-// is received from Adafruit IO. it was attached to
-// the counter feed in the setup() function above.
-void handleMessage(char *data, uint16_t len) {
 
-  Serial.print("received <- ");
+// message handler for the seconds feed
+void handleSecs(char *data, uint16_t len) {
+  Serial.print("Seconds Feed: ");
   Serial.println(data);
+}
 
+
+// message handler for the milliseconds feed
+void handleMillis(char *data, uint16_t len) {
+  Serial.print("Millis Feed: ");
+  Serial.println(data);
+}
+
+
+// message handler for the ISO-8601 feed
+void handleISO(char *data, uint16_t len) {
+  Serial.print("ISO Feed: ");
+  Serial.println(data);
 }
