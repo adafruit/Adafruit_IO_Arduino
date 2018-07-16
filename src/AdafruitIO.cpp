@@ -78,6 +78,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const char* name)
   return new AdafruitIO_Feed(this, name);
 }
 
+AdafruitIO_Time* AdafruitIO::time(aio_time_format_t format)
+{
+  return new AdafruitIO_Time(this, format);
+}
+
 AdafruitIO_Group* AdafruitIO::group(const char* name)
 {
   return new AdafruitIO_Group(this, name);
