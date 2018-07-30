@@ -18,7 +18,7 @@
 #include "config.h"
 
 /************************ Example Starts Here *******************************/
-#define DEEPSLEEP_DURATION 20e4
+#define DEEPSLEEP_DURATION 20e6
 
 void setup() {
   // start the serial connection
@@ -37,8 +37,8 @@ void setup() {
   // let's go back to sleep for DEEPSLEEP_DURATION seconds...
   Serial.println("sleeping...");
   // Put the Huzzah into deepsleep for DEEPSLEEP_DURATION
-  // NOTE: Make sure Pin 16 is connected to 
-  ESP.deepSleep(DEEPSLEEP_DURATION);
+  // NOTE: Make sure Pin 16 is connected to RST
+  ESP.deepSleep(1000000 * 2);
 }
 
 // NOOP
