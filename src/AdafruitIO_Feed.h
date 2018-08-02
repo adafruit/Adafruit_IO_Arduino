@@ -58,7 +58,6 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
   private:
     AdafruitIODataCallbackType _dataCallback;
 
-    void _setup(AdafruitIO *io, const char *n);
     void _init();
 
     char *_topic;

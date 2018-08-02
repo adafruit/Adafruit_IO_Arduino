@@ -30,9 +30,6 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un):
   _init();
 }
 
-AdafruitIO_Feed::set(AdafruitIO *io, const char *n) {
-}
-
 AdafruitIO_Feed::~AdafruitIO_Feed()
 {
   if(_sub)
