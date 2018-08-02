@@ -13,26 +13,31 @@
 
 TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
 {
-  fontSize = "small";
+    fontSize = "small";
 }
 
-TextBlock::~TextBlock(){}
+TextBlock::~TextBlock() {}
 
 String TextBlock::properties()
 {
-  int s = 0;
+    int s = 0;
 
-  if(fontSize == "small") {
-    s = 12;
-  } else if(fontSize == "medium") {
-    s = 18;
-  } else {
-    s = 24;
-  }
+    if ((strcmp(fontSize, "small") == 0))
+    {
+        s = 12;
+    }
+    else if ((strcmp(fontSize, "medium") == 0))
+    {
+        s = 18;
+    }
+    else
+    {
+        s = 24;
+    }
 
-  String props = "{\"fontSize\":\"";
-  props += s;
-  props += "\"}";
+    String props = "{\"fontSize\":\"";
+    props += s;
+    props += "\"}";
 
-  return props;
+    return props;
 }
