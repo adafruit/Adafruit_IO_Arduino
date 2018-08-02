@@ -187,6 +187,8 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
       return new AdafruitIO_Data(this, body.c_str());
     }
 
+    return NULL;
+
   } else {
 
     AIO_ERROR_PRINT("error retrieving lastValue, status: ");

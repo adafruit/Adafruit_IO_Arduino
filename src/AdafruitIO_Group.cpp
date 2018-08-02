@@ -123,7 +123,7 @@ bool AdafruitIO_Group::save()
 
 AdafruitIO_Data* AdafruitIO_Group::getFeed(const char *feed)
 {
-  uint8_t i;
+  // uint8_t i;
 
   if(data == NULL) {
     data = new AdafruitIO_Data(feed);
@@ -147,11 +147,13 @@ AdafruitIO_Data* AdafruitIO_Group::getFeed(const char *feed)
 
   }
 
+  return NULL;
+
 }
 
 void AdafruitIO_Group::onMessage(AdafruitIODataCallbackType cb)
 {
-  uint8_t i;
+  // uint8_t i;
 
   if(_groupCallback == NULL) {
     _groupCallback = new AdafruitIOGroupCallback(cb);
@@ -175,7 +177,7 @@ void AdafruitIO_Group::onMessage(AdafruitIODataCallbackType cb)
 
 void AdafruitIO_Group::onMessage(const char *feed, AdafruitIODataCallbackType cb)
 {
-  uint8_t i;
+  // uint8_t i;
 
   if(_groupCallback == NULL) {
     _groupCallback = new AdafruitIOGroupCallback(feed, cb);
@@ -203,7 +205,7 @@ void AdafruitIO_Group::onMessage(const char *feed, AdafruitIODataCallbackType cb
 
 void AdafruitIO_Group::call(AdafruitIO_Data *d)
 {
-  uint8_t i;
+  // uint8_t i;
 
   if(_groupCallback == NULL) {
     return;
@@ -266,7 +268,7 @@ void AdafruitIO_Group::subCallback(char *val, uint16_t len)
 
 void AdafruitIO_Group::setLocation(double lat, double lon, double ele)
 {
-  uint8_t i;
+  // uint8_t i;
 
   if(data == NULL) {
     return;
