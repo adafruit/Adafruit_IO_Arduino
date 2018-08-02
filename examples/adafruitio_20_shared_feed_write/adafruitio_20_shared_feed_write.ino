@@ -25,12 +25,12 @@
 // digital pin 5
 #define BUTTON_PIN 5
 
-// Feed owner (whomever owns the shared feed)
-#define FEED_OWNER "abachman"
+// the Adafruit IO username of whomever owns the feed
+#define FEED_OWNER "AIO_FEED_OWNER"
 
 // set up a shared feed between you and the FEED_OWNER 
 // make sure you have both read AND write access to this feed
-AdafruitIO_Feed *sharedFeed = io.feed("secondary.shared-message-buffer", FEED_OWNER);
+AdafruitIO_Feed *sharedFeed = io.feed("FEED-NAME", FEED_OWNER);
 
 // button state
 bool current = false;
