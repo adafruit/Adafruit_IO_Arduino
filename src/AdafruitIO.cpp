@@ -78,6 +78,11 @@ AdafruitIO_Feed* AdafruitIO::feed(const char* name)
   return new AdafruitIO_Feed(this, name);
 }
 
+AdafruitIO_Feed* AdafruitIO::feed(const char* name, const char* owner)
+{
+  return new AdafruitIO_Feed(this, name, owner);
+}
+
 AdafruitIO_Time* AdafruitIO::time(aio_time_format_t format)
 {
   return new AdafruitIO_Time(this, format);

@@ -16,12 +16,21 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT(
 {
   _io = io;
   name = n;
-  _sub = 0;
-  _pub = 0;
-  _get_pub = 0;
-  _dataCallback = 0;
+  owner = _io->_username;
 
   _init();
+}
+
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un):AdafruitIO_MQTT()
+{
+  _io = io;
+  name = n;
+  owner = un;
+
+  _init();
+}
+
+AdafruitIO_Feed::set(AdafruitIO *io, const char *n) {
 }
 
 AdafruitIO_Feed::~AdafruitIO_Feed()
@@ -159,7 +168,7 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
 {
   // 15 extra for api path, 12 for /data/retain, 1 for null
   String url = "/api/v2/";
-  url += _io->_username;
+  url += owner;
   url += "/feeds/";
   url += name;
   url += "/data/retain";
@@ -209,12 +218,16 @@ void AdafruitIO_Feed::subCallback(char *val, uint16_t len)
 
 void AdafruitIO_Feed::_init()
 {
+  _sub = 0;
+  _pub = 0;
+  _get_pub = 0;
+  _dataCallback = 0;
 
   // dynamically allocate memory for mqtt topic and REST URLs
-  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
-  _get_topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
-  _feed_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 16)); // 16 extra for api path & null term
-  _create_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + 15)); // 15 extra for api path & null term
+  _topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
+  _get_topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
+  _feed_url = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 16)); // 16 extra for api path & null term
+  _create_url = (char *) malloc(sizeof(char) * (strlen(owner) + 15)); // 15 extra for api path & null term
 
   // init feed data
   data = new AdafruitIO_Data(this);
@@ -222,24 +235,24 @@ void AdafruitIO_Feed::_init()
   if(_topic && _create_url && _feed_url) {
 
     // build topic string
-    strcpy(_topic, _io->_username);
+    strcpy(_topic, owner);
     strcat(_topic, "/f/");
     strcat(_topic, name);
     strcat(_topic, "/csv");
 
     // build feed url string
     strcpy(_feed_url, "/api/v2/");
-    strcat(_feed_url, _io->_username);
+    strcat(_feed_url, owner);
     strcat(_feed_url, "/feeds/");
     strcat(_feed_url, name);
 
     // build create url string
     strcpy(_create_url, "/api/v2/");
-    strcat(_create_url, _io->_username);
+    strcat(_create_url, owner);
     strcat(_create_url, "/feeds");
 
     // build /get topic string
-    strcpy(_get_topic, _io->_username);
+    strcpy(_get_topic, owner);
     strcat(_get_topic, "/f/");
     strcat(_get_topic, name);
     strcat(_get_topic, "/csv/get");
