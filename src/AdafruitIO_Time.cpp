@@ -53,6 +53,7 @@ void AdafruitIO_Time::_init()
 
   // dynamically allocate memory for mqtt topic and REST URLs
   const char *formatString;
+
   switch (format) {
     case AIO_TIME_SECONDS:
       formatString = "seconds";
@@ -62,6 +63,9 @@ void AdafruitIO_Time::_init()
       break;
     case AIO_TIME_ISO:
       formatString = "ISO-8601";
+      break;
+    default:
+      formatString = "seconds";
       break;
   }
 

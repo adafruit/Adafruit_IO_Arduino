@@ -25,6 +25,8 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
   public:
     AdafruitIO_Feed(AdafruitIO *io, const char *name);
+    AdafruitIO_Feed(AdafruitIO *io, const char *name, const char *owner);
+
     ~AdafruitIO_Feed();
 
     bool save(char *value, double lat=0, double lon=0, double ele=0);
@@ -48,6 +50,7 @@ class AdafruitIO_Feed : public AdafruitIO_MQTT {
     void subCallback(char *val, uint16_t len);
 
     const char *name;
+    const char *owner;
 
     AdafruitIO_Data *lastValue();
     AdafruitIO_Data *data;
