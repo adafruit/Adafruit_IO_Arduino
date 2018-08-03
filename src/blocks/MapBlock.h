@@ -19,7 +19,8 @@ class MapBlock : public AdafruitIO_Block {
   public:
     MapBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
     ~MapBlock();
-
+  
+    String props;
     int historyHours;
     const char *tile;
 
