@@ -27,7 +27,7 @@ String MapBlock::properties()
         tile = "contrast";
     }
 
-    String props = "{\"historyHours\":\"";
+    props = "{\"historyHours\":\"";
     props += historyHours;
     props += "\",\"tile\":\"";
     props += tile;
