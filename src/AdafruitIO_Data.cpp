@@ -337,6 +337,7 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
 
 int AdafruitIO_Data::toRed()
 {
+    // Convert 0xRRGGBB to red.
     if (! _value)
     {
         return 0;
@@ -350,6 +351,7 @@ int AdafruitIO_Data::toRed()
 
 int AdafruitIO_Data::toGreen()
 {
+    // Convert 0xRRGGBB to green.
     if (! _value)
     {
         return 0;
@@ -363,6 +365,7 @@ int AdafruitIO_Data::toGreen()
 
 int AdafruitIO_Data::toBlue()
 {
+    // Convert 0xRRGGBB to blue.
     if (! _value)
     {
         return 0;
