@@ -337,46 +337,56 @@ unsigned long AdafruitIO_Data::toUnsignedLong()
 
 int AdafruitIO_Data::toRed()
 {
-  if(! _value)
-    return 0;
-
-  char r[] = "0x";
-  strncat(r, toChar() + 1, 2);
-
-  return (int)strtol(r, NULL, 0);
+    // Convert 0xRRGGBB to red.
+    if (! _value)
+    {
+        return 0;
+    }
+    char r[5];
+    strcpy(r, "0x");
+    strncpy(&r[2], toChar() + 1, 2);
+    r[4] = '\x00';
+    return (int)strtol(r, NULL, 0);
 }
 
 int AdafruitIO_Data::toGreen()
 {
-  if(! _value)
-    return 0;
-
-  char g[] = "0x";
-  strncat(g, toChar() + 3, 2);
-
-  return (int)strtol(g, NULL, 0);
+    // Convert 0xRRGGBB to green.
+    if (! _value)
+    {
+        return 0;
+    }
+    char g[5];
+    strcpy(g, "0x");
+    strncpy(&g[2], toChar() + 3, 2);
+    g[4] = '\x00';
+    return (int)strtol(g, NULL, 0);
 }
 
 int AdafruitIO_Data::toBlue()
 {
-  if(! _value)
-    return 0;
-
-  char b[] = "0x";
-  strncat(b, toChar() + 5, 2);
-
-  return (int)strtol(b, NULL, 0);
+    // Convert 0xRRGGBB to blue.
+    if (! _value)
+    {
+        return 0;
+    }
+    char b[5];
+    strcpy(b, "0x");
+    strncpy(&b[2], toChar() + 5, 2);
+    b[4] = '\x00';
+    return (int)strtol(b, NULL, 0);
 }
 
 long AdafruitIO_Data::toNeoPixel()
 {
-  if(! _value)
-    return 0;
-
-  char rgb_string[9] = "0x";
-  strncat(rgb_string, toChar() + 1, 6);
-
-  return strtol(rgb_string, NULL, 0);
+    if (! _value)
+    {
+        return 0;
+    }
+    char rgb[9];
+    strcpy(rgb, "0x");
+    strncpy(&rgb[2], toChar() + 1, 6);
+    return strtol(rgb, NULL, 0);
 }
 
 char* AdafruitIO_Data::toCSV()
