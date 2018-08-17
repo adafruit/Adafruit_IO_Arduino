@@ -55,6 +55,8 @@ void setup() {
   // wait for serial monitor to open
   while(! Serial);
 
+  Serial.print("IFTTT Gmailbox");
+
   // tell the servo class which pin we are using
   servo.attach(SERVO_PIN);
 
