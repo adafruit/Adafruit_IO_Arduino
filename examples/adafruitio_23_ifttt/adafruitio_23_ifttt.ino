@@ -94,9 +94,9 @@ void loop() {
 
 }
 
-// this function is called whenever a 'servo' message
+// this function is called whenever a 'gmail' message
 // is received from Adafruit IO. it was attached to
-// the servo feed in the setup() function above.
+// the gmail feed in the setup() function above.
 void handleMessage(AdafruitIO_Data *data) {
 
   Serial.println("You've got mail!");
