@@ -16,6 +16,7 @@ AdafruitIO_Group::AdafruitIO_Group(AdafruitIO *io, const char *n):AdafruitIO_MQT
 {
   _io = io;
   name = n;
+  owner = _io->_username;
 
   _init();
 }
@@ -28,11 +29,17 @@ AdafruitIO_Group::~AdafruitIO_Group()
   if(_pub)
     delete _pub;
 
+  if(_get_pub)
+    delete _get_pub;
+
   if(data)
     delete data;
 
   if(_topic)
     free(_topic);
+
+  if (_get_topic)
+    free(_get_topic);
 
   if(_group_url)
     free(_group_url);
@@ -119,6 +126,11 @@ bool AdafruitIO_Group::save()
 
   return _pub->publish(csv);
 
+}
+
+bool AdafruitIO_Group::get()
+{
+  return _get_pub->publish("\0");
 }
 
 AdafruitIO_Data* AdafruitIO_Group::getFeed(const char *feed)
@@ -325,34 +337,42 @@ void AdafruitIO_Group::_init()
 {
 
   // dynamically allocate memory for mqtt topic and REST URLs
-  _topic = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 8)); // 8 extra chars for /g/, /csv & null termination
-  _group_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + strlen(name) + 16)); // 16 extra for api path & null term
-  _create_url = (char *) malloc(sizeof(char) * (strlen(_io->_username) + 15)); // 15 extra for api path & null term
+  _topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 8)); // 8 extra chars for /g/, /csv & null termination
+  _get_topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
+  _group_url = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 16)); // 16 extra for api path & null term
+  _create_url = (char *) malloc(sizeof(char) * (strlen(owner) + 15)); // 15 extra for api path & null term
 
   data = 0;
 
   if(_topic && _create_url && _group_url) {
 
     // build topic string
-    strcpy(_topic, _io->_username);
+    strcpy(_topic, owner);
     strcat(_topic, "/g/");
     strcat(_topic, name);
     strcat(_topic, "/csv");
 
     // build feed url string
     strcpy(_group_url, "/api/v2/");
-    strcat(_group_url, _io->_username);
+    strcat(_group_url, owner);
     strcat(_group_url, "/groups/");
     strcat(_group_url, name);
 
     // build create url string
     strcpy(_create_url, "/api/v2/");
-    strcat(_create_url, _io->_username);
+    strcat(_create_url, owner);
     strcat(_create_url, "/groups");
+
+    // build /get topic string
+    strcpy(_get_topic, owner);
+    strcat(_get_topic, "/g/");
+    strcat(_get_topic, name);
+    strcat(_get_topic, "/csv/get");
 
     // setup subscription
     _sub = new Adafruit_MQTT_Subscribe(_io->_mqtt, _topic);
     _pub = new Adafruit_MQTT_Publish(_io->_mqtt, _topic);
+    _get_pub = new Adafruit_MQTT_Publish(_io->_mqtt, _get_topic);
     _io->_mqtt->subscribe(_sub);
 
     _sub->setCallback(this, &AdafruitIO_MQTT::subCallback);
@@ -361,10 +381,12 @@ void AdafruitIO_Group::_init()
 
     // malloc failed
     _topic = 0;
+    _get_topic = 0;
     _create_url = 0;
     _group_url = 0;
     _sub = 0;
     _pub = 0;
+    _get_pub = 0;
 
   }
 

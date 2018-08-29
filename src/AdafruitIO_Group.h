@@ -38,6 +38,7 @@ class AdafruitIO_Group : public AdafruitIO_MQTT {
     void set(const char *feed, double value);
 
     bool save();
+    bool get();
 
     void setLocation(double lat=0, double lon=0, double ele=0);
 
@@ -51,6 +52,7 @@ class AdafruitIO_Group : public AdafruitIO_MQTT {
     void call(AdafruitIO_Data *d);
 
     const char *name;
+    const char *owner;
 
     AdafruitIO_Data *data;
     AdafruitIO_Data* getFeed(const char *feed);
@@ -59,11 +61,13 @@ class AdafruitIO_Group : public AdafruitIO_MQTT {
     void _init();
 
     char *_topic;
+    char *_get_topic;
     char *_create_url;
     char *_group_url;
 
     Adafruit_MQTT_Subscribe *_sub;
     Adafruit_MQTT_Publish *_pub;
+    Adafruit_MQTT_Publish *_get_pub;
 
     AdafruitIO *_io;
     AdafruitIOGroupCallback *_groupCallback;
