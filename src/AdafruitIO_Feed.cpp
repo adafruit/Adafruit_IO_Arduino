@@ -39,7 +39,7 @@ AdafruitIO_Feed::~AdafruitIO_Feed()
     delete _pub;
 
   if(_get_pub)
-    delete _pub;
+    delete _get_pub;
 
   if(data)
     delete data;
@@ -268,6 +268,7 @@ void AdafruitIO_Feed::_init()
 
     // malloc failed
     _topic = 0;
+    _get_topic = 0;
     _create_url = 0;
     _feed_url = 0;
     _sub = 0;
