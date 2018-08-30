@@ -5,7 +5,7 @@
 // products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Copyright (c) 2018 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
