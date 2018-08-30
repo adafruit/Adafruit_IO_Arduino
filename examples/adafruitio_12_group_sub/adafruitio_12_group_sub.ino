@@ -5,7 +5,7 @@
 // products from Adafruit!
 //
 // Written by Todd Treece for Adafruit Industries
-// Copyright (c) 2016 Adafruit Industries
+// Copyright (c) 2018 Adafruit Industries
 // Licensed under the MIT license.
 //
 // All text above must be included in any redistribution.
@@ -34,8 +34,8 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
-  group->onMessage("count-1", one);
-  group->onMessage("count-2", two);
+  group->onMessage("example.count-1", one);
+  group->onMessage("example.count-2", two);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
@@ -47,6 +47,8 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
 
+  // force IO to update our MQTT subscription with the current values of all feeds
+  group->get();
 }
 
 void loop() {
