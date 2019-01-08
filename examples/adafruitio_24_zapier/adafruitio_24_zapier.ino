@@ -41,6 +41,9 @@ Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 // Set up the 'orientation' feed
 AdafruitIO_Feed *orientation = io.feed("orientation");
 
+// Set up the 'minutes' feed
+AdafruitIO_Feed *cubeminutes = io.feed("cubeminutes");
+
 /* Time Tracking Cube States
  * 0: Neutral, Cube on Base
  * 1: Cube Tilted, Left on X-Axis
@@ -51,12 +54,19 @@ int cubeState = 0;
 // Previous cube orientation state
 int lastCubeState = 0;
 
-// Tasks
+// Tasks (change these to what you're currently working on)
 String taskOne = "Write Learn Guide";
 String taskTwo = "Write Code";
 
 // Adafruit IO Sending Delay, in seconds
 int sendDelay = 0.5;
+
+// Time-Keeping
+unsigned long currentTime;
+unsigned long prevTime;
+int seconds = 0;
+int minutes = 0;
+int prevMinutes = 0;
 
 void setup()
 {
@@ -93,30 +103,32 @@ void setup()
   Serial.println(io.statusText());
 }
 
+void updateTime()
+{
+  currentTime = millis() / 1000;
+  seconds = currentTime - prevTime;
+  // increase min. timer
+  if (seconds == 60)
+  {
+    prevTime = currentTime;
+    minutes++;
+  }
+}
+
 void loop()
 {
-
   // io.run(); is required for all sketches.
   // it should always be present at the top of your loop
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
+  // Update the timer
+  updateTime();
+
   // Get a normalized sensor reading
   sensors_event_t event;
   lis.getEvent(&event);
-
-// Optionally display the accelerometer values
-#ifdef DEBUG
-  Serial.print("\t\tX: ");
-  Serial.print(event.acceleration.x);
-  Serial.print(" \tY: ");
-  Serial.print(event.acceleration.y);
-  Serial.print(" \tZ: ");
-  Serial.print(event.acceleration.z);
-  Serial.println(" m/s^2 ");
-  Serial.println();
-#endif
 
   // Detect Cube Face Orientation
   if (event.acceleration.x > 9 && event.acceleration.x < 10)
@@ -131,7 +143,6 @@ void loop()
   }
   else
   { // orientation not found
-    Serial.println("Undefined Orientation");
   }
 
   // return if the value hasn't changed
@@ -147,6 +158,10 @@ void loop()
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
     orientation->save(taskOne);
+    // save minutes to a feed
+    cubeminutes->save(minutes);
+    // reset the timer
+    minutes = 0;
     break;
   case 2:
     Serial.println("Playing Sound 2 Sound...");
@@ -154,6 +169,10 @@ void loop()
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
     orientation->save(taskTwo);
+    // save minutes to a feed
+    cubeminutes->save(minutes);
+    // reset the timer
+    minutes = 0;
     break;
   }
 
