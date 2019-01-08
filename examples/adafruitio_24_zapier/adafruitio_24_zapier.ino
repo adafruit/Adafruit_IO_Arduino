@@ -38,8 +38,8 @@
 // I2C
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 
-// Set up the 'orientation' feed
-AdafruitIO_Feed *orientation = io.feed("orientation");
+// Set up the 'cubeTask' feed
+AdafruitIO_Feed *cubetask = io.feed("cubetask");
 
 // Set up the 'minutes' feed
 AdafruitIO_Feed *cubeminutes = io.feed("cubeminutes");
@@ -66,7 +66,6 @@ unsigned long currentTime;
 unsigned long prevTime;
 int seconds = 0;
 int minutes = 0;
-int prevMinutes = 0;
 
 void setup()
 {
@@ -157,7 +156,7 @@ void loop()
     tone(PIEZO_PIN, 650, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
-    orientation->save(taskOne);
+    cubetask->save(taskOne);
     // save minutes to a feed
     cubeminutes->save(minutes);
     // reset the timer
@@ -168,7 +167,7 @@ void loop()
     tone(PIEZO_PIN, 850, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
-    orientation->save(taskTwo);
+    cubetask->save(taskTwo);
     // save minutes to a feed
     cubeminutes->save(minutes);
     // reset the timer
