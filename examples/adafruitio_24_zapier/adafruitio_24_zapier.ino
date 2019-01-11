@@ -138,6 +138,7 @@ void setup()
 
 void updateTime()
 {
+  // grab the current time from millis()
   currentTime = millis() / 1000;
   seconds = currentTime - prevTime;
   // increase min. timer
@@ -150,7 +151,7 @@ void updateTime()
 
 void updatePixels(uint8_t red, uint8_t green, uint8_t blue)
 {
-  // Power on the prop maker wing
+  // updates pixels on the prop-maker featherwing
   digitalWrite(POWER_PIN, HIGH);
   analogWrite(RED_LED, 0);
   analogWrite(GREEN_LED, 0);
@@ -229,15 +230,8 @@ void loop()
     minutes = 0;
     break;
   case 3:
-    Serial.println("Switching to Task 3");
     updatePixels(0, 0, 50);
     tone(PIEZO_PIN, 950, 300);
-    Serial.print("Sending to Adafruit IO -> ");
-    // prv task
-    // save previous task's minutes to a feed
-    cubeminutes -> save(minutes);
-    // reset the timer
-    minutes = 0;
     break;
   }
 
