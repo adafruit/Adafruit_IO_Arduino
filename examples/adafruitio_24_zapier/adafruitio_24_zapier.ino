@@ -66,6 +66,7 @@ int lastCubeState = 0;
 // Tasks (change these to what you're currently working on)
 String taskOne = "Write Learn Guide";
 String taskTwo = "Write Code";
+String taskThree = "Taking a Break!"; 
 
 // Adafruit IO Sending Delay, in seconds
 int sendDelay = 0.5;
@@ -79,7 +80,7 @@ int minutes = 0;
 void setup()
 {
   // start the serial connection
-  Serial.begin(115200);
+  Serial.begin(9600);
   // wait for serial monitor to open
   while (!Serial)
     ;
@@ -87,10 +88,9 @@ void setup()
 
   // disable low power mode on the prop-maker featherwing 
   Serial.println("disabling low power mode...");
-  pinMode(9, INPUT);
+  pinMode(15, OUTPUT);
   Serial.println("pin enabled");
-  digitalWrite(9, HIGH);
-  Serial.println("pin enabled");
+  digitalWrite(15, LOW);
   
   // Initialize LIS3DH
   if (!lis.begin(0x18))
@@ -101,11 +101,6 @@ void setup()
   }
   Serial.println("LIS3DH found!");
   lis.setRange(LIS3DH_RANGE_4_G);
-
-  // enable pin 9 - turn off low power mode
-  //pinMode(9, OUTPUT);
-  //digitalWrite(9, HIGH);  
-  
 
   // This initializes the NeoPixel library.
   //pixels.begin(); 
@@ -164,31 +159,36 @@ void loop()
   sensors_event_t event;
   lis.getEvent(&event);
 
+
   // Detect Cube Face Orientation
-  if (event.acceleration.x > 9 && event.acceleration.x < 10)
+  if (event.acceleration.x > 9 && event.acceleration.x < 10) // left-side up
   {
     //Serial.println("Cube TILTED: Left");
     cubeState = 1;
   }
-  else if (event.acceleration.x < -9)
+  else if (event.acceleration.x < -9) // right-side up
   {
     //Serial.println("Cube TILTED: Right");
     cubeState = 2;
+  }
+  else if(event.acceleration.y < 0 && event.acceleration.y > -1) // top-side up
+  {
+    cubeState = 3;
   }
   else
   { // orientation not found
   }
 
-  // return if the value hasn't changed
+  // return if the orientation hasn't changed
   if (cubeState == lastCubeState)
     return;
 
-  // Send to Adafruit IO based off of the State
+  // Send to Adafruit IO based off of the orientation of the Cube
   switch (cubeState)
   {
   case 1:
     Serial.println("Switching to Task 1");
-    setPixels(0, 150, 0);
+    //setPixels(0, 150, 0);
     tone(PIEZO_PIN, 650, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
@@ -200,13 +200,23 @@ void loop()
     break;
   case 2:
     Serial.println("Switching to Task 2");
-    setPixels(150, 0, 0);
+    //setPixels(150, 0, 0);
     tone(PIEZO_PIN, 850, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
     cubetask->save(taskOne);
     // save previous task's minutes to a feed
     cubeminutes->save(minutes);
+    // reset the timer
+    minutes = 0;
+    break;
+  case 3:
+    Serial.println("Switching to Task 3");
+    tone(PIEZO_PIN, 950, 300);
+    Serial.print("Sending to Adafruit IO -> ");
+    // prv task
+    // save previous task's minutes to a feed
+    cubeminutes -> save(minutes);
     // reset the timer
     minutes = 0;
     break;
