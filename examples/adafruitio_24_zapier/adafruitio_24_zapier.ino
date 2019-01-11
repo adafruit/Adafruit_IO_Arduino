@@ -28,11 +28,14 @@
 // Used for Pizeo
 #define PIEZO_PIN 0
 
-// Pin connected to NeoPixels
-#define PIXELPIN 6
+// NeoPixel Pin on Prop-Maker FeatherWing
+#define PIN 5
 
-// Number of NeoPixels
-#define NUMPIXELS 16
+// # of Pixels Attached
+#define NUMPIXELS 8
+
+// Library Setup
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
 // Used for software SPI
 #define LIS3DH_CLK 13
@@ -43,9 +46,6 @@
 
 // I2C
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
-
-// set up neopixel strip
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIXELPIN, NEO_GRB + NEO_KHZ800);
 
 // Set up the 'cubeTask' feed
 AdafruitIO_Feed *cubetask = io.feed("cubetask");
@@ -74,30 +74,42 @@ int sendDelay = 0.5;
 unsigned long currentTime;
 unsigned long prevTime;
 int seconds = 0;
-double minutes = 0;
+int minutes = 0;
 
 void setup()
 {
   // start the serial connection
-  Serial.begin(9600);
+  Serial.begin(115200);
   // wait for serial monitor to open
   while (!Serial)
     ;
-
   Serial.println("Adafruit IO Time Tracking Cube");
 
+  // disable low power mode on the prop-maker featherwing 
+  Serial.println("disabling low power mode...");
+  pinMode(9, INPUT);
+  Serial.println("pin enabled");
+  digitalWrite(9, HIGH);
+  Serial.println("pin enabled");
+  
   // Initialize LIS3DH
   if (!lis.begin(0x18))
   {
-    Serial.println("Couldnt start LIS3DH");
+    Serial.println("Couldnt start");
     while (1)
       ;
   }
   Serial.println("LIS3DH found!");
   lis.setRange(LIS3DH_RANGE_4_G);
 
-  // Initialize NeoPixel library
-  pixels.begin();
+  // enable pin 9 - turn off low power mode
+  //pinMode(9, OUTPUT);
+  //digitalWrite(9, HIGH);  
+  
+
+  // This initializes the NeoPixel library.
+  //pixels.begin(); 
+  Serial.println("Pixels init'd");
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -113,6 +125,16 @@ void setup()
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+
+}
+
+void setPixels(int red, int green, int blue) {
+  for(int i=0;i<NUMPIXELS;i++){
+    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
+    pixels.setPixelColor(i, pixels.Color(red,green,blue)); // Moderately bright green color.
+    pixels.show(); // This sends the updated pixel color to the hardware.
+    delay(500); // Delay for a period of time (in milliseconds).
+  }
 }
 
 void updateTime()
@@ -124,16 +146,6 @@ void updateTime()
   {
     prevTime = currentTime;
     minutes++;
-  }
-}
-
-
-void setPixels(int red, int green, int blue) {
-  for(int i=0;i<NUMPIXELS;i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(red,green,blue)); // Moderately bright green color.
-    pixels.show(); // This sends the updated pixel color to the hardware.
-    delay(500); // Delay for a period of time (in milliseconds).
   }
 }
 
@@ -155,12 +167,12 @@ void loop()
   // Detect Cube Face Orientation
   if (event.acceleration.x > 9 && event.acceleration.x < 10)
   {
-    Serial.println("Cube TILTED: Left");
+    //Serial.println("Cube TILTED: Left");
     cubeState = 1;
   }
   else if (event.acceleration.x < -9)
   {
-    Serial.println("Cube TILTED: Right");
+    //Serial.println("Cube TILTED: Right");
     cubeState = 2;
   }
   else
@@ -175,28 +187,26 @@ void loop()
   switch (cubeState)
   {
   case 1:
-    // Set pixels to green color
+    Serial.println("Switching to Task 1");
     setPixels(0, 150, 0);
-    Serial.println("Playing Task 1 Sound...");
     tone(PIEZO_PIN, 650, 300);
     Serial.print("Sending to Adafruit IO -> ");
-    Serial.println(taskOne);
-    cubetask->save(taskOne, minutes);
-    Serial.println("Task Mins: ");
-    Serial.println(minutes);
+    Serial.println(taskTwo);
+    cubetask->save(taskTwo);
+    // save previous task's minutes to a feed
+    cubeminutes->save(minutes);
     // reset the timer
     minutes = 0;
     break;
   case 2:
-    // Set pixels to red color
+    Serial.println("Switching to Task 2");
     setPixels(150, 0, 0);
-    Serial.println("Playing Sound 2 Sound...");
     tone(PIEZO_PIN, 850, 300);
     Serial.print("Sending to Adafruit IO -> ");
-    Serial.println(taskTwo);
-    cubetask->save(taskTwo, minutes);
-    Serial.println("Task Mins: ");
-    Serial.println(minutes);
+    Serial.println(taskOne);
+    cubetask->save(taskOne);
+    // save previous task's minutes to a feed
+    cubeminutes->save(minutes);
     // reset the timer
     minutes = 0;
     break;
