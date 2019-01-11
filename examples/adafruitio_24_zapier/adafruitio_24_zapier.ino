@@ -29,13 +29,20 @@
 #define PIEZO_PIN 0
 
 // NeoPixel Pin on Prop-Maker FeatherWing
-#define PIN 5
+#define NEOPIXEL_PIN 5
 
 // # of Pixels Attached
-#define NUMPIXELS 8
+#define NUM_PIXELS 8
+
+// Prop-Maker Wing
+#define NEOPIXEL_PIN 2
+#define POWER_PIN    15
+#define RED_LED      13
+#define GREEN_LED    12
+#define BLUE_LED     14
 
 // Library Setup
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 // Used for software SPI
 #define LIS3DH_CLK 13
@@ -86,12 +93,18 @@ void setup()
     ;
   Serial.println("Adafruit IO Time Tracking Cube");
 
-  // disable low power mode on the prop-maker featherwing 
-  Serial.println("disabling low power mode...");
-  pinMode(15, OUTPUT);
-  Serial.println("pin enabled");
-  digitalWrite(15, LOW);
-  
+  // Enabling NeoPixel and PWR mode
+  pinMode(POWER_PIN, OUTPUT);
+  digitalWrite(POWER_PIN, LOW);
+  pinMode(RED_LED, OUTPUT);
+  pinMode(GREEN_LED, OUTPUT);
+  pinMode(BLUE_LED, OUTPUT);
+
+  analogWrite(RED_LED, 0);
+  analogWrite(GREEN_LED, 0);
+  analogWrite(BLUE_LED, 0);
+
+   
   // Initialize LIS3DH
   if (!lis.begin(0x18))
   {
@@ -103,7 +116,7 @@ void setup()
   lis.setRange(LIS3DH_RANGE_4_G);
 
   // This initializes the NeoPixel library.
-  //pixels.begin(); 
+  strip.begin();
   Serial.println("Pixels init'd");
 
   // connect to io.adafruit.com
@@ -123,15 +136,6 @@ void setup()
 
 }
 
-void setPixels(int red, int green, int blue) {
-  for(int i=0;i<NUMPIXELS;i++){
-    // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(red,green,blue)); // Moderately bright green color.
-    pixels.show(); // This sends the updated pixel color to the hardware.
-    delay(500); // Delay for a period of time (in milliseconds).
-  }
-}
-
 void updateTime()
 {
   currentTime = millis() / 1000;
@@ -142,6 +146,19 @@ void updateTime()
     prevTime = currentTime;
     minutes++;
   }
+}
+
+void updatePixels(uint8_t red, uint8_t green, uint8_t blue)
+{
+  // Power on the prop maker wing
+  digitalWrite(POWER_PIN, HIGH);
+  analogWrite(RED_LED, 0);
+  analogWrite(GREEN_LED, 0);
+  analogWrite(BLUE_LED, 0);
+  for (int p=0; p<NUM_PIXELS; p++) {
+    strip.setPixelColor(p, red, green, blue);
+  }
+  strip.show();
 }
 
 void loop()
@@ -183,12 +200,13 @@ void loop()
   if (cubeState == lastCubeState)
     return;
 
+
   // Send to Adafruit IO based off of the orientation of the Cube
   switch (cubeState)
   {
   case 1:
     Serial.println("Switching to Task 1");
-    //setPixels(0, 150, 0);
+    updatePixels(50, 0, 0);
     tone(PIEZO_PIN, 650, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
@@ -200,7 +218,7 @@ void loop()
     break;
   case 2:
     Serial.println("Switching to Task 2");
-    //setPixels(150, 0, 0);
+    updatePixels(0, 50, 0);
     tone(PIEZO_PIN, 850, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
@@ -212,6 +230,7 @@ void loop()
     break;
   case 3:
     Serial.println("Switching to Task 3");
+    updatePixels(0, 0, 50);
     tone(PIEZO_PIN, 950, 300);
     Serial.print("Sending to Adafruit IO -> ");
     // prv task
