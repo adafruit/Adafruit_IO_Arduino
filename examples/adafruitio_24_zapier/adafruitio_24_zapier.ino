@@ -58,9 +58,9 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + 
 AdafruitIO_Feed *cubetask = io.feed("cubetask");
 
 /* Time Tracking Cube States
- * 0: Neutral, Cube on Base
- * 1: Cube Tilted, Left on X-Axis
- * 2: Cube Tilted, Right on X-Axis 
+ * 1: Cube Tilted Left
+ * 2: Cube Tilted Right
+ * 3: Cube Neutral, Top
 */
 int cubeState = 0;
 
