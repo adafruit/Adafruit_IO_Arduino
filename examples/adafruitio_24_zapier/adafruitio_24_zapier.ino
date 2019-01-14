@@ -25,15 +25,6 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_NeoPixel.h>
 
-// Used for Pizeo
-#define PIEZO_PIN 0
-
-// NeoPixel Pin on Prop-Maker FeatherWing
-#define NEOPIXEL_PIN 5
-
-// # of Pixels Attached
-#define NUM_PIXELS 8
-
 // Prop-Maker Wing
 #define NEOPIXEL_PIN 2
 #define POWER_PIN    15
@@ -41,8 +32,14 @@
 #define GREEN_LED    12
 #define BLUE_LED     14
 
-// Library Setup
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+// Used for Pizeo
+#define PIEZO_PIN 0
+
+// NeoPixel Pin
+#define NEOPIXEL_PIN 5
+
+// # of Pixels Attached
+#define NUM_PIXELS 8
 
 // Used for software SPI
 #define LIS3DH_CLK 13
@@ -51,14 +48,14 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + 
 // Used for hardware & software SPI
 #define LIS3DH_CS 10
 
-// I2C
+// Adafruit_LIS3DH Setup
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
+
+// NeoPixel Setup
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 // Set up the 'cubeTask' feed
 AdafruitIO_Feed *cubetask = io.feed("cubetask");
-
-// Set up the 'minutes' feed
-AdafruitIO_Feed *cubeminutes = io.feed("cubeminutes");
 
 /* Time Tracking Cube States
  * 0: Neutral, Cube on Base
@@ -68,14 +65,13 @@ AdafruitIO_Feed *cubeminutes = io.feed("cubeminutes");
 int cubeState = 0;
 
 // Previous cube orientation state
-int lastCubeState = 0;
+int prvCubeState = 0;
 
 // Tasks (change these to what you're currently working on)
 String taskOne = "Write Learn Guide";
 String taskTwo = "Write Code";
-String taskThree = "Taking a Break!"; 
 
-// Adafruit IO Sending Delay, in seconds
+// Adafruit IO sending delay, in seconds
 int sendDelay = 0.5;
 
 // Time-Keeping
@@ -93,7 +89,7 @@ void setup()
     ;
   Serial.println("Adafruit IO Time Tracking Cube");
 
-  // Enabling NeoPixel and PWR mode
+  // enabling RGB and NeoPixels on Prop-Maker Featherwing
   pinMode(POWER_PIN, OUTPUT);
   digitalWrite(POWER_PIN, LOW);
   pinMode(RED_LED, OUTPUT);
@@ -115,7 +111,7 @@ void setup()
   Serial.println("LIS3DH found!");
   lis.setRange(LIS3DH_RANGE_4_G);
 
-  // This initializes the NeoPixel library.
+  // Initialize NeoPixel Strip
   strip.begin();
   Serial.println("Pixels init'd");
 
@@ -141,7 +137,7 @@ void updateTime()
   // grab the current time from millis()
   currentTime = millis() / 1000;
   seconds = currentTime - prevTime;
-  // increase min. timer
+  // increase mins.
   if (seconds == 60)
   {
     prevTime = currentTime;
@@ -177,8 +173,7 @@ void loop()
   sensors_event_t event;
   lis.getEvent(&event);
 
-
-  // Detect Cube Face Orientation
+  // Detect cube face orientation
   if (event.acceleration.x > 9 && event.acceleration.x < 10) // left-side up
   {
     //Serial.println("Cube TILTED: Left");
@@ -194,38 +189,37 @@ void loop()
     cubeState = 3;
   }
   else
-  { // orientation not found
+  { // orientation not specified
   }
 
   // return if the orientation hasn't changed
-  if (cubeState == lastCubeState)
+  if (cubeState == prvCubeState)
     return;
 
-
-  // Send to Adafruit IO based off of the orientation of the Cube
+  // Send to Adafruit IO based off of the orientation of the cube
   switch (cubeState)
   {
   case 1:
     Serial.println("Switching to Task 1");
+    // update the neopixel strip
     updatePixels(50, 0, 0);
+    // play a sound
     tone(PIEZO_PIN, 650, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
-    cubetask->save(taskTwo);
-    // save previous task's minutes to a feed
-    cubeminutes->save(minutes);
+    cubetask->save(taskTwo, minutes);
     // reset the timer
     minutes = 0;
     break;
   case 2:
     Serial.println("Switching to Task 2");
+    // update the neopixel strip
     updatePixels(0, 50, 0);
+    // play a sound
     tone(PIEZO_PIN, 850, 300);
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
-    cubetask->save(taskOne);
-    // save previous task's minutes to a feed
-    cubeminutes->save(minutes);
+    cubetask->save(taskOne, minutes);
     // reset the timer
     minutes = 0;
     break;
@@ -235,8 +229,8 @@ void loop()
     break;
   }
 
-  // store last cube orientation state
-  lastCubeState = cubeState;
+  // save cube state
+  prvCubeState = cubeState;
 
   // Delay the send to Adafruit IO
   delay(sendDelay * 1000);
