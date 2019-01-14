@@ -174,22 +174,23 @@ void loop()
   lis.getEvent(&event);
 
   // Detect cube face orientation
-  if (event.acceleration.x > 9 && event.acceleration.x < 10) // left-side up
+  if (event.acceleration.x > 9 && event.acceleration.x < 10)
   {
     //Serial.println("Cube TILTED: Left");
     cubeState = 1;
   }
-  else if (event.acceleration.x < -9) // right-side up
+  else if (event.acceleration.x < -9)
   {
     //Serial.println("Cube TILTED: Right");
     cubeState = 2;
   }
-  else if(event.acceleration.y < 0 && event.acceleration.y > -1) // top-side up
+  else if(event.acceleration.y < 0 && event.acceleration.y > -1)
   {
     cubeState = 3;
   }
   else
   { // orientation not specified
+    Serial.println("Cube Idle...");
   }
 
   // return if the orientation hasn't changed
