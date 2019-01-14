@@ -20,33 +20,19 @@
 
 /************************ Example Starts Here *******************************/
 #include <Wire.h>
-#include <SPI.h>
 #include <Adafruit_LIS3DH.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_NeoPixel.h>
 
 // Prop-Maker Wing
 #define NEOPIXEL_PIN 2
-#define POWER_PIN    15
-#define RED_LED      13
-#define GREEN_LED    12
-#define BLUE_LED     14
+#define POWER_PIN 15
 
 // Used for Pizeo
 #define PIEZO_PIN 0
 
-// NeoPixel Pin
-#define NEOPIXEL_PIN 5
-
 // # of Pixels Attached
 #define NUM_PIXELS 8
-
-// Used for software SPI
-#define LIS3DH_CLK 13
-#define LIS3DH_MISO 12
-#define LIS3DH_MOSI 11
-// Used for hardware & software SPI
-#define LIS3DH_CS 10
 
 // Adafruit_LIS3DH Setup
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
@@ -89,18 +75,10 @@ void setup()
     ;
   Serial.println("Adafruit IO Time Tracking Cube");
 
-  // enabling RGB and NeoPixels on Prop-Maker Featherwing
+  // disabling low-power mode on the prop-maker wing
   pinMode(POWER_PIN, OUTPUT);
-  digitalWrite(POWER_PIN, LOW);
-  pinMode(RED_LED, OUTPUT);
-  pinMode(GREEN_LED, OUTPUT);
-  pinMode(BLUE_LED, OUTPUT);
+  digitalWrite(POWER_PIN, HIGH);
 
-  analogWrite(RED_LED, 0);
-  analogWrite(GREEN_LED, 0);
-  analogWrite(BLUE_LED, 0);
-
-   
   // Initialize LIS3DH
   if (!lis.begin(0x18))
   {
@@ -129,7 +107,6 @@ void setup()
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void updateTime()
@@ -147,12 +124,8 @@ void updateTime()
 
 void updatePixels(uint8_t red, uint8_t green, uint8_t blue)
 {
-  // updates pixels on the prop-maker featherwing
-  digitalWrite(POWER_PIN, HIGH);
-  analogWrite(RED_LED, 0);
-  analogWrite(GREEN_LED, 0);
-  analogWrite(BLUE_LED, 0);
-  for (int p=0; p<NUM_PIXELS; p++) {
+  for (int p = 0; p < NUM_PIXELS; p++)
+  {
     strip.setPixelColor(p, red, green, blue);
   }
   strip.show();
@@ -184,13 +157,13 @@ void loop()
     //Serial.println("Cube TILTED: Right");
     cubeState = 2;
   }
-  else if(event.acceleration.y < 0 && event.acceleration.y > -1)
+  else if (event.acceleration.y < 0 && event.acceleration.y > -1)
   {
     cubeState = 3;
   }
   else
   { // orientation not specified
-    Serial.println("Cube Idle...");
+    //Serial.println("Cube Idle...");
   }
 
   // return if the orientation hasn't changed
