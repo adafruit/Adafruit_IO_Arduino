@@ -182,14 +182,14 @@ void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, 
 
   #if defined(ARDUINO_ARCH_AVR)
     // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _value, 10, 0);
+    dtostre(value, _value, precision, 0);
   #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _value);
   #else
     // Otherwise fall back to snprintf on other platforms.
-    snprintf(_value, sizeof(_value)-1, "%f", value);
+    snprintf(_value, sizeof(_value) - 1, "%0.*f", precision, value);
   #endif
 
   setLocation(lat, lon, ele);
@@ -201,14 +201,14 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
 
   #if defined(ARDUINO_ARCH_AVR)
     // Use avrlibc dtostre function on AVR platforms.
-    dtostre(value, _value, 10, 0);
+    dtostre(value, _value, precision, 0);
   #elif defined(ESP8266)
     // ESP8266 Arduino only implements dtostrf and not dtostre.  Use dtostrf
     // but accept a hint as to how many decimals of precision are desired.
     dtostrf(value, 0, precision, _value);
   #else
     // Otherwise fall back to snprintf on other platforms.
-    snprintf(_value, sizeof(_value)-1, "%f", value);
+    snprintf(_value, sizeof(_value) - 1, "%0.*f", precision, value);
   #endif
 
   setLocation(lat, lon, ele);
