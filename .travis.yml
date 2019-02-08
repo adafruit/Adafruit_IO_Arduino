@@ -8,6 +8,7 @@ branches:
 
 env:
   global:
+     - ARDUINO_IDE_VERSION="1.8.7"
      - PRETTYNAME="Adafruit IO Arduino Library"
 
 
@@ -15,7 +16,7 @@ before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 install:
-    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library", "Adafruit BME280 Library", "Adafruit SGP30 Sensor", "Adafruit ADT7410 Library"
+    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library","Adafruit BME280 Library","Adafruit SGP30 Sensor","Adafruit ADT7410 Library","Adafruit LIS3DH"
 
 script:
     # build ESP8266 target
