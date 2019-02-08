@@ -18,7 +18,7 @@
 #include "config.h"
 
 // time between sending data to adafruit io, in minutes
-#define MESSAGE_WAIT_SEC (1 * 60)
+#define MESSAGE_WAIT_SEC (15 * 60)
 /************************ Example Starts Here *******************************/
 #include <Wire.h>
 // adt7410 sensor
@@ -126,7 +126,7 @@ void loop() {
   display.display();
   Serial.println("Sending to Adafruit IO");
   delay(1000);
-  huzzah_temperature->save(c, 0, 0, 0, 6);
+  huzzah_temperature->save(c, 0, 0, 0, 2);
 
   // sent to IO
   display.clearDisplay();
