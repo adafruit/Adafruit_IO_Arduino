@@ -15,7 +15,9 @@ before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
 
 install:
-    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient","Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library", "Adafruit BME280 Library", "Adafruit SGP30 Sensor"
+    - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
+    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library"
+    - arduino --install-library "Adafruit BME280 Library", "Adafruit SGP30 Sensor", "Adafruit LIS3DH"
 
 script:
     # build ESP8266 target
