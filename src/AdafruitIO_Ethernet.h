@@ -17,7 +17,7 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-#include <Ethernet2.h>
+#include <Ethernet.h>
 #include <EthernetClient.h>
 #include <Dns.h>
 #include <Dhcp.h>
@@ -31,7 +31,7 @@ class AdafruitIO_Ethernet : public AdafruitIO {
     AdafruitIO_Ethernet(const char *user, const char *key):AdafruitIO(user, key)
     {
       _client = new EthernetClient();
-      _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+      _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port, _username, _key);
       _http = new HttpClient(*_client, _host, _http_port);
     }
 

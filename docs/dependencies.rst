@@ -60,6 +60,6 @@ Adafruit Ethernet FeatherWing
 The Ethernet FeatherWing will also require a 32u4, M0, or ESP8266 based Feather. Any Arduino cores
 required by the host Feather board will also be required.
 
-* Latest version of the `Adafruit Ethernet2 Library <https://github.com/adafruit/Ethernet2>`_
+* Latest version of the `Ethernet Library <https://github.com/arduino-libraries/Ethernet>`_
 * Latest version of the `Adafruit MQTT Library <https://github.com/adafruit/Adafruit_MQTT_Library>`_
 * Latest version of the `Arduino HTTP Client Library <https://github.com/arduino-libraries/ArduinoHttpClient>`_
