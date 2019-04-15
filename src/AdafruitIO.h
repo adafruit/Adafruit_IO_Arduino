@@ -78,6 +78,7 @@ class AdafruitIO {
 
     const char *_host = "io.adafruit.com";
     uint16_t _mqtt_port = 8883;
+    uint16_t _mqtt_eth_port = 1883;
     uint16_t _http_port = 443;
 
     uint16_t _packetread_timeout;

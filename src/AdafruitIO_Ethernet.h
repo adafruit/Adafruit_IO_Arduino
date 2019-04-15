@@ -32,8 +32,7 @@ public:
   AdafruitIO_Ethernet(const char *user, const char *key) : AdafruitIO(user, key)
   {
     _client = new EthernetClient();
-    uint16_t _eth_mqtt_port = 8883;
-    _mqtt = new Adafruit_MQTT_Client(_client, _host, _eth_mqtt_port, _username, _key);
+    _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_eth_port, _username, _key);
     _http = new HttpClient(*_client, _host, _http_port);
   }
 
