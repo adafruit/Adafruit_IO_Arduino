@@ -19,7 +19,7 @@ install:
 
 script:
     # build ESP8266 target
-    - build_platform esp8266
+    # - build_platform esp8266
     # build SAMD target
     - arduino --install-library "WiFi101, Ethernet"
     - build_platform zero
