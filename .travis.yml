@@ -17,7 +17,6 @@ before_install:
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
     - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library"
-    - arduino --install-library "Adafruit BME280 Library", "Adafruit SGP30 Sensor", "Adafruit LIS3DH", "Ultrasonic"
 
 script:
     # build ESP8266 target
