@@ -18,9 +18,14 @@
   typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
 
 #elif !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
+  AIO_ERROR_PRINT("SAMDARCH Detected!");
+  // br: I'm removing winc1500 for now since we're detecting based on samd architecture
+  // figure out a different way to detect, or pass in a param to init? 
+  //#include "wifi/AdafruitIO_WINC1500.h"
+  //typedef AdafruitIO_WINC1500 AdafruitIO_WiFi;
 
-  #include "wifi/AdafruitIO_WINC1500.h"
-  typedef AdafruitIO_WINC1500 AdafruitIO_WiFi;
+  #include "wifi/AdafruitIO_AirLift.h"
+  typedef AdafruitIO_AirLift AdafruitIO_Wifi;
 
 #elif defined(ARDUINO_ARCH_ESP32)
 
