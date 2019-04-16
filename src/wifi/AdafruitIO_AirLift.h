@@ -21,13 +21,15 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-/* BR: comment out for pyportal, add back for WiFiNINA?
-// feather wifi m0
-#define WINC_CS   8
-#define WINC_IRQ  7
-#define WINC_RST  4
-#define WINC_EN   2
-*/
+// Configure the pins used for the ESP32 connection
+#if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
+  // Don't change the names of these #define's! they match the variant ones
+  #define SPIWIFI SPI
+  #define SPIWIFI_SS 10  // Chip select pin
+  #define SPIWIFI_ACK 7  // a.k.a BUSY or READY pin
+  #define ESP32_RESETN 5 // Reset pin
+  #define ESP32_GPIO0 -1 // Not connected
+#endif
 
 class AdafruitIO_AirLift : public AdafruitIO {
 
