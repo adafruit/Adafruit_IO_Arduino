@@ -38,11 +38,9 @@ AdafruitIO_AirLift::~AdafruitIO_AirLift()
 void AdafruitIO_AirLift::_connect()
 {
 
-  // br: commented out, could add back for AirLift modules and not 
-  // just the pyportal
-  //WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
+  WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
-  // no shield? bail
+  // Return if no module detected
   if(WiFi.status() == WL_NO_MODULE)
     return;
 
@@ -50,7 +48,6 @@ void AdafruitIO_AirLift::_connect()
 
   while (status != WL_CONNECTED) {
     WiFi.begin(_ssid, _pass);
-    //_status = AIO_NET_DISCONNECTED;
     delay(10000);
   }
 }
