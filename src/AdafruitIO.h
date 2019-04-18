@@ -45,6 +45,8 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
+    void airliftPins(uint16_t ss, uint16_t ack, uint16_t rst);
+
 
     void run(uint16_t busywait_ms = 0);
 
@@ -67,6 +69,7 @@ class AdafruitIO {
     virtual const char* connectionType() = 0;
 
   protected:
+    uint16_t _airlift_ss, _airlift_ack, _airlift_rst;
     virtual void _connect() = 0;
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
