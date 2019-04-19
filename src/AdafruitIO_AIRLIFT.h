@@ -1,14 +1,21 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2019 Adafruit Industries
-// Authors: Brent Rubell
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_AIRLIFT.h
+ *
+ * This is part of Adafruit IO Arduino. It is designed specifically to work
+ * with Adafruit's AirLift ESP32 Co-Processor.
+ *
+ * The ESP32 uses SPI to communicate. Three lines (CS, ACK, RST) are required
+ * to communicate with the ESP32.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Brent Rubell for Adafruit Industries.
+ *
+ * MIT license, all text here must be included in any redistribution.
+ *
+ */
 #ifndef ADAFRUITIO_AIRLIFT_H
 #define ADAFRUITIO_AIRLIFT_H
 
