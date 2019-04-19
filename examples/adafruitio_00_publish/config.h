@@ -22,6 +22,9 @@
 //AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 /******************************* AirLift **************************************/
+// the AdafruitIO_AirLift client will work with the following boards:
+//   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
+//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
 
 // https://github.com/brentru/Adafruit_IO_Arduino/tree/airlift-standalone
 // commit e638a25
@@ -30,6 +33,9 @@
 #define WIFI_PASS "your_pass"
 #include "AdafruitIO_AIRLIFT.h"
 AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+
+// Optionally configure the pins used for the AirLift connection
+// io.airliftPins(11, 10, 9);
 
 /******************************* FONA **************************************/
 
