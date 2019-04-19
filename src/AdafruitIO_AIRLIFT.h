@@ -114,11 +114,6 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       airlift_ss = ss;
       airlift_ack = ack;
       airlift_rst = rst;
-      Serial.print("\nPins: ");
-      Serial.print(airlift_ss);
-      Serial.print(airlift_ack);
-      Serial.print(airlift_rst);
-      Serial.println("");
     }
 
     uint16_t airlift_ss, airlift_ack, airlift_rst;
