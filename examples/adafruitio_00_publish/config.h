@@ -14,8 +14,8 @@
 //   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
 //   - Feather WICED -> https://www.adafruit.com/products/3056
 
-#define WIFI_SSID       "your_ssid"
-#define WIFI_PASS       "your_pass"
+//#define WIFI_SSID       "your_ssid"
+//#define WIFI_PASS       "your_pass"
 
 // comment out the following two lines if you are using fona or ethernet
 //#include "AdafruitIO_WiFi.h"
@@ -23,6 +23,11 @@
 
 /******************************* AirLift **************************************/
 
+// https://github.com/brentru/Adafruit_IO_Arduino/tree/airlift-standalone
+// commit e638a25
+
+#define WIFI_SSID "your_ssid"
+#define WIFI_PASS "your_pass"
 #include "AdafruitIO_AIRLIFT.h"
 AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
