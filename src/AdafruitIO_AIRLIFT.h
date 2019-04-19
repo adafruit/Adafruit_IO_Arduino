@@ -19,13 +19,10 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-// Configure the pins used for the ESP32 connection
+// Configure some pins used for the ESP32 connection
 #if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
   #define BOARDEF 1
   #define SPIWIFI SPI
-  #define SPIWIFI_SS airlift_ss    // Chip select pin
-  #define SPIWIFI_ACK airlift_ack  // a.k.a BUSY or READY pin
-  #define ESP32_RESETN airlift_rst // Reset pin
   #define ESP32_GPIO0 -1 // Not connected
 #endif
 
@@ -109,14 +106,23 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       return "AIRLIFT";
     }
 
-    void airLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
+    /**************************************************************************/
+    /*!
+    @brief  Defines pins for the ESP32's chip select, busy pin and reset pin.
+    GPIO0 is not defined as it is disconnected by default.
+    @param    ss
+              ESP32 chip select pin.
+    @param    ack
+              ESP32 BUSY/READY pin.
+    @param    rst
+              ESP32 RESET pin.
+    */
+    /**************************************************************************/
+    void setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
     {
-      airlift_ss = ss;
-      airlift_ack = ack;
-      airlift_rst = rst;
+      WiFi.setPins(ss, ack, rst, ESP32_GPIO0, &SPIWIFI);
     }
 
-    uint16_t airlift_ss, airlift_ack, airlift_rst;
 
   protected:
     const char *_ssid;
@@ -124,8 +130,6 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
-
-    
 
     /**************************************************************************/
     /*!
@@ -135,11 +139,6 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
-      // for breakouts, check if the pins would be externally defined
-      #ifdef BOARDEF
-          WiFi.setPins(SPIWIFI_SS, SPIWIFI_ACK, ESP32_RESETN, ESP32_GPIO0, &SPIWIFI);
-      #endif
-
       // check esp32 module status
       if (WiFi.status() == WL_NO_MODULE)
       {
