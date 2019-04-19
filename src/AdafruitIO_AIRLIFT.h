@@ -29,9 +29,27 @@
   #define ESP32_GPIO0 -1 // Not connected
 #endif
 
+/****************************************************************************/
+/*! 
+    @brief  Class that stores functions for interacting with AirLift Devices
+*/
+/****************************************************************************/
 class AdafruitIO_AIRLIFT : public AdafruitIO {
 
   public:
+    /**************************************************************************/
+    /*!
+    @brief  Initializes the Adafruit IO class for AirLift devices.
+    @param    user
+              A reference to the Adafruit IO user, shared by AdafruitIO.
+    @param    key
+              A reference to the Adafruit IO Key, shared by AdafruitIO.
+    @param    ssid
+              A reference to the WiFi network SSID.
+    @param    pass
+              A reference to the WiFi network password.
+    */
+    /**************************************************************************/
     AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
     {
       _ssid = ssid;
@@ -42,6 +60,11 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       _http = new HttpClient(*_http_client, _host, _http_port);
     }
 
+    /**************************************************************************/
+    /*!
+    @brief  Destructor for the Adafruit IO AirLift class.
+    */
+    /**************************************************************************/
     ~AdafruitIO_AIRLIFT()
     {
       if (_mqtt_client)
@@ -54,6 +77,12 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
         delete _http;
     }
 
+    /********************************************************/
+    /*!
+    @brief  Returns the network status of an AirLift module.
+    @return aio_status_t
+    */
+    /********************************************************/
     aio_status_t networkStatus()
     {
       switch (WiFi.status())
@@ -69,22 +98,30 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       }
     }
 
+    /*****************************************************************/
+    /*!
+    @brief  Returns the type of network connection used by AdafruitIO.
+    @return AIRLIFT
+    */
+    /*****************************************************************/
     const char *connectionType()
     {
       return "AIRLIFT";
     }
 
-    //aio_status_t networkStatus();
-    //const char* connectionType();
-
   protected:
-    //void _connect();
     const char *_ssid;
     const char *_pass;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
 
+    /**************************************************************************/
+    /*!
+    @brief  Attempts to establish a WiFi connection with the wireless network,
+    given _ssid and _pass from the AdafruitIO_AIRLIFT constructor.
+    */
+    /**************************************************************************/
     void _connect()
     {
       // for breakouts, check if the pins would be externally defined
