@@ -23,9 +23,9 @@
 #if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
   #define BOARDEF 1
   #define SPIWIFI SPI
-  #define SPIWIFI_SS _airlift_ss    // Chip select pin
-  #define SPIWIFI_ACK _airlift_ack  // a.k.a BUSY or READY pin
-  #define ESP32_RESETN _airlift_rst // Reset pin
+  #define SPIWIFI_SS airlift_ss    // Chip select pin
+  #define SPIWIFI_ACK airlift_ack  // a.k.a BUSY or READY pin
+  #define ESP32_RESETN airlift_rst // Reset pin
   #define ESP32_GPIO0 -1 // Not connected
 #endif
 
@@ -109,12 +109,28 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       return "AIRLIFT";
     }
 
+    void airLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
+    {
+      airlift_ss = ss;
+      airlift_ack = ack;
+      airlift_rst = rst;
+      Serial.print("\nPins: ");
+      Serial.print(airlift_ss);
+      Serial.print(airlift_ack);
+      Serial.print(airlift_rst);
+      Serial.println("");
+    }
+
+    uint16_t airlift_ss, airlift_ack, airlift_rst;
+
   protected:
     const char *_ssid;
     const char *_pass;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
+
+    
 
     /**************************************************************************/
     /*!
