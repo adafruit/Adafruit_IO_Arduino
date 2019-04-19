@@ -42,7 +42,7 @@ class AdafruitIOGroupCallback {
 };
 
 // Uncomment/comment to turn on/off debug output messages.
-// #define AIO_DEBUG
+#define AIO_DEBUG
 // uncomment/comment to turn on/off error output
 #define AIO_ERROR
 
@@ -74,7 +74,7 @@ class AdafruitIOGroupCallback {
 #define AIO_THROTTLE_TOPIC "/throttle"
 
 // latest fingerprint can be generated with
-// echo | openssl s_client -connect io.adafruit.com:443 |& openssl x509 -fingerprint -noout
+// echo | openssl s_client -connect io.adafruit.com:443 | openssl x509 -fingerprint -noout
 #define AIO_SSL_FINGERPRINT "77 00 54 2D DA E7 D8 03 27 31 23 99 EB 27 DB CB A5 4C 57 18"
 
 #define AIO_FEED_NAME_LENGTH 20
