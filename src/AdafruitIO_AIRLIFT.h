@@ -32,6 +32,7 @@
   #define SPIWIFI SPI
   #define ESP32_GPIO0 -1 // Not connected
 #endif
+#define NINAFWVER "1.0.0"
 
 /****************************************************************************/
 /*! 
@@ -83,7 +84,23 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
 
     /********************************************************/
     /*!
-    @brief  Returns the network status of an AirLift module.
+    @brief  Checks the version of an ESP32 module against
+    NINAFWVER. Raises an error if the firmware needs to be 
+    upgraded.
+    */
+    /********************************************************/
+    void firmwareCheck()
+    {
+      _fv = WiFi.firmwareVersion();
+      if (_fv < NINAFWVER)
+      {
+        AIO_DEBUG_PRINTLN("Please upgrade the firmware on the ESP module");
+      }
+    }
+
+    /********************************************************/
+    /*!
+    @brief  Returns the network status of an ESP32 module.
     @return aio_status_t
     */
     /********************************************************/
@@ -134,6 +151,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
   protected:
     const char *_ssid;
     const char *_pass;
+    String _fv; 
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
@@ -146,17 +164,19 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
+      // check esp32 module version against NINAFWVER
+      firmwareCheck();
+
       // check esp32 module status
       if (WiFi.status() == WL_NO_MODULE)
       {
-        Serial.println("No Module!!");
-        Serial.print(WiFi.status());
+        AIO_DEBUG_PRINTLN("No ESP32 module detected!");
+        return;
       }
 
       WiFi.begin(_ssid, _pass);
       _status = AIO_NET_DISCONNECTED;
   }
 };
-
 
 #endif // ADAFRUITIO_AIRLIFT_H
