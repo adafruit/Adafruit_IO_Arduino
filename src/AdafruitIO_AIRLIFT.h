@@ -29,7 +29,6 @@
   #define ESP32_GPIO0 -1 // Not connected
 #endif
 
-// br: try to emulate everything in the header to avoid wifinina-wifi101 conflicts
 class AdafruitIO_AIRLIFT : public AdafruitIO {
 
   public:
@@ -43,7 +42,17 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       _http = new HttpClient(*_http_client, _host, _http_port);
     }
 
-    //~AdafruitIO_AIRLIFT();
+    ~AdafruitIO_AIRLIFT()
+    {
+      if (_mqtt_client)
+        delete _http_client;
+      if (_http_client)
+        delete _mqtt_client;
+      if (_mqtt)
+        delete _mqtt;
+      if (_http)
+        delete _http;
+    }
 
     aio_status_t networkStatus()
     {
