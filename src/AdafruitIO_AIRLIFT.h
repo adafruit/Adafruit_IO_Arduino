@@ -144,15 +144,16 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
     {
-      WiFi.setPins(ss, ack, rst, ESP32_GPIO0, &SPIWIFI);
-      AIO_DEBUG_PRINTLN("Pins Set!")
+      _ssPin = ss;
+      _ackPin = ack;
+      _rstPin = rst;
     }
-
 
   protected:
     const char *_ssid;
     const char *_pass;
-    String _fv; 
+    String _fv = "0.0.0"; 
+    uint16_t _ssPin, _ackPin, _rstPin = 0;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
@@ -165,10 +166,15 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
+      // setup ESP32 pins
+      if (_ssPin != 0) {
+          WiFi.setPins(10, 9, 6, ESP32_GPIO0, &SPIWIFI);
+      }
+
       // check esp32 module version against NINAFWVER
       firmwareCheck();
 
-      // check esp32 module status
+      // check for shield
       if (WiFi.status() == WL_NO_MODULE)
       {
         AIO_DEBUG_PRINTLN("No ESP32 module detected!");

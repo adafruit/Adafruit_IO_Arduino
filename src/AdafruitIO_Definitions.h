@@ -42,7 +42,7 @@ class AdafruitIOGroupCallback {
 };
 
 // Uncomment/comment to turn on/off debug output messages.
-#define AIO_DEBUG
+//#define AIO_DEBUG
 // Uncomment/comment to turn on/off error output
 #define AIO_ERROR
 
