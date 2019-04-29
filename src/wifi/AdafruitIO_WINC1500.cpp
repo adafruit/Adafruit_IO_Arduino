@@ -9,7 +9,7 @@
 //
 // All text above must be included in any redistribution.
 //
-#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
+#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD) & !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE)
 
 #include "AdafruitIO_WINC1500.h"
 

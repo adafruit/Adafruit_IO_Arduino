@@ -12,7 +12,7 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
-#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
+#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD) && !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE)
 
 #include "Arduino.h"
 #include "AdafruitIO.h"
