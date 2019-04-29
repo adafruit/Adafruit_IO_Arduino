@@ -33,10 +33,6 @@
   #define ESP32_GPIO0 -1 // Not connected
 #endif
 
-#if defined(ADAFRUIT_PYPORTAL)
-  #define ESP32_GPIO0 NINA_GPIO0 // PyPortal uses different ESP32 pin definition
-#endif
-
 #define NINAFWVER "1.0.0"
 
 /****************************************************************************/
