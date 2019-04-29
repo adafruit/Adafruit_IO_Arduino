@@ -42,9 +42,9 @@ class AdafruitIOGroupCallback {
 };
 
 // Uncomment/comment to turn on/off debug output messages.
-// #define AIO_DEBUG
+#define AIO_DEBUG
 // Uncomment/comment to turn on/off error output
-// #define AIO_ERROR
+#define AIO_ERROR
 
 // Where debug messages will be printed
 // note: if you're using something like Zero or Due, change the below to SerialUSB

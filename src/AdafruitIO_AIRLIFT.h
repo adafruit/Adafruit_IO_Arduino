@@ -28,7 +28,6 @@
 
 // Configure some pins used for the ESP32 connection
 #if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
-  #define BOARDEF 1
   #define SPIWIFI SPI
   #define ESP32_GPIO0 -1 // Not connected
 #endif
@@ -146,6 +145,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     void setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
     {
       WiFi.setPins(ss, ack, rst, ESP32_GPIO0, &SPIWIFI);
+      AIO_DEBUG_PRINTLN("Pins Set!")
     }
 
 
