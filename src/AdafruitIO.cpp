@@ -35,10 +35,6 @@ void errorCallback(char *err, uint16_t len)
   AIO_ERROR_PRINTLN();
 }
 
-void AdafruitIO::airLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
-{
-  airLiftPins(ss, ack, rst);
-}
 
 void AdafruitIO::connect()
 {

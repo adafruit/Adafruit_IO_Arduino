@@ -55,7 +55,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
               A reference to the WiFi network password.
     */
     /**************************************************************************/
-    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass):AdafruitIO(user, key)
+    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass) : AdafruitIO(user, key)
     {
       _ssid = ssid;
       _pass = pass;

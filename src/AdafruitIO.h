@@ -71,7 +71,6 @@ class AdafruitIO {
   protected:
     //uint16_t _airlift_ss, _airlift_ack, _airlift_rst;
     virtual void _connect() = 0;
-    virtual void airLiftPins(uint16_t ss, uint16_t ack, uint16_t rst) = 0;
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
 
