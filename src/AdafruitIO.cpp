@@ -35,7 +35,6 @@ void errorCallback(char *err, uint16_t len)
   AIO_ERROR_PRINTLN();
 }
 
-
 void AdafruitIO::connect()
 {
 
