@@ -17,6 +17,11 @@
   #include "wifi/AdafruitIO_MKR1000.h"
   typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
 
+#elif defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) || defined(ADAFRUIT_PYPORTAL)
+
+  #include "AdafruitIO_AIRLIFT.h"
+  typedef AdafruitIO_AIRLIFT AdafruitIO_WiFi;
+
 #elif !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD)
 
   #include "wifi/AdafruitIO_WINC1500.h"
