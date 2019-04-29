@@ -142,7 +142,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
               ESP32 RESET pin.
     */
     /**************************************************************************/
-    void setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
+    void _setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
     {
       _ssPin = ss;
       _ackPin = ack;

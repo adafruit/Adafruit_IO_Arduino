@@ -19,7 +19,7 @@
 
 #elif defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) || defined(ADAFRUIT_PYPORTAL) || defined(USE_AIRLIFT)
 
-  #include "AdafruitIO_AIRLIFT.h"
+  #include "wifi/AdafruitIO_AIRLIFT.h"
   typedef AdafruitIO_AIRLIFT AdafruitIO_WiFi;
 
 #elif defined(USE_WINC1500) 
