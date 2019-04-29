@@ -9,3 +9,6 @@
 .piolibdeps
 platformio.ini
 .tests
+
+# visual studio code
+.vscode

@@ -2,8 +2,8 @@
 
 // visit io.adafruit.com if you need to create an account,
 // or if you need your Adafruit IO key.
-#define IO_USERNAME    "your_username"
-#define IO_KEY         "your_key"
+#define IO_USERNAME "your_username"
+#define IO_KEY "your_key"
 
 /******************************* WIFI **************************************/
 
@@ -14,28 +14,23 @@
 //   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
 //   - Feather WICED -> https://www.adafruit.com/products/3056
 
-//#define WIFI_SSID       "your_ssid"
-//#define WIFI_PASS       "your_pass"
-
-// comment out the following two lines if you are using fona or ethernet
-//#include "AdafruitIO_WiFi.h"
-//AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
-
-/******************************* AirLift **************************************/
-// the AdafruitIO_AirLift client will work with the following boards:
-//   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
-//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
-
-// https://github.com/brentru/Adafruit_IO_Arduino/tree/airlift-standalone
-// commit e638a25
-
 #define WIFI_SSID "your_ssid"
 #define WIFI_PASS "your_pass"
-#include "AdafruitIO_AIRLIFT.h"
-AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
-// Optionally configure the pins used for the AirLift connection
-// io.airliftPins(11, 10, 9);
+// comment out the following two lines if you are using fona or ethernet
+#include "AdafruitIO_WiFi.h"
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+
+/******************************* AirLift **************************************/
+
+// the AdafruitIO_AirLift client will work with the following boards:
+//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
+//   - Adafruit Metro M4 Express AirLift Lite -> https://www.adafruit.com/product/4000
+
+// uncomment the following two lines for AirLift,
+// and comment out the AdafruitIO_WiFi client in the WIFI section
+// #include "AdafruitIO_AIRLIFT.h"
+// AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
 /******************************* FONA **************************************/
 
@@ -46,7 +41,6 @@ AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 // and comment out the AdafruitIO_WiFi client in the WIFI section
 // #include "AdafruitIO_FONA.h"
 // AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
-
 
 /**************************** ETHERNET ************************************/
 
