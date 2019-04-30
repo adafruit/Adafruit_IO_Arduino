@@ -30,8 +30,12 @@
 class AdafruitIO_WINC1500 : public AdafruitIO {
 
   public:
-    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass) : AdafruitIO(user, key)
+    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_en, int winc_cs, int winc_irq, int winc_rst) : AdafruitIO(user, key)
     {
+      _winc_en = winc_en;
+      _winc_cs = winc_cs;
+      _winc_irq = winc_irq;
+      _winc_rst = winc_rst;
       _ssid = ssid;
       _pass = pass;
       _mqtt_client = new WiFiSSLClient;
@@ -75,6 +79,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
   protected:
     const char *_ssid;
     const char *_pass;
+    int _winc_cs, _winc_irq, _winc_rst, _winc_en = 0;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
@@ -82,7 +87,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
     void _connect()
     {
 
-      WiFi.setPins(WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
+      WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
       // no shield? bail
       if (WiFi.status() == WL_NO_SHIELD)

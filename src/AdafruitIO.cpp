@@ -27,11 +27,6 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
   _init();
 }
 
-void AdafruitIO::_setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
-{
-  setAirLiftPins(ss, ack, rst);
-}
-
 void errorCallback(char *err, uint16_t len)
 {
   AIO_ERROR_PRINTLN();
