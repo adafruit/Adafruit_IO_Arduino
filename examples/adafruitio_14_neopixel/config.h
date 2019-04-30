@@ -20,14 +20,14 @@
 #define WIFI_SSID   "your_ssid"
 #define WIFI_PASS   "your_pass"
 
-// comment out the following two lines if you are using fona or ethernet
-#include "AdafruitIO_WiFi.h"
-
 // uncomment the following line if you are using airlift,
 // #define USE_AIRLIFT
 
 // uncomment the following line if you are using winc1500,
 // #define USE_WINC1500
+
+// comment out the following two lines if you are using fona or ethernet
+#include "AdafruitIO_WiFi.h"
 
 // if you are using ESP32, MKR1000, ESP8266 or WICED, use the following line
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
