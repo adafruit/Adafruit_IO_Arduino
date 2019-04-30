@@ -26,13 +26,6 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-// Configure some pins used for the ESP32 connection
-#if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
-  #define BOARDEF 1
-  #define SPIWIFI SPI
-  #define ESP32_GPIO0 -1 // Not connected
-#endif
-
 #define NINAFWVER "1.0.0"
 
 /****************************************************************************/
@@ -54,10 +47,25 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
               A reference to the WiFi network SSID.
     @param    pass
               A reference to the WiFi network password.
+    @param    ssPin
+              A reference to the ESP32_SS Pin.
+    @param    ackPin
+              A reference to the ESP32_ACK Pin.
+    @param    rstPin
+              A reference to the ESP32_RST Pin.
+    @param    gpio0Pin
+              A reference to the gpio0Pin Pin.
+    @param    wifi
+              A reference to a SPIClass
     */
     /**************************************************************************/
-    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass) : AdafruitIO(user, key)
+    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass, int ssPin, int ackPin, int rstPin, int gpio0Pin, SPIClass* wifi) : AdafruitIO(user, key)
     {
+      _wifi = wifi;
+      _ssPin = ssPin;
+      _ackPin = ackPin;
+      _rstPin = rstPin;
+      _gpio0Pin = gpio0Pin;
       _ssid = ssid;
       _pass = pass;
       _mqtt_client = new WiFiSSLClient;
@@ -131,31 +139,16 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       return "AIRLIFT";
     }
 
-    /**************************************************************************/
-    /*!
-    @brief  Defines pins for the ESP32's chip select, busy pin and reset pin.
-    GPIO0 is not defined as it is disconnected by default.
-    @param    ss
-              ESP32 chip select pin.
-    @param    ack
-              ESP32 BUSY/READY pin.
-    @param    rst
-              ESP32 RESET pin.
-    */
-    /**************************************************************************/
-    void setAirLiftPins(uint16_t ss, uint16_t ack, uint16_t rst)
-    {
-      WiFi.setPins(ss, ack, rst, ESP32_GPIO0, &SPIWIFI);
-    }
-
-
   protected:
     const char *_ssid;
     const char *_pass;
-    String _fv; 
+    String _fv = "0.0.0"; 
+    int _ssPin, _ackPin, _rstPin, _gpio0Pin = -1;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
+
+    SPIClass *_wifi;
 
     /**************************************************************************/
     /*!
@@ -165,10 +158,15 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
+      // setup ESP32 pins
+      if (_ssPin != -1) {
+          WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
+      }
+
       // check esp32 module version against NINAFWVER
       firmwareCheck();
 
-      // check esp32 module status
+      // check for esp32 module
       if (WiFi.status() == WL_NO_MODULE)
       {
         AIO_DEBUG_PRINTLN("No ESP32 module detected!");
