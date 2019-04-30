@@ -48,6 +48,14 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
               A reference to the WiFi network SSID.
     @param    pass
               A reference to the WiFi network password.
+    @param    ssPin
+              A reference to the ESP32_SS Pin.
+    @param    ackPin
+              A reference to the ESP32_ACK Pin.
+    @param    rstPin
+              A reference to the ESP32_RST Pin.
+    @param    gpio0Pin
+              A reference to the gpio0Pin Pin.
     */
     /**************************************************************************/
     AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass, int ssPin, int ackPin, int rstPin, int gpio0Pin) : AdafruitIO(user, key)

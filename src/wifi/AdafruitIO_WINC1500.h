@@ -21,21 +21,15 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
-// feather wifi m0
-#define WINC_CS   8
-#define WINC_IRQ  7
-#define WINC_RST  4
-#define WINC_EN   2
-
 class AdafruitIO_WINC1500 : public AdafruitIO {
 
   public:
-    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_en, int winc_cs, int winc_irq, int winc_rst) : AdafruitIO(user, key)
+    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_cs, int winc_irq, int winc_rst, int winc_en) : AdafruitIO(user, key)
     {
-      _winc_en = winc_en;
       _winc_cs = winc_cs;
       _winc_irq = winc_irq;
       _winc_rst = winc_rst;
+      _winc_en = winc_en;
       _ssid = ssid;
       _pass = pass;
       _mqtt_client = new WiFiSSLClient;
@@ -58,7 +52,6 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
 
     aio_status_t networkStatus()
     {
-
       switch (WiFi.status())
       {
       case WL_CONNECTED:
@@ -71,6 +64,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
         return AIO_NET_DISCONNECTED;
       }
     }
+
     const char *connectionType()
     {
       return "winc1500";
@@ -90,8 +84,10 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
       WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
       // no shield? bail
-      if (WiFi.status() == WL_NO_SHIELD)
+      if (WiFi.status() == WL_NO_SHIELD) {
+        AIO_DEBUG_PRINTLN("No WINC1500 Module Detected!");
         return;
+      }
 
       WiFi.begin(_ssid, _pass);
       _status = AIO_NET_DISCONNECTED;
