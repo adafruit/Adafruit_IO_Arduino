@@ -20,15 +20,19 @@
 #define WIFI_SSID   "your_ssid"
 #define WIFI_PASS   "your_pass"
 
-// uncomment the following line for AirLift
-// #define USE_AIRLIFT
-
-// uncomment the following line for WINC1500
-// #define USE_WINC1500
-
 // comment out the following two lines if you are using fona or ethernet
 #include "AdafruitIO_WiFi.h"
+
+// if you are using ESP32, MKR1000, ESP8266 or WICED, use the following line
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+
+// uncomment the following two lines if you are using airlift,
+// #define USE_AIRLIFT
+// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, SPIWIFI_SS, SPIWIFI_ACK, ESP32_RESETN, ESP32_GPIO0);
+
+// uncomment the following two lines if you are using winc1500,
+// #define USE_WINC1500
+// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
 /******************************* FONA **************************************/
 

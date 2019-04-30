@@ -13,24 +13,26 @@
 //   - Feather HUZZAH ESP32 -> https://www.adafruit.com/product/3405
 //   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
 //   - Feather WICED -> https://www.adafruit.com/products/3056
+//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
+//   - Adafruit Metro M4 Express AirLift Lite -> https://www.adafruit.com/product/4000
+//   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
 
 #define WIFI_SSID   "your_ssid"
 #define WIFI_PASS   "your_pass"
 
 // comment out the following two lines if you are using fona or ethernet
 #include "AdafruitIO_WiFi.h"
+
+// if you are using ESP32, MKR1000, ESP8266 or WICED, use the following line
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
-/******************************* AirLift **************************************/
+// uncomment the following two lines if you are using airlift,
+// #define USE_AIRLIFT
+// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, SPIWIFI_SS, SPIWIFI_ACK, ESP32_RESETN, ESP32_GPIO0);
 
-// the AdafruitIO_AirLift client will work with the following boards:
-//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
-//   - Adafruit Metro M4 Express AirLift Lite -> https://www.adafruit.com/product/4000
-
-// uncomment the following two lines for AirLift,
-// and comment out the AdafruitIO_WiFi client in the WIFI section
-// #include "AdafruitIO_AIRLIFT.h"
-// AdafruitIO_AIRLIFT io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+// uncomment the following two lines if you are using winc1500,
+// #define USE_WINC1500
+// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
 
 /******************************* FONA **************************************/
 
