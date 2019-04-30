@@ -24,7 +24,7 @@
 class AdafruitIO_WINC1500 : public AdafruitIO {
 
   public:
-    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_cs, int winc_irq, int winc_rst, int winc_en) : AdafruitIO(user, key)
+    AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_cs = 8, int winc_irq = 4, int winc_rst = 4, int winc_en = 2) : AdafruitIO(user, key)
     {
       _winc_cs = winc_cs;
       _winc_irq = winc_irq;

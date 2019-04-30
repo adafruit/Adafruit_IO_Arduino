@@ -58,8 +58,9 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
               A reference to the gpio0Pin Pin.
     */
     /**************************************************************************/
-    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass, int ssPin, int ackPin, int rstPin, int gpio0Pin) : AdafruitIO(user, key)
+    AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid, const char *pass, int ssPin, int ackPin, int rstPin, int gpio0Pin, SPIClass& wifi) : AdafruitIO(user, key)
     {
+      _wifi = wifi;
       _ssPin = ssPin;
       _ackPin = ackPin;
       _rstPin = rstPin;
@@ -141,7 +142,9 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     const char *_ssid;
     const char *_pass;
     String _fv = "0.0.0"; 
-    int _ssPin, _ackPin, _rstPin, _gpio0Pin = 0;
+    int _ssPin, _ackPin, _rstPin, _gpio0Pin = -1;
+
+    SPIClass& _wifi;
 
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
@@ -155,8 +158,8 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     void _connect()
     {
       // setup ESP32 pins
-      if (_ssPin != 0) {
-          WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, &SPIWIFI);
+      if (_ssPin != -1) {
+          WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
       }
 
       // check esp32 module version against NINAFWVER
