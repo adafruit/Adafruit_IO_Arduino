@@ -148,12 +148,6 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     {
       // setup ESP32 pins
       if (_ssPin != 0) {
-          AIO_DEBUG_PRINTLN("Pins: ");
-          AIO_DEBUG_PRINT(_ssPin);
-          AIO_DEBUG_PRINT(_ackPin);
-          AIO_DEBUG_PRINT(_rstPin);
-          AIO_DEBUG_PRINT(_gpio0Pin);
-          AIO_DEBUG_PRINTLN("");
           WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, &SPIWIFI);
       }
 
