@@ -29,10 +29,10 @@
 // comment out the following two lines if you are using fona or ethernet
 #include "AdafruitIO_WiFi.h"
 
-// if you are using ESP32, MKR1000, ESP8266 or WICED, use the following line
 AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
 
-// uncomment the following line if you are using airlift,
+// uncomment the following line if you are using airlift
+// and comment out the AdafruitIO_WiFi client above
 // AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, SPIWIFI_SS, SPIWIFI_ACK, ESP32_RESETN, ESP32_GPIO0, &SPIWIFI);
 
 /******************************* FONA **************************************/

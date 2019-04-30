@@ -1,59 +1,190 @@
-/************************ Adafruit IO Config *******************************/
+// Adafruit IO Environmental Data Logger 
+// Tutorial Link: https://learn.adafruit.com/adafruit-io-air-quality-monitor
+//
+// Adafruit invests time and resources providing this open source code.
+// Please support Adafruit and open source hardware by purchasing
+// products from Adafruit!
+//
+// Written by Brent Rubell for Adafruit Industries
+// Copyright (c) 2018 Adafruit Industries
+// Licensed under the MIT license.
+//
+// All text above must be included in any redistribution.
 
-// visit io.adafruit.com if you need to create an account,
-// or if you need your Adafruit IO key.
-#define IO_USERNAME   "your_username"
-#define IO_KEY        "your_key"
+/************************** Adafruit IO Configuration ***********************************/
 
-/******************************* WIFI **************************************/
+// edit the config.h tab and enter your Adafruit IO credentials
+// and any additional configuration needed for WiFi, cellular,
+// or ethernet clients.
+#include "config.h"
 
-// the AdafruitIO_WiFi client will work with the following boards:
-//   - HUZZAH ESP8266 Breakout -> https://www.adafruit.com/products/2471
-//   - Feather HUZZAH ESP8266 -> https://www.adafruit.com/products/2821
-//   - Feather HUZZAH ESP32 -> https://www.adafruit.com/product/3405
-//   - Feather M0 WiFi -> https://www.adafruit.com/products/3010
-//   - Feather WICED -> https://www.adafruit.com/products/3056
-//   - Adafruit PyPortal -> https://www.adafruit.com/product/4116
-//   - Adafruit Metro M4 Express AirLift Lite -> https://www.adafruit.com/product/4000
-//   - Adafruit AirLift Breakout -> https://www.adafruit.com/product/4201
+/**************************** Sensor Configuration ***************************************/
+#include <Wire.h>
+#include <Adafruit_Sensor.h>
+#include <Adafruit_BME280.h>
+#include "Adafruit_VEML6070.h"
+#include "Adafruit_SGP30.h"
 
-#define WIFI_SSID   "your_ssid"
-#define WIFI_PASS   "your_pass"
+// BME280 Sensor Definitions
+#define BME_SCK 13
+#define BME_MISO 12
+#define BME_MOSI 11
+#define BME_CS 10
+#define SEALEVELPRESSURE_HPA (1013.25)
 
-// uncomment the following line if you are using airlift,
-// #define USE_AIRLIFT
+// Instanciate the sensors
+Adafruit_BME280 bme;
+Adafruit_VEML6070 uv = Adafruit_VEML6070();
+Adafruit_SGP30 sgp;
 
-// uncomment the following line if you are using winc1500,
-// #define USE_WINC1500
+/**************************** Example ***************************************/
+// Delay between sensor reads, in seconds
+#define READ_DELAY 10
 
-// comment out the following two lines if you are using fona or ethernet
-#include "AdafruitIO_WiFi.h"
+// DHT22 Data
+int temperatureReading;
+int pressureReading;
 
-// if you are using ESP32, MKR1000, ESP8266 or WICED, use the following line
-AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS);
+// SGP30 Data
+int tvocReading = 0;
+int ecO2Reading = 0;
 
-// uncomment the following line if you are using airlift,
-// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, SPIWIFI_SS, SPIWIFI_ACK, ESP32_RESETN, ESP32_GPIO0);
+// BME280 Data
+int altitudeReading = 0;
+int humidityReading = 0;
 
-// uncomment the following line if you are using winc1500,
-// AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, WIFI_SSID, WIFI_PASS, WINC_CS, WINC_IRQ, WINC_RST, WINC_EN);
+// VEML6070 Data
+int uvReading = 0;
 
-/******************************* FONA **************************************/
+// set up the feeds for the BME280
+AdafruitIO_Feed *temperatureFeed = io.feed("temperature");
+AdafruitIO_Feed *humidityFeed = io.feed("humidity");
+AdafruitIO_Feed *pressureFeed = io.feed("pressure");
+AdafruitIO_Feed *altitudeFeed = io.feed("altitude");
 
-// the AdafruitIO_FONA client will work with the following boards:
-//   - Feather 32u4 FONA -> https://www.adafruit.com/product/3027
+// set up feed for the VEML6070
+AdafruitIO_Feed *uvFeed = io.feed("uv");
 
-// uncomment the following two lines for 32u4 FONA,
-// and comment out the AdafruitIO_WiFi client in the WIFI section
-// #include "AdafruitIO_FONA.h"
-// AdafruitIO_FONA io(IO_USERNAME, IO_KEY);
+// set up feeds for the SGP30
+AdafruitIO_Feed *tvocFeed = io.feed("tvoc");
+AdafruitIO_Feed *ecO2Feed = io.feed("ecO2");
 
-/**************************** ETHERNET ************************************/
+void setup() {
+  // start the serial connection
+  Serial.begin(9600);
 
-// the AdafruitIO_Ethernet client will work with the following boards:
-//   - Ethernet FeatherWing -> https://www.adafruit.com/products/3201
+  // wait for serial monitor to open
+  while (!Serial);
 
-// uncomment the following two lines for ethernet,
-// and comment out the AdafruitIO_WiFi client in the WIFI section
-// #include "AdafruitIO_Ethernet.h"
-// AdafruitIO_Ethernet io(IO_USERNAME, IO_KEY);
+  Serial.println("Adafruit IO Environmental Logger");
+
+  // set up BME280
+  setupBME280();
+  // set up SGP30
+  setupSGP30();
+  // setup VEML6070
+  uv.begin(VEML6070_1_T);
+
+  // connect to io.adafruit.com
+  Serial.print("Connecting to Adafruit IO");
+  io.connect();
+
+  // wait for a connection
+  while (io.status() < AIO_CONNECTED)
+  {
+    Serial.print(".");
+    delay(500);
+  }
+
+  // we are connected
+  Serial.println();
+  Serial.println(io.statusText());
+}
+
+void loop() {
+  // io.run(); is required for all sketches.
+  // it should always be present at the top of your loop
+  // function. it keeps the client connected to
+  // io.adafruit.com, and processes any incoming data.
+  io.run();
+
+  Serial.println("Reading Sensors...");
+
+  // Read the temperature from the BME280
+  temperatureReading = bme.readTemperature();
+
+  // convert from celsius to degrees fahrenheit
+  temperatureReading = temperatureReading * 1.8 + 32;
+  
+  Serial.print("Temperature = "); Serial.print(temperatureReading); Serial.println(" *F");
+
+  // Read the pressure from the BME280
+  pressureReading = bme.readPressure() / 100.0F;
+  Serial.print("Pressure = "); Serial.print(pressureReading); Serial.println(" hPa");
+
+  // Read the altitude from the BME280
+  altitudeReading = bme.readAltitude(SEALEVELPRESSURE_HPA);
+  Serial.print("Approx. Altitude = "); Serial.print(altitudeReading); Serial.println(" m");
+  
+  // Read the humidity from the BME280
+  humidityReading = bme.readHumidity();
+  Serial.print("Humidity = "); Serial.print(humidityReading); Serial.println("%");
+
+  // VEML6070
+  uvReading = uv.readUV();
+  Serial.print("UV Light Level: "); Serial.println(uvReading);
+
+  if(! sgp.IAQmeasure()){
+  tvocReading = -1;
+  ecO2Reading = -1;  
+  }
+  else
+  {
+  tvocReading = sgp.TVOC;
+  ecO2Reading = sgp.eCO2;  
+  }
+  
+  Serial.print("TVOC: "); Serial.print(tvocReading); Serial.print(" ppb\t");
+  Serial.print("eCO2: "); Serial.print(ecO2Reading); Serial.println(" ppm");
+
+  // send data to Adafruit IO feeds
+  temperatureFeed->save(temperatureReading);
+  humidityFeed->save(humidityReading);
+  altitudeFeed->save(altitudeReading);
+  pressureFeed->save(pressureReading);
+  uvFeed->save(uvReading);
+  ecO2Feed->save(ecO2Reading);
+  tvocFeed->save(tvocReading);
+
+  // delay the polled loop
+  delay(READ_DELAY * 1000);
+}
+
+// Set up the SGP30 sensor
+void setupSGP30() {
+  if (!sgp.begin())
+  {
+    Serial.println("Sensor not found :(");
+    while (1);
+  }
+  Serial.print("Found SGP30 serial #");
+  Serial.print(sgp.serialnumber[0], HEX);
+  Serial.print(sgp.serialnumber[1], HEX);
+  Serial.println(sgp.serialnumber[2], HEX);
+
+  // If you previously calibrated the sensor in this environment,
+  // you can assign it to self-calibrate (replace the values with your baselines):
+  // sgp.setIAQBaseline(0x8E68, 0x8F41);
+}
+
+// Set up the BME280 sensor
+void setupBME280() {
+  bool status;
+  status = bme.begin();
+  if (!status)
+  {
+    Serial.println("Could not find a valid BME280 sensor, check wiring!");
+    while (1);
+  }
+  Serial.println("BME Sensor is set up!");
+}
