@@ -166,7 +166,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       // check esp32 module version against NINAFWVER
       firmwareCheck();
 
-      // check for shield
+      // check for esp32 module
       if (WiFi.status() == WL_NO_MODULE)
       {
         AIO_DEBUG_PRINTLN("No ESP32 module detected!");
