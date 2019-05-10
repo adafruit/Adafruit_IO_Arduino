@@ -12,7 +12,7 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
-#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD) && !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) && !defined(ADAFRUIT_PYPORTAL)
+#if defined(ARDUINO_ARCH_SAMD)
 
 #include "Arduino.h"
 #include "AdafruitIO.h"
@@ -22,7 +22,6 @@
 #include "Adafruit_MQTT_Client.h"
 
 class AdafruitIO_WINC1500 : public AdafruitIO {
-
   public:
     AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_cs = 8, int winc_irq = 7, int winc_rst = 4, int winc_en = 2) : AdafruitIO(user, key)
     {
@@ -92,7 +91,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
       _status = AIO_NET_DISCONNECTED;
     }
 };
-
+#else
+  #error "Must use a SAMD board with WINC1500."
 #endif // ARDUINO_ARCH_SAMD
-
 #endif // ADAFRUITIO_WINC1500_H

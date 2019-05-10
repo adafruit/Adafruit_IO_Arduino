@@ -19,6 +19,8 @@
 #ifndef ADAFRUITIO_AIRLIFT_H
 #define ADAFRUITIO_AIRLIFT_H
 
+#if defined(ARDUINO_ARCH_SAMD)
+
 #include "Arduino.h"
 #include "AdafruitIO.h"
 #include "WiFiNINA.h"
@@ -177,5 +179,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
       _status = AIO_NET_DISCONNECTED;
   }
 };
-
+#else
+  #error "Must use a SAMD board with Airlift"
+#endif // ARDUINO_ARCH_SAMD
 #endif // ADAFRUITIO_AIRLIFT_H

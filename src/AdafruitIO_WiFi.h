@@ -17,7 +17,7 @@
   #include "wifi/AdafruitIO_MKR1000.h"
   typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
 
-#elif defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) || defined(ADAFRUIT_PYPORTAL) || defined(USE_AIRLIFT)
+#elif defined(USE_AIRLIFT)
 
   #include "wifi/AdafruitIO_AIRLIFT.h"
   typedef AdafruitIO_AIRLIFT AdafruitIO_WiFi;
