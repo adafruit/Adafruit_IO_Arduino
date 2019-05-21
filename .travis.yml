@@ -12,7 +12,7 @@ env:
 
 
 before_install:
-   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
+   - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
@@ -23,4 +23,4 @@ script:
     - build_platform esp8266
     # build SAMD target
     - arduino --install-library "WiFi101", "Ethernet"
-    - build_platform zero
+    - build_platform m4wifi
