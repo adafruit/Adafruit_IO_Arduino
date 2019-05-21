@@ -29,7 +29,7 @@
 // comment out the following lines if you are using fona or ethernet
 #include "AdafruitIO_WiFi.h"
 
-#ifdef USE_AIRLIFT
+#if defined(USE_AIRLIFT) || defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE)
   // Configure the pins used for the ESP32 connection
   #if !defined(SPIWIFI_SS) // if the wifi definition isnt in the board variant
     // Don't change the names of these #define's! they match the variant ones
