@@ -13,14 +13,16 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
+   - wget https://github.com/adafruit/nina-fw/archive/master.zip
+   - unzip master.zip
+   - ls $HOME/arduino_ide/libraries/Adafruit_Test_Library
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
-    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library"
+    - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library", "Ethernet"
 
 script:
+    # build SAMD target
+    - build_platform m4wifi
     # build ESP8266 target
     - build_platform esp8266
-    # build SAMD target
-    - arduino --install-library "WiFi101", "Ethernet"
-    - build_platform m4wifi
