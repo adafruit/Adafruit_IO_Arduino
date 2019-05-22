@@ -13,7 +13,8 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
-   - ls
+   - pwd
+   - cd $HOME/arduino_ide/libraries/
    - wget https://github.com/adafruit/nina-fw/archive/master.zip && unzip master.zip && rm master.zip
 
 install:
