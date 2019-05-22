@@ -10,9 +10,8 @@ env:
   global:
      - PRETTYNAME="Adafruit IO Arduino Library"
 
-
 before_install:
-   - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
+   - source <(curl -SLs https://raw.githubusercontent.com/adafruit/travis-ci-arduino/master/install.sh)
    - cd $HOME/arduino_ide/libraries/
    - wget https://github.com/adafruit/WiFiNINA/archive/master.zip && unzip master.zip
    - mv WiFiNINA-master/ WiFiNINA && rm master.zip
@@ -23,7 +22,5 @@ install:
     - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library", "Ethernet"
 
 script:
-    # build SAMD target
     - build_platform m4wifi
-    # build ESP8266 target
     - build_platform esp8266
