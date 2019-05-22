@@ -17,6 +17,7 @@ before_install:
    - wget https://github.com/adafruit/nina-fw/archive/master.zip
    - unzip master.zip
    - rm master.zip
+   - cd Adafruit_Test_Library
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
