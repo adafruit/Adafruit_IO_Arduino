@@ -13,17 +13,15 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
-   - ls
-   - cd $HOME/arduino_ide/libraries/
-   - wget https://github.com/adafruit/nina-fw/archive/master.zip
-   - unzip master.zip
-   - rm master.zip
-   - cd Adafruit_Test_Library
-   - ls
+   - ls && cd $HOME/arduino_ide/libraries/
+   - wget https://github.com/adafruit/nina-fw/archive/master.zip && unzip master.zip && rm master.zip
+   - cd Adafruit_Test_Library && ls
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
     - arduino --install-library "Adafruit Unified Sensor","Adafruit NeoPixel","DHT sensor library", "Ethernet"
+    - ls
+    - cd $HOME/arduino_ide/libraries/ && ls
 
 script:
     # build SAMD target
