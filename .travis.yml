@@ -14,7 +14,8 @@ env:
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
    - cd $HOME/arduino_ide/libraries/
-   - wget https://github.com/adafruit/WiFiNINA/archive/1.3.0.zip && unzip 1.3.0.zip && rm 1.3.0.zip
+   - wget wget https://github.com/adafruit/WiFiNINA/archive/master.zip && unzip master.zip
+   - mv WiFiNINA-master/ WiFiNINA && rm master.zip
    - cd /home/travis/build/adafruit/Adafruit_IO_Arduino
 
 install:
