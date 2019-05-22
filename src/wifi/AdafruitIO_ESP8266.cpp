@@ -18,6 +18,7 @@ AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *user, const char *key, const 
   _ssid = ssid;
   _pass = pass;
   _client = new WiFiClientSecure;
+  _client->setFingerprint(AIO_SSL_FINGERPRINT);
   _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
   _http = new HttpClient(*_client, _host, _http_port);
 }
