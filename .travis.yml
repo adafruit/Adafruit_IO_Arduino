@@ -13,9 +13,10 @@ env:
 
 before_install:
    - source <(curl -SLs https://raw.githubusercontent.com/brentru/travis-ci-arduino/add-m4-airlift-target/install.sh)
+   - cd $HOME/arduino_ide/libraries/
    - wget https://github.com/adafruit/nina-fw/archive/master.zip
    - unzip master.zip
-   - ls $HOME/arduino_ide/libraries/Adafruit_Test_Library
+   - rm master.zip
 
 install:
     - arduino --install-library "Adafruit IO Arduino","Adafruit MQTT Library","ArduinoHttpClient"
