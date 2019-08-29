@@ -12,7 +12,7 @@ Adafruit Feather HUZZAH ESP8266 & Adafruit HUZZAH ESP8266 Breakout
 
 Adafruit Feather HUZZAH32 (ESP32)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-* Latest version of the `ESP32 Arduino Core <https://github.com/espressif/arduino-esp32#using-through-arduino-ide>`_
+* Latest version of the `ESP32 Arduino Core <https://github.com/espressif/arduino-esp32/blob/master/docs/arduino-ide/boards_manager.md>`_
 * Latest version of the `Adafruit MQTT Library <https://github.com/adafruit/Adafruit_MQTT_Library>`_
 * Latest version of the `Arduino HTTP Client Library <https://github.com/arduino-libraries/ArduinoHttpClient>`_
 
