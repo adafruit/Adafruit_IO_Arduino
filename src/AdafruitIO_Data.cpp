@@ -180,7 +180,7 @@ void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele, 
 {
   memset(_value, 0, AIO_DATA_LENGTH);
 
-  #if defined(ARDUINO_ARCH_AVR)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_MEGAAVR)
     // Use avrlibc dtostre function on AVR platforms.
     dtostre(value, _value, precision, 0);
   #elif defined(ESP8266)
@@ -199,7 +199,7 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
 {
   memset(_value, 0, AIO_DATA_LENGTH);
 
-  #if defined(ARDUINO_ARCH_AVR)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_MEGAAVR)
     // Use avrlibc dtostre function on AVR platforms.
     dtostre(value, _value, precision, 0);
   #elif defined(ESP8266)
@@ -429,7 +429,7 @@ char* AdafruitIO_Data::charFromDouble(double d, int precision)
 {
   memset(_double_buffer, 0, sizeof(_double_buffer));
 
-  #if defined(ARDUINO_ARCH_AVR)
+  #if defined(ARDUINO_ARCH_AVR) || defined(ARDUINO_ARCH_MEGAAVR)
     // Use avrlibc dtostre function on AVR platforms.
     dtostre(d, _double_buffer, 10, 0);
   #elif defined(ESP8266)
