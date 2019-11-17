@@ -42,6 +42,7 @@ void AdafruitIO::connect()
 
   if(_err_sub) {
     // setup error sub
+    Serial.print("setting up err_sub\n");
     _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
     _mqtt->subscribe(_err_sub);
     _err_sub->setCallback(errorCallback);
