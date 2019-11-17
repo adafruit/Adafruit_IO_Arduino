@@ -230,7 +230,8 @@ char* AdafruitIO::userAgent()
 
 aio_status_t AdafruitIO::mqttStatus()
 {
-  // if the connection failed,
+  static uint32_t lastTried = 0;  // remember last attempt to connect
+  // if the connection irretrievably failed,
   // return so we don't hammer IO
   if(_status == AIO_CONNECT_FAILED)
   {
@@ -248,7 +249,12 @@ aio_status_t AdafruitIO::mqttStatus()
   
   if(_mqtt->connected())
     return AIO_CONNECTED;
+  
+  // don't try to connect more often than the throttle interval  
+  if(lastTried != 0 && millis() < (lastTried + AIO_THROTTLE_RECONNECT_INTERVAL)) 
+    return AIO_DISCONNECTED;
 
+  lastTried = millis();
   switch(_mqtt->connect(_username, _key)) {
     case 0:
       return AIO_CONNECTED;
@@ -260,8 +266,6 @@ aio_status_t AdafruitIO::mqttStatus()
     case 3:   // mqtt service unavailable
     case 6:   // throttled
     case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
-      // delay to prevent fast reconnects
-      delay(AIO_THROTTLE_RECONNECT_INTERVAL);
       return AIO_DISCONNECTED;
     default:
       return AIO_DISCONNECTED;
