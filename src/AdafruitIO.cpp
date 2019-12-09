@@ -167,8 +167,8 @@ const __FlashStringHelper* AdafruitIO::statusText()
 
 void AdafruitIO::run(uint16_t busywait_ms)
 {
-  // mqttStatus() will try to reconnect before returning
-  if(mqttStatus() != AIO_CONNECTED) return;
+  // loop until we have a connection
+  while(mqttStatus() != AIO_CONNECTED){}
 
   if(busywait_ms > 0)
     _packetread_timeout = busywait_ms;
@@ -239,13 +239,6 @@ aio_status_t AdafruitIO::mqttStatus()
     return _status;
   }
 
-  aio_status_t net_status = networkStatus();
-  // if we aren't connected, return network status -- fail quickly
-  if(net_status != AIO_NET_CONNECTED) {
-    _status = net_status;
-    return _status;
-  }
-  
   if(_mqtt->connected())
     return AIO_CONNECTED;
 
