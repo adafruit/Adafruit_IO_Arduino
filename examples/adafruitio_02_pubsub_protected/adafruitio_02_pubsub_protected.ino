@@ -28,9 +28,6 @@ int count = 0;
 
 // set up the 'counter' feed
 AdafruitIO_Feed *counter = io.feed("counter");
-// https://io.adafruit.com/api/docs/mqtt.html#username-errors
-//AdafruitIO_Feed *throttles = io.feed("throttle");
-//AdafruitIO_Feed *errors = io.feed("errors");
 
 void setup() {
 
@@ -44,6 +41,8 @@ void setup() {
 }
 
 void setupIO() {
+  // these operations are specific the AdafruitIO connection and may be repeated 
+  // if the connection fails. https://github.com/adafruit/Adafruit_IO_Arduino/issues/99
   Serial.print("Connecting to Adafruit IO");
 
   // connect to io.adafruit.com -- must be called before any other io calls!
@@ -74,36 +73,35 @@ void handleMessage(AdafruitIO_Data *data) {
 }
 
 void loop() {
+  // for this test we will disconnect the WiFi and watch how statuses change -- not normal operations
+  if(millis()%60000 > 30000){ 
+    WiFi.disconnect();                          // Wifi will die in the top half of every minute
+    delay(300);                                 // wait a while for the disaster to show...
+  }
+  Serial.print("\n\nTop of Loop!\n");
+  Serial.print("       io.status(): ");     Serial.print(io.status()); 
+  Serial.print(" -- ");                     Serial.print(io.statusText());    Serial.print("\n"); 
+  Serial.print("io.networkStatus(): ");     Serial.print(io.networkStatus()); Serial.print("\n"); 
+  Serial.print("   io.mqttStatus(): ");     Serial.print(io.mqttStatus());    Serial.print("\n"); 
+  Serial.print("     WiFi.status(): ");     Serial.print(WiFi.status());      Serial.print("\n"); 
 
   // io.run(); is required for all sketches.
   // it should always be present at the top of your loop
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
-  if(millis()%60000 > 30000){ 
-    WiFi.disconnect();                          // Wifi will die in the top half of every minute
-    delay(300);                                 // wait a while for the disaster to show...
-  }
-  Serial.print("\n\nTop of Loop!\nio.status: ");Serial.print(io.status()); 
-  Serial.print(": ");                           Serial.print(io.statusText());    Serial.print("\n"); 
-  Serial.print("io.networkStatus: ");           Serial.print(io.networkStatus()); Serial.print("\n"); 
-  Serial.print("io.mqttStatus: ");              Serial.print(io.mqttStatus());    Serial.print("\n"); 
-  Serial.print("WiFi.status: ");                Serial.print(WiFi.status());      Serial.print("\n"); 
-
   // Here's where we check the network and start over if it has lost connection
-  if(io.status() < AIO_NET_CONNECTED){         
-    Serial.print("Not Net Connected to IO!!! Reconnect!!!\n\n");
-    count++;
-    setupIO(); //Start IO all over again
-  }
-
   Serial.print("Calling io.run()...");        // io.run() will hang if network disconnected 2019-11-16
-  io.run();                                   // process messages and keep connection alive
+  if(io.run() < AIO_NET_CONNECTED){         
+    Serial.print("No Network Connection!!! Reconnect!!!\n");
+    count++;    // count network restarts
+    setupIO();  // Start IO all over again
+  }
   Serial.print("Done\n");
   
   // save count to the 'counter' feed on Adafruit IO
   Serial.print("sending -> ");
   Serial.print(count);
-  if(counter->save(count)) Serial.print(" sent!");
+  if(counter->save(count)) Serial.print(" sent! (no proof of receipt)");
   else Serial.print(" failed to send!");
 
   // Adafruit IO is rate limited for publishing, so a delay is required in
