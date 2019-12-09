@@ -250,7 +250,7 @@ aio_status_t AdafruitIO::mqttStatus()
   if(_mqtt->connected())
     return AIO_CONNECTED;
   
-  // Unless it's the first time, don't try to connect more often than the throttle interval  
+  // don't try to connect more often than the throttle interval  
   if(lastTried != 0 && millis() < (lastTried + AIO_THROTTLE_RECONNECT_INTERVAL)) 
     return AIO_DISCONNECTED;
 
