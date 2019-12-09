@@ -189,6 +189,7 @@ aio_status_t AdafruitIO::run(uint16_t busywait_ms)
     _mqtt->ping();
     _last_ping = millis();
   }
+  return _status;
 }
 
 aio_status_t AdafruitIO::status()
