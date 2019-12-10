@@ -12,10 +12,6 @@
 #ifndef ADAFRUITIO_H
 #define ADAFRUITIO_H
 
-#ifndef ADAFRUITIO_RUN_TIMEOUT
-#define ADAFRUITIO_RUN_TIMEOUT  60000
-#endif
-
 #include "Arduino.h"
 #include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
