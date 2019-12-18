@@ -45,7 +45,7 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
-    void run(uint16_t busywait_ms = 0);
+    aio_status_t run(uint16_t busywait_ms = 0);
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const char *name, const char *owner);
