@@ -39,6 +39,10 @@ void AdafruitIO::connect()
 {
 
   AIO_DEBUG_PRINTLN("AdafruitIO::connect()");
+  
+  _last_mqtt_connect = 0; // need to start over fresh
+  _status = AIO_IDLE;
+  _last_ping = 0;
 
   if(_err_sub) {
     // setup error sub
@@ -165,18 +169,28 @@ const __FlashStringHelper* AdafruitIO::statusText()
   }
 }
 
-aio_status_t AdafruitIO::run(uint16_t busywait_ms)
+aio_status_t AdafruitIO::run(uint16_t busywait_ms, bool fail_fast)
 {
   uint32_t timeStart = millis();
-  // If we aren't network connected, return status -- fail quickly
-  if(status() < AIO_NET_CONNECTED) {
-    return status();
+  if(status() < AIO_NET_CONNECTED) {    // If we aren't network connected...
+    if(fail_fast) return status();      // return status and fail quickly
+    else{                               // or try to reconnect from the start
+      AIO_ERROR_PRINT("run() connection failed -- retrying");
+      unsigned long started = millis();
+      connect();
+      // wait for a full AIO connection then carry on
+      while(status() < AIO_CONNECTED) {
+        // or return an error if the reconnection times out
+        if(millis() - started > AIO_NET_CONNECTION_TIMEOUT) return status();
+        delay(500);
+      }
+    }
   }
   
   // loop until we have a connection
   // mqttStatus() will try to reconnect before returning
-  while(mqttStatus() != AIO_CONNECTED && millis() - timeStart < AIO_MQTT_CONNECTION_TIMEOUT){}
-  if(mqttStatus() != AIO_CONNECTED) return status();
+  while(mqttStatus(fail_fast) != AIO_CONNECTED && millis() - timeStart < AIO_MQTT_CONNECTION_TIMEOUT){}
+  if(mqttStatus(fail_fast) != AIO_CONNECTED) return status();
 
   if(busywait_ms > 0)
     _packetread_timeout = busywait_ms;
@@ -237,7 +251,7 @@ char* AdafruitIO::userAgent()
   return _user_agent;
 }
 
-aio_status_t AdafruitIO::mqttStatus()
+aio_status_t AdafruitIO::mqttStatus(bool fail_fast)
 {
   // if the connection failed,
   // return so we don't hammer IO
@@ -251,21 +265,26 @@ aio_status_t AdafruitIO::mqttStatus()
   if(_mqtt->connected())
     return AIO_CONNECTED;
 
-  switch(_mqtt->connect(_username, _key)) {
-    case 0:
-      return AIO_CONNECTED;
-    case 1:   // invalid mqtt protocol
-    case 2:   // client id rejected
-    case 4:   // malformed user/pass
-    case 5:   // unauthorized
-      return AIO_CONNECT_FAILED;
-    case 3:   // mqtt service unavailable
-    case 6:   // throttled
-    case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
-      // delay to prevent fast reconnects
-      delay(AIO_THROTTLE_RECONNECT_INTERVAL);
-      return AIO_DISCONNECTED;
-    default:
-      return AIO_DISCONNECTED;
+  // prevent fast reconnect attempts, except for the first time through
+  if(_last_mqtt_connect == 0 || millis() - _last_mqtt_connect > AIO_THROTTLE_RECONNECT_INTERVAL){
+    _last_mqtt_connect = millis();
+    switch(_mqtt->connect(_username, _key)) {
+      case 0:
+        return AIO_CONNECTED;
+      case 1:   // invalid mqtt protocol
+      case 2:   // client id rejected
+      case 4:   // malformed user/pass
+      case 5:   // unauthorized
+        return AIO_CONNECT_FAILED;
+      case 3:   // mqtt service unavailable
+      case 6:   // throttled
+      case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
+        // delay to prevent fast reconnects and fast returns (backward compatibility)
+        if(!fail_fast) delay(AIO_THROTTLE_RECONNECT_INTERVAL);
+        return AIO_DISCONNECTED;
+      default:
+        return AIO_DISCONNECTED;
+    }
   }
+  return AIO_DISCONNECTED;
 }

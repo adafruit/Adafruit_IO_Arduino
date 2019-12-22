@@ -72,8 +72,10 @@ class AdafruitIOGroupCallback {
 #define AIO_PING_INTERVAL 60000
 // Time to wait between re-connecting to Adafruit IO after throttled
 #define AIO_THROTTLE_RECONNECT_INTERVAL 60000
-// Time to wait for a successful reconnection of MQTT
+// Time to wait for a successful reconnection after MQTT disconnect
 #define AIO_MQTT_CONNECTION_TIMEOUT  60000
+// Time to wait for a successful reconnection after network disconnect
+#define AIO_NET_CONNECTION_TIMEOUT  60000
 
 #define AIO_ERROR_TOPIC "/errors"
 #define AIO_THROTTLE_TOPIC "/throttle"

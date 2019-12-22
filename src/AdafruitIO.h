@@ -45,7 +45,7 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
-    aio_status_t run(uint16_t busywait_ms = 0);
+    aio_status_t run(uint16_t busywait_ms = 0, bool fail_fast = false);
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const char *name, const char *owner);
@@ -57,7 +57,7 @@ class AdafruitIO {
 
     aio_status_t status();
     virtual aio_status_t networkStatus() = 0;
-    aio_status_t mqttStatus();
+    aio_status_t mqttStatus(bool fail_fast = false);
 
     char* boardID();
     const char* boardType();
@@ -69,6 +69,7 @@ class AdafruitIO {
     virtual void _connect() = 0;
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
+    uint32_t _last_mqtt_connect = 0;
 
     Adafruit_MQTT *_mqtt;
     HttpClient *_http;
