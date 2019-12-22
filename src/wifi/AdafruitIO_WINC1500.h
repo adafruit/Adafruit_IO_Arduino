@@ -80,6 +80,10 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
 
     void _connect()
     {
+      if(strlen(_ssid) != 0)
+      {
+        WiFi.disconnect();
+        delay(300);
       WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
       // no shield? bail
@@ -90,6 +94,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
 
       WiFi.begin(_ssid, _pass);
       _status = AIO_NET_DISCONNECTED;
+      }
     }
 };
 

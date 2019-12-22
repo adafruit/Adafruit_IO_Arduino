@@ -33,11 +33,16 @@ AdafruitIO_ESP8266::~AdafruitIO_ESP8266()
 
 void AdafruitIO_ESP8266::_connect()
 {
+  if(strlen(_ssid) != 0)
+  {
+    WiFi.disconnect();
+    delay(300);
 
   delay(100);
   WiFi.begin(_ssid, _pass);
   delay(100);
   _status = AIO_NET_DISCONNECTED;
+  }
 
 }
 
