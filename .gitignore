@@ -12,8 +12,3 @@ platformio.ini
 
 # visual studio code
 .vscode
-
-.development
-src/src.ino
-src/config.h
-examples/adafruitio_00_dev_test/*
