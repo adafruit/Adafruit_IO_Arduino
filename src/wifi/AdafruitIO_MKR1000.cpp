@@ -32,10 +32,6 @@ AdafruitIO_MKR1000::~AdafruitIO_MKR1000()
 
 void AdafruitIO_MKR1000::_connect()
 {
-  if(strlen(_ssid) != 0)
-  {
-    WiFi.disconnect();
-    delay(300);
 
   // no shield? bail
   if(WiFi.status() == WL_NO_SHIELD)
@@ -43,7 +39,6 @@ void AdafruitIO_MKR1000::_connect()
 
   WiFi.begin(_ssid, _pass);
   _status = AIO_NET_DISCONNECTED;
-  }
 
 }
 
