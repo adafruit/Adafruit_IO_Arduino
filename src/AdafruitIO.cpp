@@ -1,14 +1,18 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO.cpp
+ *
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ *
+ */
 #include "AdafruitIO.h"
 
 /**************************************************************************/
@@ -254,7 +258,12 @@ const __FlashStringHelper* AdafruitIO::statusText()
 
 /**************************************************************************/
 /*!
-    @brief    Must be called frequently to keep AIO connections alive. 
+    @brief    Must be called frequently to keep AIO connections alive. When 
+              called with no arguments run() will try to repair MQTT and WiFi
+              connections before returning. To avoid potentially long timeout 
+              delays, sketches can use the busywait_ms and fail_fast arguments
+              to return an imperfect status quickly. The calling sketch will 
+              then need to respond appropriately to that status.
     @param    busywait_ms
               The packet read timeout, optional.
     @param    fail_fast
