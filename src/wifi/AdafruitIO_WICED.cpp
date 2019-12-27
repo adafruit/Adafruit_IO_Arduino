@@ -32,8 +32,14 @@ AdafruitIO_WICED::~AdafruitIO_WICED()
 
 void AdafruitIO_WICED::_connect()
 {
+  if(strlen(_ssid) != 0)
+  {
+    Feather.disconnect();
+    delay(300);
+
   Feather.connect(_ssid, _pass);
   _status = AIO_NET_DISCONNECTED;
+  }
 }
 
 aio_status_t AdafruitIO_WICED::networkStatus()
