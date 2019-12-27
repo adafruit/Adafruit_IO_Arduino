@@ -53,6 +53,7 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
+    void disconnect();
     aio_status_t run(uint16_t busywait_ms = 0, bool fail_fast = false);
 
     AdafruitIO_Feed* feed(const char *name);
