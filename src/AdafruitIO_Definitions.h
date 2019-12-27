@@ -76,6 +76,8 @@ class AdafruitIOGroupCallback {
 #define AIO_MQTT_CONNECTION_TIMEOUT  60000
 // Time to wait for a successful reconnection after network disconnect
 #define AIO_NET_CONNECTION_TIMEOUT  60000
+// Time to wait for a net disconnect to take effect
+#define AIO_NET_DISCONNECT_WAIT  300
 
 #define AIO_ERROR_TOPIC "/errors"
 #define AIO_THROTTLE_TOPIC "/throttle"

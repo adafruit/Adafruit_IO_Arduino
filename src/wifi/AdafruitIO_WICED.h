@@ -35,6 +35,7 @@ class AdafruitIO_WICED : public AdafruitIO {
 
   protected:
     void _connect();
+    void _disconnect();
     const char *_ssid;
     const char *_pass;
     AdafruitIO_WICED_SSL *_client;

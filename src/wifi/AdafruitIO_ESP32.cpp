@@ -36,15 +36,25 @@ void AdafruitIO_ESP32::_connect()
 {
   if(strlen(_ssid) != 0)
   {
-    WiFi.disconnect();
-    delay(300);
-
+    _disconnect();
   delay(100);
   WiFi.begin(_ssid, _pass);
   delay(100);
   _status = AIO_NET_DISCONNECTED;
   }
 
+}
+
+/**************************************************************************/
+/*!
+    @brief    Disconnect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO_ESP32::_disconnect()
+{
+  WiFi.disconnect();
+  delay(AIO_NET_DISCONNECT_WAIT);
 }
 
 aio_status_t AdafruitIO_ESP32::networkStatus()

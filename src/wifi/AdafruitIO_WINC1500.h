@@ -24,9 +24,36 @@
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with adafruit.io (AIO) using WINC1500
+*/
+/**************************************************************************/
 class AdafruitIO_WINC1500 : public AdafruitIO {
 
   public:
+/**************************************************************************/
+/*!
+    @brief    Instantiate the object.
+    @param    user
+              A pointer to the AIO user name.
+    @param    key
+              A pointer to the AIO key for the user.
+    @param    ssid
+              A pointer to the SSID for the wifi.
+    @param    pass
+              A pointer to the password for the wifi.
+    @param    winc_cs
+              The cs pin number.
+    @param    winc_irq
+              The irq pin number.
+    @param    winc_rst
+              The rst pin number.
+    @param    winc_en
+              The en pin number.
+    @return   none
+*/
+/**************************************************************************/
     AdafruitIO_WINC1500(const char *user, const char *key, const char *ssid, const char *pass, int winc_cs = 8, int winc_irq = 7, int winc_rst = 4, int winc_en = 2) : AdafruitIO(user, key)
     {
       _winc_cs = winc_cs;
@@ -41,6 +68,12 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
       _http = new HttpClient(*_http_client, _host, _http_port);
     }
 
+/**************************************************************************/
+/*!
+    @brief    Destructor to end the object.
+    @return   none
+*/
+/**************************************************************************/
     ~AdafruitIO_WINC1500()
     {
       if (_mqtt_client)
@@ -53,6 +86,13 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
         delete _http;
     }
 
+/**************************************************************************/
+/*!
+    @brief    Network status check.
+    @return   An AIO network status value. Lower values represent poorer connection 
+              status.
+*/
+/**************************************************************************/
     aio_status_t networkStatus()
     {
       switch (WiFi.status())
@@ -81,12 +121,17 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
     WiFiSSLClient *_http_client;
     WiFiSSLClient *_mqtt_client;
 
+/**************************************************************************/
+/*!
+    @brief    Connect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
     void _connect()
     {
       if(strlen(_ssid) != 0)
       {
-        WiFi.disconnect();
-        delay(300);
+        _disconnect();
       WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
       // no shield? bail
@@ -98,6 +143,18 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
       WiFi.begin(_ssid, _pass);
       _status = AIO_NET_DISCONNECTED;
       }
+    }
+    
+/**************************************************************************/
+/*!
+    @brief    Disconnect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
+    void _disconnect()
+    {
+      WiFi.disconnect();
+      delay(AIO_NET_DISCONNECT_WAIT);
     }
 };
 
