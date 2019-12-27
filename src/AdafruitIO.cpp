@@ -1,16 +1,30 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO.cpp
+ *
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ *
+ */
 #include "AdafruitIO.h"
 
+/**************************************************************************/
+/*!
+    @brief    Instantiate the AIO object.
+    @param    user
+              A pointer to a constant AIO user name.
+    @param    key
+              A pointer to a constant key for the user name.
+    @return   none
+*/
+/**************************************************************************/
 AdafruitIO::AdafruitIO(const char *user, const char *key)
 {
   _mqtt = 0;
@@ -27,77 +41,12 @@ AdafruitIO::AdafruitIO(const char *user, const char *key)
   _init();
 }
 
-void errorCallback(char *err, uint16_t len)
-{
-  AIO_ERROR_PRINTLN();
-  AIO_ERROR_PRINT("ERROR: ");
-  AIO_ERROR_PRINTLN(err);
-  AIO_ERROR_PRINTLN();
-}
-
-void AdafruitIO::connect()
-{
-
-  AIO_DEBUG_PRINTLN("AdafruitIO::connect()");
-
-  if(_err_sub) {
-    // setup error sub
-    _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
-    _mqtt->subscribe(_err_sub);
-    _err_sub->setCallback(errorCallback);
-  }
-
-  if(_throttle_sub) {
-    // setup throttle sub
-    _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
-    _mqtt->subscribe(_throttle_sub);
-    _throttle_sub->setCallback(errorCallback);
-  }
-
-  _connect();
-
-}
-
-AdafruitIO::~AdafruitIO()
-{
-  if(_err_topic)
-    free(_err_topic);
-
-  if(_throttle_topic)
-    free(_throttle_topic);
-
-  if(_err_sub)
-    delete _err_sub;
-
-  if(_throttle_sub)
-    delete _throttle_sub;
-}
-
-AdafruitIO_Feed* AdafruitIO::feed(const char* name)
-{
-  return new AdafruitIO_Feed(this, name);
-}
-
-AdafruitIO_Feed* AdafruitIO::feed(const char* name, const char* owner)
-{
-  return new AdafruitIO_Feed(this, name, owner);
-}
-
-AdafruitIO_Time* AdafruitIO::time(aio_time_format_t format)
-{
-  return new AdafruitIO_Time(this, format);
-}
-
-AdafruitIO_Group* AdafruitIO::group(const char* name)
-{
-  return new AdafruitIO_Group(this, name);
-}
-
-AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)
-{
-  return new AdafruitIO_Dashboard(this, name);
-}
-
+/**************************************************************************/
+/*!
+    @brief    Initialize the AIO object.
+    @return   none
+*/
+/**************************************************************************/
 void AdafruitIO::_init()
 {
 
@@ -138,6 +87,148 @@ void AdafruitIO::_init()
 
 }
 
+/**************************************************************************/
+/*!
+    @brief    Destructor to end the AIO object.
+    @return   none
+*/
+/**************************************************************************/
+AdafruitIO::~AdafruitIO()
+{
+  if(_err_topic)
+    free(_err_topic);
+
+  if(_throttle_topic)
+    free(_throttle_topic);
+
+  if(_err_sub)
+    delete _err_sub;
+
+  if(_throttle_sub)
+    delete _throttle_sub;
+}
+
+/**************************************************************************/
+/*!
+    @brief    Prints errors 
+    @param    err
+              An error string to print.
+    @param    len
+              The length of the error string.
+    @return   none
+*/
+/**************************************************************************/
+void errorCallback(char *err, uint16_t len)
+{
+  AIO_ERROR_PRINTLN();
+  AIO_ERROR_PRINT("ERROR: ");
+  AIO_ERROR_PRINTLN(err);
+  AIO_ERROR_PRINTLN();
+}
+
+/**************************************************************************/
+/*!
+    @brief    Connects to AIO, setting up using parameters set when the 
+              class is instantiated.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO::connect()
+{
+
+  AIO_DEBUG_PRINTLN("AdafruitIO::connect()");
+  
+  _last_mqtt_connect = 0; // need to start over fresh
+  _status = AIO_IDLE;
+  _last_ping = 0;
+
+  if(_err_sub) {
+    // setup error sub
+    _err_sub = new Adafruit_MQTT_Subscribe(_mqtt, _err_topic);
+    _mqtt->subscribe(_err_sub);
+    _err_sub->setCallback(errorCallback);
+  }
+
+  if(_throttle_sub) {
+    // setup throttle sub
+    _throttle_sub = new Adafruit_MQTT_Subscribe(_mqtt, _throttle_topic);
+    _mqtt->subscribe(_throttle_sub);
+    _throttle_sub->setCallback(errorCallback);
+  }
+
+  _connect();
+
+}
+
+
+/**************************************************************************/
+/*!
+    @brief    Create a new AIO feed.
+    @param    name
+              The AIO name of the feed.
+    @param    owner
+              The AIO name of the user that owns the feed, if not the current user.
+    @return   A pointer to the feed.
+*/
+/**************************************************************************/
+AdafruitIO_Feed* AdafruitIO::feed(const char* name)
+{
+  return new AdafruitIO_Feed(this, name);
+}
+
+AdafruitIO_Feed* AdafruitIO::feed(const char* name, const char* owner)
+{
+  return new AdafruitIO_Feed(this, name, owner);
+}
+
+/**************************************************************************/
+/*!
+    @brief    Create a new AIO time.
+    @param    format
+              A format specifier.
+    @return   A pointer to the time.
+*/
+/**************************************************************************/
+AdafruitIO_Time* AdafruitIO::time(aio_time_format_t format)
+{
+  return new AdafruitIO_Time(this, format);
+}
+
+/**************************************************************************/
+/*!
+    @brief    Create a new AIO group.
+    @param    name
+              The AIO name of the group.
+    @return   A pointer to the group.
+*/
+/**************************************************************************/
+AdafruitIO_Group* AdafruitIO::group(const char* name)
+{
+  return new AdafruitIO_Group(this, name);
+}
+
+/**************************************************************************/
+/*!
+    @brief    Create a new AIO dashboard.
+    @param    name
+              The AIO name of the dashboard.
+    @return   A pointer to the dashboard.
+*/
+/**************************************************************************/
+AdafruitIO_Dashboard* AdafruitIO::dashboard(const char* name)
+{
+  return new AdafruitIO_Dashboard(this, name);
+}
+
+
+/**************************************************************************/
+/*!
+    @brief    Provide status explanation strings.
+    @param    _status
+              The AIO status value
+    @return   A pointer to the status string.
+*/
+/**************************************************************************/
 const __FlashStringHelper* AdafruitIO::statusText()
 {
   switch(_status) {
@@ -165,18 +256,43 @@ const __FlashStringHelper* AdafruitIO::statusText()
   }
 }
 
-aio_status_t AdafruitIO::run(uint16_t busywait_ms)
+/**************************************************************************/
+/*!
+    @brief    Must be called frequently to keep AIO connections alive. When 
+              called with no arguments run() will try to repair MQTT and WiFi
+              connections before returning. To avoid potentially long timeout 
+              delays, sketches can use the busywait_ms and fail_fast arguments
+              to return an imperfect status quickly. The calling sketch will 
+              then need to respond appropriately to that status.
+    @param    busywait_ms
+              The packet read timeout, optional.
+    @param    fail_fast
+              Set true to skip retries and return with status immediately, optional.
+    @return   AIO status value
+*/
+/**************************************************************************/
+aio_status_t AdafruitIO::run(uint16_t busywait_ms, bool fail_fast)
 {
   uint32_t timeStart = millis();
-  // If we aren't network connected, return status -- fail quickly
-  if(status() < AIO_NET_CONNECTED) {
-    return status();
+  if(status() < AIO_NET_CONNECTED) {    // If we aren't network connected...
+    if(fail_fast) return status();      // return status and fail quickly
+    else{                               // or try to reconnect from the start
+      AIO_ERROR_PRINT("run() connection failed -- retrying");
+      unsigned long started = millis();
+      connect();
+      // wait for a full AIO connection then carry on
+      while(status() < AIO_CONNECTED) {
+        // or return an error if the reconnection times out
+        if(millis() - started > AIO_NET_CONNECTION_TIMEOUT) return status();
+        delay(500);
+      }
+    }
   }
   
   // loop until we have a connection
   // mqttStatus() will try to reconnect before returning
-  while(mqttStatus() != AIO_CONNECTED && millis() - timeStart < AIO_MQTT_CONNECTION_TIMEOUT){}
-  if(mqttStatus() != AIO_CONNECTED) return status();
+  while(mqttStatus(fail_fast) != AIO_CONNECTED && millis() - timeStart < AIO_MQTT_CONNECTION_TIMEOUT){}
+  if(mqttStatus(fail_fast) != AIO_CONNECTED) return status();
 
   if(busywait_ms > 0)
     _packetread_timeout = busywait_ms;
@@ -191,6 +307,13 @@ aio_status_t AdafruitIO::run(uint16_t busywait_ms)
   return status();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Status check.
+    @return   An AIO status value. Lower values represent poorer connection 
+              status.
+*/
+/**************************************************************************/
 aio_status_t AdafruitIO::status()
 {
   aio_status_t net_status = networkStatus();
@@ -206,22 +329,46 @@ aio_status_t AdafruitIO::status()
   return _status;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Identify the board.
+    @return   A board ID
+*/
+/**************************************************************************/
 char* AdafruitIO::boardID()
 {
   return AdafruitIO_Board::id();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Identify the board type.
+    @return   A board type
+*/
+/**************************************************************************/
 const char* AdafruitIO::boardType()
 {
   return AdafruitIO_Board::type();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Identify the software version.
+    @return   A pointer to a version number string. 
+*/
+/**************************************************************************/
 char* AdafruitIO::version()
 {
   sprintf(_version, "%d.%d.%d", ADAFRUITIO_VERSION_MAJOR, ADAFRUITIO_VERSION_MINOR, ADAFRUITIO_VERSION_PATCH);
   return _version;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Identify the user agent.
+    @return   A pointer to a user agent string.
+*/
+/**************************************************************************/
 char* AdafruitIO::userAgent()
 {
   if(!_user_agent) {
@@ -237,7 +384,16 @@ char* AdafruitIO::userAgent()
   return _user_agent;
 }
 
-aio_status_t AdafruitIO::mqttStatus()
+/**************************************************************************/
+/*!
+    @brief    MQTT status check.
+    @param    fail_fast
+              Set true to skip retries and return with status immediately, optional.
+    @return   An MQTT status value. Lower values represent poorer connection 
+              status.
+*/
+/**************************************************************************/
+aio_status_t AdafruitIO::mqttStatus(bool fail_fast)
 {
   // if the connection failed,
   // return so we don't hammer IO
@@ -251,21 +407,26 @@ aio_status_t AdafruitIO::mqttStatus()
   if(_mqtt->connected())
     return AIO_CONNECTED;
 
-  switch(_mqtt->connect(_username, _key)) {
-    case 0:
-      return AIO_CONNECTED;
-    case 1:   // invalid mqtt protocol
-    case 2:   // client id rejected
-    case 4:   // malformed user/pass
-    case 5:   // unauthorized
-      return AIO_CONNECT_FAILED;
-    case 3:   // mqtt service unavailable
-    case 6:   // throttled
-    case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
-      // delay to prevent fast reconnects
-      delay(AIO_THROTTLE_RECONNECT_INTERVAL);
-      return AIO_DISCONNECTED;
-    default:
-      return AIO_DISCONNECTED;
+  // prevent fast reconnect attempts, except for the first time through
+  if(_last_mqtt_connect == 0 || millis() - _last_mqtt_connect > AIO_THROTTLE_RECONNECT_INTERVAL){
+    _last_mqtt_connect = millis();
+    switch(_mqtt->connect(_username, _key)) {
+      case 0:
+        return AIO_CONNECTED;
+      case 1:   // invalid mqtt protocol
+      case 2:   // client id rejected
+      case 4:   // malformed user/pass
+      case 5:   // unauthorized
+        return AIO_CONNECT_FAILED;
+      case 3:   // mqtt service unavailable
+      case 6:   // throttled
+      case 7:   // banned -> all MQTT bans are temporary, so eventual retry is permitted
+        // delay to prevent fast reconnects and fast returns (backward compatibility)
+        if(!fail_fast) delay(AIO_THROTTLE_RECONNECT_INTERVAL);
+        return AIO_DISCONNECTED;
+      default:
+        return AIO_DISCONNECTED;
+    }
   }
+  return AIO_DISCONNECTED;
 }

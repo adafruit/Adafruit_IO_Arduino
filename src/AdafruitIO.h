@@ -1,14 +1,17 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO.h
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ */
+ 
 #ifndef ADAFRUITIO_H
 #define ADAFRUITIO_H
 
@@ -32,6 +35,11 @@
 #endif
 
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with adafruit.io (AIO)
+*/
+/**************************************************************************/
 class AdafruitIO {
 
   friend class AdafruitIO_Feed;
@@ -45,7 +53,7 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
-    aio_status_t run(uint16_t busywait_ms = 0);
+    aio_status_t run(uint16_t busywait_ms = 0, bool fail_fast = false);
 
     AdafruitIO_Feed* feed(const char *name);
     AdafruitIO_Feed* feed(const char *name, const char *owner);
@@ -57,7 +65,7 @@ class AdafruitIO {
 
     aio_status_t status();
     virtual aio_status_t networkStatus() = 0;
-    aio_status_t mqttStatus();
+    aio_status_t mqttStatus(bool fail_fast = false);
 
     char* boardID();
     const char* boardType();
@@ -69,6 +77,7 @@ class AdafruitIO {
     virtual void _connect() = 0;
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
+    uint32_t _last_mqtt_connect = 0;
 
     Adafruit_MQTT *_mqtt;
     HttpClient *_http;
