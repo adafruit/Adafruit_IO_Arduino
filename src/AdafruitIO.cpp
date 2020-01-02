@@ -171,7 +171,7 @@ void AdafruitIO::disconnect()
 
   AIO_DEBUG_PRINTLN("AdafruitIO::disconnect()");
   
-  _wifi_disconnect();
+  _disconnect();
 
 }
 

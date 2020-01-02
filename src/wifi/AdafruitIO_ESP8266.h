@@ -35,7 +35,7 @@ class AdafruitIO_ESP8266 : public AdafruitIO {
 
   protected:
     void _connect();
-    void _wifi_disconnect();
+    void _disconnect();
 
     const char *_ssid;
     const char *_pass;

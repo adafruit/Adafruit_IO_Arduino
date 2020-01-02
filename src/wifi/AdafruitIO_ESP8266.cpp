@@ -38,7 +38,7 @@ void AdafruitIO_ESP8266::_connect()
 {
   if(strlen(_ssid) != 0)
   {
-    _wifi_disconnect();
+    _disconnect();
   delay(100);
   WiFi.begin(_ssid, _pass);
   delay(100);
@@ -53,7 +53,7 @@ void AdafruitIO_ESP8266::_connect()
     @return   none
 */
 /**************************************************************************/
-void AdafruitIO_ESP8266::_wifi_disconnect()
+void AdafruitIO_ESP8266::_disconnect()
 {
   WiFi.disconnect();
   delay(AIO_NET_DISCONNECT_WAIT);
