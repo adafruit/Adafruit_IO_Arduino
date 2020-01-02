@@ -38,8 +38,8 @@ void AdafruitIO_WICED::_connect()
   if(strlen(_ssid) != 0)
   {
     _disconnect();
-  Feather.connect(_ssid, _pass);
-  _status = AIO_NET_DISCONNECTED;
+    Feather.connect(_ssid, _pass);
+    _status = AIO_NET_DISCONNECTED;
   }
 }
     

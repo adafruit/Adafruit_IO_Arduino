@@ -37,14 +37,14 @@ void AdafruitIO_MKR1000::_connect()
 {
   if(strlen(_ssid) != 0)
   {
-  // no shield? bail
-  if(WiFi.status() == WL_NO_SHIELD)
-    return;
+    // no shield? bail
+    if(WiFi.status() == WL_NO_SHIELD)
+      return;
 
     _disconnect();
 
-  WiFi.begin(_ssid, _pass);
-  _status = AIO_NET_DISCONNECTED;
+    WiFi.begin(_ssid, _pass);
+    _status = AIO_NET_DISCONNECTED;
   }
 
 }

@@ -132,17 +132,17 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
       if(strlen(_ssid) != 0)
       {
         _disconnect();
-      WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
+        WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
-      // no shield? bail
-      if (WiFi.status() == WL_NO_SHIELD) {
-        AIO_DEBUG_PRINTLN("No WINC1500 Module Detected!");
-        return;
-      }
+        // no shield? bail
+        if (WiFi.status() == WL_NO_SHIELD) {
+          AIO_DEBUG_PRINTLN("No WINC1500 Module Detected!");
+          return;
+        }
 
-      WiFi.begin(_ssid, _pass);
-      _status = AIO_NET_DISCONNECTED;
-      }
+        WiFi.begin(_ssid, _pass);
+        _status = AIO_NET_DISCONNECTED;
+        }
     }
     
 /**************************************************************************/
