@@ -160,7 +160,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     {
       if(strlen(_ssid) != 0)
       {
-        _disconnect();
+        _wifi_disconnect();
         // setup ESP32 pins
         if (_ssPin != -1) {
             WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
@@ -187,7 +187,7 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
         @return   none
     */
     /**************************************************************************/
-    void _disconnect()
+    void _wifi_disconnect()
     {
       WiFi.disconnect();
       delay(AIO_NET_DISCONNECT_WAIT);

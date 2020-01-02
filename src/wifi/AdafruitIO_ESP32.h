@@ -35,7 +35,7 @@ class AdafruitIO_ESP32 : public AdafruitIO {
 
   protected:
     void _connect();
-    void _disconnect();
+    void _wifi_disconnect();
 
     const char *_ssid;
     const char *_pass;
