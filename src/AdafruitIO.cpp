@@ -169,7 +169,7 @@ void AdafruitIO::connect()
 void AdafruitIO::wifi_disconnect()
 {
 
-  AIO_DEBUG_PRINTLN("AdafruitIO::disconnect()");
+  AIO_DEBUG_PRINTLN("AdafruitIO::wifi_disconnect()");
   
   _disconnect();
 
