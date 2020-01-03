@@ -16,25 +16,23 @@
 
 class ColorBlock : public AdafruitIO_Block {
 
-  public:
-    ColorBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
-    ~ColorBlock() {}
+public:
+  ColorBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+      : AdafruitIO_Block(d, f) {}
+  ~ColorBlock() {}
 
-    int width = 4;
-    int height = 4;
+  int width = 4;
+  int height = 4;
 
-    const char* type() { return _visual_type; }
+  const char *type() { return _visual_type; }
 
-  protected:
+protected:
+  const char *_visual_type = "color_picker";
 
-    const char *_visual_type = "color_picker";
-
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_COLORBLOCK_H

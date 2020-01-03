@@ -11,37 +11,37 @@
  *
  * All text above must be included in any redistribution.
  */
- 
+
 #ifndef ADAFRUITIO_ESP8266_H
 #define ADAFRUITIO_ESP8266_H
 
 #ifdef ESP8266
 
-#include "Arduino.h"
 #include "AdafruitIO.h"
-#include "ESP8266WiFi.h"
-#include "WiFiClientSecure.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
+#include "Arduino.h"
+#include "ESP8266WiFi.h"
+#include "WiFiClientSecure.h"
 
 class AdafruitIO_ESP8266 : public AdafruitIO {
 
-  public:
-    AdafruitIO_ESP8266(const char *user, const char *key, const char *ssid, const char *pass);
-    ~AdafruitIO_ESP8266();
+public:
+  AdafruitIO_ESP8266(const char *user, const char *key, const char *ssid,
+                     const char *pass);
+  ~AdafruitIO_ESP8266();
 
-    aio_status_t networkStatus();
-    const char* connectionType();
+  aio_status_t networkStatus();
+  const char *connectionType();
 
-  protected:
-    void _connect();
-    void _disconnect();
+protected:
+  void _connect();
+  void _disconnect();
 
-    const char *_ssid;
-    const char *_pass;
-    WiFiClientSecure *_client;
-
+  const char *_ssid;
+  const char *_pass;
+  WiFiClientSecure *_client;
 };
 
-#endif //ESP8266
+#endif // ESP8266
 #endif // ADAFRUITIO_ESP8266_H

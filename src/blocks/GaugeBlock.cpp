@@ -11,20 +11,19 @@
 //
 #include "GaugeBlock.h"
 
-GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   min = 0;
   max = 100;
   ringWidth = "thin";
   label = "Value";
 }
 
-GaugeBlock::~GaugeBlock(){}
+GaugeBlock::~GaugeBlock() {}
 
-String GaugeBlock::properties()
-{
+String GaugeBlock::properties() {
   int w = 0;
-  
+
   if (strcmp(ringWidth, "thin")) {
     w = 25;
   } else {

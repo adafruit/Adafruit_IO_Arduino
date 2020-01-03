@@ -16,29 +16,27 @@
 
 class MomentaryBlock : public AdafruitIO_Block {
 
-  public:
-    MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~MomentaryBlock();
+public:
+  MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~MomentaryBlock();
 
-    const char *text;
-    const char *value;
-    const char *release;
+  const char *text;
+  const char *value;
+  const char *release;
 
-    int width = 2;
-    int height = 2;
+  int width = 2;
+  int height = 2;
 
-    String properties();
-    const char* type() { return _visual_type; }
+  String properties();
+  const char *type() { return _visual_type; }
 
-  protected:
-    const char *_visual_type = "momentary_button";
+protected:
+  const char *_visual_type = "momentary_button";
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_MOMENTARYBLOCK_H

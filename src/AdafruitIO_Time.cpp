@@ -12,8 +12,8 @@
 #include "AdafruitIO_Time.h"
 #include "AdafruitIO.h"
 
-AdafruitIO_Time::AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f):AdafruitIO_MQTT()
-{
+AdafruitIO_Time::AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f)
+    : AdafruitIO_MQTT() {
   _io = io;
   _sub = 0;
   _dataCallback = 0;
@@ -22,56 +22,54 @@ AdafruitIO_Time::AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f):AdafruitIO
   _init();
 }
 
-AdafruitIO_Time::~AdafruitIO_Time()
-{
-  if(_sub)
+AdafruitIO_Time::~AdafruitIO_Time() {
+  if (_sub)
     delete _sub;
 
-  if(data)
+  if (data)
     delete data;
 
-  if(_topic)
+  if (_topic)
     free(_topic);
 }
 
-void AdafruitIO_Time::onMessage(AdafruitIOTimeCallbackType cb)
-{
+void AdafruitIO_Time::onMessage(AdafruitIOTimeCallbackType cb) {
   _dataCallback = cb;
 }
 
-void AdafruitIO_Time::subCallback(char *val, uint16_t len)
-{
+void AdafruitIO_Time::subCallback(char *val, uint16_t len) {
   data = val;
 
   // call callback with data
-  if(_dataCallback)
+  if (_dataCallback)
     _dataCallback(data, len);
 }
 
-void AdafruitIO_Time::_init()
-{
+void AdafruitIO_Time::_init() {
 
   // dynamically allocate memory for mqtt topic and REST URLs
   const char *formatString;
 
   switch (format) {
-    case AIO_TIME_SECONDS:
-      formatString = "seconds";
-      break;
-    case AIO_TIME_MILLIS:
-      formatString = "millis";
-      break;
-    case AIO_TIME_ISO:
-      formatString = "ISO-8601";
-      break;
-    default:
-      formatString = "seconds";
-      break;
+  case AIO_TIME_SECONDS:
+    formatString = "seconds";
+    break;
+  case AIO_TIME_MILLIS:
+    formatString = "millis";
+    break;
+  case AIO_TIME_ISO:
+    formatString = "ISO-8601";
+    break;
+  default:
+    formatString = "seconds";
+    break;
   }
 
-  _topic = (char *) malloc(sizeof(char) * (strlen(formatString) + 6)); // 6 extra chars for "time/" and null termination
+  _topic = (char *)malloc(
+      sizeof(char) * (strlen(formatString) +
+                      6)); // 6 extra chars for "time/" and null termination
 
-  if(_topic) {
+  if (_topic) {
 
     // build topic string
     strcpy(_topic, "time/");
@@ -88,7 +86,5 @@ void AdafruitIO_Time::_init()
     _topic = 0;
     _sub = 0;
     data = 0;
-
   }
-
 }

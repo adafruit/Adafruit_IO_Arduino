@@ -13,33 +13,31 @@
 #include "AdafruitIO.h"
 #include "AdafruitIO_Dashboard.h"
 
-AdafruitIO_Block::AdafruitIO_Block(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
-{
+AdafruitIO_Block::AdafruitIO_Block(AdafruitIO_Dashboard *d,
+                                   AdafruitIO_Feed *f) {
   _dashboard = d;
   _feed = f;
 }
 
-AdafruitIO_Block::~AdafruitIO_Block(){}
+AdafruitIO_Block::~AdafruitIO_Block() {}
 
-String AdafruitIO_Block::properties()
-{
+String AdafruitIO_Block::properties() {
   String props = "{}";
   return props;
 }
 
-String AdafruitIO_Block::dimensions()
-{
+String AdafruitIO_Block::dimensions() {
   String dim = "\",\"size_x\":\"";
   dim += _width();
   dim += "\",\"size_y\":\"";
   dim += _height();
 
-  if(_row() > 0) {
+  if (_row() > 0) {
     dim += "\",\"row\":\"";
     dim += _row();
   }
 
-  if(_column() > 0) {
+  if (_column() > 0) {
     dim += "\",\"column\":\"";
     dim += _column();
   }
@@ -47,13 +45,9 @@ String AdafruitIO_Block::dimensions()
   return dim;
 }
 
-const char* AdafruitIO_Block::type()
-{
-  return _visual_type;
-}
+const char *AdafruitIO_Block::type() { return _visual_type; }
 
-bool AdafruitIO_Block::save()
-{
+bool AdafruitIO_Block::save() {
   HttpClient *http = _dashboard->io()->_http;
 
   String url = "/api/v2/";

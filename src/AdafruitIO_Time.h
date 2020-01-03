@@ -12,10 +12,10 @@
 #ifndef ADAFRUITIO_TIME_H
 #define ADAFRUITIO_TIME_H
 
-#include "Arduino.h"
-#include "Adafruit_MQTT.h"
 #include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_MQTT.h"
+#include "Adafruit_MQTT.h"
+#include "Arduino.h"
 
 // forward declaration
 class AdafruitIO;
@@ -24,21 +24,20 @@ typedef void (*AdafruitIOTimeCallbackType)(char *value, uint16_t len);
 
 class AdafruitIO_Time : public AdafruitIO_MQTT {
 
-  public:
-    AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f);
-    ~AdafruitIO_Time();
-    void onMessage(AdafruitIOTimeCallbackType cb);
-    void subCallback(char *val, uint16_t len);
-    char *data;
-    aio_time_format_t format;
+public:
+  AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f);
+  ~AdafruitIO_Time();
+  void onMessage(AdafruitIOTimeCallbackType cb);
+  void subCallback(char *val, uint16_t len);
+  char *data;
+  aio_time_format_t format;
 
-  private:
-    AdafruitIOTimeCallbackType _dataCallback;
-    void _init();
-    char *_topic;
-    Adafruit_MQTT_Subscribe *_sub;
-    AdafruitIO *_io;
-
+private:
+  AdafruitIOTimeCallbackType _dataCallback;
+  void _init();
+  char *_topic;
+  Adafruit_MQTT_Subscribe *_sub;
+  AdafruitIO *_io;
 };
 
 #endif // ADAFRUITIO_FEED_H

@@ -16,27 +16,26 @@
 
 class ToggleBlock : public AdafruitIO_Block {
 
-  public:
-    ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~ToggleBlock();
+public:
+  ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~ToggleBlock();
 
-    const char *onText;
-    const char *offText;
+  const char *onText;
+  const char *offText;
 
-    int width = 4;
-    int height = 2;
+  int width = 4;
+  int height = 2;
 
-    String properties();
-    const char* type() { return _visual_type; }
+  String properties();
+  const char *type() { return _visual_type; }
 
-  protected:
-    const char *_visual_type = "toggle_button";
+protected:
+  const char *_visual_type = "toggle_button";
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_TOGGLEBLOCK_H

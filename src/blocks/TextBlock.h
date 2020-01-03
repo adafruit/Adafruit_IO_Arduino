@@ -16,27 +16,25 @@
 
 class TextBlock : public AdafruitIO_Block {
 
-  public:
-    TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~TextBlock();
+public:
+  TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~TextBlock();
 
-    const char *fontSize;
+  const char *fontSize;
 
-    int width = 2;
-    int height = 1;
+  int width = 2;
+  int height = 1;
 
-    String properties();
-    const char* type() { return _visual_type; }
+  String properties();
+  const char *type() { return _visual_type; }
 
-  protected:
-    const char *_visual_type = "text";
+protected:
+  const char *_visual_type = "text";
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_TEXTBLOCK_H

@@ -16,23 +16,23 @@
 
 class ImageBlock : public AdafruitIO_Block {
 
-  public:
-    ImageBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f) {}
-    ~ImageBlock() {}
+public:
+  ImageBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+      : AdafruitIO_Block(d, f) {}
+  ~ImageBlock() {}
 
-    int height = 6;
-    int width = 4;
+  int height = 6;
+  int width = 4;
 
-    const char* type() { return _visual_type; }
+  const char *type() { return _visual_type; }
 
-  protected:
-    const char *_visual_type = "image";
+protected:
+  const char *_visual_type = "image";
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_IMAGEBLOCK_H

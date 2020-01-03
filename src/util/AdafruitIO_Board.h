@@ -15,19 +15,17 @@
 #include "Arduino.h"
 
 #if defined(ARDUINO_ARCH_AVR)
-  #include <avr/boot.h>
+#include <avr/boot.h>
 #endif
 
 class AdafruitIO_Board {
 
-  public:
+public:
+  static char _id[64];
+  static char *id();
 
-    static char _id[64];
-    static char* id();
-
-    static const char _type[];
-    static const char* type();
-
+  static const char _type[];
+  static const char *type();
 };
 
 #endif // ADAFRUITIO_BOARD_H

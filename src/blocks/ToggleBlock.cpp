@@ -11,16 +11,15 @@
 //
 #include "ToggleBlock.h"
 
-ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   onText = "1";
   offText = "0";
 }
 
-ToggleBlock::~ToggleBlock(){}
+ToggleBlock::~ToggleBlock() {}
 
-String ToggleBlock::properties()
-{
+String ToggleBlock::properties() {
   String props = "{\"onText\":\"";
   props += onText;
   props += "\",\"offText\":\"";

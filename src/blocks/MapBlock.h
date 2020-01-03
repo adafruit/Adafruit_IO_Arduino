@@ -16,29 +16,27 @@
 
 class MapBlock : public AdafruitIO_Block {
 
-  public:
-    MapBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~MapBlock();
-  
-    String props;
-    int historyHours;
-    const char *tile;
+public:
+  MapBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~MapBlock();
 
-    int width = 4;
-    int height = 4;
+  String props;
+  int historyHours;
+  const char *tile;
 
-    String properties();
-    const char* type() { return _visual_type; }
+  int width = 4;
+  int height = 4;
 
-  protected:
-    const char *_visual_type = "map";
+  String properties();
+  const char *type() { return _visual_type; }
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
+protected:
+  const char *_visual_type = "map";
 
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_MAPBLOCK_H

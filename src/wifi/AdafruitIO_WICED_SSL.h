@@ -11,7 +11,7 @@
  *
  * All text above must be included in any redistribution.
  */
- 
+
 #ifndef ADAFRUITIO_WICED_SSL_H
 #define ADAFRUITIO_WICED_SSL_H
 
@@ -21,15 +21,12 @@
 
 class AdafruitIO_WICED_SSL : public AdafruitTCP {
 
-  public:
+public:
+  AdafruitIO_WICED_SSL() : AdafruitTCP() {}
 
-    AdafruitIO_WICED_SSL() : AdafruitTCP() {}
-
-    int connect(const char *host, uint16_t port)
-    {
-      return connectSSL(host, port);
-    }
-
+  int connect(const char *host, uint16_t port) {
+    return connectSSL(host, port);
+  }
 };
 
 #endif // ARDUINO_STM32_FEATHER

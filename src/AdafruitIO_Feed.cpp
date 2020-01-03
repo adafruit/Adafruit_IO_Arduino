@@ -12,8 +12,8 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO.h"
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT()
-{
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
+    : AdafruitIO_MQTT() {
   _io = io;
   name = n;
   owner = _io->_username;
@@ -21,8 +21,8 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n):AdafruitIO_MQTT(
   _init();
 }
 
-AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un):AdafruitIO_MQTT()
-{
+AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un)
+    : AdafruitIO_MQTT() {
   _io = io;
   name = n;
   owner = un;
@@ -30,99 +30,88 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un):
   _init();
 }
 
-AdafruitIO_Feed::~AdafruitIO_Feed()
-{
-  if(_sub)
+AdafruitIO_Feed::~AdafruitIO_Feed() {
+  if (_sub)
     delete _sub;
 
-  if(_pub)
+  if (_pub)
     delete _pub;
 
-  if(_get_pub)
+  if (_get_pub)
     delete _get_pub;
 
-  if(data)
+  if (data)
     delete data;
 
-  if(_topic)
+  if (_topic)
     free(_topic);
 
   if (_get_topic)
     free(_get_topic);
 
-  if(_feed_url)
+  if (_feed_url)
     free(_feed_url);
 
-  if(_create_url)
+  if (_create_url)
     free(_create_url);
 }
 
-void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb)
-{
+void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb) {
   _dataCallback = cb;
 }
 
-bool AdafruitIO_Feed::save(char *value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(char *value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(bool value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(bool value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(String value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(String value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(int value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(int value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(unsigned int value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(unsigned int value, double lat, double lon,
+                           double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(long value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(long value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(unsigned long value, double lat, double lon, double ele)
-{
+bool AdafruitIO_Feed::save(unsigned long value, double lat, double lon,
+                           double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(float value, double lat, double lon, double ele, int precision)
-{
+bool AdafruitIO_Feed::save(float value, double lat, double lon, double ele,
+                           int precision) {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele, int precision)
-{
+bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele,
+                           int precision) {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
 }
 
-bool AdafruitIO_Feed::get()
-{
-  return _get_pub->publish("\0");
-}
+bool AdafruitIO_Feed::get() { return _get_pub->publish("\0"); }
 
-bool AdafruitIO_Feed::exists()
-{
+bool AdafruitIO_Feed::exists() {
   _io->_http->beginRequest();
   _io->_http->get(_feed_url);
   _io->_http->sendHeader("X-AIO-Key", _io->_key);
@@ -134,8 +123,7 @@ bool AdafruitIO_Feed::exists()
   return status == 200;
 }
 
-bool AdafruitIO_Feed::create()
-{
+bool AdafruitIO_Feed::create() {
   String body = "name=";
   body += name;
 
@@ -161,8 +149,7 @@ bool AdafruitIO_Feed::create()
   return status == 201;
 }
 
-AdafruitIO_Data* AdafruitIO_Feed::lastValue()
-{
+AdafruitIO_Data *AdafruitIO_Feed::lastValue() {
   // 15 extra for api path, 12 for /data/retain, 1 for null
   String url = "/api/v2/";
   url += owner;
@@ -197,41 +184,45 @@ AdafruitIO_Data* AdafruitIO_Feed::lastValue()
     AIO_ERROR_PRINTLN(_io->_http->responseBody());
 
     return NULL;
-
   }
 }
 
-void AdafruitIO_Feed::setLocation(double lat, double lon, double ele)
-{
+void AdafruitIO_Feed::setLocation(double lat, double lon, double ele) {
   data->setLocation(lat, lon, ele);
 }
 
-void AdafruitIO_Feed::subCallback(char *val, uint16_t len)
-{
+void AdafruitIO_Feed::subCallback(char *val, uint16_t len) {
   data->setCSV(val);
 
   // call callback with data
-  if(_dataCallback)
+  if (_dataCallback)
     _dataCallback(data);
 }
 
-void AdafruitIO_Feed::_init()
-{
+void AdafruitIO_Feed::_init() {
   _sub = 0;
   _pub = 0;
   _get_pub = 0;
   _dataCallback = 0;
 
   // dynamically allocate memory for mqtt topic and REST URLs
-  _topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 8)); // 8 extra chars for /f/, /csv & null termination
-  _get_topic = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 12)); // 12 extra chars for /f/, /csv/get & null termination
-  _feed_url = (char *) malloc(sizeof(char) * (strlen(owner) + strlen(name) + 16)); // 16 extra for api path & null term
-  _create_url = (char *) malloc(sizeof(char) * (strlen(owner) + 15)); // 15 extra for api path & null term
+  _topic = (char *)malloc(
+      sizeof(char) * (strlen(owner) + strlen(name) +
+                      8)); // 8 extra chars for /f/, /csv & null termination
+  _get_topic = (char *)malloc(
+      sizeof(char) *
+      (strlen(owner) + strlen(name) +
+       12)); // 12 extra chars for /f/, /csv/get & null termination
+  _feed_url =
+      (char *)malloc(sizeof(char) * (strlen(owner) + strlen(name) +
+                                     16)); // 16 extra for api path & null term
+  _create_url = (char *)malloc(
+      sizeof(char) * (strlen(owner) + 15)); // 15 extra for api path & null term
 
   // init feed data
   data = new AdafruitIO_Data(this);
 
-  if(_topic && _create_url && _feed_url) {
+  if (_topic && _create_url && _feed_url) {
 
     // build topic string
     strcpy(_topic, owner);
@@ -275,7 +266,5 @@ void AdafruitIO_Feed::_init()
     _pub = 0;
     _get_pub = 0;
     data = 0;
-
   }
-
 }

@@ -12,66 +12,68 @@
 #ifndef ADAFRUITIO_FEED_H
 #define ADAFRUITIO_FEED_H
 
-#include "Arduino.h"
-#include "Adafruit_MQTT.h"
-#include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_Data.h"
+#include "AdafruitIO_Definitions.h"
 #include "AdafruitIO_MQTT.h"
+#include "Adafruit_MQTT.h"
+#include "Arduino.h"
 
 // forward declaration
 class AdafruitIO;
 
 class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
-  public:
-    AdafruitIO_Feed(AdafruitIO *io, const char *name);
-    AdafruitIO_Feed(AdafruitIO *io, const char *name, const char *owner);
+public:
+  AdafruitIO_Feed(AdafruitIO *io, const char *name);
+  AdafruitIO_Feed(AdafruitIO *io, const char *name, const char *owner);
 
-    ~AdafruitIO_Feed();
+  ~AdafruitIO_Feed();
 
-    bool save(char *value, double lat=0, double lon=0, double ele=0);
-    bool save(bool value, double lat=0, double lon=0, double ele=0);
-    bool save(String value, double lat=0, double lon=0, double ele=0);
-    bool save(int value, double lat=0, double lon=0, double ele=0);
-    bool save(unsigned int value, double lat=0, double lon=0, double ele=0);
-    bool save(long value, double lat=0, double lon=0, double ele=0);
-    bool save(unsigned long value, double lat=0, double lon=0, double ele=0);
-    bool save(float value, double lat=0, double lon=0, double ele=0, int precision=6);
-    bool save(double value, double lat=0, double lon=0, double ele=0, int precision=6);
+  bool save(char *value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(bool value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(String value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(int value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(unsigned int value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(long value, double lat = 0, double lon = 0, double ele = 0);
+  bool save(unsigned long value, double lat = 0, double lon = 0,
+            double ele = 0);
+  bool save(float value, double lat = 0, double lon = 0, double ele = 0,
+            int precision = 6);
+  bool save(double value, double lat = 0, double lon = 0, double ele = 0,
+            int precision = 6);
 
-    bool get();
+  bool get();
 
-    bool exists();
-    bool create();
+  bool exists();
+  bool create();
 
-    void setLocation(double lat, double lon, double ele=0);
+  void setLocation(double lat, double lon, double ele = 0);
 
-    void onMessage(AdafruitIODataCallbackType cb);
-    void subCallback(char *val, uint16_t len);
+  void onMessage(AdafruitIODataCallbackType cb);
+  void subCallback(char *val, uint16_t len);
 
-    const char *name;
-    const char *owner;
+  const char *name;
+  const char *owner;
 
-    AdafruitIO_Data *lastValue();
-    AdafruitIO_Data *data;
+  AdafruitIO_Data *lastValue();
+  AdafruitIO_Data *data;
 
-  private:
-    AdafruitIODataCallbackType _dataCallback;
+private:
+  AdafruitIODataCallbackType _dataCallback;
 
-    void _init();
+  void _init();
 
-    char *_topic;
-    char *_get_topic;
-    char *_create_url;
-    char *_feed_url;
+  char *_topic;
+  char *_get_topic;
+  char *_create_url;
+  char *_feed_url;
 
-    Adafruit_MQTT_Subscribe *_sub;
-    Adafruit_MQTT_Publish *_pub;
-    Adafruit_MQTT_Publish *_get_pub;
+  Adafruit_MQTT_Subscribe *_sub;
+  Adafruit_MQTT_Publish *_pub;
+  Adafruit_MQTT_Publish *_get_pub;
 
-    AdafruitIO *_io;
-    AdafruitIO_Data *_data;
-
+  AdafruitIO *_io;
+  AdafruitIO_Data *_data;
 };
 
 #endif // ADAFRUITIO_FEED_H

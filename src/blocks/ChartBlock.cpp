@@ -11,8 +11,8 @@
 //
 #include "ChartBlock.h"
 
-ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   historyHours = 0;
   xAxisLabel = "X";
   yAxisLabel = "Y";
@@ -20,10 +20,9 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
   yAxisMax = 100;
 }
 
-ChartBlock::~ChartBlock(){}
+ChartBlock::~ChartBlock() {}
 
-String ChartBlock::properties()
-{
+String ChartBlock::properties() {
 
   String props = "{\"historyHours\":\"";
   props += historyHours;

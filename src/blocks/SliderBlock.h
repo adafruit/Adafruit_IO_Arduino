@@ -16,30 +16,28 @@
 
 class SliderBlock : public AdafruitIO_Block {
 
-  public:
-    SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~SliderBlock();
+public:
+  SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~SliderBlock();
 
-    int min;
-    int max;
-    int step;
-    const char *label;
+  int min;
+  int max;
+  int step;
+  const char *label;
 
-    int width = 4;
-    int height = 2;
+  int width = 4;
+  int height = 2;
 
-    String properties();
-    const char* type() { return _visual_type; }
+  String properties();
+  const char *type() { return _visual_type; }
 
-  protected:
-    const char *_visual_type = "slider";
+protected:
+  const char *_visual_type = "slider";
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
-
-
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_SLIDERBLOCK_H

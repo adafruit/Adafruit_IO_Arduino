@@ -16,29 +16,29 @@
 
 class GaugeBlock : public AdafruitIO_Block {
 
-  public:
-    GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~GaugeBlock();
+public:
+  GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~GaugeBlock();
 
-    int min;
-    int max;
+  int min;
+  int max;
 
-    const char *ringWidth;
-    const char *label;
+  const char *ringWidth;
+  const char *label;
 
-    int width = 4;
-    int height = 4;
+  int width = 4;
+  int height = 4;
 
-    String properties();
-    const char* type() { return _visual_type; }
-  protected:
-    const char *_visual_type = "gauge";
+  String properties();
+  const char *type() { return _visual_type; }
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
+protected:
+  const char *_visual_type = "gauge";
 
+  int _width() { return width; }
+  int _height() { return height; }
+  int _row() { return row; }
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_GAUGEBLOCK_H

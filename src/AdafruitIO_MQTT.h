@@ -16,10 +16,9 @@
 
 class AdafruitIO_MQTT {
 
-  public:
-    AdafruitIO_MQTT() {}
-    virtual void subCallback(char *val, uint16_t len) = 0;
-
+public:
+  AdafruitIO_MQTT() {}
+  virtual void subCallback(char *val, uint16_t len) = 0;
 };
 
 #endif // ADAFRUITIO_MQTT_H

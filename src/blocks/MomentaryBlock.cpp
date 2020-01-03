@@ -11,17 +11,16 @@
 //
 #include "MomentaryBlock.h"
 
-MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   text = "RESET";
   value = "1";
   release = "0";
 }
 
-MomentaryBlock::~MomentaryBlock(){}
+MomentaryBlock::~MomentaryBlock() {}
 
-String MomentaryBlock::properties()
-{
+String MomentaryBlock::properties() {
   String props = "{\"text\":\"";
   props += text;
   props += "\",\"value\":\"";

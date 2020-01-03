@@ -11,18 +11,17 @@
 //
 #include "SliderBlock.h"
 
-SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   min = 0;
   max = 100;
   step = 10;
   label = "Value";
 }
 
-SliderBlock::~SliderBlock(){}
+SliderBlock::~SliderBlock() {}
 
-String SliderBlock::properties()
-{
+String SliderBlock::properties() {
   String props = "{\"min\":\"";
   props += min;
   props += "\",\"max\":\"";
