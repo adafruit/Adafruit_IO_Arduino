@@ -158,24 +158,42 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
-      // setup ESP32 pins
-      if (_ssPin != -1) {
-          WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
+      if(strlen(_ssid) == 0) {
+        _status = AIO_SSID_INVALID;
+      } else {
+        _disconnect();
+        // setup ESP32 pins
+        if (_ssPin != -1) {
+            WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
+        }
+
+        // check esp32 module version against NINAFWVER
+        firmwareCheck();
+
+        // check for esp32 module
+        if (WiFi.status() == WL_NO_MODULE)
+        {
+          AIO_DEBUG_PRINTLN("No ESP32 module detected!");
+          return;
+        }
+
+        WiFi.begin(_ssid, _pass);
+        _status = AIO_NET_DISCONNECTED;
       }
-
-      // check esp32 module version against NINAFWVER
-      firmwareCheck();
-
-      // check for esp32 module
-      if (WiFi.status() == WL_NO_MODULE)
-      {
-        AIO_DEBUG_PRINTLN("No ESP32 module detected!");
-        return;
-      }
-
-      WiFi.begin(_ssid, _pass);
-      _status = AIO_NET_DISCONNECTED;
   }
+  
+    /**************************************************************************/
+    /*!
+        @brief    Disconnect the wifi network.
+        @return   none
+    */
+    /**************************************************************************/
+    void _disconnect()
+    {
+      WiFi.disconnect();
+      delay(AIO_NET_DISCONNECT_WAIT);
+    }
+
 };
 
 #endif // ADAFRUITIO_AIRLIFT_H

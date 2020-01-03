@@ -53,6 +53,7 @@ class AdafruitIO {
     virtual ~AdafruitIO();
 
     void connect();
+    void wifi_disconnect();
     aio_status_t run(uint16_t busywait_ms = 0, bool fail_fast = false);
 
     AdafruitIO_Feed* feed(const char *name);
@@ -75,6 +76,7 @@ class AdafruitIO {
 
   protected:
     virtual void _connect() = 0;
+    virtual void _disconnect() = 0;
     aio_status_t _status = AIO_IDLE;
     uint32_t _last_ping = 0;
     uint32_t _last_mqtt_connect = 0;

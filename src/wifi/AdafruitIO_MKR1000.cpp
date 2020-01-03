@@ -1,14 +1,17 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_MKR1000.cpp
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ */
+ 
 #if defined(ARDUINO_SAMD_MKR1000)
 
 #include "AdafruitIO_MKR1000.h"
@@ -32,14 +35,31 @@ AdafruitIO_MKR1000::~AdafruitIO_MKR1000()
 
 void AdafruitIO_MKR1000::_connect()
 {
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
+    // no shield? bail
+    if(WiFi.status() == WL_NO_SHIELD)
+      return;
 
-  // no shield? bail
-  if(WiFi.status() == WL_NO_SHIELD)
-    return;
+    _disconnect();
 
-  WiFi.begin(_ssid, _pass);
-  _status = AIO_NET_DISCONNECTED;
+    WiFi.begin(_ssid, _pass);
+    _status = AIO_NET_DISCONNECTED;
+  }
 
+}
+
+/**************************************************************************/
+/*!
+    @brief    Disconnect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO_MKR1000::_disconnect()
+{
+  WiFi.disconnect();
+  delay(AIO_NET_DISCONNECT_WAIT);
 }
 
 aio_status_t AdafruitIO_MKR1000::networkStatus()

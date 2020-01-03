@@ -1,14 +1,17 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_WICED.cpp
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ */
+ 
 #ifdef ARDUINO_STM32_FEATHER
 
 #include "AdafruitIO_WICED.h"
@@ -32,8 +35,25 @@ AdafruitIO_WICED::~AdafruitIO_WICED()
 
 void AdafruitIO_WICED::_connect()
 {
-  Feather.connect(_ssid, _pass);
-  _status = AIO_NET_DISCONNECTED;
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
+    _disconnect();
+    Feather.connect(_ssid, _pass);
+    _status = AIO_NET_DISCONNECTED;
+  }
+}
+    
+/**************************************************************************/
+/*!
+    @brief    Disconnect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO_WICED::_disconnect()
+{
+  Feather.disconnect();
+  delay(AIO_NET_DISCONNECT_WAIT);
 }
 
 aio_status_t AdafruitIO_WICED::networkStatus()

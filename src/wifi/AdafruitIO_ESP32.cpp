@@ -1,14 +1,16 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_ESP32.cpp
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ */
 #ifdef ARDUINO_ARCH_ESP32
 
 #include "AdafruitIO_ESP32.h"
@@ -32,12 +34,28 @@ AdafruitIO_ESP32::~AdafruitIO_ESP32()
 
 void AdafruitIO_ESP32::_connect()
 {
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
+    _disconnect();
+    delay(100);
+    WiFi.begin(_ssid, _pass);
+    delay(100);
+    _status = AIO_NET_DISCONNECTED;
+  }
 
-  delay(100);
-  WiFi.begin(_ssid, _pass);
-  delay(100);
-  _status = AIO_NET_DISCONNECTED;
+}
 
+/**************************************************************************/
+/*!
+    @brief    Disconnect the wifi network.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO_ESP32::_disconnect()
+{
+  WiFi.disconnect();
+  delay(AIO_NET_DISCONNECT_WAIT);
 }
 
 aio_status_t AdafruitIO_ESP32::networkStatus()

@@ -160,6 +160,21 @@ void AdafruitIO::connect()
 
 }
 
+/**************************************************************************/
+/*!
+    @brief    Disconnects from WiFi.
+    @return   none
+*/
+/**************************************************************************/
+void AdafruitIO::wifi_disconnect()
+{
+
+  AIO_DEBUG_PRINTLN("AdafruitIO::wifi_disconnect()");
+  
+  _disconnect();
+
+}
+
 
 /**************************************************************************/
 /*!
