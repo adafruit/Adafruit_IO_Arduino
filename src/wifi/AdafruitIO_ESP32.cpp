@@ -34,8 +34,9 @@ AdafruitIO_ESP32::~AdafruitIO_ESP32()
 
 void AdafruitIO_ESP32::_connect()
 {
-  if(strlen(_ssid) != 0)
-  {
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
     _disconnect();
     delay(100);
     WiFi.begin(_ssid, _pass);

@@ -35,8 +35,9 @@ AdafruitIO_WICED::~AdafruitIO_WICED()
 
 void AdafruitIO_WICED::_connect()
 {
-  if(strlen(_ssid) != 0)
-  {
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
     _disconnect();
     Feather.connect(_ssid, _pass);
     _status = AIO_NET_DISCONNECTED;

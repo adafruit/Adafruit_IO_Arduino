@@ -107,6 +107,7 @@ typedef enum {
     AIO_CONNECT_FAILED          = 11, // Failed to connect to Adafruit IO
     AIO_FINGERPRINT_INVALID     = 12, // Unknown AIO_SSL_FINGERPRINT
     AIO_AUTH_FAILED             = 13, // Invalid Adafruit IO login credentials provided.
+    AIO_SSID_INVALID            = 14, // SSID is "" or otherwise invalid, connection not attempted
 
     // SUCCESS
     AIO_NET_CONNECTED           = 20, // Connected to Adafruit IO

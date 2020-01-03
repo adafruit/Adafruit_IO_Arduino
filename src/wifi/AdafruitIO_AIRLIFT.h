@@ -158,8 +158,9 @@ class AdafruitIO_AIRLIFT : public AdafruitIO {
     /**************************************************************************/
     void _connect()
     {
-      if(strlen(_ssid) != 0)
-      {
+      if(strlen(_ssid) == 0) {
+        _status = AIO_SSID_INVALID;
+      } else {
         _disconnect();
         // setup ESP32 pins
         if (_ssPin != -1) {

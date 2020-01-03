@@ -129,8 +129,9 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
 /**************************************************************************/
     void _connect()
     {
-      if(strlen(_ssid) != 0)
-      {
+      if(strlen(_ssid) == 0) {
+        _status = AIO_SSID_INVALID;
+      } else {
         _disconnect();
         WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
 
@@ -142,7 +143,7 @@ class AdafruitIO_WINC1500 : public AdafruitIO {
 
         WiFi.begin(_ssid, _pass);
         _status = AIO_NET_DISCONNECTED;
-        }
+      }
     }
     
 /**************************************************************************/

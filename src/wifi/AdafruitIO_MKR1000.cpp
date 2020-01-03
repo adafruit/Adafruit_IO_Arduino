@@ -35,8 +35,9 @@ AdafruitIO_MKR1000::~AdafruitIO_MKR1000()
 
 void AdafruitIO_MKR1000::_connect()
 {
-  if(strlen(_ssid) != 0)
-  {
+  if(strlen(_ssid) == 0) {
+    _status = AIO_SSID_INVALID;
+  } else {
     // no shield? bail
     if(WiFi.status() == WL_NO_SHIELD)
       return;
