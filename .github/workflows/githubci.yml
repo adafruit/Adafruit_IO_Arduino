@@ -7,8 +7,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arduino-platform: ["esp8266", "pyportal_titano",
-                            "metro_m4_airliftlite", "uno"]
+        arduino-platform: ["esp8266",
+                           "pyportal_titano", "metro_m4_airliftlite",
+                           "uno"]
 
     runs-on: ubuntu-latest
     
@@ -25,16 +26,13 @@ jobs:
     - name: pre-install
       run: bash ci/actions_install.sh
 
-    - name: test platforms
-      run: python3 ci/build_platform.py ${{ matrix.arduino-platform }}
-
-      # manually install WiFi
+    # manually install WiFi
     - name: extra libraries
       run: |
         git clone --quiet https://github.com/adafruit/WiFiNINA.git /home/runner/Arduino/libraries/WiFiNINA
 
-      # TODO: Add back ESP32, remove WiFiNina b/c collision 
-
+    - name: test platforms
+      run: python3 ci/build_platform.py ${{ matrix.arduino-platform }}
 
   clang_and_doxy:
     runs-on: ubuntu-latest
@@ -61,4 +59,3 @@ jobs:
         GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
         PRETTYNAME : "Adafruit IO Arduino Library"
       run: bash ci/doxy_gen_and_deploy.sh
-
