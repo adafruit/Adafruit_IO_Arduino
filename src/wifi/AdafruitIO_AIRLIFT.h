@@ -60,8 +60,8 @@ public:
   */
   /**************************************************************************/
   AdafruitIO_AIRLIFT(const char *user, const char *key, const char *ssid,
-                     const char *pass, int ssPin, int ackPin, int rstPin,
-                     int gpio0Pin, SPIClass *wifi)
+                     const char *pass, int ssPin=10, int ackPin=9, int rstPin=6,
+                     int gpio0Pin=-1, SPIClass *wifi)
       : AdafruitIO(user, key) {
     _wifi = wifi;
     _ssPin = ssPin;

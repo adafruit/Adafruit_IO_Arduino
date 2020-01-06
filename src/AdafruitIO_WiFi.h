@@ -45,7 +45,7 @@ typedef AdafruitIO_WICED AdafruitIO_WiFi;
 
 #else
 
-#error "Must define USE_AIRLIFT or USE_WINC1500 before including this file."
+#warning "Must define USE_AIRLIFT or USE_WINC1500 before including this file."
 
 #endif
 
