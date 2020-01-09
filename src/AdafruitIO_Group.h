@@ -21,6 +21,12 @@
 // forward declaration
 class AdafruitIO;
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with Adafruit IO Grouped Feeds
+            https://io.adafruit.com/api/docs/mqtt.html#group-topics
+*/
+/**************************************************************************/
 class AdafruitIO_Group : public AdafruitIO_MQTT {
 
 public:

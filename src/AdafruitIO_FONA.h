@@ -25,7 +25,12 @@
 #define FONA_RI 7
 #define FONA_BAUD 4800
 
-// all logic in .h to avoid auto compile
+
+/**************************************************************************/
+/*! 
+    @brief  Class for interfacing with an Adafruit FONA Ceullar Module
+*/
+/**************************************************************************/
 class AdafruitIO_FONA : public AdafruitIO {
 
 public:

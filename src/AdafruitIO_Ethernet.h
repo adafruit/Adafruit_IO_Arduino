@@ -24,7 +24,11 @@
 
 #include "AdafruitIO.h"
 
-// all logic in .h to avoid auto compile
+/**************************************************************************/
+/*! 
+    @brief  Class for interfacing with the Adafruit Ethernet FeatherWing
+*/
+/**************************************************************************/
 class AdafruitIO_Ethernet : public AdafruitIO {
 
 public:

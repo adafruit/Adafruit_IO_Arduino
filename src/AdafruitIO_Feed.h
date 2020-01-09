@@ -21,6 +21,13 @@
 // forward declaration
 class AdafruitIO;
 
+/**************************************************************************/
+/*! 
+    @brief  Class that provides methods for interfacing with
+            Adafruit IO feed topics.
+            https://io.adafruit.com/api/docs/mqtt.html#mqtt-topics
+*/
+/**************************************************************************/
 class AdafruitIO_Feed : public AdafruitIO_MQTT {
 
 public:

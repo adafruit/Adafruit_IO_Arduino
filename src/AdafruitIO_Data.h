@@ -18,6 +18,12 @@
 // forward decl
 class AdafruitIO_Feed;
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with Adafruit IO Data Records.
+            https://io.adafruit.com/api/docs/#data
+*/
+/**************************************************************************/
 class AdafruitIO_Data {
 
 public:

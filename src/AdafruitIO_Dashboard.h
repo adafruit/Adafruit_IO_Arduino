@@ -29,6 +29,12 @@
 class AdafruitIO;
 class AdafruitIO_Feed;
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with Adafruit IO Dashboards.
+            https://io.adafruit.com/api/docs/#dashboards
+*/
+/**************************************************************************/
 class AdafruitIO_Dashboard {
 
 public:

@@ -22,6 +22,13 @@ class AdafruitIO;
 
 typedef void (*AdafruitIOTimeCallbackType)(char *value, uint16_t len);
 
+/**************************************************************************/
+/*! 
+    @brief  Class that contains functions for interacting with
+            the Adafruit IO Time Service.
+*/
+/**************************************************************************/
+class Adafruit_TSL2561_Unified : public Adafruit_Sensor {
 class AdafruitIO_Time : public AdafruitIO_MQTT {
 
 public:

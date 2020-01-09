@@ -14,6 +14,11 @@
 
 #include "Arduino.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class that contains MQTT subscription callbacks.
+*/
+/**************************************************************************/
 class AdafruitIO_MQTT {
 
 public:
