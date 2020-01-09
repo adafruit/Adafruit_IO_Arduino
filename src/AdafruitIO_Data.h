@@ -90,7 +90,7 @@ public:
   double lon();
   double ele();
 
-  AdafruitIO_Data *next_data;
+  AdafruitIO_Data *next_data; /*!< next data value in Adafruit IO data record */
 
 private:
   char _feed[AIO_FEED_NAME_LENGTH];

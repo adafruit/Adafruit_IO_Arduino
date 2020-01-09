@@ -12,6 +12,11 @@
 #include "AdafruitIO_Data.h"
 #include "AdafruitIO_Feed.h"
 
+/**************************************************************************/
+/*!
+    @brief  Sets up an Adafruit IO Data Record.
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data() {
   _lat = 0;
   _lon = 0;
@@ -23,6 +28,13 @@ AdafruitIO_Data::AdafruitIO_Data() {
   memset(_csv, 0, AIO_CSV_LENGTH);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up an Adafruit IO Data Record
+    @param    *f
+              A reference to an Adafruit IO Feed name.
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f) {
   _lat = 0;
   _lon = 0;
@@ -35,6 +47,15 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f) {
   memset(_csv, 0, AIO_CSV_LENGTH);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up an Adafruit IO Data Record
+    @param    *f
+              A reference to an Adafruit IO Feed name.
+    @param    *csv
+              A reference to a comma-separated-value list.
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv) {
   _lat = 0;
   _lon = 0;
@@ -50,6 +71,15 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, char *csv) {
   _parseCSV();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up an Adafruit IO Data Record
+    @param    *f
+              A reference to an Adafruit IO Feed name.
+    @param    *csv
+              A reference to a fixed comma-separated-value list
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, const char *csv) {
   _lat = 0;
   _lon = 0;
@@ -65,6 +95,13 @@ AdafruitIO_Data::AdafruitIO_Data(AdafruitIO_Feed *f, const char *csv) {
   _parseCSV();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up an Adafruit IO Data Record
+    @param    *f
+              A reference to a fixed Adafruit IO Feed name.
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data(const char *f) {
   _lat = 0;
   _lon = 0;
@@ -76,6 +113,15 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f) {
   memset(_value, 0, AIO_DATA_LENGTH);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up an Adafruit IO Data Record
+    @param    *f
+              A reference to a fixed Adafruit IO Feed name.
+    @param    *csv
+              A reference to a comma-separated-value list
+*/
+/**************************************************************************/
 AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv) {
   _lat = 0;
   _lon = 0;
@@ -91,8 +137,24 @@ AdafruitIO_Data::AdafruitIO_Data(const char *f, char *csv) {
   _parseCSV();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets data to be returned by AdafruitIO_Feed subCallback.
+    @param    *csv
+              Data to be appended to csv
+    @return   csv
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::setCSV(char *csv) { return setCSV((const char *)(csv)); }
 
+/**************************************************************************/
+/*!
+    @brief    Sets data to be returned by AdafruitIO_Feed subCallback.
+    @param    *csv
+              Data to be appended to csv
+    @return   True if the CSV was parsed successfully, False if not 
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::setCSV(const char *csv) {
 
   memset(_csv, 0, AIO_CSV_LENGTH);
@@ -100,6 +162,17 @@ bool AdafruitIO_Data::setCSV(const char *csv) {
   return _parseCSV();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed location metadata.
+    @param    lat
+              Latitude value for feed datum.
+    @param    lon
+              Longitude value for feed datum.
+    @param    ele
+              Elevation value for datum.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setLocation(double lat, double lon, double ele) {
   // if lat, lon, ele == 0, don't set them
   if ((abs(0 - lat) < 0.000001) && (abs(0 - lon) < 0.000001) &&
@@ -110,18 +183,57 @@ void AdafruitIO_Data::setLocation(double lat, double lon, double ele) {
   _ele = ele;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field as a char.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(const char *value, double lat, double lon,
                                double ele) {
   strcpy(_value, value);
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field as a char.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(char *value, double lat, double lon,
                                double ele) {
   strcpy(_value, value);
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field, as a boolean.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele) {
   if (value)
     strcpy(_value, "1");
@@ -131,18 +243,58 @@ void AdafruitIO_Data::setValue(bool value, double lat, double lon, double ele) {
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field as a String.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(String value, double lat, double lon,
                                double ele) {
   value.toCharArray(_value, value.length() + 1);
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(int value, double lat, double lon, double ele) {
   memset(_value, 0, AIO_DATA_LENGTH);
   itoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(unsigned int value, double lat, double lon,
                                double ele) {
   memset(_value, 0, AIO_DATA_LENGTH);
@@ -150,12 +302,38 @@ void AdafruitIO_Data::setValue(unsigned int value, double lat, double lon,
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(long value, double lat, double lon, double ele) {
   memset(_value, 0, AIO_DATA_LENGTH);
   ltoa(value, _value, 10);
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon,
                                double ele) {
   memset(_value, 0, AIO_DATA_LENGTH);
@@ -163,6 +341,21 @@ void AdafruitIO_Data::setValue(unsigned long value, double lat, double lon,
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+    @param    precision
+              Desired decimals of precision for value.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele,
                                int precision) {
   memset(_value, 0, AIO_DATA_LENGTH);
@@ -182,6 +375,21 @@ void AdafruitIO_Data::setValue(float value, double lat, double lon, double ele,
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Feed value field.
+    @param    value
+              Data record's value field.
+    @param    lat
+              Data record's latitude field.
+    @param    lon
+              Data record's longitude field.
+    @param    ele
+              Data record's elevation field.
+    @param    precision
+              Desired decimals of precision for value.
+*/
+/**************************************************************************/
 void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
                                int precision) {
   memset(_value, 0, AIO_DATA_LENGTH);
@@ -201,6 +409,12 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
   setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Returns existing Adafruit IO feed name.
+    @return   Feed's name if feed exists.
+*/
+/**************************************************************************/
 char *AdafruitIO_Data::feedName() {
   if (!_feed)
     return (char *)"";
@@ -208,10 +422,28 @@ char *AdafruitIO_Data::feedName() {
   return _feed;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts provided value to char.
+    @return   Char value.
+*/
+/**************************************************************************/
 char *AdafruitIO_Data::value() { return toChar(); }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to char.
+    @return   value.
+*/
+/**************************************************************************/
 char *AdafruitIO_Data::toChar() { return _value; }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to string
+    @return   String of value.
+*/
+/**************************************************************************/
 String AdafruitIO_Data::toString() {
   if (!_value)
     return String();
@@ -219,6 +451,12 @@ String AdafruitIO_Data::toString() {
   return String(_value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to Boolean.
+    @return   True if value string equals Boolean True, False if not.
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::toBool() {
   if (!_value)
     return false;
@@ -229,10 +467,28 @@ bool AdafruitIO_Data::toBool() {
     return false;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Checks if value is True
+    @return   True if value string equals Boolean True, False if not.
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::isTrue() { return toBool(); }
 
+/**************************************************************************/
+/*!
+    @brief    Checks if value is False
+    @return   True if value string equals Boolean False, False if not.
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::isFalse() { return !toBool(); }
 
+/**************************************************************************/
+/*!
+    @brief    Converts provided String value to Integer.
+    @return   Integer of value, False if no value provided.
+*/
+/**************************************************************************/
 int AdafruitIO_Data::toInt() {
   if (!_value)
     return 0;
@@ -241,6 +497,13 @@ int AdafruitIO_Data::toInt() {
   return (int)strtol(_value, &endptr, 10);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Checks digital pin level.
+    @return   HIGH if digital pin level is Boolean True, LOW if digital
+              pin level is False.
+*/
+/**************************************************************************/
 int AdafruitIO_Data::toPinLevel() {
   if (isTrue())
     return HIGH;
@@ -248,6 +511,12 @@ int AdafruitIO_Data::toPinLevel() {
     return LOW;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to to an Unsigned Integer value.
+    @return   Unsigned Integer, False if no value provided.
+*/
+/**************************************************************************/
 unsigned int AdafruitIO_Data::toUnsignedInt() {
   if (!_value)
     return 0;
@@ -262,6 +531,12 @@ unsigned int AdafruitIO_Data::toUnsignedInt() {
 #endif
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to a floating point value.
+    @return   Float value, False if no value provided.
+*/
+/**************************************************************************/
 float AdafruitIO_Data::toFloat() {
   if (!_value)
     return 0;
@@ -270,6 +545,12 @@ float AdafruitIO_Data::toFloat() {
   return (float)strtod(_value, &endptr);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to to a double value.
+    @return   Double value, False if no value provided.
+*/
+/**************************************************************************/
 double AdafruitIO_Data::toDouble() {
   if (!_value)
     return 0;
@@ -278,6 +559,12 @@ double AdafruitIO_Data::toDouble() {
   return strtod(_value, &endptr);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to to a long value.
+    @return   long value, False if no value provided.
+*/
+/**************************************************************************/
 long AdafruitIO_Data::toLong() {
   if (!_value)
     return 0;
@@ -286,6 +573,12 @@ long AdafruitIO_Data::toLong() {
   return strtol(_value, &endptr, 10);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Converts value to to an unsigned long value.
+    @return   Unsigned long value, False if no value provided.
+*/
+/**************************************************************************/
 unsigned long AdafruitIO_Data::toUnsignedLong() {
   if (!_value)
     return 0;
@@ -300,6 +593,12 @@ unsigned long AdafruitIO_Data::toUnsignedLong() {
 #endif
 }
 
+/**************************************************************************/
+/*!
+    @brief    Returns RR from 0xRRGGBB value
+    @return   Red hexadecimal value.
+*/
+/**************************************************************************/
 int AdafruitIO_Data::toRed() {
   // Convert 0xRRGGBB to red.
   if (!_value) {
@@ -312,6 +611,12 @@ int AdafruitIO_Data::toRed() {
   return (int)strtol(r, NULL, 0);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Returns GG from 0xRRGGBB value
+    @return   Green hexadecimal value.
+*/
+/**************************************************************************/
 int AdafruitIO_Data::toGreen() {
   // Convert 0xRRGGBB to green.
   if (!_value) {
@@ -324,6 +629,12 @@ int AdafruitIO_Data::toGreen() {
   return (int)strtol(g, NULL, 0);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Returns BB from 0xRRGGBB value
+    @return   Blue hexadecimal value.
+*/
+/**************************************************************************/
 int AdafruitIO_Data::toBlue() {
   // Convert 0xRRGGBB to blue.
   if (!_value) {
@@ -336,6 +647,13 @@ int AdafruitIO_Data::toBlue() {
   return (int)strtol(b, NULL, 0);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Creates a RGB Tuple usable by Adafruit_NeoPixel's
+              setPixelColor method
+    @return   RGB tuple as a hexadecimal value.
+*/
+/**************************************************************************/
 long AdafruitIO_Data::toNeoPixel() {
   if (!_value) {
     return 0;
@@ -346,6 +664,13 @@ long AdafruitIO_Data::toNeoPixel() {
   return strtol(rgb, NULL, 0);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Creates a list of comma-separated-values for an Adafruit IO
+              data record.
+    @return   _csv
+*/
+/**************************************************************************/
 char *AdafruitIO_Data::toCSV() {
   if (!_value)
     return _csv;
@@ -364,14 +689,42 @@ char *AdafruitIO_Data::toCSV() {
   return _csv;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Returns a data record's latitude value
+    @return   _lat
+*/
+/**************************************************************************/
 double AdafruitIO_Data::lat() { return _lat; }
 
+/**************************************************************************/
+/*!
+    @brief    Returns a data record's longitude value
+    @return   _lon
+*/
+/**************************************************************************/
 double AdafruitIO_Data::lon() { return _lon; }
 
+/**************************************************************************/
+/*!
+    @brief    Returns a data record's elevation value
+    @return   _ele
+*/
+/**************************************************************************/
 double AdafruitIO_Data::ele() { return _ele; }
 
 static char _double_buffer[20];
 
+/**************************************************************************/
+/*!
+    @brief    Converts from a character to a double.
+    @param    d
+              Double value.
+    @param    precision
+              Desired level of decimal precision.
+    @return   _double_buffer
+*/
+/**************************************************************************/
 char *AdafruitIO_Data::charFromDouble(double d, int precision) {
   memset(_double_buffer, 0, sizeof(_double_buffer));
 
@@ -551,6 +904,12 @@ char **parse_csv(const char *line) {
 
 //// END simple_csv SECTION
 
+/**************************************************************************/
+/*!
+    @brief    Checks if command-separated-value (CSV) is parsable
+    @return   True if CSV is parsable, False if not.
+*/
+/**************************************************************************/
 bool AdafruitIO_Data::_parseCSV() {
 
   int field_count = count_fields(_csv);
