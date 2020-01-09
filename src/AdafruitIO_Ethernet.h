@@ -35,6 +35,15 @@
 class AdafruitIO_Ethernet : public AdafruitIO {
 
 public:
+    /**************************************************************************/
+    /*!
+        @brief    Instanciates an Adafruit Ethernet FeatherWing.
+        @param    *user
+                  Reference to a valid Adafruit IO Username.
+        @param    *key
+                  Reference to a valid Adafruit IO Key.
+    */
+    /**************************************************************************/
   AdafruitIO_Ethernet(const char *user, const char *key)
       : AdafruitIO(user, key) {
     _client = new EthernetClient();
@@ -43,6 +52,14 @@ public:
     _http = new HttpClient(*_client, _host, _http_port);
   }
 
+    /**************************************************************************/
+    /*!
+        @brief    Checks the connection status between the Ethernet
+                  FeatherWing and Adafruit IO
+        @return   AIO_NET_CONNECTED if connected to Adafruit IO,
+                  otherwise AIO_NET_DISCONNECTED.
+    */
+    /**************************************************************************/
   aio_status_t networkStatus() {
     if (_status == AIO_NET_CONNECTED)
       return _status;
@@ -51,12 +68,18 @@ public:
     return _status;
   }
 
+    /**************************************************************************/
+    /*!
+        @brief    Defines network module type.
+        @return   String "ethernet_wing"
+    */
+    /**************************************************************************/
   const char *connectionType() { return "ethernet_wing"; }
 
 protected:
-  byte _mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED};
+  byte _mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; /*!< Ethernet FeatherWing MAC Address */
 
-  EthernetClient *_client;
+  EthernetClient *_client; /*!< Reference to EthernetClient, _client */
 
   void _connect() {
     if (Ethernet.begin(_mac) == 0) {
