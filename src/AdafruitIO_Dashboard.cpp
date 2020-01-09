@@ -12,6 +12,15 @@
 #include "AdafruitIO_Dashboard.h"
 #include "AdafruitIO.h"
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO Dashboard instance.
+    @param    *io
+              Reference to Adafruit IO class.
+    @param    *n
+              Valid username string.
+*/
+/**************************************************************************/
 AdafruitIO_Dashboard::AdafruitIO_Dashboard(AdafruitIO *io, const char *n) {
   _io = io;
   name = n;
