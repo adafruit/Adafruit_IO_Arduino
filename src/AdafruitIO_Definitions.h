@@ -1,14 +1,18 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_Definitions.h
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ * 
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
+
 #ifndef ADAFRUITIO_DEFINITIONS_H_
 #define ADAFRUITIO_DEFINITIONS_H_
 
@@ -36,8 +40,8 @@ public:
   }
 
   const char *feed;
-  AdafruitIODataCallbackType dataCallback;
-  AdafruitIOGroupCallback *next_cb;
+  AdafruitIODataCallbackType dataCallback; // data carried by an AdafruitIOGroupCallback
+  AdafruitIOGroupCallback *next_cb; // next callback number
 };
 
 // Uncomment/comment to turn on/off debug output messages.
