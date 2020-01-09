@@ -22,7 +22,6 @@
               A pointer to a constant AIO user name.
     @param    key
               A pointer to a constant key for the user name.
-    @return   none
 */
 /**************************************************************************/
 AdafruitIO::AdafruitIO(const char *user, const char *key) {
@@ -43,7 +42,6 @@ AdafruitIO::AdafruitIO(const char *user, const char *key) {
 /**************************************************************************/
 /*!
     @brief    Initialize the AIO object.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO::_init() {
@@ -87,7 +85,6 @@ void AdafruitIO::_init() {
 /**************************************************************************/
 /*!
     @brief    Destructor to end the AIO object.
-    @return   none
 */
 /**************************************************************************/
 AdafruitIO::~AdafruitIO() {
@@ -111,7 +108,6 @@ AdafruitIO::~AdafruitIO() {
               An error string to print.
     @param    len
               The length of the error string.
-    @return   none
 */
 /**************************************************************************/
 void errorCallback(char *err, uint16_t len) {
@@ -125,7 +121,6 @@ void errorCallback(char *err, uint16_t len) {
 /*!
     @brief    Connects to AIO, setting up using parameters set when the
               class is instantiated.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO::connect() {
@@ -156,7 +151,6 @@ void AdafruitIO::connect() {
 /**************************************************************************/
 /*!
     @brief    Disconnects from WiFi.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO::wifi_disconnect() {
@@ -171,9 +165,6 @@ void AdafruitIO::wifi_disconnect() {
     @brief    Create a new AIO feed.
     @param    name
               The AIO name of the feed.
-    @param    owner
-              The AIO name of the user that owns the feed, if not the current
-   user.
     @return   A pointer to the feed.
 */
 /**************************************************************************/
@@ -181,6 +172,17 @@ AdafruitIO_Feed *AdafruitIO::feed(const char *name) {
   return new AdafruitIO_Feed(this, name);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Create a new AIO feed.
+    @param    name
+              The AIO name of the feed.
+    @param    owner
+              The AIO name of the user that owns the feed, if not the current
+   user.
+    @return   A pointer to the feed.
+*/
+/**************************************************************************/
 AdafruitIO_Feed *AdafruitIO::feed(const char *name, const char *owner) {
   return new AdafruitIO_Feed(this, name, owner);
 }

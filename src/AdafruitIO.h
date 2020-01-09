@@ -67,43 +67,43 @@ public:
   const __FlashStringHelper *statusText();
 
   aio_status_t status();
-  virtual aio_status_t networkStatus() = 0;
+  virtual aio_status_t networkStatus() = 0;  /*!< Network module status */
   aio_status_t mqttStatus(bool fail_fast = false);
 
   char *boardID();
   const char *boardType();
   char *version();
   char *userAgent();
-  virtual const char *connectionType() = 0;
+  virtual const char *connectionType() = 0;  /*!< Network module type */
 
 protected:
-  virtual void _connect() = 0;
-  virtual void _disconnect() = 0;
-  aio_status_t _status = AIO_IDLE;
-  uint32_t _last_ping = 0;
-  uint32_t _last_mqtt_connect = 0;
+  virtual void _connect() = 0;      /*!< Connect to Adafruit IO MQTT Broker */
+  virtual void _disconnect() = 0;   /*!< Disconnect from Adafruit IO MQTT Broker */
+  aio_status_t _status = AIO_IDLE;  /*!< Adafruit IO Connection Status */
+  uint32_t _last_ping = 0;          /*!< Previous time when client pinged Adafruit IO, in milliseconds */
+  uint32_t _last_mqtt_connect = 0;  /*!< Previous time when client connected to Adafruit IO, in milliseconds */
 
-  Adafruit_MQTT *_mqtt;
-  HttpClient *_http;
+  Adafruit_MQTT *_mqtt;  /*!< Reference to Adafruit_MQTT, _mqtt. */
+  HttpClient *_http;     /*!< Reference to HTTPClient, _http */
 
-  char _version[10];
+  char _version[10];     /*!< Adafruit IO Arduino library version */
 
-  const char *_host = "io.adafruit.com";
-  uint16_t _mqtt_port = 8883;
-  uint16_t _mqtt_eth_port = 1883;
-  uint16_t _http_port = 443;
+  const char *_host = "io.adafruit.com";  /*!< Adafruit IO URL */
+  uint16_t _mqtt_port = 8883;             /*!< Adafruit IO MQTT SSL port */
+  uint16_t _mqtt_eth_port = 1883;         /*!< Adafruit IO MQTT insecure port, used by ethernet clients. */
+  uint16_t _http_port = 443;              /*!< Adafruit IO HTTP SSL port */
 
-  uint16_t _packetread_timeout;
+  uint16_t _packetread_timeout;           /*!< Maximum amount of time to wait before processing packets. */
 
-  const char *_username;
-  const char *_key;
+  const char *_username;  /*!< Adafruit IO Username. */
+  const char *_key;       /*!< Adafruit IO Key. */
 
-  char *_err_topic;
-  char *_throttle_topic;
-  char *_user_agent;
+  char *_err_topic;       /*!< Adafruit IO MQTT error message topic. */
+  char *_throttle_topic;  /*!< Adafruit IO MQTT throttle message topic. */
+  char *_user_agent;      /*!< Identifies the Adafruit IO client. */
 
-  Adafruit_MQTT_Subscribe *_err_sub;
-  Adafruit_MQTT_Subscribe *_throttle_sub;
+  Adafruit_MQTT_Subscribe *_err_sub;       /*!< Subscription to Adafruit IO Error topic. */
+  Adafruit_MQTT_Subscribe *_throttle_sub;  /*!< Subscription to Adafruit IO Throttle topic. */
 
 private:
   void _init();

@@ -16,15 +16,21 @@
 #ifndef ADAFRUITIO_DEFINITIONS_H_
 #define ADAFRUITIO_DEFINITIONS_H_
 
-#define ADAFRUITIO_VERSION_MAJOR 3 /// < Adafruit IO Arduino Major Semvar
-#define ADAFRUITIO_VERSION_MINOR 2 /// < Adafruit IO Arduino Minor Semvar
-#define ADAFRUITIO_VERSION_PATCH 0 /// < Adafruit IO Arduino Patch Semvar
+#define ADAFRUITIO_VERSION_MAJOR 3 ///< Adafruit IO Arduino Major Semvar
+#define ADAFRUITIO_VERSION_MINOR 2 ///< Adafruit IO Arduino Minor Semvar
+#define ADAFRUITIO_VERSION_PATCH 0 ///< Adafruit IO Arduino Patch Semvar
 
 // forward declaration
 class AdafruitIO_Data;
 
-typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data);
+typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data); /*!< Data callback type */
 
+
+/**************************************************************************/
+/*! 
+    @brief  Class that contains methods for Adafruit IO MQTT callbacks.
+*/
+/**************************************************************************/
 class AdafruitIOGroupCallback {
 public:
   AdafruitIOGroupCallback(const char *f, AdafruitIODataCallbackType cb) {
@@ -51,32 +57,32 @@ public:
 
 // note: if you're using something like Zero or Due, change the below to
 // SerialUSB
-#define AIO_PRINTER Serial /// < Where debug messages will be printed
+#define AIO_PRINTER Serial ///< Where debug messages will be printed
 
 // Define actual debug output functions when necessary.
 #ifdef AIO_DEBUG
 #define AIO_DEBUG_PRINT(...)                                                   \
-  { AIO_PRINTER.print(__VA_ARGS__); } /// < Debug output for Printer
+  { AIO_PRINTER.print(__VA_ARGS__); } ///< Prints debug output.
 #define AIO_DEBUG_PRINTLN(...)                                                 \
-  { AIO_PRINTER.println(__VA_ARGS__); } /// < Println-like debug output for Printer
+  { AIO_PRINTER.println(__VA_ARGS__); } ///< Prints line from debug output.
 #else
 #define AIO_DEBUG_PRINT(...)                                                   \
-  {} /// < Prints if AIO_DEBUG is True
+  {} ///< Prints debug output
 #define AIO_DEBUG_PRINTLN(...)                                                 \
-  {} /// < Prints line if AIO_DEBUG is True
+  {} ///< Prints line from debug output.
 #endif
 
 // Define actual error output functions when necessary.
 #ifdef AIO_ERROR
 #define AIO_ERROR_PRINT(...)                                                   \
-  { AIO_PRINTER.print(__VA_ARGS__); }
+  { AIO_PRINTER.print(__VA_ARGS__); } ///< Prints error output
 #define AIO_ERROR_PRINTLN(...)                                                 \
-  { AIO_PRINTER.println(__VA_ARGS__); }
+  { AIO_PRINTER.println(__VA_ARGS__); } ///< Prints line from error output
 #else
 #define AIO_ERROR_PRINT(...)                                                   \
-  {}
+  {} ///< Prints error output.
 #define AIO_ERROR_PRINTLN(...)                                                 \
-  {}
+  {} ///< Prints line from error output.
 #endif
 
 #define AIO_PING_INTERVAL 60000                ///< Adafruit IO Ping Interval, in milliseconds
@@ -112,7 +118,6 @@ typedef enum {
   AIO_AUTH_FAILED = 13,         // Invalid Adafruit IO login credentials provided.
   AIO_SSID_INVALID = 14,        // SSID is "" or otherwise invalid, connection not attempted
 
-  // SUCCESS
   AIO_NET_CONNECTED = 20,           // Connected to Adafruit IO
   AIO_CONNECTED = 21,               // Connected to network
   AIO_CONNECTED_INSECURE = 22,      // Insecurely (non-SSL) connected to network

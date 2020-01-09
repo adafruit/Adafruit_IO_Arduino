@@ -44,8 +44,8 @@ public:
   AdafruitIO_Dashboard(AdafruitIO *io, const char *name);
   ~AdafruitIO_Dashboard();
 
-  const char *name;
-  const char *user();
+  const char *name;    /*!< Dashboard name. */
+  const char *user();  /*!< Dashboard owner's Adafruit IO username. */
 
   AdafruitIO *io();
 
@@ -64,7 +64,7 @@ public:
   ImageBlock *addImageBlock(AdafruitIO_Feed *feed);
 
 private:
-  AdafruitIO *_io;
+  AdafruitIO *_io;  /*!< Reference to Adafruit IO client */
 };
 
 #endif // ADAFRUITIO_DASHBOARD_H
