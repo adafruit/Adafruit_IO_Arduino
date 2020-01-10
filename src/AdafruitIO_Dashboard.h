@@ -47,6 +47,12 @@ public:
   const char *name;    /*!< Dashboard name. */
   const char *user();  /*!< Dashboard owner's Adafruit IO username. */
 
+   /**************************************************************************/
+  /*!
+  @brief    Creates an instance of AdafruitIO.
+  @return   True
+  */
+  /**************************************************************************/
   AdafruitIO *io();
 
   bool exists();

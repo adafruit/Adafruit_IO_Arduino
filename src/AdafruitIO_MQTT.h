@@ -26,6 +26,16 @@ class AdafruitIO_MQTT {
 
 public:
   AdafruitIO_MQTT() {}
+  /**************************************************************************/
+  /*!
+  @brief    Creates an instance of a MQTT subscription callback.
+  @param    val 
+            Value from the MQTT subscription callback.
+  @param    len
+            Length of returned value.
+  @return   True
+  */
+  /**************************************************************************/
   virtual void subCallback(char *val, uint16_t len) = 0;
 };
 
