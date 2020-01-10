@@ -19,11 +19,11 @@
 
 /**************************************************************************/
 /*!
-    @brief    Creates a new instance of an Adafruit IO Feed.
+    @brief    Creates a new instance of an Adafruit IO Group.
     @param    *io
               Reference to AdafruitIO.
     @param    *n
-              Valid feed name.
+              Valid group name.
 */
 /**************************************************************************/
 AdafruitIO_Group::AdafruitIO_Group(AdafruitIO *io, const char *n)
@@ -35,6 +35,11 @@ AdafruitIO_Group::AdafruitIO_Group(AdafruitIO *io, const char *n)
   _init();
 }
 
+/**************************************************************************/
+/*!
+    @brief  Adafruit IO Group destructor.
+*/
+/**************************************************************************/
 AdafruitIO_Group::~AdafruitIO_Group() {
   if (_sub)
     delete _sub;
@@ -61,51 +66,140 @@ AdafruitIO_Group::~AdafruitIO_Group() {
     free(_create_url);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, char *value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, bool value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, String value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, int value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, unsigned int value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, long value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, unsigned long value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, float value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets value of Adafruit IO Group.
+    @param    feed
+              Adafruit IO feed name.
+    @param    value
+              Adafruit IO feed value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::set(const char *feed, double value) {
   AdafruitIO_Data *f = getFeed(feed);
   f->setValue(value);
 }
 
+
+/**************************************************************************/
+/*!
+    @brief    Updates value of Adafruit IO Group.
+    @return   True if successfully published to group, False if data is
+              NULL or if unable to successfully publish data to group.
+*/
+/**************************************************************************/
 bool AdafruitIO_Group::save() {
 
   if (data == NULL)
@@ -129,11 +223,27 @@ bool AdafruitIO_Group::save() {
   return _pub->publish(csv);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Publishes null value ("\0") to Adafruit IO Group
+              https://io.adafruit.com/api/docs/mqtt.html#retained-values
+    @return   True if successfully published to group, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Group::get() { return _get_pub->publish("\0"); }
 
+/**************************************************************************/
+/*!
+    @brief    Obtains data from feed within group.
+    @param    feed
+              Existing Adafruit IO Feed.
+    @return   cur_data  Data from feed within group
+              data      Adafruit IO Feed does not exist in group. Data is
+                        the value of a generated feed, feed, within group.
+              NULL      If unable to return data.
+*/
+/**************************************************************************/
 AdafruitIO_Data *AdafruitIO_Group::getFeed(const char *feed) {
-  // uint8_t i;
-
   if (data == NULL) {
     data = new AdafruitIO_Data(feed);
     return data;
@@ -158,9 +268,15 @@ AdafruitIO_Data *AdafruitIO_Group::getFeed(const char *feed) {
   return NULL;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up Adafruit IO callback to monitor incoming 
+              new data in group.
+    @param    cb
+              An function to be called if group receives new data.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::onMessage(AdafruitIODataCallbackType cb) {
-  // uint8_t i;
-
   if (_groupCallback == NULL) {
     _groupCallback = new AdafruitIOGroupCallback(cb);
     return;
@@ -179,10 +295,18 @@ void AdafruitIO_Group::onMessage(AdafruitIODataCallbackType cb) {
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up Adafruit IO callback to monitor incoming 
+              new data in group's feed, feed.
+    @param    feed
+              An Adafruit IO Feed within Group.
+    @param    cb
+              An function to be called if group receives new data.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::onMessage(const char *feed,
                                  AdafruitIODataCallbackType cb) {
-  // uint8_t i;
-
   if (_groupCallback == NULL) {
     _groupCallback = new AdafruitIOGroupCallback(feed, cb);
     return;
@@ -205,6 +329,13 @@ void AdafruitIO_Group::onMessage(const char *feed,
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Adafruit IO Group subscription function callback.
+    @param    d
+              Name of feed within group.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::call(AdafruitIO_Data *d) {
   // uint8_t i;
 
@@ -224,6 +355,15 @@ void AdafruitIO_Group::call(AdafruitIO_Data *d) {
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Checks for new value within Adafruit IO group.
+    @param    val
+              Value to send to Adafruit IO group.
+    @param    len
+              Length of Adafruit IO value.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::subCallback(char *val, uint16_t len) {
 
   char *line;
@@ -262,6 +402,17 @@ void AdafruitIO_Group::subCallback(char *val, uint16_t len) {
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up locational metadata.
+    @param    lat
+              Desired latitude.
+    @param    lon
+              Desired longitude.
+    @param    ele
+              Desired elevation.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::setLocation(double lat, double lon, double ele) {
   // uint8_t i;
 
@@ -277,6 +428,13 @@ void AdafruitIO_Group::setLocation(double lat, double lon, double ele) {
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Checks if Adafruit IO Group exists.
+              https://io.adafruit.com/api/docs/#get-group
+    @return   HTTP status, 200 if group exists.
+*/
+/**************************************************************************/
 bool AdafruitIO_Group::exists() {
   _io->_http->beginRequest();
   _io->_http->get(_group_url);
@@ -288,6 +446,13 @@ bool AdafruitIO_Group::exists() {
   return status == 200;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Creates new Adafruit IO Group.
+              https://io.adafruit.com/api/docs/#create-group
+    @return   HTTP status, 201 if group created successfully.
+*/
+/**************************************************************************/
 bool AdafruitIO_Group::create() {
   String body = "name=";
   body += name;
@@ -313,6 +478,11 @@ bool AdafruitIO_Group::create() {
   return status == 201;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Initialize MQTT topics and REST URLs for Adafruit IO groups.
+*/
+/**************************************************************************/
 void AdafruitIO_Group::_init() {
 
   // dynamically allocate memory for mqtt topic and REST URLs
