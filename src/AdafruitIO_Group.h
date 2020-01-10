@@ -57,28 +57,28 @@ public:
   void subCallback(char *val, uint16_t len);
   void call(AdafruitIO_Data *d);
 
-  const char *name;
-  const char *owner;
+  const char *name;   /*!< Adafruit IO group name. */
+  const char *owner;  /*!< Adafruit IO username of group owner. */
 
-  AdafruitIO_Data *data;
+  AdafruitIO_Data *data;  /*!< Adafruit IO data record. */
   AdafruitIO_Data *getFeed(const char *feed);
 
 private:
   void _init();
 
-  char *_topic;
-  char *_get_topic;
-  char *_create_url;
-  char *_group_url;
+  char *_topic;        /*!< MQTT topic URL.. */
+  char *_get_topic;    /*!< /get topic string. */
+  char *_create_url;  /*!< Create URL string. */
+  char *_group_url;   /*!< Group URL string. */
 
-  Adafruit_MQTT_Subscribe *_sub;
-  Adafruit_MQTT_Publish *_pub;
-  Adafruit_MQTT_Publish *_get_pub;
+  Adafruit_MQTT_Subscribe *_sub;    /*!< MQTT subscription for _topic. */
+  Adafruit_MQTT_Publish *_pub;      /*!< MQTT publish for _topic. */
+  Adafruit_MQTT_Publish *_get_pub;  /*!< MQTT publish to _get_topic. */
 
-  AdafruitIO *_io;
-  AdafruitIOGroupCallback *_groupCallback;
+  AdafruitIO *_io;                          /*!< An instance of AdafruitIO. */
+  AdafruitIOGroupCallback *_groupCallback;  /*!< An instance of AdafruitIOGroupCallback */
 
-  double _lat, _lon, _ele;
+  double _lat, _lon, _ele; /*!< latitude, longitude, elevation metadata. */
 };
 
 #endif // ADAFRUITIO_GROUP_H

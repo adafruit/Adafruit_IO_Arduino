@@ -66,7 +66,7 @@ public:
   const char *owner;  /*!< Adafruit IO feed owner. */
 
   AdafruitIO_Data *lastValue();  /*!< Last value sent to Adafruit IO feed. */
-  AdafruitIO_Data *data;         /*!< Adafruit IO feed data point */
+  AdafruitIO_Data *data;         /*!< Adafruit IO feed data record. */
 
 private:
   AdafruitIODataCallbackType _dataCallback;  /*!< Callback from onMessage containing data. */
@@ -80,7 +80,7 @@ private:
 
   Adafruit_MQTT_Subscribe *_sub;    /*!< MQTT subscription for _topic. */
   Adafruit_MQTT_Publish *_pub;      /*!< MQTT publish for _topic. */
-  Adafruit_MQTT_Publish *_get_pub;  /*!< MQTT publish to /get topic. */
+  Adafruit_MQTT_Publish *_get_pub;  /*!< MQTT publish to _get_topic. */
 
   AdafruitIO *_io;          /*!< An instance of AdafruitIO. */
   AdafruitIO_Data *_data;   /*!< An instance of AdafruitIO_Data. */

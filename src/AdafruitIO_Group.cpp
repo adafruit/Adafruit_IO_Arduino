@@ -1,17 +1,31 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Author: Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_Group.cpp
+ *
+ *
+ * Adafruit invests time and resources providing this open source code.
+ * Please support Adafruit and open source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Copyright (c) 2015-2016 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece
+ * Licensed under the MIT license.
+ *
+ * All text above must be included in any redistribution.
+ *
+ */
 #include "AdafruitIO_Group.h"
 #include "AdafruitIO.h"
 
+
+/**************************************************************************/
+/*!
+    @brief    Creates a new instance of an Adafruit IO Feed.
+    @param    *io
+              Reference to AdafruitIO.
+    @param    *n
+              Valid feed name.
+*/
+/**************************************************************************/
 AdafruitIO_Group::AdafruitIO_Group(AdafruitIO *io, const char *n)
     : AdafruitIO_MQTT() {
   _io = io;
