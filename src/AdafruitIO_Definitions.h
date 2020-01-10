@@ -33,21 +33,37 @@ typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data); /*!< Data cal
 /**************************************************************************/
 class AdafruitIOGroupCallback {
 public:
+  /**************************************************************************/
+  /*! 
+      @brief  Sets up MQTT Group callbacks.
+      @param  f
+              Valid Adafruit IO feed key.
+      @param  cb
+              Adafruit IO MQTT callback.
+  */
+  /**************************************************************************/
   AdafruitIOGroupCallback(const char *f, AdafruitIODataCallbackType cb) {
     feed = f;
     dataCallback = cb;
     next_cb = 0;
   }
 
+  /**************************************************************************/
+  /*! 
+      @brief  Sets up MQTT Group callbacks.
+      @param  cb
+              Adafruit IO MQTT callback.
+  */
+  /**************************************************************************/
   AdafruitIOGroupCallback(AdafruitIODataCallbackType cb) {
     feed = 0;
     dataCallback = cb;
     next_cb = 0;
   }
 
-  const char *feed;
-  AdafruitIODataCallbackType dataCallback; // data carried by an AdafruitIOGroupCallback
-  AdafruitIOGroupCallback *next_cb; // next callback number
+  const char *feed;                          /*!< Adafruit IO feed name. */
+  AdafruitIODataCallbackType dataCallback ;  /*!< data carried by an AdafruitIOGroupCallback. */
+  AdafruitIOGroupCallback *next_cb;          /*!< Next callback number. */
 };
 
 // Uncomment/comment to turn on/off debug output messages.
