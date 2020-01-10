@@ -12,6 +12,15 @@
 #include "AdafruitIO_Feed.h"
 #include "AdafruitIO.h"
 
+/**************************************************************************/
+/*!
+    @brief    Creates a new instance of an Adafruit IO Feed.
+    @param    *io
+              Reference to AdafruitIO.
+    @param    *n
+              Valid feed name.
+*/
+/**************************************************************************/
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
     : AdafruitIO_MQTT() {
   _io = io;
@@ -21,6 +30,17 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n)
   _init();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Creates a new instance of an Adafruit IO Feed.
+    @param    *io
+              Reference to AdafruitIO.
+    @param    *n
+              Valid feed name.
+    @param    *un
+              Feed owner's Adafruit IO username.
+*/
+/**************************************************************************/
 AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un)
     : AdafruitIO_MQTT() {
   _io = io;
@@ -30,6 +50,11 @@ AdafruitIO_Feed::AdafruitIO_Feed(AdafruitIO *io, const char *n, const char *un)
   _init();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Adafruit IO Feed destructor.
+*/
+/**************************************************************************/
 AdafruitIO_Feed::~AdafruitIO_Feed() {
   if (_sub)
     delete _sub;
@@ -56,61 +81,212 @@ AdafruitIO_Feed::~AdafruitIO_Feed() {
     free(_create_url);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Creates a new onMessage callback.
+    @param    cb
+              Adafruit IO callback.
+*/
+/**************************************************************************/
 void AdafruitIO_Feed::onMessage(AdafruitIODataCallbackType cb) {
   _dataCallback = cb;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(char *value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(bool value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(String value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(int value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(unsigned int value, double lat, double lon,
                            double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(long value, double lat, double lon, double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(unsigned long value, double lat, double lon,
                            double ele) {
   data->setValue(value, lat, lon, ele);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @param    precision
+              Desired amount of decimal precision.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(float value, double lat, double lon, double ele,
                            int precision) {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
 }
 
+/**************************************************************************/
+/*!
+    @brief    Updates Adafruit IO Feed.
+    @param    value
+              Value to publish to feed.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+    @param    precision
+              Desired amount of decimal precision.
+    @return   True if data successfully published to feed, False otherwise.
+*/
+/**************************************************************************/
 bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele,
                            int precision) {
   data->setValue(value, lat, lon, ele, precision);
   return _pub->publish(data->toCSV());
 }
 
+/****************************************************************************/
+/*!
+    @brief    Publishes a null character to an Adafruit IO /get topic. 
+              https://io.adafruit.com/api/docs/mqtt.html#using-the-get-topic
+    @return   HTTP status code 200.
+*/
+/****************************************************************************/
 bool AdafruitIO_Feed::get() { return _get_pub->publish("\0"); }
 
+/****************************************************************************/
+/*!
+    @brief    Checks if Adafruit IO Feed exists and belongs to username.
+              https://io.adafruit.com/api/docs/#get-feed
+    @return   HTTP status code 200.
+*/
+/****************************************************************************/
 bool AdafruitIO_Feed::exists() {
   _io->_http->beginRequest();
   _io->_http->get(_feed_url);
@@ -123,6 +299,13 @@ bool AdafruitIO_Feed::exists() {
   return status == 200;
 }
 
+/**************************************************************/
+/*!
+    @brief    Creates a new Adafruit IO Feed
+              https://io.adafruit.com/api/docs/#create-feed
+    @return   HTTP status code 201.
+*/
+/*************************************************************/
 bool AdafruitIO_Feed::create() {
   String body = "name=";
   body += name;
@@ -149,6 +332,13 @@ bool AdafruitIO_Feed::create() {
   return status == 201;
 }
 
+/*****************************************************************************/
+/*!
+    @brief    Retrieves the most recent value published to a feed.
+              https://io.adafruit.com/api/docs/mqtt.html#using-the-get-topic
+    @return   NULL
+*/
+/*****************************************************************************/
 AdafruitIO_Data *AdafruitIO_Feed::lastValue() {
   // 15 extra for api path, 12 for /data/retain, 1 for null
   String url = "/api/v2/";
@@ -187,10 +377,30 @@ AdafruitIO_Data *AdafruitIO_Feed::lastValue() {
   }
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets Adafruit IO feed location metadata.
+    @param    lat
+              Latitude metadata.
+    @param    lon
+              Longitudinal metadata.
+    @param    ele
+              Elevation metadata.
+*/
+/**************************************************************************/
 void AdafruitIO_Feed::setLocation(double lat, double lon, double ele) {
   data->setLocation(lat, lon, ele);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Calls _datacallback if new data is avaliable on feed.
+    @param    val
+              Value to publish to Adafruit IO feed.
+    @param    len
+              Feed length.
+*/
+/**************************************************************************/
 void AdafruitIO_Feed::subCallback(char *val, uint16_t len) {
   data->setCSV(val);
 
@@ -199,6 +409,11 @@ void AdafruitIO_Feed::subCallback(char *val, uint16_t len) {
     _dataCallback(data);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Initialize MQTT topics and REST URLs for Adafruit IO feeds.
+*/
+/**************************************************************************/
 void AdafruitIO_Feed::_init() {
   _sub = 0;
   _pub = 0;
