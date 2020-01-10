@@ -34,6 +34,16 @@
 class AdafruitIO_FONA : public AdafruitIO {
 
 public:
+    /**************************************************************************/
+    /*! 
+        @brief  Initializes a new AdafruitIO_FONA instance.
+        @param  user
+                GRPS APN username
+        @param key
+                GPRS APN password
+
+    */
+    /**************************************************************************/
   AdafruitIO_FONA(const char *user, const char *key) : AdafruitIO(user, key) {
     _serial = new SoftwareSerial(FONA_TX, FONA_RX);
     _fona = new Adafruit_FONA(FONA_RST);
@@ -41,11 +51,28 @@ public:
     _packetread_timeout = 500;
   }
 
+    /**************************************************************************/
+    /*! 
+        @brief  Sets Adafruit Fona APN name
+        @param  apn
+                GPRS APN name.
+        @param  username
+                GPRS APN username.
+        @param password
+                GRPS APN password.
+    */
+    /**************************************************************************/
   void setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username = 0,
               FONAFlashStringPtr password = 0) {
     _fona->setGPRSNetworkSettings(apn, username, password);
   }
 
+    /**************************************************************************/
+    /*! 
+        @brief   Returns network connection status.
+        @return  Adafruit IO Network status, aio_status_t
+    */
+    /**************************************************************************/
   aio_status_t AdafruitIO_FONA::networkStatus() {
     // return if in a failed state
     if (_status == AIO_NET_CONNECT_FAILED)
@@ -63,14 +90,25 @@ public:
     return AIO_NET_CONNECTED;
   }
 
+  /**************************************************************************/
+  /*! 
+      @brief    Returns network module type.
+      @return   Network module name, "fona"
+  */
+  /**************************************************************************/
   const char *connectionType() { return "fona"; }
 
 protected:
-  uint16_t _mqtt_port = 1883;
+  uint16_t _mqtt_port = 1883;  /*!< Adafruit IO insecure MQTT port. */
 
-  SoftwareSerial *_serial;
-  Adafruit_FONA *_fona;
+  SoftwareSerial *_serial;  /*!< an instance of SoftwareSerial. */
+  Adafruit_FONA *_fona;     /*!< an instance of Adafruit_FONA. */
 
+  /**************************************************************************/
+  /*! 
+      @brief  Establishes a connection to Adafruit IO.
+  */
+  /**************************************************************************/
   void _connect() {
     // set software serial baud rate
     _serial->begin(FONA_BAUD);
