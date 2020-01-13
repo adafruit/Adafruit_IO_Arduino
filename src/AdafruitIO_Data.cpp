@@ -811,11 +811,16 @@ static int count_fields(const char *line) {
   return cnt;
 }
 
-/*
- *  Given a string containing no linebreaks, or containing line breaks
- *  which are escaped by "double quotes", extract a NULL-terminated
- *  array of strings, one for every cell in the row.
- */
+/**************************************************************************/
+/*!
+    @brief    Extracts a NULL-terminated array of strings, one for every
+              cell in the row.
+    @param    line
+              String containing linebreaks or no linebreaks, escaped by
+              "double quotes".
+    @return   CSV buffer, buf, NULL otherwise.
+*/
+/**************************************************************************/
 char **parse_csv(const char *line) {
   char **buf, **bptr, *tmp, *tptr;
   const char *ptr;

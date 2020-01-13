@@ -1,5 +1,5 @@
 /*!
- * @file Adafruit_WINC1500.h
+ * @file AdafruitIO_WINC1500.h
  *
  * Adafruit invests time and resources providing this open source code.
  * Please support Adafruit and open source hardware by purchasing

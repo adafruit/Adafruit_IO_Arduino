@@ -67,18 +67,51 @@ public:
   const __FlashStringHelper *statusText();
 
   aio_status_t status();
-  virtual aio_status_t networkStatus() = 0;  /*!< Network module status */
+  /********************************************************************/
+  /*!
+  @brief   Returns network module status.
+  @return  0
+  */
+  /*******************************************************************/
+  virtual aio_status_t networkStatus() = 0;
+
+  /********************************************************************/
+  /*!
+  @brief  Returns MQTT connection status.
+  */
+  /*******************************************************************/
   aio_status_t mqttStatus(bool fail_fast = false);
 
   char *boardID();
   const char *boardType();
   char *version();
   char *userAgent();
-  virtual const char *connectionType() = 0;  /*!< Network module type */
+
+  /********************************************************************/
+  /*!
+  @brief   Returns the Adafruit IO network module connection type.
+  @return  0
+  */
+  /*******************************************************************/
+  virtual const char *connectionType() = 0;
 
 protected:
-  virtual void _connect() = 0;      /*!< Connect to Adafruit IO MQTT Broker */
-  virtual void _disconnect() = 0;   /*!< Disconnect from Adafruit IO MQTT Broker */
+  /********************************************************************/
+  /*!
+  @brief   Establishes a connection with the Adafruit IO MQTT broker.
+  @return  0
+  */
+  /*******************************************************************/
+  virtual void _connect() = 0;
+
+  /******************************************************/
+  /*!
+  @brief   Disconnects from the Adafruit IO MQTT broker.
+  @return  0
+  */
+  /*****************************************************/
+  virtual void _disconnect() = 0;
+
   aio_status_t _status = AIO_IDLE;  /*!< Adafruit IO Connection Status */
   uint32_t _last_ping = 0;          /*!< Previous time when client pinged Adafruit IO, in milliseconds */
   uint32_t _last_mqtt_connect = 0;  /*!< Previous time when client connected to Adafruit IO, in milliseconds */

@@ -51,7 +51,6 @@ void AdafruitIO_MKR1000::_connect() {
 /**************************************************************************/
 /*!
     @brief    Disconnect the wifi network.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO_MKR1000::_disconnect() {

@@ -49,7 +49,6 @@ void AdafruitIO_ESP8266::_connect() {
 /**************************************************************************/
 /*!
     @brief    Disconnect the wifi network.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO_ESP8266::_disconnect() {

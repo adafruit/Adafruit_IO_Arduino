@@ -46,7 +46,6 @@ void AdafruitIO_WICED::_connect() {
 /**************************************************************************/
 /*!
     @brief    Disconnect the wifi network.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO_WICED::_disconnect() {

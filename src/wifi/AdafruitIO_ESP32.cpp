@@ -47,7 +47,6 @@ void AdafruitIO_ESP32::_connect() {
 /**************************************************************************/
 /*!
     @brief    Disconnect the wifi network.
-    @return   none
 */
 /**************************************************************************/
 void AdafruitIO_ESP32::_disconnect() {

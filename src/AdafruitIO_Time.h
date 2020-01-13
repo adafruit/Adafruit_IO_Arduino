@@ -23,7 +23,7 @@
 // forward declaration
 class AdafruitIO;
 
-typedef void (*AdafruitIOTimeCallbackType)(char *value, uint16_t len);
+typedef void (*AdafruitIOTimeCallbackType)(char *value, uint16_t len); /*!< an instance of Adafruit IO's time callback. */
 
 /**************************************************************************/
 /*! 
@@ -31,7 +31,6 @@ typedef void (*AdafruitIOTimeCallbackType)(char *value, uint16_t len);
             the Adafruit IO Time Service.
 */
 /**************************************************************************/
-class Adafruit_TSL2561_Unified : public Adafruit_Sensor {
 class AdafruitIO_Time : public AdafruitIO_MQTT {
 
 public:
@@ -39,8 +38,8 @@ public:
   ~AdafruitIO_Time();
   void onMessage(AdafruitIOTimeCallbackType cb);
   void subCallback(char *val, uint16_t len);
-  char *data;
-  aio_time_format_t format;
+  char *data;                /*!< Data sent by Adafruit IO's time service. */
+  aio_time_format_t format;  /*!< Adafruit IO time format, TIME_SECONDS/TIME_MILLIS/TIME_ISO. */
 
 private:
   AdafruitIOTimeCallbackType _dataCallback;

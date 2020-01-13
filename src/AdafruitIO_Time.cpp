@@ -16,6 +16,16 @@
 #include "AdafruitIO_Time.h"
 #include "AdafruitIO.h"
 
+/**************************************************************************/
+/*!
+    @brief    Sets up a Adafruit IO Time Service helper.
+    @param    io
+              Reference to AdafruitIO.
+    @param    f
+              Adafruit IO time format, either AIO_TIME_SECONDS,
+              AIO_TIME_MILLIS, or AIO_TIME_ISO.
+*/
+/**************************************************************************/
 AdafruitIO_Time::AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f)
     : AdafruitIO_MQTT() {
   _io = io;
@@ -26,6 +36,11 @@ AdafruitIO_Time::AdafruitIO_Time(AdafruitIO *io, aio_time_format_t f)
   _init();
 }
 
+/**************************************************************************/
+/*!
+    @brief    Deconstructor for Adafruit IO time service.
+*/
+/**************************************************************************/
 AdafruitIO_Time::~AdafruitIO_Time() {
   if (_sub)
     delete _sub;
@@ -37,10 +52,27 @@ AdafruitIO_Time::~AdafruitIO_Time() {
     free(_topic);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up a MQTT message callback.
+    @param    cb
+              MQTT callback type.
+*/
+/**************************************************************************/
 void AdafruitIO_Time::onMessage(AdafruitIOTimeCallbackType cb) {
   _dataCallback = cb;
 }
 
+/**************************************************************************/
+/*!
+    @brief    Sets up a MQTT subscription callback. Calls data callback
+              with data.
+    @param    val
+              Data from MQTT topic.
+    @param    len
+              Length of MQTT topic data.
+*/
+/**************************************************************************/
 void AdafruitIO_Time::subCallback(char *val, uint16_t len) {
   data = val;
 
@@ -49,6 +81,11 @@ void AdafruitIO_Time::subCallback(char *val, uint16_t len) {
     _dataCallback(data, len);
 }
 
+/**************************************************************************/
+/*!
+    @brief    Initializes AdafruitIO Time MQTT topic and REST URLs.
+*/
+/**************************************************************************/
 void AdafruitIO_Time::_init() {
 
   // dynamically allocate memory for mqtt topic and REST URLs
