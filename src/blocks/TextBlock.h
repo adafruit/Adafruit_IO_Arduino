@@ -1,42 +1,85 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file TextBlock.h
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 #ifndef ADAFRUITIO_TEXTBLOCK_H
 #define ADAFRUITIO_TEXTBLOCK_H
 
 #include "AdafruitIO_Block.h"
 
+/**************************************************************************/
+/*!
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Slider Block.
+*/
+/**************************************************************************/
 class TextBlock : public AdafruitIO_Block {
 
-  public:
-    TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
-    ~TextBlock();
+public:
+  TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
+  ~TextBlock();
 
-    const char *fontSize;
+  const char *fontSize; /*!< Dashboard block text font size. */
 
-    int width = 2;
-    int height = 1;
+  int width = 2;  /*!< Dashboard block width. */
+  int height = 1; /*!< Dashboard block height. */
 
-    String properties();
-    const char* type() { return _visual_type; }
+  String properties();
 
-  protected:
-    const char *_visual_type = "text";
+  /******************************************/
+  /*!
+      @brief  Returns block type
+      @return Block type.
+  */
+  /******************************************/
+  const char *type() { return _visual_type; }
 
-    int _width() { return width; }
-    int _height() { return height; }
-    int _row() { return row; }
-    int _column() { return column; }
+protected:
+  const char *_visual_type = "text"; /*!< Block type. */
 
+  /******************************************/
+  /*!
+      @brief  Returns width of block.
+      @return Block width.
+  */
+  /******************************************/
+  int _width() { return width; }
 
+  /******************************************/
+  /*!
+      @brief  Returns height of block.
+      @return Block height.
+  */
+  /******************************************/
+  int _height() { return height; }
+
+  /******************************************/
+  /*!
+      @brief  Returns block's row location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard row.
+  */
+  /******************************************/
+  int _row() { return row; }
+
+  /******************************************/
+  /*!
+      @brief  Returns block's column location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard column
+  */
+  /******************************************/
+  int _column() { return column; }
 };
 
 #endif // ADAFRUITIO_TEXTBLOCK_H

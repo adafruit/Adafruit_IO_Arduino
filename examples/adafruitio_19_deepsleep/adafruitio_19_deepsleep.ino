@@ -38,7 +38,11 @@ void setup() {
   Serial.println("sleeping...");
   // Put the Huzzah into deepsleep for DEEPSLEEP_DURATION
   // NOTE: Make sure Pin 16 is connected to RST
-  ESP.deepSleep(1000000 * 2);
+  #if defined(ESP8266)
+    ESP.deepSleep(1000000 * 2);
+  #else
+    Serial.println("This example is not compatible with your hardware.");
+  #endif
 }
 
 // NOOP

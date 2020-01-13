@@ -1,30 +1,47 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file GaugeBlock.cpp
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 #include "GaugeBlock.h"
 
-GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+/**************************************************************************/
+/*!
+    @brief  Creates a new Gauge Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the Gauge.
+*/
+/**************************************************************************/
+GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   min = 0;
   max = 100;
   ringWidth = "thin";
   label = "Value";
 }
 
-GaugeBlock::~GaugeBlock(){}
+GaugeBlock::~GaugeBlock() {}
 
-String GaugeBlock::properties()
-{
+/**************************************************************************/
+/*!
+    @brief  Sets Gauge block properties.
+    @return String containing properties of the Gauge block.
+*/
+/**************************************************************************/
+String GaugeBlock::properties() {
   int w = 0;
-  
+
   if (strcmp(ringWidth, "thin")) {
     w = 25;
   } else {

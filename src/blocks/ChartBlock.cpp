@@ -1,18 +1,30 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file ChartBlock.cpp
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 #include "ChartBlock.h"
 
-ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
+/**************************************************************************/
+/*!
+    @brief  Creates a new Chart Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the chart.
+*/
+/**************************************************************************/
+ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
   historyHours = 0;
   xAxisLabel = "X";
   yAxisLabel = "Y";
@@ -20,10 +32,15 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO
   yAxisMax = 100;
 }
 
-ChartBlock::~ChartBlock(){}
+ChartBlock::~ChartBlock() {}
 
-String ChartBlock::properties()
-{
+/**************************************************************************/
+/*!
+    @brief  Sets chart block properties.
+    @return String containing properties of the chart block.
+*/
+/**************************************************************************/
+String ChartBlock::properties() {
 
   String props = "{\"historyHours\":\"";
   props += historyHours;

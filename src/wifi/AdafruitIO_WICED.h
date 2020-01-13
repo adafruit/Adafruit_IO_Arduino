@@ -11,35 +11,35 @@
  *
  * All text above must be included in any redistribution.
  */
- 
+
 #ifndef ADAFRUITIO_WICED_H
 #define ADAFRUITIO_WICED_H
 
 #ifdef ARDUINO_STM32_FEATHER
 
-#include "Arduino.h"
 #include "AdafruitIO.h"
-#include <adafruit_feather.h>
 #include "AdafruitIO_WICED_SSL.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
+#include "Arduino.h"
+#include <adafruit_feather.h>
 
 class AdafruitIO_WICED : public AdafruitIO {
 
-  public:
-    AdafruitIO_WICED(const char *user, const char *key, const char *ssid, const char *pass);
-    ~AdafruitIO_WICED();
+public:
+  AdafruitIO_WICED(const char *user, const char *key, const char *ssid,
+                   const char *pass);
+  ~AdafruitIO_WICED();
 
-    aio_status_t networkStatus();
-    const char* connectionType();
+  aio_status_t networkStatus();
+  const char *connectionType();
 
-  protected:
-    void _connect();
-    void _disconnect();
-    const char *_ssid;
-    const char *_pass;
-    AdafruitIO_WICED_SSL *_client;
-
+protected:
+  void _connect();
+  void _disconnect();
+  const char *_ssid;
+  const char *_pass;
+  AdafruitIO_WICED_SSL *_client;
 };
 
 #endif // ARDUINO_STM32_FEATHER

@@ -1,45 +1,68 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file AdafruitIO_Block.cpp
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 #include "AdafruitIO_Block.h"
 #include "AdafruitIO.h"
 #include "AdafruitIO_Dashboard.h"
 
-AdafruitIO_Block::AdafruitIO_Block(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
-{
+/**************************************************************************/
+/*!
+    @brief  Creates a new Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the block.
+*/
+/**************************************************************************/
+AdafruitIO_Block::AdafruitIO_Block(AdafruitIO_Dashboard *d,
+                                   AdafruitIO_Feed *f) {
   _dashboard = d;
   _feed = f;
 }
 
-AdafruitIO_Block::~AdafruitIO_Block(){}
+AdafruitIO_Block::~AdafruitIO_Block() {}
 
-String AdafruitIO_Block::properties()
-{
+/**************************************************************************/
+/*!
+    @brief  Sets block properties.
+    @return String containing block's properties.
+*/
+/**************************************************************************/
+String AdafruitIO_Block::properties() {
   String props = "{}";
   return props;
 }
 
-String AdafruitIO_Block::dimensions()
-{
+/**************************************************************************/
+/*!
+    @brief  Sets block dimensions, provided block size (width, height)
+            and block location on dashboard (row, column).
+    @return String containing block's dimensions.
+*/
+/**************************************************************************/
+String AdafruitIO_Block::dimensions() {
   String dim = "\",\"size_x\":\"";
   dim += _width();
   dim += "\",\"size_y\":\"";
   dim += _height();
 
-  if(_row() > 0) {
+  if (_row() > 0) {
     dim += "\",\"row\":\"";
     dim += _row();
   }
 
-  if(_column() > 0) {
+  if (_column() > 0) {
     dim += "\",\"column\":\"";
     dim += _column();
   }
@@ -47,13 +70,21 @@ String AdafruitIO_Block::dimensions()
   return dim;
 }
 
-const char* AdafruitIO_Block::type()
-{
-  return _visual_type;
-}
+/**************************************************************************/
+/*!
+    @brief  Returns type of Adafruit IO Block.
+    @return Block type
+*/
+/**************************************************************************/
+const char *AdafruitIO_Block::type() { return _visual_type; }
 
-bool AdafruitIO_Block::save()
-{
+/**************************************************************************/
+/*!
+    @brief  Creates a new block on an Adafruit IO dashboard.
+    @return True if successful, False otherwise.
+*/
+/**************************************************************************/
+bool AdafruitIO_Block::save() {
   HttpClient *http = _dashboard->io()->_http;
 
   String url = "/api/v2/";

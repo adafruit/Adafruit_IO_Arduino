@@ -1,43 +1,55 @@
-//
-// Adafruit invests time and resources providing this open source code.
-// Please support Adafruit and open source hardware by purchasing
-// products from Adafruit!
-//
-// Copyright (c) 2015-2016 Adafruit Industries
-// Authors: Tony DiCola, Todd Treece
-// Licensed under the MIT license.
-//
-// All text above must be included in any redistribution.
-//
+/*!
+ * @file TextBlock.cpp
+ *
+ * This is part of the Adafruit IO library for the Arduino platform.
+ *
+ * Adafruit invests time and resources providing this open source code,
+ * please support Adafruit and open-source hardware by purchasing
+ * products from Adafruit!
+ *
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ *
+ * BSD license, all text here must be included in any redistribution.
+ *
+ */
 #include "TextBlock.h"
 
-TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f) : AdafruitIO_Block(d, f)
-{
-    fontSize = "small";
+/**************************************************************************/
+/*!
+    @brief  Creates a new Text Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the Text.
+*/
+/**************************************************************************/
+TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
+    : AdafruitIO_Block(d, f) {
+  fontSize = "small";
 }
 
 TextBlock::~TextBlock() {}
 
-String TextBlock::properties()
-{
-    int s = 0;
+/**************************************************************************/
+/*!
+    @brief  Sets Text block properties.
+    @return String containing properties of the Text block.
+*/
+/**************************************************************************/
+String TextBlock::properties() {
+  int s = 0;
 
-    if ((strcmp(fontSize, "small") == 0))
-    {
-        s = 12;
-    }
-    else if ((strcmp(fontSize, "medium") == 0))
-    {
-        s = 18;
-    }
-    else
-    {
-        s = 24;
-    }
+  if ((strcmp(fontSize, "small") == 0)) {
+    s = 12;
+  } else if ((strcmp(fontSize, "medium") == 0)) {
+    s = 18;
+  } else {
+    s = 24;
+  }
 
-    String props = "{\"fontSize\":\"";
-    props += s;
-    props += "\"}";
+  String props = "{\"fontSize\":\"";
+  props += s;
+  props += "\"}";
 
-    return props;
+  return props;
 }

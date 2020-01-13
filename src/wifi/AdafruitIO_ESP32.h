@@ -11,38 +11,38 @@
  *
  * All text above must be included in any redistribution.
  */
- 
+
 #ifndef ADAFRUITIO_ESP32_H
 #define ADAFRUITIO_ESP32_H
 
 #ifdef ARDUINO_ARCH_ESP32
 
-#include "Arduino.h"
 #include "AdafruitIO.h"
-#include <WiFi.h>
-#include "WiFiClientSecure.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
+#include "Arduino.h"
+#include "WiFiClientSecure.h"
+#include <WiFi.h>
 
 class AdafruitIO_ESP32 : public AdafruitIO {
 
-  public:
-    AdafruitIO_ESP32(const char *user, const char *key, const char *ssid, const char *pass);
-    ~AdafruitIO_ESP32();
+public:
+  AdafruitIO_ESP32(const char *user, const char *key, const char *ssid,
+                   const char *pass);
+  ~AdafruitIO_ESP32();
 
-    aio_status_t networkStatus();
-    const char* connectionType();
+  aio_status_t networkStatus();
+  const char *connectionType();
 
-  protected:
-    void _connect();
-    void _disconnect();
+protected:
+  void _connect();
+  void _disconnect();
 
-    const char *_ssid;
-    const char *_pass;
+  const char *_ssid;
+  const char *_pass;
 
-    WiFiClientSecure *_client;
-
+  WiFiClientSecure *_client;
 };
 
-#endif //ESP32
+#endif // ESP32
 #endif // ADAFRUITIO_ESP32_H
