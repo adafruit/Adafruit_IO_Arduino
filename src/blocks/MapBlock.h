@@ -17,6 +17,12 @@
 
 #include "AdafruitIO_Block.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Map Block.
+*/
+/**************************************************************************/
 class MapBlock : public AdafruitIO_Block {
 
 public:

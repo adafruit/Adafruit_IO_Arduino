@@ -17,6 +17,12 @@
 
 #include "AdafruitIO_Block.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Image Block.
+*/
+/**************************************************************************/
 class ImageBlock : public AdafruitIO_Block {
 
 public:
@@ -24,17 +30,52 @@ public:
       : AdafruitIO_Block(d, f) {}
   ~ImageBlock() {}
 
-  int height = 6;
-  int width = 4;
+  int height = 6;  /*!< Dashboard block height. */
+  int width = 4;   /*!< Dashboard block width. */
 
+  /******************************************/
+  /*! 
+      @brief  Returns block type 
+      @return Block type.
+  */
+  /******************************************/
   const char *type() { return _visual_type; }
 
 protected:
-  const char *_visual_type = "image";
+  const char *_visual_type = "image";  /*!< Block type. */
 
+  /******************************************/
+  /*! 
+      @brief  Returns width of block.
+      @return Block width.
+  */
+  /******************************************/
   int _width() { return width; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns height of block.
+      @return Block height.
+  */
+  /******************************************/
   int _height() { return height; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns block's row location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard row.
+  */
+  /******************************************/
   int _row() { return row; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns block's column location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard column
+  */
+  /******************************************/
   int _column() { return column; }
 };
 

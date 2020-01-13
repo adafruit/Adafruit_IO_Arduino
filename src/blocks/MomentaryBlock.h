@@ -17,6 +17,12 @@
 
 #include "AdafruitIO_Block.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Momentary Block.
+*/
+/**************************************************************************/
 class MomentaryBlock : public AdafruitIO_Block {
 
 public:
