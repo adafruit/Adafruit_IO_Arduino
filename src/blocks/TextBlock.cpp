@@ -2,7 +2,7 @@
  * @file TextBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "TextBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Text Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -31,7 +31,7 @@ TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 TextBlock::~TextBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets Text block properties.
     @return String containing properties of the Text block.
 */

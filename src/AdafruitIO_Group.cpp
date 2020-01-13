@@ -16,7 +16,6 @@
 #include "AdafruitIO_Group.h"
 #include "AdafruitIO.h"
 
-
 /**************************************************************************/
 /*!
     @brief    Creates a new instance of an Adafruit IO Group.
@@ -192,7 +191,6 @@ void AdafruitIO_Group::set(const char *feed, double value) {
   f->setValue(value);
 }
 
-
 /**************************************************************************/
 /*!
     @brief    Updates value of Adafruit IO Group.
@@ -270,7 +268,7 @@ AdafruitIO_Data *AdafruitIO_Group::getFeed(const char *feed) {
 
 /**************************************************************************/
 /*!
-    @brief    Sets up Adafruit IO callback to monitor incoming 
+    @brief    Sets up Adafruit IO callback to monitor incoming
               new data in group.
     @param    cb
               An function to be called if group receives new data.
@@ -297,7 +295,7 @@ void AdafruitIO_Group::onMessage(AdafruitIODataCallbackType cb) {
 
 /**************************************************************************/
 /*!
-    @brief    Sets up Adafruit IO callback to monitor incoming 
+    @brief    Sets up Adafruit IO callback to monitor incoming
               new data in group's feed, feed.
     @param    feed
               An Adafruit IO Feed within Group.

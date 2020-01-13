@@ -2,7 +2,7 @@
  * @file TextBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -18,7 +18,7 @@
 #include "AdafruitIO_Block.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interacting with the Adafruit IO Dashboard
             Slider Block.
 */
@@ -29,26 +29,26 @@ public:
   TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
   ~TextBlock();
 
-  const char *fontSize;  /*!< Dashboard block text font size. */
+  const char *fontSize; /*!< Dashboard block text font size. */
 
-  int width = 2;   /*!< Dashboard block width. */
-  int height = 1;  /*!< Dashboard block height. */
+  int width = 2;  /*!< Dashboard block width. */
+  int height = 1; /*!< Dashboard block height. */
 
   String properties();
 
   /******************************************/
-  /*! 
-      @brief  Returns block type 
+  /*!
+      @brief  Returns block type
       @return Block type.
   */
   /******************************************/
   const char *type() { return _visual_type; }
 
 protected:
-  const char *_visual_type = "text";  /*!< Block type. */
+  const char *_visual_type = "text"; /*!< Block type. */
 
   /******************************************/
-  /*! 
+  /*!
       @brief  Returns width of block.
       @return Block width.
   */
@@ -56,7 +56,7 @@ protected:
   int _width() { return width; }
 
   /******************************************/
-  /*! 
+  /*!
       @brief  Returns height of block.
       @return Block height.
   */
@@ -64,7 +64,7 @@ protected:
   int _height() { return height; }
 
   /******************************************/
-  /*! 
+  /*!
       @brief  Returns block's row location
       on an Adafruit IO dashboard.
       @return Adafruit IO dashboard row.
@@ -73,7 +73,7 @@ protected:
   int _row() { return row; }
 
   /******************************************/
-  /*! 
+  /*!
       @brief  Returns block's column location
       on an Adafruit IO dashboard.
       @return Adafruit IO dashboard column

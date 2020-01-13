@@ -2,7 +2,7 @@
  * @file AdafruitIO_Block.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -17,7 +17,7 @@
 #include "AdafruitIO_Dashboard.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -34,7 +34,7 @@ AdafruitIO_Block::AdafruitIO_Block(AdafruitIO_Dashboard *d,
 AdafruitIO_Block::~AdafruitIO_Block() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets block properties.
     @return String containing block's properties.
 */
@@ -45,7 +45,7 @@ String AdafruitIO_Block::properties() {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets block dimensions, provided block size (width, height)
             and block location on dashboard (row, column).
     @return String containing block's dimensions.
@@ -71,7 +71,7 @@ String AdafruitIO_Block::dimensions() {
 }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Returns type of Adafruit IO Block.
     @return Block type
 */
@@ -79,7 +79,7 @@ String AdafruitIO_Block::dimensions() {
 const char *AdafruitIO_Block::type() { return _visual_type; }
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new block on an Adafruit IO dashboard.
     @return True if successful, False otherwise.
 */

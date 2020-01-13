@@ -2,7 +2,7 @@
  * @file AdafruitIO_Ethernet.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -28,7 +28,7 @@
 #include "AdafruitIO.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interfacing with the Adafruit Ethernet FeatherWing
 */
 /**************************************************************************/
@@ -76,7 +76,8 @@ public:
   const char *connectionType() { return "ethernet_wing"; }
 
 protected:
-  byte _mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; /*!< Ethernet FeatherWing MAC Address */
+  byte _mac[6] = {0xDE, 0xAD, 0xBE,
+                  0xEF, 0xFE, 0xED}; /*!< Ethernet FeatherWing MAC Address */
 
   EthernetClient *_client; /*!< Reference to EthernetClient, _client */
 

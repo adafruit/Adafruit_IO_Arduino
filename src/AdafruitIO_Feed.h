@@ -2,7 +2,7 @@
  * @file AdafruitIO_Feed.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -25,7 +25,7 @@
 class AdafruitIO;
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class that provides methods for interfacing with
             Adafruit IO feed topics.
             https://io.adafruit.com/api/docs/mqtt.html#mqtt-topics
@@ -62,28 +62,29 @@ public:
   void onMessage(AdafruitIODataCallbackType cb);
   void subCallback(char *val, uint16_t len);
 
-  const char *name;   /*!< Adafruit IO feed name. */
-  const char *owner;  /*!< Adafruit IO feed owner. */
+  const char *name;  /*!< Adafruit IO feed name. */
+  const char *owner; /*!< Adafruit IO feed owner. */
 
-  AdafruitIO_Data *lastValue();  /*!< Last value sent to Adafruit IO feed. */
-  AdafruitIO_Data *data;         /*!< Adafruit IO feed data record. */
+  AdafruitIO_Data *lastValue(); /*!< Last value sent to Adafruit IO feed. */
+  AdafruitIO_Data *data;        /*!< Adafruit IO feed data record. */
 
 private:
-  AdafruitIODataCallbackType _dataCallback;  /*!< Callback from onMessage containing data. */
+  AdafruitIODataCallbackType
+      _dataCallback; /*!< Callback from onMessage containing data. */
 
   void _init();
 
-  char *_topic;       /*!< MQTT Topic URL */
-  char *_get_topic;   /*!< /get topic string */
-  char *_create_url;  /*!< create URL string */
-  char *_feed_url;    /*!< feed URL string */
+  char *_topic;      /*!< MQTT Topic URL */
+  char *_get_topic;  /*!< /get topic string */
+  char *_create_url; /*!< create URL string */
+  char *_feed_url;   /*!< feed URL string */
 
-  Adafruit_MQTT_Subscribe *_sub;    /*!< MQTT subscription for _topic. */
-  Adafruit_MQTT_Publish *_pub;      /*!< MQTT publish for _topic. */
-  Adafruit_MQTT_Publish *_get_pub;  /*!< MQTT publish to _get_topic. */
+  Adafruit_MQTT_Subscribe *_sub;   /*!< MQTT subscription for _topic. */
+  Adafruit_MQTT_Publish *_pub;     /*!< MQTT publish for _topic. */
+  Adafruit_MQTT_Publish *_get_pub; /*!< MQTT publish to _get_topic. */
 
-  AdafruitIO *_io;          /*!< An instance of AdafruitIO. */
-  AdafruitIO_Data *_data;   /*!< An instance of AdafruitIO_Data. */
+  AdafruitIO *_io;        /*!< An instance of AdafruitIO. */
+  AdafruitIO_Data *_data; /*!< An instance of AdafruitIO_Data. */
 };
 
 #endif // ADAFRUITIO_FEED_H

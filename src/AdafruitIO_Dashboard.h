@@ -2,7 +2,7 @@
  * @file AdafruitIO_Dashboard.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -33,7 +33,7 @@ class AdafruitIO;
 class AdafruitIO_Feed;
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interacting with Adafruit IO Dashboards.
             https://io.adafruit.com/api/docs/#dashboards
 */
@@ -44,10 +44,10 @@ public:
   AdafruitIO_Dashboard(AdafruitIO *io, const char *name);
   ~AdafruitIO_Dashboard();
 
-  const char *name;    /*!< Dashboard name. */
-  const char *user();  /*!< Dashboard owner's Adafruit IO username. */
+  const char *name;   /*!< Dashboard name. */
+  const char *user(); /*!< Dashboard owner's Adafruit IO username. */
 
-   /**************************************************************************/
+  /**************************************************************************/
   /*!
   @brief    Creates an instance of AdafruitIO.
   @return   True
@@ -70,7 +70,7 @@ public:
   ImageBlock *addImageBlock(AdafruitIO_Feed *feed);
 
 private:
-  AdafruitIO *_io;  /*!< Reference to Adafruit IO client */
+  AdafruitIO *_io; /*!< Reference to Adafruit IO client */
 };
 
 #endif // ADAFRUITIO_DASHBOARD_H

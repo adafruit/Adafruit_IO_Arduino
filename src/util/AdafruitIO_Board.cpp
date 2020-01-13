@@ -2,7 +2,7 @@
  * @file AdafruitIO_Board.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -34,7 +34,7 @@ const char AdafruitIO_Board::_type[] = "unknown";
 #endif
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Returns a unique board identifier based on the
             CPU characteristics.
     @return Unique board identifier.
@@ -114,7 +114,6 @@ char *AdafruitIO_Board::id() {
 }
 
 #elif defined(ARDUINO_STM32_FEATHER)
-
 
 /*******************************************************/
 /*!

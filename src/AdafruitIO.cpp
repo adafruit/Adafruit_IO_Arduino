@@ -5,10 +5,11 @@
  *
  * @section intro_sec Introduction
  *
- * This is the documentation for the Adafruit IO Arduino library. This library provides
- * a simple device independent interface for interacting with Adafruit IO using Arduino.
- * It allows you to switch between WiFi (ESP8266, ESP32, AirLift, WINC1500, & WICED),
- * Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing)
+ * This is the documentation for the Adafruit IO Arduino library. This library
+ * provides a simple device independent interface for interacting with Adafruit
+ * IO using Arduino. It allows you to switch between WiFi (ESP8266, ESP32,
+ * AirLift, WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet
+ * FeatherWing)
  *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
@@ -16,10 +17,12 @@
  *
  * @section dependencies Dependencies
  *
- * This library depends on <a href="https://github.com/arduino-libraries/ArduinoHttpClient">
- * ArduinoHTTPClient</a> and <a href="https://github.com/adafruit/Adafruit_MQTT_Library">
- * Adafruit MQTT Library</a> being present on your system. Please make sure you have
- * installed the latest version before using this library.
+ * This library depends on <a
+ * href="https://github.com/arduino-libraries/ArduinoHttpClient">
+ * ArduinoHTTPClient</a> and <a
+ * href="https://github.com/adafruit/Adafruit_MQTT_Library"> Adafruit MQTT
+ * Library</a> being present on your system. Please make sure you have installed
+ * the latest version before using this library.
  *
  * @section author Author
  *

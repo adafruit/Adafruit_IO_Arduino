@@ -25,25 +25,24 @@
 #define FONA_RI 7
 #define FONA_BAUD 4800
 
-
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interfacing with an Adafruit FONA Ceullar Module
 */
 /**************************************************************************/
 class AdafruitIO_FONA : public AdafruitIO {
 
 public:
-    /**************************************************************************/
-    /*! 
-        @brief  Initializes a new AdafruitIO_FONA instance.
-        @param  user
-                GRPS APN username
-        @param key
-                GPRS APN password
+  /**************************************************************************/
+  /*!
+      @brief  Initializes a new AdafruitIO_FONA instance.
+      @param  user
+              GRPS APN username
+      @param key
+              GPRS APN password
 
-    */
-    /**************************************************************************/
+  */
+  /**************************************************************************/
   AdafruitIO_FONA(const char *user, const char *key) : AdafruitIO(user, key) {
     _serial = new SoftwareSerial(FONA_TX, FONA_RX);
     _fona = new Adafruit_FONA(FONA_RST);
@@ -51,28 +50,28 @@ public:
     _packetread_timeout = 500;
   }
 
-    /**************************************************************************/
-    /*! 
-        @brief  Sets Adafruit Fona APN name
-        @param  apn
-                GPRS APN name.
-        @param  username
-                GPRS APN username.
-        @param password
-                GRPS APN password.
-    */
-    /**************************************************************************/
+  /**************************************************************************/
+  /*!
+      @brief  Sets Adafruit Fona APN name
+      @param  apn
+              GPRS APN name.
+      @param  username
+              GPRS APN username.
+      @param password
+              GRPS APN password.
+  */
+  /**************************************************************************/
   void setAPN(FONAFlashStringPtr apn, FONAFlashStringPtr username = 0,
               FONAFlashStringPtr password = 0) {
     _fona->setGPRSNetworkSettings(apn, username, password);
   }
 
-    /**************************************************************************/
-    /*! 
-        @brief   Returns network connection status.
-        @return  Adafruit IO Network status, aio_status_t
-    */
-    /**************************************************************************/
+  /**************************************************************************/
+  /*!
+      @brief   Returns network connection status.
+      @return  Adafruit IO Network status, aio_status_t
+  */
+  /**************************************************************************/
   aio_status_t AdafruitIO_FONA::networkStatus() {
     // return if in a failed state
     if (_status == AIO_NET_CONNECT_FAILED)
@@ -91,7 +90,7 @@ public:
   }
 
   /**************************************************************************/
-  /*! 
+  /*!
       @brief    Returns network module type.
       @return   Network module name, "fona"
   */
@@ -99,13 +98,13 @@ public:
   const char *connectionType() { return "fona"; }
 
 protected:
-  uint16_t _mqtt_port = 1883;  /*!< Adafruit IO insecure MQTT port. */
+  uint16_t _mqtt_port = 1883; /*!< Adafruit IO insecure MQTT port. */
 
-  SoftwareSerial *_serial;  /*!< an instance of SoftwareSerial. */
-  Adafruit_FONA *_fona;     /*!< an instance of Adafruit_FONA. */
+  SoftwareSerial *_serial; /*!< an instance of SoftwareSerial. */
+  Adafruit_FONA *_fona;    /*!< an instance of Adafruit_FONA. */
 
   /**************************************************************************/
-  /*! 
+  /*!
       @brief  Establishes a connection to Adafruit IO.
   */
   /**************************************************************************/

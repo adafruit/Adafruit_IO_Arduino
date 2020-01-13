@@ -2,7 +2,7 @@
  * @file AdafruitIO_Data.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -22,7 +22,7 @@
 class AdafruitIO_Feed;
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interacting with Adafruit IO Data Records.
             https://io.adafruit.com/api/docs/#data
 */

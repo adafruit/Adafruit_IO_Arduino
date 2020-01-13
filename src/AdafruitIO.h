@@ -2,7 +2,7 @@
  * @file AdafruitIO.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -135,31 +135,37 @@ protected:
   /*****************************************************/
   virtual void _disconnect() = 0;
 
-  aio_status_t _status = AIO_IDLE;  /*!< Adafruit IO Connection Status */
-  uint32_t _last_ping = 0;          /*!< Previous time when client pinged Adafruit IO, in milliseconds */
-  uint32_t _last_mqtt_connect = 0;  /*!< Previous time when client connected to Adafruit IO, in milliseconds */
+  aio_status_t _status = AIO_IDLE; /*!< Adafruit IO Connection Status */
+  uint32_t _last_ping =
+      0; /*!< Previous time when client pinged Adafruit IO, in milliseconds */
+  uint32_t _last_mqtt_connect = 0; /*!< Previous time when client connected to
+                                      Adafruit IO, in milliseconds */
 
-  Adafruit_MQTT *_mqtt;  /*!< Reference to Adafruit_MQTT, _mqtt. */
-  HttpClient *_http;     /*!< Reference to HTTPClient, _http */
+  Adafruit_MQTT *_mqtt; /*!< Reference to Adafruit_MQTT, _mqtt. */
+  HttpClient *_http;    /*!< Reference to HTTPClient, _http */
 
-  char _version[10];     /*!< Adafruit IO Arduino library version */
+  char _version[10]; /*!< Adafruit IO Arduino library version */
 
-  const char *_host = "io.adafruit.com";  /*!< Adafruit IO URL */
-  uint16_t _mqtt_port = 8883;             /*!< Adafruit IO MQTT SSL port */
-  uint16_t _mqtt_eth_port = 1883;         /*!< Adafruit IO MQTT insecure port, used by ethernet clients. */
-  uint16_t _http_port = 443;              /*!< Adafruit IO HTTP SSL port */
+  const char *_host = "io.adafruit.com"; /*!< Adafruit IO URL */
+  uint16_t _mqtt_port = 8883;            /*!< Adafruit IO MQTT SSL port */
+  uint16_t _mqtt_eth_port =
+      1883; /*!< Adafruit IO MQTT insecure port, used by ethernet clients. */
+  uint16_t _http_port = 443; /*!< Adafruit IO HTTP SSL port */
 
-  uint16_t _packetread_timeout;           /*!< Maximum amount of time to wait before processing packets. */
+  uint16_t _packetread_timeout; /*!< Maximum amount of time to wait before
+                                   processing packets. */
 
-  const char *_username;  /*!< Adafruit IO Username. */
-  const char *_key;       /*!< Adafruit IO Key. */
+  const char *_username; /*!< Adafruit IO Username. */
+  const char *_key;      /*!< Adafruit IO Key. */
 
-  char *_err_topic;       /*!< Adafruit IO MQTT error message topic. */
-  char *_throttle_topic;  /*!< Adafruit IO MQTT throttle message topic. */
-  char *_user_agent;      /*!< Identifies the Adafruit IO client. */
+  char *_err_topic;      /*!< Adafruit IO MQTT error message topic. */
+  char *_throttle_topic; /*!< Adafruit IO MQTT throttle message topic. */
+  char *_user_agent;     /*!< Identifies the Adafruit IO client. */
 
-  Adafruit_MQTT_Subscribe *_err_sub;       /*!< Subscription to Adafruit IO Error topic. */
-  Adafruit_MQTT_Subscribe *_throttle_sub;  /*!< Subscription to Adafruit IO Throttle topic. */
+  Adafruit_MQTT_Subscribe
+      *_err_sub; /*!< Subscription to Adafruit IO Error topic. */
+  Adafruit_MQTT_Subscribe
+      *_throttle_sub; /*!< Subscription to Adafruit IO Throttle topic. */
 
 private:
   void _init();

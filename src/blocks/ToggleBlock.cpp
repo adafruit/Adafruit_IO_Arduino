@@ -2,7 +2,7 @@
  * @file ToggleBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "ToggleBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Toggle Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -32,7 +32,7 @@ ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 ToggleBlock::~ToggleBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets toggle block properties.
     @return String containing properties of the toggle block.
 */

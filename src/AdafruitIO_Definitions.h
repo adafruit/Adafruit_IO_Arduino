@@ -2,7 +2,7 @@
  * @file AdafruitIO_Definitions.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -23,18 +23,18 @@
 // forward declaration
 class AdafruitIO_Data;
 
-typedef void (*AdafruitIODataCallbackType)(AdafruitIO_Data *data); /*!< Data callback type */
-
+typedef void (*AdafruitIODataCallbackType)(
+    AdafruitIO_Data *data); /*!< Data callback type */
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class that contains methods for Adafruit IO MQTT callbacks.
 */
 /**************************************************************************/
 class AdafruitIOGroupCallback {
 public:
   /**************************************************************************/
-  /*! 
+  /*!
       @brief  Sets up MQTT Group callbacks.
       @param  f
               Valid Adafruit IO feed key.
@@ -49,7 +49,7 @@ public:
   }
 
   /**************************************************************************/
-  /*! 
+  /*!
       @brief  Sets up MQTT Group callbacks.
       @param  cb
               Adafruit IO MQTT callback.
@@ -61,9 +61,10 @@ public:
     next_cb = 0;
   }
 
-  const char *feed;                          /*!< Adafruit IO feed name. */
-  AdafruitIODataCallbackType dataCallback ;  /*!< data carried by an AdafruitIOGroupCallback. */
-  AdafruitIOGroupCallback *next_cb;          /*!< Next callback number. */
+  const char *feed; /*!< Adafruit IO feed name. */
+  AdafruitIODataCallbackType
+      dataCallback; /*!< data carried by an AdafruitIOGroupCallback. */
+  AdafruitIOGroupCallback *next_cb; /*!< Next callback number. */
 };
 
 // Uncomment/comment to turn on/off debug output messages.
@@ -101,24 +102,33 @@ public:
   {} ///< Prints line from error output.
 #endif
 
-#define AIO_PING_INTERVAL 60000                ///< Adafruit IO Ping Interval, in milliseconds
-#define AIO_THROTTLE_RECONNECT_INTERVAL 60000  ///< Time to wait between re-connecting to Adafruit IO after throttled
-#define AIO_MQTT_CONNECTION_TIMEOUT 60000      ///< Time to wait for a successful reconnection after MQTT disconnect
-#define AIO_NET_CONNECTION_TIMEOUT 60000       ///< Time to wait for a successful reconnection after network disconnect
-#define AIO_NET_DISCONNECT_WAIT 300            ///< Time to wait for a net disconnect to take effect
+#define AIO_PING_INTERVAL 60000 ///< Adafruit IO Ping Interval, in milliseconds
+#define AIO_THROTTLE_RECONNECT_INTERVAL                                        \
+  60000 ///< Time to wait between re-connecting to Adafruit IO after throttled
+#define AIO_MQTT_CONNECTION_TIMEOUT                                            \
+  60000 ///< Time to wait for a successful reconnection after MQTT disconnect
+#define AIO_NET_CONNECTION_TIMEOUT                                             \
+  60000 ///< Time to wait for a successful reconnection after network disconnect
+#define AIO_NET_DISCONNECT_WAIT                                                \
+  300 ///< Time to wait for a net disconnect to take effect
 
-#define AIO_ERROR_TOPIC "/errors"              ///< Adafruit IO Error MQTT Topic
-#define AIO_THROTTLE_TOPIC "/throttle"         ///< Adafruit IO Throttle MQTT Topic
+#define AIO_ERROR_TOPIC "/errors"      ///< Adafruit IO Error MQTT Topic
+#define AIO_THROTTLE_TOPIC "/throttle" ///< Adafruit IO Throttle MQTT Topic
 
 // latest fingerprint can be generated with
 // echo | openssl s_client -connect io.adafruit.com:443 | openssl x509
 // -fingerprint -noout
 #define AIO_SSL_FINGERPRINT                                                    \
-  "77 00 54 2D DA E7 D8 03 27 31 23 99 EB 27 DB CB A5 4C 57 18" ///< Latest Adafruit IO SSL Fingerprint
+  "77 00 54 2D DA E7 D8 03 27 31 23 99 EB 27 DB CB A5 4C 57 18" ///< Latest
+                                                                ///< Adafruit IO
+                                                                ///< SSL
+                                                                ///< Fingerprint
 
 #define AIO_FEED_NAME_LENGTH 20 ///< Maximum length of an Adafruit IO Feed name
-#define AIO_DATA_LENGTH 45      ///< Maximum length of data sent/recieved from Adafruit IO
-#define AIO_CSV_LENGTH 150      ///< Maximum comma-separated-value length from Adafruit IO
+#define AIO_DATA_LENGTH                                                        \
+  45 ///< Maximum length of data sent/recieved from Adafruit IO
+#define AIO_CSV_LENGTH                                                         \
+  150 ///< Maximum comma-separated-value length from Adafruit IO
 
 /** aio_status_t offers 13 status states */
 typedef enum {
@@ -131,8 +141,9 @@ typedef enum {
   AIO_NET_CONNECT_FAILED = 10,  // Failed to connect to network
   AIO_CONNECT_FAILED = 11,      // Failed to connect to Adafruit IO
   AIO_FINGERPRINT_INVALID = 12, // Unknown AIO_SSL_FINGERPRINT
-  AIO_AUTH_FAILED = 13,         // Invalid Adafruit IO login credentials provided.
-  AIO_SSID_INVALID = 14,        // SSID is "" or otherwise invalid, connection not attempted
+  AIO_AUTH_FAILED = 13, // Invalid Adafruit IO login credentials provided.
+  AIO_SSID_INVALID =
+      14, // SSID is "" or otherwise invalid, connection not attempted
 
   AIO_NET_CONNECTED = 20,           // Connected to Adafruit IO
   AIO_CONNECTED = 21,               // Connected to network

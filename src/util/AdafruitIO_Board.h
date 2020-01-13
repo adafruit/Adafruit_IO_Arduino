@@ -2,7 +2,7 @@
  * @file AdafruitIO_Board.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -30,11 +30,11 @@
 class AdafruitIO_Board {
 
 public:
-  static char _id[64];  /*!< Board Identifier. */
+  static char _id[64]; /*!< Board Identifier. */
   static char *id();
 
-  static const char _type[];  /*!< Board name. */
-  static const char *type();  /*!< Board name. */
+  static const char _type[]; /*!< Board name. */
+  static const char *type(); /*!< Board name. */
 };
 
 #endif // ADAFRUITIO_BOARD_H

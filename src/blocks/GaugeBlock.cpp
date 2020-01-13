@@ -2,7 +2,7 @@
  * @file GaugeBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "GaugeBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Gauge Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -34,7 +34,7 @@ GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 GaugeBlock::~GaugeBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets Gauge block properties.
     @return String containing properties of the Gauge block.
 */

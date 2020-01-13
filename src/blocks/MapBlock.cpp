@@ -2,7 +2,7 @@
  * @file MapBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "MapBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new map Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -31,9 +31,8 @@ MapBlock::MapBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 MapBlock::~MapBlock() {}
 
-
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets map block properties.
     @return String containing properties of the map block.
 */

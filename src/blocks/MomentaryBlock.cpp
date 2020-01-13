@@ -2,7 +2,7 @@
  * @file MomentaryBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "MomentaryBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Momentary Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -33,7 +33,7 @@ MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 MomentaryBlock::~MomentaryBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets momentary block properties.
     @return String containing properties of the momentary block.
 */

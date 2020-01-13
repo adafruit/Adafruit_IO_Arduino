@@ -156,7 +156,7 @@ bool AdafruitIO_Data::setCSV(char *csv) { return setCSV((const char *)(csv)); }
     @brief    Sets data to be returned by AdafruitIO_Feed subCallback.
     @param    *csv
               Data to be appended to csv
-    @return   True if the CSV was parsed successfully, False if not 
+    @return   True if the CSV was parsed successfully, False if not
 */
 /**************************************************************************/
 bool AdafruitIO_Data::setCSV(const char *csv) {

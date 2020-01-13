@@ -2,7 +2,7 @@
  * @file SliderBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "SliderBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Slider Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -34,7 +34,7 @@ SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 SliderBlock::~SliderBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets slider block properties.
     @return String containing properties of the slider block.
 */

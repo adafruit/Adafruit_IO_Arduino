@@ -277,7 +277,7 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele,
 
 /****************************************************************************/
 /*!
-    @brief    Publishes a null character to an Adafruit IO /get topic. 
+    @brief    Publishes a null character to an Adafruit IO /get topic.
               https://io.adafruit.com/api/docs/mqtt.html#using-the-get-topic
     @return   True if successful, otherwise False.
 */

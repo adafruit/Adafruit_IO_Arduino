@@ -2,7 +2,7 @@
  * @file ChartBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "ChartBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Chart Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -35,7 +35,7 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 ChartBlock::~ChartBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets chart block properties.
     @return String containing properties of the chart block.
 */

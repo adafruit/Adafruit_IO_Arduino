@@ -2,7 +2,7 @@
  * @file StreamBlock.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -15,7 +15,7 @@
 #include "StreamBlock.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Creates a new Stream Block on an Adafruit IO Dashboard.
     @param  d
             Adafruit IO Dashboard name.
@@ -35,7 +35,7 @@ StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 StreamBlock::~StreamBlock() {}
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Sets stream block properties.
     @return String containing properties of the stream block.
 */

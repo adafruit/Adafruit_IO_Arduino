@@ -22,7 +22,7 @@
 class AdafruitIO;
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class for interacting with Adafruit IO Grouped Feeds
             https://io.adafruit.com/api/docs/mqtt.html#group-topics
 */
@@ -57,26 +57,27 @@ public:
   void subCallback(char *val, uint16_t len);
   void call(AdafruitIO_Data *d);
 
-  const char *name;   /*!< Adafruit IO group name. */
-  const char *owner;  /*!< Adafruit IO username of group owner. */
+  const char *name;  /*!< Adafruit IO group name. */
+  const char *owner; /*!< Adafruit IO username of group owner. */
 
-  AdafruitIO_Data *data;  /*!< Adafruit IO data record. */
+  AdafruitIO_Data *data; /*!< Adafruit IO data record. */
   AdafruitIO_Data *getFeed(const char *feed);
 
 private:
   void _init();
 
-  char *_topic;        /*!< MQTT topic URL.. */
-  char *_get_topic;    /*!< /get topic string. */
-  char *_create_url;  /*!< Create URL string. */
-  char *_group_url;   /*!< Group URL string. */
+  char *_topic;      /*!< MQTT topic URL.. */
+  char *_get_topic;  /*!< /get topic string. */
+  char *_create_url; /*!< Create URL string. */
+  char *_group_url;  /*!< Group URL string. */
 
-  Adafruit_MQTT_Subscribe *_sub;    /*!< MQTT subscription for _topic. */
-  Adafruit_MQTT_Publish *_pub;      /*!< MQTT publish for _topic. */
-  Adafruit_MQTT_Publish *_get_pub;  /*!< MQTT publish to _get_topic. */
+  Adafruit_MQTT_Subscribe *_sub;   /*!< MQTT subscription for _topic. */
+  Adafruit_MQTT_Publish *_pub;     /*!< MQTT publish for _topic. */
+  Adafruit_MQTT_Publish *_get_pub; /*!< MQTT publish to _get_topic. */
 
-  AdafruitIO *_io;                          /*!< An instance of AdafruitIO. */
-  AdafruitIOGroupCallback *_groupCallback;  /*!< An instance of AdafruitIOGroupCallback */
+  AdafruitIO *_io; /*!< An instance of AdafruitIO. */
+  AdafruitIOGroupCallback
+      *_groupCallback; /*!< An instance of AdafruitIOGroupCallback */
 
   double _lat, _lon, _ele; /*!< latitude, longitude, elevation metadata. */
 };

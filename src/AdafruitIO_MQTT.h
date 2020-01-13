@@ -2,7 +2,7 @@
  * @file AdafruitIO_MQTT.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
- * 
+ *
  * Adafruit invests time and resources providing this open source code,
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
@@ -18,7 +18,7 @@
 #include "Arduino.h"
 
 /**************************************************************************/
-/*! 
+/*!
     @brief  Class that contains MQTT subscription callbacks.
 */
 /**************************************************************************/
@@ -29,7 +29,7 @@ public:
   /**************************************************************************/
   /*!
   @brief    Creates an instance of a MQTT subscription callback.
-  @param    val 
+  @param    val
             Value from the MQTT subscription callback.
   @param    len
             Length of returned value.
