@@ -7,8 +7,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arduino-platform: ["pyportal_titano", "metro_m4_airliftlite", "uno"]
-        espressif-platform: ["esp8266", "esp32"]
+        arduino-platform: ["esp8266", "esp32",
+                           "pyportal_titano", "metro_m4_airliftlite",
+                           "uno"]
 
     runs-on: ubuntu-latest
     
@@ -25,16 +26,12 @@ jobs:
     - name: pre-install
       run: bash ci/actions_install.sh
 
-    # test espressif platforms
-    - name: test esp platforms
-      run: python3 ci/build_platform.py ${{ matrix.espressif-platform }}
 
     # manually install WiFi
     - name: extra libraries
       run: |
         git clone --quiet https://github.com/adafruit/WiFiNINA.git /home/runner/Arduino/libraries/WiFiNINA
 
-    # test non-espressif platforms
     - name: test platforms
       run: python3 ci/build_platform.py ${{ matrix.arduino-platform }}
 
