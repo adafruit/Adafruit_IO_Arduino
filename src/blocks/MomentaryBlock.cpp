@@ -14,6 +14,15 @@
  */
 #include "MomentaryBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Momentary Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the momentary.
+*/
+/**************************************************************************/
 MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   text = "RESET";
@@ -23,6 +32,12 @@ MomentaryBlock::MomentaryBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 MomentaryBlock::~MomentaryBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets momentary block properties.
+    @return String containing properties of the momentary block.
+*/
+/**************************************************************************/
 String MomentaryBlock::properties() {
   String props = "{\"text\":\"";
   props += text;

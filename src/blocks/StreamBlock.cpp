@@ -14,6 +14,15 @@
  */
 #include "StreamBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Stream Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the stream block.
+*/
+/**************************************************************************/
 StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   fontSize = "small";
@@ -25,6 +34,12 @@ StreamBlock::StreamBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 StreamBlock::~StreamBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets stream block properties.
+    @return String containing properties of the stream block.
+*/
+/**************************************************************************/
 String StreamBlock::properties() {
   int s = 0;
 
