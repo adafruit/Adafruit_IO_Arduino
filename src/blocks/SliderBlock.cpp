@@ -14,6 +14,15 @@
  */
 #include "SliderBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Slider Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the slider.
+*/
+/**************************************************************************/
 SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   min = 0;
@@ -24,6 +33,12 @@ SliderBlock::SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 SliderBlock::~SliderBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets slider block properties.
+    @return String containing properties of the slider block.
+*/
+/**************************************************************************/
 String SliderBlock::properties() {
   String props = "{\"min\":\"";
   props += min;

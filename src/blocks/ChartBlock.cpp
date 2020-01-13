@@ -14,6 +14,15 @@
  */
 #include "ChartBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Chart Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the chart.
+*/
+/**************************************************************************/
 ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   historyHours = 0;
@@ -25,6 +34,12 @@ ChartBlock::ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 ChartBlock::~ChartBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets chart block properties.
+    @return String containing properties of the chart block.
+*/
+/**************************************************************************/
 String ChartBlock::properties() {
 
   String props = "{\"historyHours\":\"";

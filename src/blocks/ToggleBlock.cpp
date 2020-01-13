@@ -14,6 +14,15 @@
  */
 #include "ToggleBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Toggle Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the toggle block.
+*/
+/**************************************************************************/
 ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   onText = "1";
@@ -22,6 +31,12 @@ ToggleBlock::ToggleBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 ToggleBlock::~ToggleBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets toggle block properties.
+    @return String containing properties of the toggle block.
+*/
+/**************************************************************************/
 String ToggleBlock::properties() {
   String props = "{\"onText\":\"";
   props += onText;
