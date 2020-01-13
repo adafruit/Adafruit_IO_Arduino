@@ -87,7 +87,7 @@ AdafruitIO_Feed *frontDoor = io.feed("front-door");
 // `motion-detector` feed
 AdafruitIO_Feed *motionFeed = io.feed("motion-detector"); 
 // `home-alarm` feed
-AdafruitIO_Feed *alarm = io.feed("home-alarm");
+AdafruitIO_Feed *homeAlarm = io.feed("home-alarm");
 // 'tvoc' feed
 AdafruitIO_Feed *tvocFeed = io.feed("tvoc");
 // 'eco2' feed
@@ -106,7 +106,7 @@ void setup() {
   io.connect();
   
   // attach a message handler for the `home-alarm` feed
-  alarm->onMessage(handleAlarm);
+  homeAlarm->onMessage(handleAlarm);
   // subscribe to lighting feeds and register message handlers
   indoorLights->onMessage(indoorLightHandler);
   outdoorLights->onMessage(outdoorLightHandler);
@@ -159,7 +159,14 @@ void loop(){
 void playAlarmAnimation() {
 // plays the alarm piezo buzzer and turn on/off neopixels  
     Serial.println("ALARM TRIGGERED!");
-    tone(piezoPin, 220, 2);
+    
+    #if defined(ARDUINO_ARCH_ESP32)
+      // ESP32 doesn't use native tone() function
+      ledcWriteTone(piezoPin, 220);
+    #else
+      tone(piezoPin, 220, 2);
+    #endif
+    
     for(int i=0; i<JEWEL_PIXEL_COUNT; ++i) {
       strip.setPixelColor(i, 255, 0, 0);
     }
