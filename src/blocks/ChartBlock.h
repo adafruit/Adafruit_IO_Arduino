@@ -17,6 +17,12 @@
 
 #include "AdafruitIO_Block.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Chart Block.
+*/
+/**************************************************************************/
 class ChartBlock : public AdafruitIO_Block {
 
 public:

@@ -29,13 +29,13 @@ public:
   SliderBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
   ~SliderBlock();
 
-  int min;  /*!< Minimum slider data value. */
-  int max;  /*!< Maximum slider data value. */
-  int step; /*!< Slider data step value. */
-  const char *label; /*!< Slider title. */
+  int min;            /*!< Minimum slider data value. */
+  int max;            /*!< Maximum slider data value. */
+  int step;           /*!< Slider data step value. */
+  const char *label;  /*!< Slider title. */
 
-  int width = 4;  /*!< Dashboard block width. */
-  int height = 2; /*!< Dashboard block height. */
+  int width = 4;   /*!< Dashboard block width. */
+  int height = 2;  /*!< Dashboard block height. */
 
   String properties();
 
