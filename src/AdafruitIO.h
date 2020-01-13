@@ -43,11 +43,34 @@
 */
 /**************************************************************************/
 class AdafruitIO {
-
+  /**
+   * @brief AdafruitIO_Feed addition.
+   * @relates AdafruitIO_Feed
+   */
   friend class AdafruitIO_Feed;
+
+  /**
+   * @brief AdafruitIO_Group addition.
+   * @relates AdafruitIO_Group
+   */
   friend class AdafruitIO_Group;
+
+  /**
+   * @brief AdafruitIO_Dashboard addition.
+   * @relates AdafruitIO_Dashboard
+   */
   friend class AdafruitIO_Dashboard;
+
+  /**
+   * @brief AdafruitIO_Block addition.
+   * @relates AdafruitIO_Block
+   */
   friend class AdafruitIO_Block;
+
+  /**
+   * @brief AdafruitIO_Time addition.
+   * @relates AdafruitIO_Time
+   */
   friend class AdafruitIO_Time;
 
 public:
