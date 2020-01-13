@@ -7,7 +7,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        arduino-platform: ["esp8266",
+        arduino-platform: ["esp8266", "esp32"
                            "pyportal_titano", "metro_m4_airliftlite",
                            "uno"]
 
