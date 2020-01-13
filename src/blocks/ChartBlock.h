@@ -29,6 +29,12 @@ public:
   ChartBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
   ~ChartBlock();
 
+  /******************************************/
+  /*! 
+      @brief  Returns block type 
+      @return Block type.
+  */
+  /******************************************/
   const char *type() { return _visual_type; }
 
   int historyHours;        /*!< Amount of hours to store the chart's history for. */

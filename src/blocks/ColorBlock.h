@@ -26,6 +26,15 @@
 class ColorBlock : public AdafruitIO_Block {
 
 public:
+  /**************************************************************************/
+  /*! 
+      @brief  Creates a new color block on an Adafruit IO Dashboard.
+      @param  d
+              Adafruit IO Dashboard name.
+      @param f
+              Adafruit IO Feed to display on the block.
+  */
+  /**************************************************************************/
   ColorBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
       : AdafruitIO_Block(d, f) {}
   ~ColorBlock() {}
