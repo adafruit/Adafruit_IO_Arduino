@@ -14,6 +14,15 @@
  */
 #include "TextBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Text Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the Text.
+*/
+/**************************************************************************/
 TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   fontSize = "small";
@@ -21,6 +30,12 @@ TextBlock::TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 TextBlock::~TextBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets Text block properties.
+    @return String containing properties of the Text block.
+*/
+/**************************************************************************/
 String TextBlock::properties() {
   int s = 0;
 

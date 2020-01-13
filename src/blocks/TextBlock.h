@@ -29,7 +29,7 @@ public:
   TextBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
   ~TextBlock();
 
-  const char *fontSize;
+  const char *fontSize;  /*!< Dashboard block text font size. */
 
   int width = 2;   /*!< Dashboard block width. */
   int height = 1;  /*!< Dashboard block height. */

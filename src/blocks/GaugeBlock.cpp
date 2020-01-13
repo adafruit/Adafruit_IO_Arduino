@@ -14,6 +14,15 @@
  */
 #include "GaugeBlock.h"
 
+/**************************************************************************/
+/*! 
+    @brief  Creates a new Gauge Block on an Adafruit IO Dashboard.
+    @param  d
+            Adafruit IO Dashboard name.
+    @param f
+            Adafruit IO Feed to display on the Gauge.
+*/
+/**************************************************************************/
 GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
     : AdafruitIO_Block(d, f) {
   min = 0;
@@ -24,6 +33,12 @@ GaugeBlock::GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f)
 
 GaugeBlock::~GaugeBlock() {}
 
+/**************************************************************************/
+/*! 
+    @brief  Sets Gauge block properties.
+    @return String containing properties of the Gauge block.
+*/
+/**************************************************************************/
 String GaugeBlock::properties() {
   int w = 0;
 

@@ -17,30 +17,73 @@
 
 #include "AdafruitIO_Block.h"
 
+
+/**************************************************************************/
+/*! 
+    @brief  Class for interacting with the Adafruit IO Dashboard
+            Gauge Block.
+*/
+/**************************************************************************/
 class GaugeBlock : public AdafruitIO_Block {
 
 public:
   GaugeBlock(AdafruitIO_Dashboard *d, AdafruitIO_Feed *f);
   ~GaugeBlock();
 
-  int min;
-  int max;
+  int min;                /*!< Min. value displayed on gauge. */
+  int max;                /*!< Max. value displayed on gauge. */
 
-  const char *ringWidth;
-  const char *label;
+  const char *ringWidth;  /*!< Width of gauge's ring. */
+  const char *label;      /*!< Gauge text label. */
 
-  int width = 4;
-  int height = 4;
+  int width = 4;          /*!< Dashboard block width. */
+  int height = 4;         /*!< Dashboard block height. */
 
   String properties();
+
+  /******************************************/
+  /*! 
+      @brief  Returns block type 
+      @return Block type.
+  */
+  /******************************************/
   const char *type() { return _visual_type; }
 
 protected:
-  const char *_visual_type = "gauge";
+  const char *_visual_type = "gauge";  /*!< Block type. */
 
+  /******************************************/
+  /*! 
+      @brief  Returns width of block.
+      @return Block width.
+  */
+  /******************************************/
   int _width() { return width; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns height of block.
+      @return Block height.
+  */
+  /******************************************/
   int _height() { return height; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns block's row location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard row.
+  */
+  /******************************************/
   int _row() { return row; }
+
+  /******************************************/
+  /*! 
+      @brief  Returns block's column location
+      on an Adafruit IO dashboard.
+      @return Adafruit IO dashboard column
+  */
+  /******************************************/
   int _column() { return column; }
 };
 
