@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_8266.cpp
+ * @file AdafruitIO_ESP8266.h
  *
  * Adafruit invests time and resources providing this open source code.
  * Please support Adafruit and open source hardware by purchasing

@@ -26,7 +26,7 @@
 #include "SPI.h"
 #include "WiFiNINA.h"
 
-#define NINAFWVER "1.0.0"
+#define NINAFWVER "1.0.0"  /*!< nina-fw version compatible with this library. */
 
 /****************************************************************************/
 /*!
@@ -134,15 +134,18 @@ public:
   const char *connectionType() { return "AIRLIFT"; }
 
 protected:
-  const char *_ssid;
-  const char *_pass;
-  String _fv = "0.0.0";
-  int _ssPin, _ackPin, _rstPin, _gpio0Pin = -1;
+  const char *_ssid;     /*!< WiFi network SSID. */
+  const char *_pass;     /*!< WiFi network password. */
+  String _fv = "0.0.0";  /*!< nina-fw version, read from ESP32. */
+  int _ssPin = -1;       /*!< ESP32 slave-select pin. */
+  int _ackPin = -1;      /*!< ESP32 ACK pin. */
+  int  _rstPin = -1;     /*!< ESP32 RESET pin. */
+  int _gpio0Pin = -1;    /*!< ESP32 GPIO0 pin. */
 
-  WiFiSSLClient *_http_client;
-  WiFiSSLClient *_mqtt_client;
+  WiFiSSLClient *_http_client;  /*!< Instance of HTTP client. */
+  WiFiSSLClient *_mqtt_client;  /*!< Instance of MQTT client. */
 
-  SPIClass *_wifi;
+  SPIClass *_wifi;  /*!< Instance of WiFi. */
 
   /**************************************************************************/
   /*!
