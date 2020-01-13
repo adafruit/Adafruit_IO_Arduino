@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_MapBlock.h
+ * @file MapBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

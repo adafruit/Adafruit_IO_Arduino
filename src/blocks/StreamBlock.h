@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_StreamBlock.h
+ * @file StreamBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

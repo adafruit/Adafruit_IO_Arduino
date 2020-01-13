@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_ImageBlock.h
+ * @file ImageBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

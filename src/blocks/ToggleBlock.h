@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_ToggleBlock.h
+ * @file ToggleBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

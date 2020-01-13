@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_ColorBlock.h
+ * @file ColorBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

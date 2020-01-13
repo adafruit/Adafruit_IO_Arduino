@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_SliderBlock.h
+ * @file SliderBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 

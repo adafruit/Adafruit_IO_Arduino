@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_GaugeBlock.h
+ * @file GaugeBlock.h
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 
