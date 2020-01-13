@@ -8,8 +8,7 @@ jobs:
       fail-fast: false
       matrix:
         arduino-platform: ["esp8266", "esp32",
-                           "pyportal_titano", "metro_m4_airliftlite",
-                           "uno"]
+                           "pyportal", "metro_m4_airliftlite"]
 
     runs-on: ubuntu-latest
     
