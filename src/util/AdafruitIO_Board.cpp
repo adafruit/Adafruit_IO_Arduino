@@ -1,5 +1,5 @@
 /*!
- * @file AdafruitIO_Board.h
+ * @file AdafruitIO_Board.cpp
  *
  * This is part of the Adafruit IO library for the Arduino platform.
  * 
