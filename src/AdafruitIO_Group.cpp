@@ -432,7 +432,7 @@ void AdafruitIO_Group::setLocation(double lat, double lon, double ele) {
 /*!
     @brief    Checks if Adafruit IO Group exists.
               https://io.adafruit.com/api/docs/#get-group
-    @return   HTTP status, 200 if group exists.
+    @return   True if successful, otherwise False.
 */
 /**************************************************************************/
 bool AdafruitIO_Group::exists() {
@@ -450,7 +450,7 @@ bool AdafruitIO_Group::exists() {
 /*!
     @brief    Creates new Adafruit IO Group.
               https://io.adafruit.com/api/docs/#create-group
-    @return   HTTP status, 201 if group created successfully.
+    @return   True if successful, otherwise False.
 */
 /**************************************************************************/
 bool AdafruitIO_Group::create() {

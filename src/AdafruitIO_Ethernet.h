@@ -56,8 +56,7 @@ public:
   /*!
       @brief    Checks the connection status between the Ethernet
                 FeatherWing and Adafruit IO
-      @return   AIO_NET_CONNECTED if connected to Adafruit IO,
-                otherwise AIO_NET_DISCONNECTED.
+      @return   True if connected to Adafruit IO, otherwise False.
   */
   /**************************************************************************/
   aio_status_t networkStatus() {

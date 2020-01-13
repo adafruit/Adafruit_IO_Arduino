@@ -279,7 +279,7 @@ bool AdafruitIO_Feed::save(double value, double lat, double lon, double ele,
 /*!
     @brief    Publishes a null character to an Adafruit IO /get topic. 
               https://io.adafruit.com/api/docs/mqtt.html#using-the-get-topic
-    @return   HTTP status code 200.
+    @return   True if successful, otherwise False.
 */
 /****************************************************************************/
 bool AdafruitIO_Feed::get() { return _get_pub->publish("\0"); }
@@ -288,7 +288,7 @@ bool AdafruitIO_Feed::get() { return _get_pub->publish("\0"); }
 /*!
     @brief    Checks if Adafruit IO Feed exists and belongs to username.
               https://io.adafruit.com/api/docs/#get-feed
-    @return   HTTP status code 200.
+    @return   True if successful, otherwise False.
 */
 /****************************************************************************/
 bool AdafruitIO_Feed::exists() {
@@ -307,7 +307,7 @@ bool AdafruitIO_Feed::exists() {
 /*!
     @brief    Creates a new Adafruit IO Feed
               https://io.adafruit.com/api/docs/#create-feed
-    @return   HTTP status code 201.
+    @return   True if successful, otherwise False.
 */
 /*************************************************************/
 bool AdafruitIO_Feed::create() {

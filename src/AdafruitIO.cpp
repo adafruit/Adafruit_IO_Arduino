@@ -417,12 +417,10 @@ char *AdafruitIO::userAgent() {
 
 /**************************************************************************/
 /*!
-    @brief    MQTT status check.
+    @brief    Checks connection status with Adafruit IO's MQTT broker.
     @param    fail_fast
-              Set true to skip retries and return with status immediately,
-   optional.
-    @return   An MQTT status value. Lower values represent poorer connection
-              status.
+              Set true to skip retries and return with status immediately.
+    @return   True if connected, otherwise False.
 */
 /**************************************************************************/
 aio_status_t AdafruitIO::mqttStatus(bool fail_fast) {

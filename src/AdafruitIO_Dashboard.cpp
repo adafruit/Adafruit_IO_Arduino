@@ -36,7 +36,7 @@ AdafruitIO_Dashboard::~AdafruitIO_Dashboard() {}
 /*!
     @brief    Checks if Adafruit IO Dashboard exists.
               https://io.adafruit.com/api/docs/#return-dashboard
-    @return   HTTP response status code, 200 if OK.
+    @return   True if successful, otherwise False.
 */
 /**************************************************************************/
 bool AdafruitIO_Dashboard::exists() {
@@ -60,7 +60,7 @@ bool AdafruitIO_Dashboard::exists() {
 /*!
     @brief    Creates a new dashboard.
               https://io.adafruit.com/api/docs/#create-a-dashboard
-    @return   HTTP response status code, 201 if OK.
+    @return   True if successful, otherwise False.
 */
 /**************************************************************************/
 bool AdafruitIO_Dashboard::create() {
