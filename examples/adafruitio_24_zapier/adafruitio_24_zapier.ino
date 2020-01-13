@@ -177,8 +177,14 @@ void loop()
     Serial.println("Switching to Task 1");
     // update the neopixel strip
     updatePixels(50, 0, 0);
+
     // play a sound
-    tone(PIEZO_PIN, 650, 300);
+    #if defined(ARDUINO_ARCH_ESP32)
+        ledcWriteTone(PIEZO_PIN, 650);
+    #else
+        tone(PIEZO_PIN, 650, 300);
+    #endif
+
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
     cubetask->save(taskTwo, minutes);
@@ -189,8 +195,14 @@ void loop()
     Serial.println("Switching to Task 2");
     // update the neopixel strip
     updatePixels(0, 50, 0);
+
     // play a sound
-    tone(PIEZO_PIN, 850, 300);
+    #if defined(ARDUINO_ARCH_ESP32)
+        ledcWriteTone(PIEZO_PIN, 850);
+    #else
+        tone(PIEZO_PIN, 850, 300);
+    #endif
+
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
     cubetask->save(taskOne, minutes);
@@ -199,7 +211,14 @@ void loop()
     break;
   case 3:
     updatePixels(0, 0, 50);
-    tone(PIEZO_PIN, 950, 300);
+
+    // play a sound
+    #if defined(ARDUINO_ARCH_ESP32)
+        ledcWriteTone(PIEZO_PIN, 950);
+    #else
+        tone(PIEZO_PIN, 950, 300);
+    #endif
+
     break;
   }
 
