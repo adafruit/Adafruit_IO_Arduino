@@ -18,14 +18,20 @@
 #include <avr/boot.h>
 #endif
 
+/**************************************************************************/
+/*!
+    @brief  Class for dynamically assigning an identifier for the
+            development board used with this library.
+*/
+/**************************************************************************/
 class AdafruitIO_Board {
 
 public:
-  static char _id[64];
+  static char _id[64];  /*!< Board Identifier. */
   static char *id();
 
-  static const char _type[];
-  static const char *type();
+  static const char _type[];  /*!< Board name. */
+  static const char *type();  /*!< Board name. */
 };
 
 #endif // ADAFRUITIO_BOARD_H

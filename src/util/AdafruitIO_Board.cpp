@@ -33,10 +33,23 @@ const char AdafruitIO_Board::_type[] = "esp8266";
 const char AdafruitIO_Board::_type[] = "unknown";
 #endif
 
+/**************************************************************************/
+/*! 
+    @brief  Returns a unique board identifier based on the
+            CPU characteristics.
+    @return Unique board identifier.
+*/
+/**************************************************************************/
 const char *AdafruitIO_Board::type() { return AdafruitIO_Board::_type; }
 
 #if defined(ARDUINO_ARCH_SAMD)
 
+/*******************************************************/
+/*!
+    @brief   Assigns an identifier to a SAMD-based board.
+    @return  board identifier, id.
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   volatile uint32_t val1, val2, val3, val4;
   volatile uint32_t *ptr1 = (volatile uint32_t *)0x0080A00C;
@@ -54,7 +67,13 @@ char *AdafruitIO_Board::id() {
 }
 
 #elif defined(ARDUINO_ARCH_AVR)
-
+/*******************************************************/
+/*!
+    @brief  Assigns an identifier to an AVR-based board
+            from boot_signature.
+    @return board identifier, id.
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   for (int i = 0; i < 32; i++) {
     sprintf(&AdafruitIO_Board::_id[i * 2], "%02x", boot_signature_byte_get(i));
@@ -64,6 +83,13 @@ char *AdafruitIO_Board::id() {
 
 #elif defined(ARDUINO_ARCH_ESP32)
 
+/*******************************************************/
+/*!
+    @brief  Assigns an identifier to an ESP32-based
+            board from the MAC address.
+    @return board identifier, id.
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   byte mac[6];
   WiFi.macAddress(mac);
@@ -75,6 +101,13 @@ char *AdafruitIO_Board::id() {
 
 #elif defined(ESP8266)
 
+/*******************************************************/
+/*!
+    @brief  Assigns an identifier to an ESP8266 from
+            the chip identifier.
+    @return board identifier, id.
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   sprintf(AdafruitIO_Board::_id, "%06x", ESP.getChipId());
   return AdafruitIO_Board::_id;
@@ -82,6 +115,13 @@ char *AdafruitIO_Board::id() {
 
 #elif defined(ARDUINO_STM32_FEATHER)
 
+
+/*******************************************************/
+/*!
+    @brief  Assigns an identifier to a STM32 Feather.
+    @return board identifier, id.
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   uint32_t *p_unique_id = (uint32_t *)(0x1FFF7A10);
   sprintf(AdafruitIO_Board::_id, "%08lX%08lX%08lX", p_unique_id[2],
@@ -91,6 +131,12 @@ char *AdafruitIO_Board::id() {
 
 #else
 
+/*******************************************************/
+/*!
+    @brief   Identifies an unknown board type.
+    @return  "unknown"
+*/
+/*******************************************************/
 char *AdafruitIO_Board::id() {
   strcpy(AdafruitIO_Board::_id, "unknown");
   return AdafruitIO_Board::_id;
