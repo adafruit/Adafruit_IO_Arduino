@@ -1,6 +1,6 @@
 # Adafruit IO Arduino Library
 
-![Build Status](https://github.com/adafruit/Adafruit_IO_Arduino/workflows/Arduino%20Library%20CI/badge.svg)
+[![Build Status](https://github.com/adafruit/Adafruit_IO_Arduino/workflows/Arduino%20Library%20CI/badge.svg)](https://github.com/adafruit/Adafruit_IO_Arduino/actions)
 
 [![Discord](https://img.shields.io/discord/327254708534116352.svg)](https://discord.gg/nBQh6qu)
 
