@@ -77,7 +77,7 @@ private:
 
   AdafruitIO *_io; /*!< An instance of AdafruitIO. */
   AdafruitIOGroupCallback
-      *_groupCallback; /*!< An instance of AdafruitIOGroupCallback */
+      *_groupCallback = NULL; /*!< An instance of AdafruitIOGroupCallback */
 
   double _lat, _lon, _ele; /*!< latitude, longitude, elevation metadata. */
 };
