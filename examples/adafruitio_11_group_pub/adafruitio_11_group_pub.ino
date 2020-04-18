@@ -37,6 +37,9 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
+  group->onMessage("count-1", one);
+  group->onMessage("count-2", two);
+
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
     Serial.print(".");
@@ -73,4 +76,18 @@ void loop() {
 
   // wait four seconds (1000 milliseconds == 1 second)
   delay(4000);
+}
+
+// this function is called whenever a 'counter-1' message
+// is received from Adafruit IO. it was attached to
+// the counter-1 feed in the setup() function above.
+void one(AdafruitIO_Data *data) {
+  // do nothing!
+}
+
+// this function is called whenever a 'counter-2' message
+// is received from Adafruit IO. it was attached to
+// the counter-2 feed in the setup() function above.
+void two(AdafruitIO_Data *data) {
+  // do nothing!
 }
