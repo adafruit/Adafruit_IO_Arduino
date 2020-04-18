@@ -348,6 +348,7 @@ void AdafruitIO_Group::call(AdafruitIO_Data *d) {
     if (strcmp(cur_cb->feed, d->feedName()) == 0 || cur_cb->feed == NULL) {
       cur_cb->dataCallback(d);
     }
+
     cur_cb = cur_cb->next_cb;
   }
 }
