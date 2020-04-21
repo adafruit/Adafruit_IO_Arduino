@@ -34,8 +34,8 @@ void setup() {
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
-  group->onMessage("example.count-1", one);
-  group->onMessage("example.count-2", two);
+  group->onMessage("count-1", one);
+  group->onMessage("count-2", two);
 
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
