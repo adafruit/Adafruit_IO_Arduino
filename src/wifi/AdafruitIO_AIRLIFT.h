@@ -156,7 +156,6 @@ protected:
     if (strlen(_ssid) == 0) {
       _status = AIO_SSID_INVALID;
     } else {
-      _disconnect();
       // setup ESP32 pins
       if (_ssPin != -1) {
         WiFi.setPins(_ssPin, _ackPin, _rstPin, _gpio0Pin, _wifi);
@@ -164,6 +163,9 @@ protected:
 
       // check esp32 module version against NINAFWVER
       firmwareCheck();
+
+      // disconnect from possible previous connection
+      _disconnect();
 
       // check for esp32 module
       if (WiFi.status() == WL_NO_MODULE) {
