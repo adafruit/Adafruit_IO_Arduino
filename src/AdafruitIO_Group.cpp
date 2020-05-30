@@ -345,7 +345,7 @@ void AdafruitIO_Group::call(AdafruitIO_Data *d) {
 
   while (cur_cb) {
 
-    if (strcmp(cur_cb->feed, d->feedName()) == 0 || cur_cb->feed == NULL) {
+    if (cur_cb->feed == NULL || strcmp(cur_cb->feed, d->feedName()) == 0) {
       cur_cb->dataCallback(d);
     }
 
