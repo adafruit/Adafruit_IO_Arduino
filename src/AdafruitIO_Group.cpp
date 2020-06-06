@@ -231,6 +231,20 @@ bool AdafruitIO_Group::save() {
 bool AdafruitIO_Group::get() { return _get_pub->publish("\0"); }
 
 /**************************************************************************/
+/*
+    @brief    Helper function to compare strings case-insensitively
+    @return   True if strings are equal (ignoring case)
+*/
+/**************************************************************************/
+bool strsame_nocase(const char *str1, const char *str2) {
+  while ( *str1 && *str2 && tolower(*str1) == tolower(*str2) ) {
+    ++str1;
+    ++str2;
+  }
+  return tolower(*str1) == tolower(*str2);
+}
+
+/**************************************************************************/
 /*!
     @brief    Obtains data from feed within group.
     @param    feed
@@ -251,7 +265,7 @@ AdafruitIO_Data *AdafruitIO_Group::getFeed(const char *feed) {
 
   while (cur_data != NULL) {
 
-    if (strcmp(cur_data->feedName(), feed) == 0) {
+    if (strsame_nocase(cur_data->feedName(), feed)) {
       return cur_data;
     }
 
@@ -314,7 +328,7 @@ void AdafruitIO_Group::onMessage(const char *feed,
 
   while (cur_cb != NULL) {
 
-    if (strcmp(cur_cb->feed, feed) == 0) {
+    if (strsame_nocase(cur_cb->feed, feed)) {
       return;
     }
 
@@ -345,7 +359,7 @@ void AdafruitIO_Group::call(AdafruitIO_Data *d) {
 
   while (cur_cb) {
 
-    if (cur_cb->feed == NULL || strcmp(cur_cb->feed, d->feedName()) == 0) {
+    if (cur_cb->feed == NULL || strsame_nocase(cur_cb->feed, d->feedName())) {
       cur_cb->dataCallback(d);
     }
 
