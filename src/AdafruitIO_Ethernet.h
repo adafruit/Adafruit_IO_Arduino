@@ -99,6 +99,16 @@ protected:
       _status = AIO_NET_CONNECTED;
     }
   }
+
+  /**************************************************************************/
+  /*!
+      @brief    Disconnect the ethernet connection.
+  */
+  /**************************************************************************/
+  void _disconnect() {
+    _client->stop();
+    delay(AIO_NET_DISCONNECT_WAIT);
+  }
 };
 
 #endif // ADAFRUITIO_ETHERNET_H
