@@ -19,7 +19,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/checkout@v2
       with:
-         repository: adafruit/ci-arduino
+         repository: dherrada/ci-arduino
          path: ci
 
     - name: pre-install
@@ -41,4 +41,4 @@ jobs:
       env:
         GH_REPO_TOKEN: ${{ secrets.GH_REPO_TOKEN }}
         PRETTYNAME : "Adafruit IO Arduino Library"
-      run: bash ci/doxy_gen_and_deploy.sh
+      run: bash ci/doxy_gen_and_deploy.sh src
