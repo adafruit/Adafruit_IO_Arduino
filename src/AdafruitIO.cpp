@@ -246,9 +246,8 @@ AdafruitIO_Dashboard *AdafruitIO::dashboard(const char *name) {
 /**************************************************************************/
 /*!
     @brief    Provide status explanation strings.
-    @param    _status
-              The AIO status value
-    @return   A pointer to the status string.
+    @return   A pointer to the status string, _status. _status is the AIO status
+   value
 */
 /**************************************************************************/
 const __FlashStringHelper *AdafruitIO::statusText() {
