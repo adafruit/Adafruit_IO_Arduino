@@ -93,6 +93,18 @@ public:
     if (_http)
       delete _http;
   }
+  
+  
+  /**************************************************************************/
+  /*!
+  @brief  Allows setting of the AirLift RGB led from the 
+  Adafruit IO AirLift Class
+  */
+  /**************************************************************************/
+  void setLEDs( int r, int g, int b) {
+	WiFi.setLEDs( r, g, b);
+  }
+
 
   /********************************************************/
   /*!
