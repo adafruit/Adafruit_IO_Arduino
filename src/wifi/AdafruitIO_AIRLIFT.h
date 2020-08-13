@@ -98,7 +98,14 @@ public:
   /**************************************************************************/
   /*!
   @brief  Allows setting of the AirLift RGB led from the 
-  Adafruit IO AirLift Class
+  Adafruit IO AirLift Class.
+  @param  r
+	  Red value
+  @param  g
+	  Green value
+  @param  b
+	  Blue value
+	  
   */
   /**************************************************************************/
   void setLEDs( int r, int g, int b) {
