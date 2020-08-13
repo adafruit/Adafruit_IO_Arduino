@@ -100,15 +100,15 @@ public:
   @brief  Allows setting of the AirLift RGB led from the 
   Adafruit IO AirLift Class.
   @param  r
-	  Red value
+	  Red value, unsigned 8 bit value (0->255)
   @param  g
-	  Green value
+	  Green value, unsigned 8 bit value (0->255)
   @param  b
-	  Blue value
+	  Blue value, unsigned 8 bit value (0->255)
 	  
   */
   /**************************************************************************/
-  void setLEDs( int r, int g, int b) {
+  void setLEDs( uint8_t r, uint8_t g, uint8_t b) {
 	WiFi.setLEDs( r, g, b);
   }
 
@@ -209,3 +209,4 @@ protected:
 };
 
 #endif // ADAFRUITIO_AIRLIFT_H
+
