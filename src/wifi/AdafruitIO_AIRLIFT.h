@@ -94,6 +94,21 @@ public:
       delete _http;
   }
 
+  /**************************************************************************/
+  /*!
+  @brief  Allows setting of the AirLift RGB led from the
+  Adafruit IO AirLift Class.
+  @param  r
+          Red value, unsigned 8 bit value (0->255)
+  @param  g
+          Green value, unsigned 8 bit value (0->255)
+  @param  b
+          Blue value, unsigned 8 bit value (0->255)
+
+  */
+  /**************************************************************************/
+  void setLEDs(uint8_t r, uint8_t g, uint8_t b) { WiFi.setLEDs(r, g, b); }
+
   /********************************************************/
   /*!
   @brief  Checks the version of an ESP32 module against
