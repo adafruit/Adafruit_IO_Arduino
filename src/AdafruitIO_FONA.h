@@ -130,10 +130,10 @@ protected:
   */
   /**************************************************************************/
   void _disconnect() {
-      if (!_fona->enableGPRS(false)) {
-          AIO_DEBUG_PRINTLN("Failed to turn off GPRS.");
-      }
-      _status = AIO_NET_DISCONNECTED;
+    if (!_fona->enableGPRS(false)) {
+      AIO_DEBUG_PRINTLN("Failed to turn off GPRS.");
+    }
+    _status = AIO_NET_DISCONNECTED;
   }
 };
 
