@@ -7,7 +7,7 @@
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
  *
- * Written by Tony DiCola, Todd Treece, Morgan Winters for Adafruit Industries
+ * Written by Tony DiCola, Todd Treece for Adafruit Industries
  *
  * BSD license, all text here must be included in any redistribution.
  *
