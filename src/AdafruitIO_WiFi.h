@@ -7,7 +7,7 @@
  * please support Adafruit and open-source hardware by purchasing
  * products from Adafruit!
  *
- * Written by Tony DiCola, Todd Treece for Adafruit Industries
+ * Written by Tony DiCola, Todd Treece, Morgan Winters for Adafruit Industries
  *
  * BSD license, all text here must be included in any redistribution.
  *
@@ -19,6 +19,11 @@
 
 #include "wifi/AdafruitIO_MKR1000.h"
 typedef AdafruitIO_MKR1000 AdafruitIO_WiFi;
+
+#elif defined(ARDUINO_SAMD_MKR1010)
+
+#include "wifi/AdafruitIO_MKR1010.h"
+typedef AdafruitIO_MKR1010 AdafruitIO_WiFi;
 
 #elif defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) || defined(ADAFRUIT_PYPORTAL) || \
     defined(USE_AIRLIFT)
