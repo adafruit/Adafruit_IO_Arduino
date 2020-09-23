@@ -123,18 +123,6 @@ protected:
 
     _status = AIO_NET_DISCONNECTED;
   }
-
-  /**************************************************************************/
-  /*!
-      @brief  Disconnects from Adafruit IO and the cellular network.
-  */
-  /**************************************************************************/
-  void _disconnect() {
-    if (!_fona->enableGPRS(false)) {
-      AIO_DEBUG_PRINTLN("Failed to turn off GPRS.");
-    }
-    _status = AIO_NET_DISCONNECTED;
-  }
 };
 
 #endif // ADAFRUITIO_FONA_H
