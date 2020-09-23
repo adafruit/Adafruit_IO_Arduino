@@ -124,11 +124,15 @@ public:
                                                                 ///< SSL
                                                                 ///< Fingerprint
 
-#define AIO_FEED_NAME_LENGTH 20 ///< Maximum length of an Adafruit IO Feed name
+#define AIO_FEED_NAME_LENGTH                                                   \
+  258 ///< Maximum length of an Adafruit IO Feed    \
+                                  ///< Name; 128 + 1 + 128 for the group, a dot \
+                                  ///< , and actual feed name.
 #define AIO_DATA_LENGTH                                                        \
   45 ///< Maximum length of data sent/recieved from Adafruit IO
 #define AIO_CSV_LENGTH                                                         \
-  150 ///< Maximum comma-separated-value length from Adafruit IO
+  AIO_FEED_NAME_LENGTH + 4 ///< Maximum comma-separated-value length from \
+                           ///< Adafruit IO
 
 /** aio_status_t offers 13 status states */
 typedef enum {
