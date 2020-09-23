@@ -144,14 +144,17 @@ Macros</h2></td></tr>
 <tr class="separator:a52729542897c13cfb95acf51ef985bf6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5f598c9f7ee60bd5fbe6ee8a5753bc7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#a5f598c9f7ee60bd5fbe6ee8a5753bc7d">AIO_SSL_FINGERPRINT</a>&#160;&#160;&#160;&quot;59 3C 48 0A B1 8B 39 4E 0D 58 50 47 9A 13 55 60 CC A0 1D AF&quot;</td></tr>
 <tr class="separator:a5f598c9f7ee60bd5fbe6ee8a5753bc7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac605596c0fee20cbc0ddc4a406485851"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#ac605596c0fee20cbc0ddc4a406485851">AIO_FEED_NAME_LENGTH</a>&#160;&#160;&#160;258</td></tr>
+<tr class="memitem:ac605596c0fee20cbc0ddc4a406485851"><td class="memItemLeft" align="right" valign="top"><a id="ac605596c0fee20cbc0ddc4a406485851"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#ac605596c0fee20cbc0ddc4a406485851">AIO_FEED_NAME_LENGTH</a>&#160;&#160;&#160;20</td></tr>
+<tr class="memdesc:ac605596c0fee20cbc0ddc4a406485851"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of an Adafruit IO Feed name. <br /></td></tr>
 <tr class="separator:ac605596c0fee20cbc0ddc4a406485851"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f56c74bee48e5d1a0c60a04bd25d85e"><td class="memItemLeft" align="right" valign="top"><a id="a8f56c74bee48e5d1a0c60a04bd25d85e"></a>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#a8f56c74bee48e5d1a0c60a04bd25d85e">AIO_DATA_LENGTH</a>&#160;&#160;&#160;45</td></tr>
 <tr class="memdesc:a8f56c74bee48e5d1a0c60a04bd25d85e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum length of data sent/recieved from Adafruit IO. <br /></td></tr>
 <tr class="separator:a8f56c74bee48e5d1a0c60a04bd25d85e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a00c71a214e64699d5457163d99d3de2e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#a00c71a214e64699d5457163d99d3de2e">AIO_CSV_LENGTH</a>&#160;&#160;&#160;<a class="el" href="_adafruit_i_o___definitions_8h.html#ac605596c0fee20cbc0ddc4a406485851">AIO_FEED_NAME_LENGTH</a> + 4</td></tr>
-<tr class="memdesc:a00c71a214e64699d5457163d99d3de2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adafruit IO.  <a href="#a00c71a214e64699d5457163d99d3de2e">More...</a><br /></td></tr>
+<tr class="memitem:a00c71a214e64699d5457163d99d3de2e"><td class="memItemLeft" align="right" valign="top"><a id="a00c71a214e64699d5457163d99d3de2e"></a>
+#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_adafruit_i_o___definitions_8h.html#a00c71a214e64699d5457163d99d3de2e">AIO_CSV_LENGTH</a>&#160;&#160;&#160;150</td></tr>
+<tr class="memdesc:a00c71a214e64699d5457163d99d3de2e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum comma-separated-value length from Adafruit IO. <br /></td></tr>
 <tr class="separator:a00c71a214e64699d5457163d99d3de2e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -206,38 +209,6 @@ Enumerations</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Latest Adafruit IO SSL Fingerprint </p>
-
-</div>
-</div>
-<a id="ac605596c0fee20cbc0ddc4a406485851"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac605596c0fee20cbc0ddc4a406485851">&#9670;&nbsp;</a></span>AIO_FEED_NAME_LENGTH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AIO_FEED_NAME_LENGTH&#160;&#160;&#160;258</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Maximum length of an Adafruit IO Feed \ Name; 128 + 1 + 128 for the group, a dot \ , and actual feed name. </p>
-
-</div>
-</div>
-<a id="a00c71a214e64699d5457163d99d3de2e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00c71a214e64699d5457163d99d3de2e">&#9670;&nbsp;</a></span>AIO_CSV_LENGTH</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define AIO_CSV_LENGTH&#160;&#160;&#160;<a class="el" href="_adafruit_i_o___definitions_8h.html#ac605596c0fee20cbc0ddc4a406485851">AIO_FEED_NAME_LENGTH</a> + 4</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Adafruit IO. </p>
-<p>Maximum comma-separated-value length from \ </p>
 
 </div>
 </div>
