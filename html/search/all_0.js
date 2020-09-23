@@ -2,7 +2,7 @@ var searchData=
 [
   ['_5fclient',['_client',['../class_adafruit_i_o___ethernet.html#a5a13fdfe76365308ea11f3f646804014',1,'AdafruitIO_Ethernet']]],
   ['_5fconnect',['_connect',['../class_adafruit_i_o.html#a335e7adc061806aecb8c5e0280dbcf8d',1,'AdafruitIO::_connect()'],['../class_adafruit_i_o___ethernet.html#a36d6a67a38a699b765136d0491c5ce64',1,'AdafruitIO_Ethernet::_connect()'],['../class_adafruit_i_o___f_o_n_a.html#a726026d0da43d348fb93fc8491d29342',1,'AdafruitIO_FONA::_connect()']]],
-  ['_5fdisconnect',['_disconnect',['../class_adafruit_i_o.html#a003a0d33ee2b208e6bfedf0bafa5e5ce',1,'AdafruitIO::_disconnect()'],['../class_adafruit_i_o___ethernet.html#a051677b1215824eb0505f1a711d553fb',1,'AdafruitIO_Ethernet::_disconnect()']]],
+  ['_5fdisconnect',['_disconnect',['../class_adafruit_i_o.html#a003a0d33ee2b208e6bfedf0bafa5e5ce',1,'AdafruitIO::_disconnect()'],['../class_adafruit_i_o___ethernet.html#a051677b1215824eb0505f1a711d553fb',1,'AdafruitIO_Ethernet::_disconnect()'],['../class_adafruit_i_o___f_o_n_a.html#a8e2fa694a93c3623fabe3833e9d478d6',1,'AdafruitIO_FONA::_disconnect()']]],
   ['_5ferr_5fsub',['_err_sub',['../class_adafruit_i_o.html#adab122f11082e770d81525754512b1b0',1,'AdafruitIO']]],
   ['_5ferr_5ftopic',['_err_topic',['../class_adafruit_i_o.html#ae15c2f177bab5b8ee6fbefd50cbe6221',1,'AdafruitIO']]],
   ['_5ffona',['_fona',['../class_adafruit_i_o___f_o_n_a.html#a347feb3d7b9b51f46912dfad2fc3e84b',1,'AdafruitIO_FONA']]],
