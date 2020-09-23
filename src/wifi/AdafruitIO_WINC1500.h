@@ -15,7 +15,7 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
-#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD) &&            \
+#if !defined(ARDUINO_SAMD_MKR1000) && !defined(ARDUINO_SAMD_MKR1010) && defined(ARDUINO_ARCH_SAMD) &&            \
     !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) && !defined(ADAFRUIT_PYPORTAL)
 
 #include "AdafruitIO.h"
@@ -130,7 +130,8 @@ protected:
       _status = AIO_SSID_INVALID;
     } else {
       _disconnect();
-      WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
+      // Comment out line below for MKR1010
+      //WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en); //
 
       // no shield? bail
       if (WiFi.status() == WL_NO_SHIELD) {
