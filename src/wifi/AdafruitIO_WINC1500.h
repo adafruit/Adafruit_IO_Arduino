@@ -6,7 +6,7 @@
  * products from Adafruit!
  *
  * Copyright (c) 2015-2016 Adafruit Industries
- * Authors: Tony DiCola, Todd Treece
+ * Authors: Tony DiCola, Todd Treece, Morgan Winters
  * Licensed under the MIT license.
  *
  * All text above must be included in any redistribution.
@@ -23,7 +23,8 @@
 #include "Adafruit_MQTT_Client.h"
 #include "Arduino.h"
 #include "SPI.h"
-#include "WiFi101.h"
+//#include "WiFi101.h" // USE THIS FOR WiFi101 boards such as the MKR1000
+#include "WiFiNINA.h  // USE THIS FOR WiFiNINA boards such as the MKR1010
 
 /**************************************************************************/
 /*!
