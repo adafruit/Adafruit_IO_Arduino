@@ -20,6 +20,13 @@
 
 /************************ Example Starts Here *******************************/
 
+
+// Relay is connected to PyPortal's D3 connector
+#define RELAY_POWER_PIN 3
+
+// Set up the 'relay feed'
+AdafruitIO_Feed *relay = io.feed("relay");
+
 void setup() {
 
   // start the serial connection
@@ -33,6 +40,12 @@ void setup() {
   // connect to io.adafruit.com
   io.connect();
 
+  // set up a message handler for the 'relay' feed.
+  // the handleMessage function (defined below)
+  // will be called whenever a message is
+  // received from adafruit io
+  relay->onMessage(handleMessage);
+
   // wait for a connection
   while(io.status() < AIO_CONNECTED) {
     Serial.print(".");
@@ -42,6 +55,9 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
+
+  // Get the last known value from the feed
+  relay->get();
 
 }
 
@@ -53,5 +69,27 @@ void loop() {
   // io.adafruit.com, and processes any incoming data.
   io.run();
 
+}
 
+// this function is called whenever an 'relay' feed message
+// is received from Adafruit IO. it was attached to
+// the 'relay' feed in the setup() function above.
+void handleMessage(AdafruitIO_Data *data) {
+
+  Serial.print("feed received new data <- ");
+  Serial.println(data->toChar());
+
+  // Check to see if the morning scheduled trigger has executed
+  if (strcmp(data->toChar(), "morning") == 0) {
+      Serial.println("Turning lights ON");
+      digitalWrite(RELAY_POWER_PIN, HIGH);
+  }
+  // Check to see if the evening scheduled trigger has executed
+  else if (strcmp(data->toChar(), "night") == 0) {
+      Serial.println("Turning lights OFF");
+      digitalWrite(RELAY_POWER_PIN, LOW);
+  }
+  else {
+      Serial.println("Unexpected data received from Adafruit IO");
+  }
 }
