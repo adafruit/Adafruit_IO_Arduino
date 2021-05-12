@@ -42,7 +42,7 @@ void AdafruitIO_ESP32::_connect() {
     delay(100);
     _status = AIO_NET_DISCONNECTED;
   }
-  _client.setCACert(_aio_root_ca);
+  _client->setCACert(_aio_root_ca);
 }
 
 /**************************************************************************/
