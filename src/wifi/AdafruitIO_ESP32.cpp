@@ -5,8 +5,8 @@
  * Please support Adafruit and open source hardware by purchasing
  * products from Adafruit!
  *
- * Copyright (c) 2015-2016 Adafruit Industries
- * Authors: Tony DiCola, Todd Treece
+ * Copyright (c) 2015-2021 Adafruit Industries
+ * Authors: Tony DiCola, Todd Treece, Brent Rubell
  * Licensed under the MIT license.
  *
  * All text above must be included in any redistribution.
@@ -42,6 +42,7 @@ void AdafruitIO_ESP32::_connect() {
     delay(100);
     _status = AIO_NET_DISCONNECTED;
   }
+  _client->setCACert(_aio_root_ca);
 }
 
 /**************************************************************************/
@@ -55,7 +56,6 @@ void AdafruitIO_ESP32::_disconnect() {
 }
 
 aio_status_t AdafruitIO_ESP32::networkStatus() {
-
   switch (WiFi.status()) {
   case WL_CONNECTED:
     return AIO_NET_CONNECTED;
