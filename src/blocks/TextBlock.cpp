@@ -9,7 +9,7 @@
  *
  * Written by Tony DiCola, Todd Treece for Adafruit Industries
  *
- * BSD license, all text here must be included in any redistribution.
+ * MIT license, all text here must be included in any redistribution.
  *
  */
 #include "TextBlock.h"
