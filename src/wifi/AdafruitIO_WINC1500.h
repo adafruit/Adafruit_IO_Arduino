@@ -15,17 +15,16 @@
 #ifndef ADAFRUITIO_WINC1500_H
 #define ADAFRUITIO_WINC1500_H
 
-#if !defined(ARDUINO_SAMD_MKR1000) && !defined(ARDUINO_SAMD_MKR1010) &&            \
-    defined(ARDUINO_ARCH_SAMD) && !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) &&            \
-    !defined(ADAFRUIT_PYPORTAL)
+#if !defined(ARDUINO_SAMD_MKR1000) && defined(ARDUINO_ARCH_SAMD) &&            \
+    !defined(ADAFRUIT_METRO_M4_AIRLIFT_LITE) && !defined(ADAFRUIT_PYPORTAL)
 
 #include "AdafruitIO.h"
 #include "Adafruit_MQTT.h"
 #include "Adafruit_MQTT_Client.h"
 #include "Arduino.h"
 #include "SPI.h"
-//#include "WiFi101.h" // USE THIS FOR WiFi101 boards such as the MKR1000
-#include "WiFiNINA.h  // USE THIS FOR WiFiNINA boards such as the MKR1010
+#include "WiFi101.h"
+
 
 /**************************************************************************/
 /*!
