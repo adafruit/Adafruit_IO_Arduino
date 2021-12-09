@@ -12,6 +12,8 @@
  * All text above must be included in any redistribution.
  */
 
+#ifndef ADAFRUITIO_MKR1010_H
+#define ADAFRUITIO_MKR1010_H
 
 #include "AdafruitIO.h"
 #include "Adafruit_MQTT.h"
@@ -78,4 +80,4 @@ protected:
   WiFiSSLClient *_client;
 };
 
-
+#endif ADAFRUITIO_MKR1010_H
