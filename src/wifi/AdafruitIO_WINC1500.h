@@ -129,7 +129,7 @@ protected:
       _status = AIO_SSID_INVALID;
     } else {
       _disconnect();
-      WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en);
+      WiFi.setPins(_winc_cs, _winc_irq, _winc_rst, _winc_en); //
 
       // no shield? bail
       if (WiFi.status() == WL_NO_SHIELD) {
