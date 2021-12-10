@@ -112,7 +112,7 @@ public:
 #define AIO_NET_DISCONNECT_WAIT                                                \
   300 ///< Time to wait for a net disconnect to take effect
 
-#define AIO_ERROR_TOPIC "/errors" ///< Adafruit IO Error MQTT Topic
+#define AIO_ERROR_TOPIC "/errors"      ///< Adafruit IO Error MQTT Topic
 #define AIO_THROTTLE_TOPIC "/throttle" ///< Adafruit IO Throttle MQTT Topic
 
 // latest fingerprint can be generated with
