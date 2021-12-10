@@ -26,15 +26,15 @@
 class AdafruitIO_MKR1010 : public AdafruitIO {
 
 public:
-  AdafruitIO_MKR1010(const char *user, const char *key,
-                                       const char *ssid, const char *pass)
-    : AdafruitIO(user, key) {
-  _ssid = ssid;
-  _pass = pass;
-  _client = new WiFiSSLClient;
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
-  _http = new HttpClient(*_client, _host, _http_port);
-}
+  AdafruitIO_MKR1010(const char *user, const char *key, const char *ssid,
+                     const char *pass)
+      : AdafruitIO(user, key) {
+    _ssid = ssid;
+    _pass = pass;
+    _client = new WiFiSSLClient;
+    _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+    _http = new HttpClient(*_client, _host, _http_port);
+  }
   ~AdafruitIO_MKR1010() {
     if (_client)
       delete _client;
@@ -54,7 +54,7 @@ public:
       return AIO_NET_DISCONNECTED;
     }
   }
-  
+
   const char *connectionType() { return "wifi"; }
 
 protected:
@@ -68,7 +68,7 @@ protected:
       _status = networkStatus();
     }
   }
-  
+
   void _disconnect() {
     WiFi.disconnect();
     delay(AIO_NET_DISCONNECT_WAIT);

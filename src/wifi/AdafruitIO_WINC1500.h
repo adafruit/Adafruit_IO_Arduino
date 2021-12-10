@@ -25,7 +25,6 @@
 #include "SPI.h"
 #include "WiFi101.h"
 
-
 /**************************************************************************/
 /*!
     @brief  Class for interacting with adafruit.io (AIO) using WINC1500
