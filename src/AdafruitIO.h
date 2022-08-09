@@ -24,7 +24,13 @@
 #include "AdafruitIO_Time.h"
 #include "Adafruit_MQTT.h"
 #include "Arduino.h"
+#if defined ARDUINO_ARCH_ESP32
+// use HTTP Client for ESP32
+#include "HTTPClient.h"
+#else
+// use generic HTTP client for Arduino
 #include "ArduinoHttpClient.h"
+#endif
 #include "util/AdafruitIO_Board.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
