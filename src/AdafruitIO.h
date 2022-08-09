@@ -148,7 +148,11 @@ protected:
                                       Adafruit IO, in milliseconds */
 
   Adafruit_MQTT *_mqtt; /*!< Reference to Adafruit_MQTT, _mqtt. */
-  HttpClient *_http;    /*!< Reference to HTTPClient, _http */
+ #if defined ARDUINO_ARCH_ESP32
+ HTTPClient *_http;    /*!< Reference to ESP32 HTTPClient, _http */
+ #else
+ HttpClient *_http;    /*!< Reference to HTTPClient, _http */
+ #endif
 
   char _version[10]; /*!< Adafruit IO Arduino library version */
 
