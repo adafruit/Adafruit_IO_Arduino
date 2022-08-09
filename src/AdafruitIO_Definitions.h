@@ -16,9 +16,9 @@
 #ifndef ADAFRUITIO_DEFINITIONS_H_
 #define ADAFRUITIO_DEFINITIONS_H_
 
-#define ADAFRUITIO_VERSION_MAJOR 3 ///< Adafruit IO Arduino Major Semvar
-#define ADAFRUITIO_VERSION_MINOR 5 ///< Adafruit IO Arduino Minor Semvar
-#define ADAFRUITIO_VERSION_PATCH 0 ///< Adafruit IO Arduino Patch Semvar
+#define ADAFRUITIO_VERSION_MAJOR 4 ///< Adafruit IO Arduino Major Semvar
+#define ADAFRUITIO_VERSION_MINOR 2 ///< Adafruit IO Arduino Minor Semvar
+#define ADAFRUITIO_VERSION_PATCH 1 ///< Adafruit IO Arduino Patch Semvar
 
 // forward declaration
 class AdafruitIO_Data;
