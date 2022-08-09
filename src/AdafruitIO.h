@@ -24,13 +24,7 @@
 #include "AdafruitIO_Time.h"
 #include "Adafruit_MQTT.h"
 #include "Arduino.h"
-#if defined ARDUINO_ARCH_ESP32
-// use HTTP Client for ESP32
-#include "HTTPClient.h"
-#else
-// use generic HTTP client for Arduino
 #include "ArduinoHttpClient.h"
-#endif
 #include "util/AdafruitIO_Board.h"
 
 #ifndef ADAFRUIT_MQTT_VERSION_MAJOR
@@ -148,11 +142,7 @@ protected:
                                       Adafruit IO, in milliseconds */
 
   Adafruit_MQTT *_mqtt; /*!< Reference to Adafruit_MQTT, _mqtt. */
- #if defined ARDUINO_ARCH_ESP32
- HTTPClient *_http;    /*!< Reference to ESP32 HTTPClient, _http */
- #else
- HttpClient *_http;    /*!< Reference to HTTPClient, _http */
- #endif
+  HttpClient *_http;    /*!< Reference to HTTPClient, _http */
 
   char _version[10]; /*!< Adafruit IO Arduino library version */
 
