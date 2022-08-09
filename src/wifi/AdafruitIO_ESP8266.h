@@ -22,7 +22,6 @@
 #include "Adafruit_MQTT_Client.h"
 #include "Arduino.h"
 #include "ESP8266WiFi.h"
-#include "WiFiClientSecure.h"
 
 class AdafruitIO_ESP8266 : public AdafruitIO {
 
@@ -40,7 +39,7 @@ protected:
 
   const char *_ssid;
   const char *_pass;
-  WiFiClientSecure *_client;
+  WiFiClient *_client;
 };
 
 #endif // ESP8266
