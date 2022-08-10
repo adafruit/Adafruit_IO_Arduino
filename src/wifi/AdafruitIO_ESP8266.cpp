@@ -21,9 +21,13 @@ AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *user, const char *key,
     : AdafruitIO(user, key) {
   _ssid = ssid;
   _pass = pass;
-  _client = new WiFiClientSecure;
-  _client->setFingerprint(AIO_SSL_FINGERPRINT);
-  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  // Uncomment the following lines and remove the existing WiFiClient and MQTT
+  // client constructors to use Secure MQTT with ESP8266.
+  // _client = new WiFiClientSecure;
+  // _client->setFingerprint(AIO_SSL_FINGERPRINT);
+  // _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  _client = new WiFiClient;
+  _mqtt = new Adafruit_MQTT_Client(_client, _host, 1883);
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
