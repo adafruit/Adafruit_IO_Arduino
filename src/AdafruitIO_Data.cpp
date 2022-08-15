@@ -873,7 +873,7 @@ char **parse_csv(const char *line) {
       continue;
     case '\0':
       fEnd = 1;
-      continue;
+      break;
     case ',':
       *tptr = '\0';
       *bptr = strdup(tmp);
