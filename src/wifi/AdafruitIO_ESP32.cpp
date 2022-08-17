@@ -25,6 +25,17 @@ AdafruitIO_ESP32::AdafruitIO_ESP32(const char *user, const char *key,
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
+AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *user, const char *key)
+    : AdafruitIO(user, key) {
+
+  _ssid = NULL;
+  _pass = NULL;
+  _client = new WiFiClientSecure;
+  _mqtt = new Adafruit_MQTT_Client(_client, _host, _mqtt_port);
+  _http = new HttpClient(*_client, _host, _http_port);
+}
+
+
 AdafruitIO_ESP32::~AdafruitIO_ESP32() {
   if (_client)
     delete _client;
@@ -33,6 +44,7 @@ AdafruitIO_ESP32::~AdafruitIO_ESP32() {
 }
 
 void AdafruitIO_ESP32::_connect() {
+if (_ssid != NULL) {
   if (strlen(_ssid) == 0) {
     _status = AIO_SSID_INVALID;
   } else {
@@ -43,6 +55,7 @@ void AdafruitIO_ESP32::_connect() {
     _status = AIO_NET_DISCONNECTED;
   }
   _client->setCACert(_aio_root_ca);
+ }
 }
 
 /**************************************************************************/
