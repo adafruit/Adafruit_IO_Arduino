@@ -39,6 +39,8 @@ class AdafruitIO_ESP8266 : public AdafruitIO {
 public:
   AdafruitIO_ESP8266(const char *user, const char *key, const char *ssid,
                      const char *pass);
+  AdafruitIO_ESP8266(const char *user, const char *key);
+
   ~AdafruitIO_ESP8266();
 
   aio_status_t networkStatus();
