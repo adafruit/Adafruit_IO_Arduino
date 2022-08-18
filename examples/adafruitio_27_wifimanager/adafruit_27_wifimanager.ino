@@ -35,19 +35,16 @@ void handleMessage(AdafruitIO_Data *data)
 void setup()
 
 {
-  WiFi.mode(WIFI_STA);
-  Serial.begin(57600); // Initialize serial port for debugging.
+  Serial.begin(115200); // Initialize serial port for debugging.
   delay(500);
 
   // wifiManager.resetSettings();  //uncomment to reset the WiFi settings
 
-  wifiManager.setClass("invert");
-
-  wifiManager.setTimeout(120);
+  wifiManager.setClass("invert");          // enable "dark mode" for the config portal
   wifiManager.setConfigPortalTimeout(120); // auto close configportal after n seconds
   wifiManager.setAPClientCheck(true);      // avoid timeout if client connected to softap
 
-  if (!wifiManager.autoConnect("WiFi Setup"))
+  if (!wifiManager.autoConnect("WiFi Setup"))   // connect to wifi with existing setting or start config portal
   {
     Serial.println("failed to connect and hit timeout");
   }
