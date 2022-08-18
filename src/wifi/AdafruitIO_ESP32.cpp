@@ -25,7 +25,7 @@ AdafruitIO_ESP32::AdafruitIO_ESP32(const char *user, const char *key,
   _http = new HttpClient(*_client, _host, _http_port);
 }
 
-AdafruitIO_ESP8266::AdafruitIO_ESP8266(const char *user, const char *key)
+AdafruitIO_ESP32::AdafruitIO_ESP32(const char *user, const char *key)
     : AdafruitIO(user, key) {
 
   _ssid = NULL;
