@@ -54,8 +54,9 @@ if (_ssid != NULL) {
     delay(100);
     _status = AIO_NET_DISCONNECTED;
   }
-  _client->setCACert(_aio_root_ca);
  }
+  _client->setCACert(_aio_root_ca);
+ 
 }
 
 /**************************************************************************/
