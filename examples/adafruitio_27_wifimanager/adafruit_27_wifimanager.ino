@@ -17,9 +17,9 @@
 #include <WiFiManager.h>
 #include "AdafruitIO_WiFi.h"
 
-char IO_USERNAME[64] = "your username";
-char IO_KEY[64] = "your key";
-AdafruitIO_WiFi io(IO_USERNAME, IO_KEY);
+char IO_USERNAME[64] = "my username";
+char IO_KEY[64] = "my key";
+AdafruitIO_WiFi io(IO_USERNAME, IO_KEY, "", "");
 AdafruitIO_Feed *myfeed = io.feed("myfeed");
 
 WiFiManager wifiManager;
@@ -44,7 +44,7 @@ void setup()
   wifiManager.setConfigPortalTimeout(120); // auto close configportal after n seconds
   wifiManager.setAPClientCheck(true);      // avoid timeout if client connected to softap
 
-  if (!wifiManager.autoConnect("WiFi Setup"))   // connect to wifi with existing setting or start config portal
+  if (!wifiManager.autoConnect("WiFi Setup"))   // connect to wifi with existing setting or start config
   {
     Serial.println("failed to connect and hit timeout");
   }
