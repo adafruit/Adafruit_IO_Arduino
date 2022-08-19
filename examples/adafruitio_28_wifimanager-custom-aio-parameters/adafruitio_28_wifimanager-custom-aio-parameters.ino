@@ -5,12 +5,17 @@
  * to the network instead of defining the WiFI SSID and password
  * explicitly in the code.
  *
- * In addition, the examples allows you to enter your Adafruit IO username and key
+ * In addition, this example allows you to enter your Adafruit IO username and key
  * as customer parameters in WiFiManager so that they do not need to be coded into
  * the sketch.
+ * 
+ * This is useful if you want to create projects and share them with others that
+ * may use them on a different WiFi network and use a different Adafruit IO account
+ * for IOT integrations such as collecting sensor data or voice command integration via
+ * IFFT.
  *
  * To use this example, setup a feed called "myfeed".  When the ESP8266 or ESP32
- * microcontroller starts, join the "WiFi Setup" SSID and you should be presetned
+ * microcontroller starts, join the "WiFi Setup" SSID and you should be presented
  * with the config portal.  If the config portal does not automatically start you
  * can browse to http://192.168.4.1 to access it
  *
@@ -40,6 +45,8 @@ char IO_KEY[64] = "";
 
 static uint8_t objStorage[sizeof(AdafruitIO_WiFi)]; // RAM for the object
 AdafruitIO_WiFi *io;                                // a pointer to the object, once it's constructed
+
+// create WiFiManager object and define our custom parameters
 
 WiFiManager wifiManager;
 WiFiManagerParameter custom_IO_USERNAME("iouser", "Adafruit IO Username", IO_USERNAME, 60);
@@ -131,10 +138,9 @@ void setup()
   Serial.begin(115200); // Initialize serial port for debugging.
   delay(500);
 
-  readParamsFromFS();              // get parameters fro file system
+  readParamsFromFS(); // get parameters fro file system
 
   // wifiManager.resetSettings();  //uncomment to reset the WiFi settings
-  // LittleFS.format();            // uncomment to format file system
 
   wifiManager.setClass("invert");          // enable "dark mode" for the config portal
   wifiManager.setConfigPortalTimeout(120); // auto close configportal after n seconds
@@ -143,8 +149,8 @@ void setup()
   wifiManager.addParameter(&custom_IO_USERNAME); // set custom paraeter for IO username
   wifiManager.addParameter(&custom_IO_KEY);      // set custom parameter for IO key
 
-  custom_IO_KEY.setValue(IO_KEY, 64);            // set custom parameter value
-  custom_IO_USERNAME.setValue(IO_USERNAME, 64);  // set custom parameter value
+  custom_IO_KEY.setValue(IO_KEY, 64);           // set custom parameter value
+  custom_IO_USERNAME.setValue(IO_USERNAME, 64); // set custom parameter value
 
   wifiManager.setSaveConfigCallback(saveConfigCallback); // set config save notify callback
 
