@@ -34,14 +34,8 @@
 #include <ArduinoJson.h>
 #include <LittleFS.h>
 
-#ifdef ESP32
-//#define LittleFS LITTLEFS
-#endif
-
 char IO_USERNAME[64] = "";
 char IO_KEY[64] = "";
-
-// AdafruitIO_Feed *myfeed = io.feed("myfeed");
 
 static uint8_t objStorage[sizeof(AdafruitIO_WiFi)]; // RAM for the object
 AdafruitIO_WiFi *io;                                // a pointer to the object, once it's constructed
@@ -137,10 +131,12 @@ void setup()
 {
   Serial.begin(115200); // Initialize serial port for debugging.
   delay(500);
+  WiFi.begin();
+  WiFi.setTxPower(WIFI_POWER_8_5dBm);
 
-  readParamsFromFS(); // get parameters fro file system
+  readParamsFromFS(); // get parameters from file system
 
-  // wifiManager.resetSettings();  //uncomment to reset the WiFi settings
+  //wifiManager.resetSettings();  //uncomment to reset the WiFi settings
 
   wifiManager.setClass("invert");          // enable "dark mode" for the config portal
   wifiManager.setConfigPortalTimeout(120); // auto close configportal after n seconds
