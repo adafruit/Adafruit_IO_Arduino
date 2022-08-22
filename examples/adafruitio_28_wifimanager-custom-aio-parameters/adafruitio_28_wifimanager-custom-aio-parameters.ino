@@ -132,7 +132,6 @@ void setup()
   Serial.begin(115200); // Initialize serial port for debugging.
   delay(500);
   WiFi.begin();
-  WiFi.setTxPower(WIFI_POWER_8_5dBm);
 
   readParamsFromFS(); // get parameters from file system
 
