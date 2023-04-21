@@ -93,7 +93,7 @@ public:
   const char *statusText();
 #else
   const __FlashStringHelper *statusText();
-#endif;
+#endif
 
   aio_status_t status();
   /********************************************************************/
