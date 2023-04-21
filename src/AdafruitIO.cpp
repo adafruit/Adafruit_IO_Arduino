@@ -243,6 +243,71 @@ AdafruitIO_Dashboard *AdafruitIO::dashboard(const char *name) {
   return new AdafruitIO_Dashboard(this, name);
 }
 
+// due to breaking change within Arduino ESP32 BSP v2.0.8
+// see: https://github.com/espressif/arduino-esp32/pull/7941
+#ifdef ARDUINO_ARCH_ESP32
+/**************************************************************************/
+/*!
+    @brief    Provide status explanation strings.
+    @return   A pointer to the status string literal, _status. _status is
+              the AIO status value
+*/
+/**************************************************************************/
+const char *AdafruitIO::statusText() {
+  const char *statusMsg;
+  switch (_status) {
+
+  // CONNECTING
+  case AIO_IDLE:
+    statusMsg = "Idle. Waiting for connect to be called...";
+    break;
+  case AIO_NET_DISCONNECTED:
+    statusMsg = "Network disconnected.";
+    break;
+  case AIO_DISCONNECTED:
+    statusMsg = "Disconnected from Adafruit IO.";
+    break;
+
+  // FAILURE
+  case AIO_NET_CONNECT_FAILED:
+    statusMsg = "Network connection failed.";
+    break;
+  case AIO_CONNECT_FAILED:
+    statusMsg = "Adafruit IO connection failed.";
+    break;
+  case AIO_FINGERPRINT_INVALID:
+    statusMsg = "Adafruit IO SSL fingerprint verification failed.";
+    break;
+  case AIO_AUTH_FAILED:
+    statusMsg = "Adafruit IO authentication failed.";
+    break;
+
+  // SUCCESS
+  case AIO_NET_CONNECTED:
+    statusMsg = "Network connected.";
+    break;
+  case AIO_CONNECTED:
+    statusMsg = "Adafruit IO connected.";
+    break;
+  case AIO_CONNECTED_INSECURE:
+    statusMsg =
+        "Adafruit IO connected. **THIS CONNECTION IS INSECURE** SSL/TLS "
+        "not supported for this platform.";
+    break;
+  case AIO_FINGERPRINT_UNSUPPORTED:
+    statusMsg = "Adafruit IO connected over SSL/TLS. Fingerprint verification "
+                "unsupported.";
+    break;
+  case AIO_FINGERPRINT_VALID:
+    statusMsg = "Adafruit IO connected over SSL/TLS. Fingerprint valid.";
+    break;
+  default:
+    statusMsg = "Unknown status code";
+    break;
+  }
+  return statusMsg;
+}
+#else
 /**************************************************************************/
 /*!
     @brief    Provide status explanation strings.
@@ -289,6 +354,7 @@ const __FlashStringHelper *AdafruitIO::statusText() {
     return F("Unknown status code");
   }
 }
+#endif
 
 /**************************************************************************/
 /*!
