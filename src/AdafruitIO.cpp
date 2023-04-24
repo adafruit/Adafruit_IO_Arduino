@@ -243,6 +243,18 @@ AdafruitIO_Dashboard *AdafruitIO::dashboard(const char *name) {
   return new AdafruitIO_Dashboard(this, name);
 }
 
+// due to breaking change within Arduino ESP32 BSP v2.0.8
+// see: https://github.com/espressif/arduino-esp32/pull/7941
+#ifdef ARDUINO_ARCH_ESP32
+/**************************************************************************/
+/*!
+    @brief    Provide status explanation strings.
+    @return   A pointer to the status string literal, _status. _status is
+              the AIO status value
+*/
+/**************************************************************************/
+const char *AdafruitIO::statusText() {
+#else
 /**************************************************************************/
 /*!
     @brief    Provide status explanation strings.
@@ -251,6 +263,7 @@ AdafruitIO_Dashboard *AdafruitIO::dashboard(const char *name) {
 */
 /**************************************************************************/
 const __FlashStringHelper *AdafruitIO::statusText() {
+#endif
   switch (_status) {
 
   // CONNECTING

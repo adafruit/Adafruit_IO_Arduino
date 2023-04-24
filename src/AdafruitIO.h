@@ -87,7 +87,13 @@ public:
   AdafruitIO_Dashboard *dashboard(const char *name);
   AdafruitIO_Time *time(aio_time_format_t format);
 
+// due to breaking change within Arduino ESP32 BSP v2.0.8
+// see: https://github.com/espressif/arduino-esp32/pull/7941
+#ifdef ARDUINO_ARCH_ESP32
+  const char *statusText();
+#else
   const __FlashStringHelper *statusText();
+#endif
 
   aio_status_t status();
   /********************************************************************/
