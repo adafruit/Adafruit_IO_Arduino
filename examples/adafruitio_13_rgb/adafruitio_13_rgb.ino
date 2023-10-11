@@ -39,14 +39,9 @@ void setup() {
 
   
   #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
-    // assign rgb pins to channels
-    ledcAttachPin(RED_PIN, 1);
-    ledcAttachPin(GREEN_PIN, 2);
-    ledcAttachPin(BLUE_PIN, 3);
-    // init. channels
-    ledcSetup(1, 12000, 8);
-    ledcSetup(2, 12000, 8);
-    ledcSetup(3, 12000, 8);
+    ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+    ledcAttach(GREEN_PIN, 12000, 8);
+    ledcAttach(BLUE_PIN, 12000, 8);
   #else
     pinMode(RED_PIN, OUTPUT);
     pinMode(GREEN_PIN, OUTPUT);
@@ -108,14 +103,7 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.println(data->value());
 
   // invert RGB values for common anode LEDs
-  #if defined(ARDUINO_ARCH_ESP32) // ESP32 analogWrite
-    ledcWrite(1, 255 - data->toRed());
-    ledcWrite(2, 255 - data->toGreen());
-    ledcWrite(3, 255 - data->toBlue());
-  #else
-    analogWrite(RED_PIN, 255 - data->toRed());
-    analogWrite(GREEN_PIN, 255 - data->toGreen());
-    analogWrite(BLUE_PIN, 255 - data->toBlue());
-  #endif
-  
+  analogWrite(RED_PIN, 255 - data->toRed());
+  analogWrite(GREEN_PIN, 255 - data->toGreen());
+  analogWrite(BLUE_PIN, 255 - data->toBlue());
 }

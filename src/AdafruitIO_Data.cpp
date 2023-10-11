@@ -419,12 +419,7 @@ void AdafruitIO_Data::setValue(double value, double lat, double lon, double ele,
     @return   Feed's name if feed exists.
 */
 /**************************************************************************/
-char *AdafruitIO_Data::feedName() {
-  if (!_feed)
-    return (char *)"";
-
-  return _feed;
-}
+char *AdafruitIO_Data::feedName() { return _feed; }
 
 /**************************************************************************/
 /*!
@@ -448,12 +443,7 @@ char *AdafruitIO_Data::toChar() { return _value; }
     @return   String of value.
 */
 /**************************************************************************/
-String AdafruitIO_Data::toString() {
-  if (!_value)
-    return String();
-
-  return String(_value);
-}
+String AdafruitIO_Data::toString() { return String(_value); }
 
 /**************************************************************************/
 /*!
@@ -462,13 +452,9 @@ String AdafruitIO_Data::toString() {
 */
 /**************************************************************************/
 bool AdafruitIO_Data::toBool() {
-  if (!_value)
-    return false;
-
   if (strcmp(_value, "1") == 0 || _value[0] == 't' || _value[0] == 'T')
     return true;
-  else
-    return false;
+  return false;
 }
 
 /**************************************************************************/
@@ -494,9 +480,6 @@ bool AdafruitIO_Data::isFalse() { return !toBool(); }
 */
 /**************************************************************************/
 int AdafruitIO_Data::toInt() {
-  if (!_value)
-    return 0;
-
   char *endptr;
   return (int)strtol(_value, &endptr, 10);
 }
@@ -522,9 +505,6 @@ int AdafruitIO_Data::toPinLevel() {
 */
 /**************************************************************************/
 unsigned int AdafruitIO_Data::toUnsignedInt() {
-  if (!_value)
-    return 0;
-
   char *endptr;
 #ifdef ESP8266
   // For some reason strtoul is not defined on the ESP8266 platform right now.
@@ -542,9 +522,6 @@ unsigned int AdafruitIO_Data::toUnsignedInt() {
 */
 /**************************************************************************/
 float AdafruitIO_Data::toFloat() {
-  if (!_value)
-    return 0;
-
   char *endptr;
   return (float)strtod(_value, &endptr);
 }
@@ -556,9 +533,6 @@ float AdafruitIO_Data::toFloat() {
 */
 /**************************************************************************/
 double AdafruitIO_Data::toDouble() {
-  if (!_value)
-    return 0;
-
   char *endptr;
   return strtod(_value, &endptr);
 }
@@ -570,9 +544,6 @@ double AdafruitIO_Data::toDouble() {
 */
 /**************************************************************************/
 long AdafruitIO_Data::toLong() {
-  if (!_value)
-    return 0;
-
   char *endptr;
   return strtol(_value, &endptr, 10);
 }
@@ -584,9 +555,6 @@ long AdafruitIO_Data::toLong() {
 */
 /**************************************************************************/
 unsigned long AdafruitIO_Data::toUnsignedLong() {
-  if (!_value)
-    return 0;
-
   char *endptr;
 #ifdef ESP8266
   // For some reason strtoul is not defined on the ESP8266 platform right now.
@@ -605,9 +573,6 @@ unsigned long AdafruitIO_Data::toUnsignedLong() {
 /**************************************************************************/
 int AdafruitIO_Data::toRed() {
   // Convert 0xRRGGBB to red.
-  if (!_value) {
-    return 0;
-  }
   char r[5];
   strcpy(r, "0x");
   strncpy(&r[2], toChar() + 1, 2);
@@ -623,9 +588,6 @@ int AdafruitIO_Data::toRed() {
 /**************************************************************************/
 int AdafruitIO_Data::toGreen() {
   // Convert 0xRRGGBB to green.
-  if (!_value) {
-    return 0;
-  }
   char g[5];
   strcpy(g, "0x");
   strncpy(&g[2], toChar() + 3, 2);
@@ -641,9 +603,6 @@ int AdafruitIO_Data::toGreen() {
 /**************************************************************************/
 int AdafruitIO_Data::toBlue() {
   // Convert 0xRRGGBB to blue.
-  if (!_value) {
-    return 0;
-  }
   char b[5];
   strcpy(b, "0x");
   strncpy(&b[2], toChar() + 5, 2);
@@ -659,9 +618,6 @@ int AdafruitIO_Data::toBlue() {
 */
 /**************************************************************************/
 long AdafruitIO_Data::toNeoPixel() {
-  if (!_value) {
-    return 0;
-  }
   char rgb[9];
   strcpy(rgb, "0x");
   strncpy(&rgb[2], toChar() + 1, 6);
@@ -676,11 +632,7 @@ long AdafruitIO_Data::toNeoPixel() {
 */
 /**************************************************************************/
 char *AdafruitIO_Data::toCSV() {
-  if (!_value)
-    return _csv;
-
   memset(_csv, 0, AIO_CSV_LENGTH);
-
   strcpy(_csv, "\"");
   strcat(_csv, _value);
   strcat(_csv, "\",");
@@ -689,7 +641,6 @@ char *AdafruitIO_Data::toCSV() {
   strcat(_csv, charFromDouble(_lon));
   strcat(_csv, ",");
   strcat(_csv, charFromDouble(_ele, 2));
-
   return _csv;
 }
 

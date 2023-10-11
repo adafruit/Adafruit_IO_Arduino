@@ -30,9 +30,7 @@ void setup() {
 
   // set up led pin as an analog output
   #if defined(ARDUINO_ARCH_ESP32)
-    // ESP32 pinMode()
-    ledcAttachPin(LED_PIN, 1);
-    ledcSetup(1, 1200, 8);
+    ledcAttach(LED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
   #else
     pinMode(LED_PIN, OUTPUT);
   #endif
@@ -87,12 +85,6 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.print("received <- ");
   Serial.println(reading);
 
-  
   // write the current 'reading' to the led
-  #if defined(ARDUINO_ARCH_ESP32)
-    ledcWrite(1, reading); // ESP32 analogWrite()
-  #else
-    analogWrite(LED_PIN, reading);
-  #endif
-
+  analogWrite(LED_PIN, reading);
 }
