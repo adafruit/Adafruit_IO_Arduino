@@ -39,10 +39,9 @@ void setup() {
 
   
   #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
-    // assign rgb pins to channels
-    ledcAttachPin(RED_PIN,analogGetChannel(RED_PIN));
-    ledcAttachPin(GREEN_PIN,analogGetChannel(GREEN_PIN));
-    ledcAttachPin(BLUE_PIN,analogGetChannel(BLUE_PIN));
+    ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+    ledcAttach(GREEN_PIN, 12000, 8);
+    ledcAttach(BLUE_PIN, 12000, 8);
   #else
     pinMode(RED_PIN, OUTPUT);
     pinMode(GREEN_PIN, OUTPUT);
