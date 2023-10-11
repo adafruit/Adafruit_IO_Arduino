@@ -39,9 +39,20 @@ void setup() {
 
   
   #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
-    ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
-    ledcAttach(GREEN_PIN, 12000, 8);
-    ledcAttach(BLUE_PIN, 12000, 8);
+    #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
+      // New ESP32 LEDC API
+      ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+      ledcAttach(GREEN_PIN, 12000, 8);
+      ledcAttach(BLUE_PIN, 12000, 8);
+    #else
+     // Legacy ESP32 LEDC API
+      ledcAttachPin(RED_PIN, 1);
+      ledcAttachPin(GREEN_PIN, 2);
+      ledcAttachPin(BLUE_PIN, 3);
+      ledcSetup(1, 12000, 8);
+      ledcSetup(2, 12000, 8);
+      ledcSetup(3, 12000, 8);
+    #endif
   #else
     pinMode(RED_PIN, OUTPUT);
     pinMode(GREEN_PIN, OUTPUT);
