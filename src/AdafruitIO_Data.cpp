@@ -505,9 +505,6 @@ int AdafruitIO_Data::toPinLevel() {
 */
 /**************************************************************************/
 unsigned int AdafruitIO_Data::toUnsignedInt() {
-  if (!_value)
-    return 0;
-
   char *endptr;
 #ifdef ESP8266
   // For some reason strtoul is not defined on the ESP8266 platform right now.
