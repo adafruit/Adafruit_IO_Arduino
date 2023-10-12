@@ -30,7 +30,14 @@ void setup() {
 
   // set up led pin as an analog output
   #if defined(ARDUINO_ARCH_ESP32)
-    ledcAttach(LED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+    #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
+      // New ESP32 LEDC API
+      ledcAttach(LED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+    #else
+      // Legacy ESP32 LEDC API
+      ledcAttachPin(LED_PIN, 1);
+      ledcSetup(1, 1200, 8);
+    #endif
   #else
     pinMode(LED_PIN, OUTPUT);
   #endif
