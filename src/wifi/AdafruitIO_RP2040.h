@@ -137,29 +137,19 @@ protected:
   */
   /**************************************************************************/
   void _connect() {
-
-    if (WiFi.status() == WL_CONNECTED)
-      return;
-
     if (strlen(_ssid) == 0) {
+      Serial.println("Invalid SSID!");
       _status = AIO_SSID_INVALID;
     } else {
       _disconnect();
-      delay(5000);
+      delay(10000);
       WiFi.mode(WIFI_STA);
       WiFi.setTimeout(20000);
       WiFi.begin(_ssid, _pass);
-      // Wait setTimeout duration for a connection and check if connected every
-      // 5 seconds
-      for (int i = 0; i < 4; i++) {
-        delay(5000);
-        if (WiFi.status() == WL_CONNECTED) {
-          _status = AIO_NET_CONNECTED;
-          return;
-        }
-      }
+      Serial.println("\nConnecting");
       _status = AIO_NET_DISCONNECTED;
     }
+    _mqtt_client->setCACert(_aio_root_ca_prod);
   }
 
   /**************************************************************************/
