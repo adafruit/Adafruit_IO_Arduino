@@ -6,7 +6,7 @@
 
 ![AIOArduino](https://cdn-learn.adafruit.com/assets/assets/000/057/496/original/adafruit_io_AIOA.png?1531335660)
 
-This library provides a simple device independent interface for interacting with [Adafruit IO](https://io.adafruit.com) using Arduino. It allows you to switch between WiFi (ESP8266, ESP32, ESP32-S2, ESP32-S3, ESP32-C3, Airlift, WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing).
+This library provides a simple device independent interface for interacting with [Adafruit IO](https://io.adafruit.com) using Arduino. It allows you to switch between WiFi (ESP8266, ESP32, ESP32-S2, ESP32-S3, ESP32-C3, RP2040, Airlift, WINC1500, & WICED), Cellular (32u4 FONA), and Ethernet (Ethernet FeatherWing).
 
 ## Documentation
 

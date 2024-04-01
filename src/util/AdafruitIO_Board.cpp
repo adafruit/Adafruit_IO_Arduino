@@ -29,6 +29,8 @@ const char AdafruitIO_Board::_type[] = "feather_wiced";
 const char AdafruitIO_Board::_type[] = "esp32";
 #elif defined(ESP8266)
 const char AdafruitIO_Board::_type[] = "esp8266";
+#elif defined(ARDUINO_ARCH_RP2040)
+const char AdafruitIO_Board::_type[] = "rp2040";
 #else
 const char AdafruitIO_Board::_type[] = "unknown";
 #endif

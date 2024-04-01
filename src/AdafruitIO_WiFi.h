@@ -51,6 +51,11 @@ typedef AdafruitIO_ESP8266 AdafruitIO_WiFi;
 #include "wifi/AdafruitIO_WICED.h"
 typedef AdafruitIO_WICED AdafruitIO_WiFi;
 
+#elif defined(ARDUINO_ARCH_RP2040)
+
+#include "wifi/AdafruitIO_RP2040.h"
+typedef AdafruitIO_RP2040 AdafruitIO_WiFi;
+
 #else
 
 #warning "Must define USE_AIRLIFT or USE_WINC1500 before including this file."
