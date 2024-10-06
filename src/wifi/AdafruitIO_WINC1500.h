@@ -137,10 +137,12 @@ protected:
         return;
       }
 
-      if (_pass && strlen(_pass) > 0)
+      if (_pass && strlen(_pass) > 0) {
         WiFi.begin(_ssid, _pass);
-      else
+      }
+      else {
         WiFi.begin(_ssid);
+      }
       _status = AIO_NET_DISCONNECTED;
     }
   }
