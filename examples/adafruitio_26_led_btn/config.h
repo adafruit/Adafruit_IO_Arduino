@@ -22,7 +22,7 @@
 #define WIFI_PASS "your_pass"
 
 // uncomment the following line if you are using airlift
-//#define USE_AIRLIFT
+// #define USE_AIRLIFT
 
 // uncomment the following line if you are using winc1500
 // #define USE_WINC1500
