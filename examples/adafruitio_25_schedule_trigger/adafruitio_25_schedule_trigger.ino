@@ -80,12 +80,12 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.println(data->toChar());
 
   // Check to see if the morning scheduled trigger has executed
-  if (strcmp(data->toChar(), "morning") == 0) {
+  if (strcmp(data->toChar(), "1") == 0) {
       Serial.println("Turning lights ON");
       digitalWrite(RELAY_POWER_PIN, HIGH);
   }
   // Check to see if the evening scheduled trigger has executed
-  else if (strcmp(data->toChar(), "night") == 0) {
+  else if (strcmp(data->toChar(), "0") == 0) {
       Serial.println("Turning lights OFF");
       digitalWrite(RELAY_POWER_PIN, LOW);
   }

@@ -30,7 +30,7 @@
 // #define USE_WINC1500
 
 // uncomment the following line if you are using mrk1010 or nano 33 iot
-//#define ARDUINO_SAMD_MKR1010
+// #define ARDUINO_SAMD_MKR1010
 
 // comment out the following lines if you are using fona or ethernet
 #include "AdafruitIO_WiFi.h"
