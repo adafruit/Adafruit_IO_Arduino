@@ -79,27 +79,39 @@ public:
 // Define actual debug output functions when necessary.
 #ifdef AIO_DEBUG
 #define AIO_DEBUG_PRINT(...)                                                   \
-  { AIO_PRINTER.print(__VA_ARGS__); } ///< Prints debug output.
+  {                                                                            \
+    AIO_PRINTER.print(__VA_ARGS__);                                            \
+  } ///< Prints debug output.
 #define AIO_DEBUG_PRINTLN(...)                                                 \
-  { AIO_PRINTER.println(__VA_ARGS__); } ///< Prints line from debug output.
+  {                                                                            \
+    AIO_PRINTER.println(__VA_ARGS__);                                          \
+  } ///< Prints line from debug output.
 #else
 #define AIO_DEBUG_PRINT(...)                                                   \
-  {} ///< Prints debug output
+  {                                                                            \
+  } ///< Prints debug output
 #define AIO_DEBUG_PRINTLN(...)                                                 \
-  {} ///< Prints line from debug output.
+  {                                                                            \
+  } ///< Prints line from debug output.
 #endif
 
 // Define actual error output functions when necessary.
 #ifdef AIO_ERROR
 #define AIO_ERROR_PRINT(...)                                                   \
-  { AIO_PRINTER.print(__VA_ARGS__); } ///< Prints error output
+  {                                                                            \
+    AIO_PRINTER.print(__VA_ARGS__);                                            \
+  } ///< Prints error output
 #define AIO_ERROR_PRINTLN(...)                                                 \
-  { AIO_PRINTER.println(__VA_ARGS__); } ///< Prints line from error output
+  {                                                                            \
+    AIO_PRINTER.println(__VA_ARGS__);                                          \
+  } ///< Prints line from error output
 #else
 #define AIO_ERROR_PRINT(...)                                                   \
-  {} ///< Prints error output.
+  {                                                                            \
+  } ///< Prints error output.
 #define AIO_ERROR_PRINTLN(...)                                                 \
-  {} ///< Prints line from error output.
+  {                                                                            \
+  } ///< Prints line from error output.
 #endif
 
 #define AIO_PING_INTERVAL 60000 ///< Adafruit IO Ping Interval, in milliseconds
@@ -119,7 +131,7 @@ public:
 // echo | openssl s_client -connect io.adafruit.com:443 | openssl x509
 // -fingerprint -noout
 #define AIO_SSL_FINGERPRINT                                                    \
-  "4E C1 52 73 24 A8 36 D6 7A 4C 67 C7 91 0C 0A 22 B9 2D 5B CA" ///< Latest
+  "47 D2 CB 14 DF 38 97 59 C6 65 1A 1F 3E 00 1E 53 CC A5 17 E0" ///< Latest
                                                                 ///< Adafruit IO
                                                                 ///< SSL
                                                                 ///< Fingerprint
