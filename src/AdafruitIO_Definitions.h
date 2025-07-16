@@ -119,7 +119,7 @@ public:
 // echo | openssl s_client -connect io.adafruit.com:443 | openssl x509
 // -fingerprint -noout
 #define AIO_SSL_FINGERPRINT                                                    \
-  "4E C1 52 73 24 A8 36 D6 7A 4C 67 C7 91 0C 0A 22 B9 2D 5B CA" ///< Latest
+  "47 D2 CB 14 DF 38 97 59 C6 65 1A 1F 3E 00 1E 53 CC A5 17 E0" ///< Latest
                                                                 ///< Adafruit IO
                                                                 ///< SSL
                                                                 ///< Fingerprint
