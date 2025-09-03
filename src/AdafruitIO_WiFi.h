@@ -56,6 +56,11 @@ typedef AdafruitIO_WICED AdafruitIO_WiFi;
 #include "wifi/AdafruitIO_RP2040.h"
 typedef AdafruitIO_RP2040 AdafruitIO_WiFi;
 
+#elif defined(ARDUINO_UNOWIFIR4) || defined(ARDUINO_MINIMA)
+
+#include "wifi/AdafruitIO_Arduino_RenesasUno.h"
+typedef AdafruitIO_Arduino_RenesasUno AdafruitIO_WiFi;
+
 #else
 
 #warning "Must define USE_AIRLIFT or USE_WINC1500 before including this file."
