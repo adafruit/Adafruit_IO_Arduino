@@ -115,12 +115,12 @@ public:
 #define AIO_ERROR_TOPIC "/errors"      ///< Adafruit IO Error MQTT Topic
 #define AIO_THROTTLE_TOPIC "/throttle" ///< Adafruit IO Throttle MQTT Topic
 
-// io.adafruit.com TLS/SSL certificate changes every 6months, and pinning
-// certificates is no longer recommended. Migrate to a larger MCU like esp32
-// which can accomodate root certificates and verify chains of trust. For
-// older devices like esp8266 you can generate the latest fingerprint with:
-// echo | openssl s_client -connect io.adafruit.com:443 | openssl x509
-// -fingerprint -noout
+/* NB: io.adafruit.com TLS/SSL certificate changes every 6months, and pinning
+certificates is no longer recommended. Migrate to a larger MCU like ESP32
+which can accomodate root certificates and verify chains of trust.  */
+/* For older devices like ESP8266 you can generate the latest fingerprint with:
+echo | openssl s_client -connect io.adafruit.com:443 | openssl x509 -fingerprint -noout
+*/
 #define AIO_SSL_FINGERPRINT                                                    \
   "47 D2 CB 14 DF 38 97 59 C6 65 1A 1F 3E 00 1E 53 CC A5 17 E0" ///< Latest
                                                                 ///< Adafruit IO
