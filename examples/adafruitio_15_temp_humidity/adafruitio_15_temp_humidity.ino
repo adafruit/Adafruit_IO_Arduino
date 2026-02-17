@@ -1,5 +1,6 @@
 // Adafruit IO Temperature & Humidity Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-temperature-and-humidity
+// Tutorial Link:
+// https://learn.adafruit.com/adafruit-io-basics-temperature-and-humidity
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -39,7 +40,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // initialize dht22
   dht.begin();
@@ -49,7 +51,7 @@ void setup() {
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -57,7 +59,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -96,5 +97,4 @@ void loop() {
 
   // wait 5 seconds (5000 milliseconds == 5 seconds)
   delay(5000);
-
 }

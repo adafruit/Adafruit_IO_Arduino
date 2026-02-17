@@ -47,7 +47,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -58,7 +59,7 @@ void setup() {
   type->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -66,7 +67,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -80,39 +80,39 @@ void loop() {
     // in order to demonstrate sending values
     // as different types, we will switch between
     // types in a loop using the current_type variable
-    if(current_type == 0) {
+    if (current_type == 0) {
       Serial.print("char: ");
       Serial.println(char_val);
       type->save(char_val);
-    } else if(current_type == 1) {
+    } else if (current_type == 1) {
       Serial.print("string: ");
       Serial.println(string_val);
       type->save(string_val);
-    } else if(current_type == 2) {
+    } else if (current_type == 2) {
       Serial.print("bool: ");
       Serial.println(bool_val);
       type->save(bool_val);
-    } else if(current_type == 3) {
+    } else if (current_type == 3) {
       Serial.print("int: ");
       Serial.println(int_val);
       type->save(int_val);
-    } else if(current_type == 4) {
+    } else if (current_type == 4) {
       Serial.print("unsigned int: ");
       Serial.println(uint_val);
       type->save(uint_val);
-    } else if(current_type == 5) {
+    } else if (current_type == 5) {
       Serial.print("long: ");
       Serial.println(long_val);
       type->save(long_val);
-    } else if(current_type == 6) {
+    } else if (current_type == 6) {
       Serial.print("unsigned long: ");
       Serial.println(ulong_val);
       type->save(ulong_val);
-    } else if(current_type == 7) {
+    } else if (current_type == 7) {
       Serial.print("double: ");
       Serial.println(double_val);
       type->save(double_val);
-    } else if(current_type == 8) {
+    } else if (current_type == 8) {
       Serial.print("float: ");
       Serial.println(float_val);
       type->save(float_val);
@@ -122,14 +122,13 @@ void loop() {
     current_type++;
 
     // reset type if we have reached the end
-    if(current_type > 8)
+    if (current_type > 8)
       current_type = 0;
 
     Serial.println();
 
     lastUpdate = millis();
   }
-
 }
 
 // this function will demonstrate how to convert
@@ -188,5 +187,4 @@ void handleMessage(AdafruitIO_Data *data) {
   Serial.println(data->isFalse());
 
   Serial.println();
-
 }

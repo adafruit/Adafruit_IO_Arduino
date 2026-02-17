@@ -31,7 +31,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -39,7 +40,7 @@ void setup() {
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -47,7 +48,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -70,5 +70,4 @@ void loop() {
   // between feed->save events. In this example, we will wait three seconds
   // (1000 milliseconds == 1 second) during each loop.
   delay(3000);
-
 }

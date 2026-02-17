@@ -44,7 +44,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -58,7 +59,7 @@ void setup() {
   counter->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -67,7 +68,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   counter->get();
-
 }
 
 void loop() {
@@ -90,7 +90,6 @@ void loop() {
     // after publishing, store the current time
     lastUpdate = millis();
   }
-
 }
 
 // this function is called whenever a 'counter' message
@@ -100,5 +99,4 @@ void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
   Serial.println(data->value());
-
 }

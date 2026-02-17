@@ -19,10 +19,10 @@
 #include "config.h"
 
 /************************ Example Starts Here *******************************/
-#include <Wire.h>
 #include <Adafruit_LIS3DH.h>
-#include <Adafruit_Sensor.h>
 #include <Adafruit_NeoPixel.h>
+#include <Adafruit_Sensor.h>
+#include <Wire.h>
 
 // Prop-Maker Wing
 #define NEOPIXEL_PIN 2
@@ -38,7 +38,8 @@
 Adafruit_LIS3DH lis = Adafruit_LIS3DH();
 
 // NeoPixel Setup
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip =
+    Adafruit_NeoPixel(NUM_PIXELS, NEOPIXEL_PIN, NEO_GRB + NEO_KHZ800);
 
 // Set up the 'cubeTask' feed
 AdafruitIO_Feed *cubetask = io.feed("cubetask");
@@ -47,7 +48,7 @@ AdafruitIO_Feed *cubetask = io.feed("cubetask");
  * 1: Cube Tilted Left
  * 2: Cube Tilted Right
  * 3: Cube Neutral, Top
-*/
+ */
 int cubeState = 0;
 
 // Previous cube orientation state
@@ -66,8 +67,7 @@ unsigned long prevTime;
 int seconds = 0;
 int minutes = 0;
 
-void setup()
-{
+void setup() {
   // start the serial connection
   Serial.begin(9600);
   // wait for serial monitor to open
@@ -80,8 +80,7 @@ void setup()
   digitalWrite(POWER_PIN, HIGH);
 
   // Initialize LIS3DH
-  if (!lis.begin(0x18))
-  {
+  if (!lis.begin(0x18)) {
     Serial.println("Couldnt start");
     while (1)
       ;
@@ -98,8 +97,7 @@ void setup()
   io.connect();
 
   // wait for a connection
-  while (io.status() < AIO_CONNECTED)
-  {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -109,30 +107,25 @@ void setup()
   Serial.println(io.statusText());
 }
 
-void updateTime()
-{
+void updateTime() {
   // grab the current time from millis()
   currentTime = millis() / 1000;
   seconds = currentTime - prevTime;
   // increase mins.
-  if (seconds == 60)
-  {
+  if (seconds == 60) {
     prevTime = currentTime;
     minutes++;
   }
 }
 
-void updatePixels(uint8_t red, uint8_t green, uint8_t blue)
-{
-  for (int p = 0; p < NUM_PIXELS; p++)
-  {
+void updatePixels(uint8_t red, uint8_t green, uint8_t blue) {
+  for (int p = 0; p < NUM_PIXELS; p++) {
     strip.setPixelColor(p, red, green, blue);
   }
   strip.show();
 }
 
-void loop()
-{
+void loop() {
   // io.run(); is required for all sketches.
   // it should always be present at the top of your loop
   // function. it keeps the client connected to
@@ -147,23 +140,16 @@ void loop()
   lis.getEvent(&event);
 
   // Detect cube face orientation
-  if (event.acceleration.x > 9 && event.acceleration.x < 10)
-  {
-    //Serial.println("Cube TILTED: Left");
+  if (event.acceleration.x > 9 && event.acceleration.x < 10) {
+    // Serial.println("Cube TILTED: Left");
     cubeState = 1;
-  }
-  else if (event.acceleration.x < -9)
-  {
-    //Serial.println("Cube TILTED: Right");
+  } else if (event.acceleration.x < -9) {
+    // Serial.println("Cube TILTED: Right");
     cubeState = 2;
-  }
-  else if (event.acceleration.y < 0 && event.acceleration.y > -1)
-  {
+  } else if (event.acceleration.y < 0 && event.acceleration.y > -1) {
     cubeState = 3;
-  }
-  else
-  { // orientation not specified
-    //Serial.println("Cube Idle...");
+  } else { // orientation not specified
+           // Serial.println("Cube Idle...");
   }
 
   // return if the orientation hasn't changed
@@ -171,19 +157,18 @@ void loop()
     return;
 
   // Send to Adafruit IO based off of the orientation of the cube
-  switch (cubeState)
-  {
+  switch (cubeState) {
   case 1:
     Serial.println("Switching to Task 1");
     // update the neopixel strip
     updatePixels(50, 0, 0);
 
-    // play a sound
-    #if defined(ARDUINO_ARCH_ESP32)
-        ledcWriteTone(PIEZO_PIN, 650);
-    #else
-        tone(PIEZO_PIN, 650, 300);
-    #endif
+// play a sound
+#if defined(ARDUINO_ARCH_ESP32)
+    ledcWriteTone(PIEZO_PIN, 650);
+#else
+    tone(PIEZO_PIN, 650, 300);
+#endif
 
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskTwo);
@@ -196,12 +181,12 @@ void loop()
     // update the neopixel strip
     updatePixels(0, 50, 0);
 
-    // play a sound
-    #if defined(ARDUINO_ARCH_ESP32)
-        ledcWriteTone(PIEZO_PIN, 850);
-    #else
-        tone(PIEZO_PIN, 850, 300);
-    #endif
+// play a sound
+#if defined(ARDUINO_ARCH_ESP32)
+    ledcWriteTone(PIEZO_PIN, 850);
+#else
+    tone(PIEZO_PIN, 850, 300);
+#endif
 
     Serial.print("Sending to Adafruit IO -> ");
     Serial.println(taskOne);
@@ -212,12 +197,12 @@ void loop()
   case 3:
     updatePixels(0, 0, 50);
 
-    // play a sound
-    #if defined(ARDUINO_ARCH_ESP32)
-        ledcWriteTone(PIEZO_PIN, 950);
-    #else
-        tone(PIEZO_PIN, 950, 300);
-    #endif
+// play a sound
+#if defined(ARDUINO_ARCH_ESP32)
+    ledcWriteTone(PIEZO_PIN, 950);
+#else
+    tone(PIEZO_PIN, 950, 300);
+#endif
 
     break;
   }

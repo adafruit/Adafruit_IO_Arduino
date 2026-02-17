@@ -22,9 +22,9 @@
 
 // default PWM pins for ESP8266.
 // you should change these to match PWM pins on other platforms.
-#define RED_PIN   4
+#define RED_PIN 4
 #define GREEN_PIN 5
-#define BLUE_PIN  2
+#define BLUE_PIN 2
 
 // set up the 'color' feed
 AdafruitIO_Feed *color = io.feed("color");
@@ -35,29 +35,29 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
-  
-  #if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
-    #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
-      // New ESP32 LEDC API
-      ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
-      ledcAttach(GREEN_PIN, 12000, 8);
-      ledcAttach(BLUE_PIN, 12000, 8);
-    #else
-     // Legacy ESP32 LEDC API
-      ledcAttachPin(RED_PIN, 1);
-      ledcAttachPin(GREEN_PIN, 2);
-      ledcAttachPin(BLUE_PIN, 3);
-      ledcSetup(1, 12000, 8);
-      ledcSetup(2, 12000, 8);
-      ledcSetup(3, 12000, 8);
-    #endif
-  #else
-    pinMode(RED_PIN, OUTPUT);
-    pinMode(GREEN_PIN, OUTPUT);
-    pinMode(BLUE_PIN, OUTPUT);
-  #endif
+#if defined(ARDUINO_ARCH_ESP32) // ESP32 pinMode
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
+  // New ESP32 LEDC API
+  ledcAttach(RED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+  ledcAttach(GREEN_PIN, 12000, 8);
+  ledcAttach(BLUE_PIN, 12000, 8);
+#else
+  // Legacy ESP32 LEDC API
+  ledcAttachPin(RED_PIN, 1);
+  ledcAttachPin(GREEN_PIN, 2);
+  ledcAttachPin(BLUE_PIN, 3);
+  ledcSetup(1, 12000, 8);
+  ledcSetup(2, 12000, 8);
+  ledcSetup(3, 12000, 8);
+#endif
+#else
+  pinMode(RED_PIN, OUTPUT);
+  pinMode(GREEN_PIN, OUTPUT);
+  pinMode(BLUE_PIN, OUTPUT);
+#endif
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -70,7 +70,7 @@ void setup() {
   color->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -80,11 +80,10 @@ void setup() {
   Serial.println(io.statusText());
   color->get();
 
-  // set analogWrite range for ESP8266
-  #ifdef ESP8266
-    analogWriteRange(255);
-  #endif
-
+// set analogWrite range for ESP8266
+#ifdef ESP8266
+  analogWriteRange(255);
+#endif
 }
 
 void loop() {
@@ -94,7 +93,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever a 'color' message

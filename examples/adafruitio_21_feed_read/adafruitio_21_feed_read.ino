@@ -1,5 +1,6 @@
 // Adafruit IO Feed Reading
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-feeds/sharing-a-feed
+// Tutorial Link:
+// https://learn.adafruit.com/adafruit-io-basics-feeds/sharing-a-feed
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -27,12 +28,13 @@
 AdafruitIO_Feed *sharedFeed = io.feed("FEED-NAME", FEED_OWNER);
 
 void setup() {
-  
+
   // start the serial connection
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -45,7 +47,7 @@ void setup() {
   sharedFeed->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -54,7 +56,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   sharedFeed->get();
-
 }
 
 void loop() {
@@ -64,7 +65,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever an 'sharedFeed' feed message
@@ -74,5 +74,4 @@ void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <-  ");
   Serial.println(data->toInt());
-  
 }
