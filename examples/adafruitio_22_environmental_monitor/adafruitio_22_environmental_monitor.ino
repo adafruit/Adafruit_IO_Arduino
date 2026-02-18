@@ -1,4 +1,4 @@
-// Adafruit IO Environmental Data Logger 
+// Adafruit IO Environmental Data Logger
 // Tutorial Link: https://learn.adafruit.com/adafruit-io-air-quality-monitor
 //
 // Adafruit invests time and resources providing this open source code.
@@ -11,19 +11,21 @@
 //
 // All text above must be included in any redistribution.
 
-/************************** Adafruit IO Configuration ***********************************/
+/************************** Adafruit IO Configuration
+ * ***********************************/
 
 // edit the config.h tab and enter your Adafruit IO credentials
 // and any additional configuration needed for WiFi, cellular,
 // or ethernet clients.
 #include "config.h"
 
-/**************************** Sensor Configuration ***************************************/
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BME280.h>
-#include "Adafruit_VEML6070.h"
+/**************************** Sensor Configuration
+ * ***************************************/
 #include "Adafruit_SGP30.h"
+#include "Adafruit_VEML6070.h"
+#include <Adafruit_BME280.h>
+#include <Adafruit_Sensor.h>
+#include <Wire.h>
 
 // BME280 Sensor Definitions
 #define BME_SCK 13
@@ -74,7 +76,8 @@ void setup() {
   Serial.begin(9600);
 
   // wait for serial monitor to open
-  while (!Serial);
+  while (!Serial)
+    ;
 
   Serial.println("Adafruit IO Environmental Logger");
 
@@ -90,8 +93,7 @@ void setup() {
   io.connect();
 
   // wait for a connection
-  while (io.status() < AIO_CONNECTED)
-  {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -115,37 +117,48 @@ void loop() {
 
   // convert from celsius to degrees fahrenheit
   temperatureReading = temperatureReading * 1.8 + 32;
-  
-  Serial.print("Temperature = "); Serial.print(temperatureReading); Serial.println(" *F");
+
+  Serial.print("Temperature = ");
+  Serial.print(temperatureReading);
+  Serial.println(" *F");
 
   // Read the pressure from the BME280
   pressureReading = bme.readPressure() / 100.0F;
-  Serial.print("Pressure = "); Serial.print(pressureReading); Serial.println(" hPa");
+  Serial.print("Pressure = ");
+  Serial.print(pressureReading);
+  Serial.println(" hPa");
 
   // Read the altitude from the BME280
   altitudeReading = bme.readAltitude(SEALEVELPRESSURE_HPA);
-  Serial.print("Approx. Altitude = "); Serial.print(altitudeReading); Serial.println(" m");
-  
+  Serial.print("Approx. Altitude = ");
+  Serial.print(altitudeReading);
+  Serial.println(" m");
+
   // Read the humidity from the BME280
   humidityReading = bme.readHumidity();
-  Serial.print("Humidity = "); Serial.print(humidityReading); Serial.println("%");
+  Serial.print("Humidity = ");
+  Serial.print(humidityReading);
+  Serial.println("%");
 
   // VEML6070
   uvReading = uv.readUV();
-  Serial.print("UV Light Level: "); Serial.println(uvReading);
+  Serial.print("UV Light Level: ");
+  Serial.println(uvReading);
 
-  if(! sgp.IAQmeasure()){
-  tvocReading = -1;
-  ecO2Reading = -1;  
+  if (!sgp.IAQmeasure()) {
+    tvocReading = -1;
+    ecO2Reading = -1;
+  } else {
+    tvocReading = sgp.TVOC;
+    ecO2Reading = sgp.eCO2;
   }
-  else
-  {
-  tvocReading = sgp.TVOC;
-  ecO2Reading = sgp.eCO2;  
-  }
-  
-  Serial.print("TVOC: "); Serial.print(tvocReading); Serial.print(" ppb\t");
-  Serial.print("eCO2: "); Serial.print(ecO2Reading); Serial.println(" ppm");
+
+  Serial.print("TVOC: ");
+  Serial.print(tvocReading);
+  Serial.print(" ppb\t");
+  Serial.print("eCO2: ");
+  Serial.print(ecO2Reading);
+  Serial.println(" ppm");
 
   // send data to Adafruit IO feeds
   temperatureFeed->save(temperatureReading);
@@ -162,10 +175,10 @@ void loop() {
 
 // Set up the SGP30 sensor
 void setupSGP30() {
-  if (!sgp.begin())
-  {
+  if (!sgp.begin()) {
     Serial.println("Sensor not found :(");
-    while (1);
+    while (1)
+      ;
   }
   Serial.print("Found SGP30 serial #");
   Serial.print(sgp.serialnumber[0], HEX);
@@ -173,18 +186,18 @@ void setupSGP30() {
   Serial.println(sgp.serialnumber[2], HEX);
 
   // If you previously calibrated the sensor in this environment,
-  // you can assign it to self-calibrate (replace the values with your baselines):
-  // sgp.setIAQBaseline(0x8E68, 0x8F41);
+  // you can assign it to self-calibrate (replace the values with your
+  // baselines): sgp.setIAQBaseline(0x8E68, 0x8F41);
 }
 
 // Set up the BME280 sensor
 void setupBME280() {
   bool status;
   status = bme.begin();
-  if (!status)
-  {
+  if (!status) {
     Serial.println("Could not find a valid BME280 sensor, check wiring!");
-    while (1);
+    while (1)
+      ;
   }
   Serial.println("BME Sensor is set up!");
 }

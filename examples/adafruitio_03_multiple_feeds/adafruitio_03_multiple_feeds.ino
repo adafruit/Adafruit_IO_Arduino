@@ -44,7 +44,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -61,7 +62,7 @@ void setup() {
   light->onMessage(handleLight);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -74,7 +75,6 @@ void setup() {
   counter->get();
   counter_two->get();
   light->get();
-
 }
 
 void loop() {
@@ -97,7 +97,7 @@ void loop() {
 
     // print out the light value we are sending to Adafruit IO
     Serial.print("sending -> light ");
-    if(is_on)
+    if (is_on)
       Serial.println("is on.\n");
     else
       Serial.println("is off.\n");
@@ -110,7 +110,7 @@ void loop() {
 
     // for the purpose of this demo, toggle the
     // light state based on the count value
-    if((count % 2) == 0)
+    if ((count % 2) == 0)
       is_on = true;
     else
       is_on = false;
@@ -118,7 +118,6 @@ void loop() {
     // update timer
     lastUpdate = millis();
   }
-
 }
 
 // you can set a separate message handler for a single feed,
@@ -130,11 +129,10 @@ void handleLight(AdafruitIO_Data *data) {
 
   // use the isTrue helper to get the
   // boolean state of the light
-  if(data->isTrue())
+  if (data->isTrue())
     Serial.println("is on.");
   else
     Serial.println("is off.");
-
 }
 
 // you can also attach multiple feeds to the same
@@ -153,5 +151,4 @@ void handleCount(AdafruitIO_Data *data) {
 
   // print out the received count or counter-two value
   Serial.println(data->value());
-
 }

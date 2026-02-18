@@ -28,7 +28,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -44,7 +45,7 @@ void setup() {
   // wait for an MQTT connection
   // NOTE: when blending the HTTP and MQTT API, always use the mqttStatus
   // method to check on MQTT connection status specifically
-  while(io.mqttStatus() < AIO_CONNECTED) {
+  while (io.mqttStatus() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -57,7 +58,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -70,7 +70,6 @@ void loop() {
 
   // Because this sketch isn't publishing, we don't need
   // a delay() in the main program loop.
-
 }
 
 // this function is called whenever a 'counter' message
@@ -80,5 +79,4 @@ void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
   Serial.println(data->value());
-
 }

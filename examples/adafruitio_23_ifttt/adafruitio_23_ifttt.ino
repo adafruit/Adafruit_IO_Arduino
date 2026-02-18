@@ -20,11 +20,11 @@
 
 // Import Servo Libraries
 #if defined(ARDUINO_ARCH_ESP32)
-  // ESP32Servo Library (https://github.com/madhephaestus/ESP32Servo)
-  // installation: library manager -> search -> "ESP32Servo"
-  #include <ESP32Servo.h>
+// ESP32Servo Library (https://github.com/madhephaestus/ESP32Servo)
+// installation: library manager -> search -> "ESP32Servo"
+#include <ESP32Servo.h>
 #else
-  #include <Servo.h>
+#include <Servo.h>
 #endif
 
 /************************ Example Starts Here *******************************/
@@ -53,7 +53,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("IFTTT Gmailbox");
 
@@ -71,7 +72,7 @@ void setup() {
   gmail_feed->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -83,7 +84,6 @@ void setup() {
 
   // write flag to down position
   servo.write(FLAG_DOWN);
-
 }
 
 void loop() {
@@ -93,7 +93,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever a 'gmail' message

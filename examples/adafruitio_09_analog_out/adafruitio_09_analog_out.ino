@@ -28,25 +28,26 @@ AdafruitIO_Feed *analog = io.feed("analog");
 
 void setup() {
 
-  // set up led pin as an analog output
-  #if defined(ARDUINO_ARCH_ESP32)
-    #if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
-      // New ESP32 LEDC API
-      ledcAttach(LED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
-    #else
-      // Legacy ESP32 LEDC API
-      ledcAttachPin(LED_PIN, 1);
-      ledcSetup(1, 1200, 8);
-    #endif
-  #else
-    pinMode(LED_PIN, OUTPUT);
-  #endif
+// set up led pin as an analog output
+#if defined(ARDUINO_ARCH_ESP32)
+#if ESP_IDF_VERSION >= ESP_IDF_VERSION_VAL(5, 1, 1)
+  // New ESP32 LEDC API
+  ledcAttach(LED_PIN, 12000, 8); // 12 kHz PWM, 8-bit resolution
+#else
+  // Legacy ESP32 LEDC API
+  ledcAttachPin(LED_PIN, 1);
+  ledcSetup(1, 1200, 8);
+#endif
+#else
+  pinMode(LED_PIN, OUTPUT);
+#endif
 
   // start the serial connection
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -59,7 +60,7 @@ void setup() {
   analog->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -68,7 +69,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   analog->get();
-
 }
 
 void loop() {
@@ -78,7 +78,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever an 'analog' message

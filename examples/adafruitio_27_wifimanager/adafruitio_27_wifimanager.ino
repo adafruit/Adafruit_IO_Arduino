@@ -14,8 +14,8 @@
  *
  */
 
-#include <WiFiManager.h>
 #include "AdafruitIO_WiFi.h"
+#include <WiFiManager.h>
 
 char IO_USERNAME[64] = "my username";
 char IO_KEY[64] = "my key";
@@ -24,8 +24,7 @@ AdafruitIO_Feed *myfeed = io.feed("myfeed");
 
 WiFiManager wifiManager;
 
-void handleMessage(AdafruitIO_Data *data)
-{
+void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
   Serial.println(data->toString());
@@ -40,20 +39,22 @@ void setup()
 
   // wifiManager.resetSettings();  //uncomment to reset the WiFi settings
 
-  wifiManager.setClass("invert");          // enable "dark mode" for the config portal
-  wifiManager.setConfigPortalTimeout(120); // auto close configportal after n seconds
-  wifiManager.setAPClientCheck(true);      // avoid timeout if client connected to softap
+  wifiManager.setClass("invert"); // enable "dark mode" for the config portal
+  wifiManager.setConfigPortalTimeout(
+      120); // auto close configportal after n seconds
+  wifiManager.setAPClientCheck(
+      true); // avoid timeout if client connected to softap
 
-  if (!wifiManager.autoConnect("WiFi Setup"))   // connect to wifi with existing setting or start config
+  if (!wifiManager.autoConnect("WiFi Setup")) // connect to wifi with existing
+                                              // setting or start config
   {
     Serial.println("failed to connect and hit timeout");
-  }
-  else
-  {
+  } else {
     // if you get here you have connected to the WiFi
     Serial.println("Connected to WiFi.");
 
-    Serial.printf("Connecting to Adafruit IO with User: %s Key: %s.\n", IO_USERNAME, IO_KEY);
+    Serial.printf("Connecting to Adafruit IO with User: %s Key: %s.\n",
+                  IO_USERNAME, IO_KEY);
     io.connect();
 
     myfeed->onMessage(handleMessage);
@@ -62,8 +63,7 @@ void setup()
 
     // wait for a connection
 
-    while ((io.status() < AIO_CONNECTED))
-    {
+    while ((io.status() < AIO_CONNECTED)) {
       Serial.print(".");
       delay(500);
     }
@@ -72,9 +72,4 @@ void setup()
 
 } // setup()
 
-void loop()
-{
-
-  io.run();
-
-} // loop()
+void loop() { io.run(); } // loop()
