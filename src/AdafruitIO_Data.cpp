@@ -905,12 +905,12 @@ bool AdafruitIO_Data::_parseCSV() {
     }
 
     if (field_count > 0) {
-      _lon = atof(fields[1]);
+      _lon = atof(fields[2]);
       field_count--;
     }
 
     if (field_count > 0) {
-      _ele = atof(fields[1]);
+      _ele = atof(fields[3]);
       field_count--;
     }
 
@@ -926,5 +926,4 @@ bool AdafruitIO_Data::_parseCSV() {
     return false;
   }
 
-  return true;
 }
