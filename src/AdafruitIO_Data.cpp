@@ -910,5 +910,4 @@ bool AdafruitIO_Data::_parseCSV() {
   } else {
     return false;
   }
-
 }
