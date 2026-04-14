@@ -21,11 +21,11 @@
 /************************ Example Starts Here *******************************/
 
 #if defined(ARDUINO_ARCH_ESP32)
-  // ESP32Servo Library (https://github.com/madhephaestus/ESP32Servo)
-  // installation: library manager -> search -> "ESP32Servo"
-  #include <ESP32Servo.h>
+// ESP32Servo Library (https://github.com/madhephaestus/ESP32Servo)
+// installation: library manager -> search -> "ESP32Servo"
+#include <ESP32Servo.h>
 #else
-  #include <Servo.h>
+#include <Servo.h>
 #endif
 
 // pin used to control the servo
@@ -43,7 +43,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // tell the servo class which pin we are using
   servo.attach(SERVO_PIN);
@@ -59,7 +60,7 @@ void setup() {
   servo_feed->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -68,7 +69,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   servo_feed->get();
-
 }
 
 void loop() {
@@ -78,7 +78,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever a 'servo' message
@@ -92,11 +91,10 @@ void handleMessage(AdafruitIO_Data *data) {
   // make sure we don't exceed the limit
   // of the servo. the range is from 0
   // to 180.
-  if(angle < 0)
+  if (angle < 0)
     angle = 0;
-  else if(angle > 180)
+  else if (angle > 180)
     angle = 180;
 
   servo.write(angle);
-
 }

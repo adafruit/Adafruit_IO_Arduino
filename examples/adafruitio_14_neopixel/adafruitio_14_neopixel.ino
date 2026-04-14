@@ -21,11 +21,12 @@
 
 #include "Adafruit_NeoPixel.h"
 
-#define PIXEL_PIN     5
-#define PIXEL_COUNT   24
-#define PIXEL_TYPE    NEO_GRB + NEO_KHZ800
+#define PIXEL_PIN 5
+#define PIXEL_COUNT 24
+#define PIXEL_TYPE NEO_GRB + NEO_KHZ800
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
+Adafruit_NeoPixel pixels =
+    Adafruit_NeoPixel(PIXEL_COUNT, PIXEL_PIN, PIXEL_TYPE);
 
 // set up the 'color' feed
 AdafruitIO_Feed *color = io.feed("color");
@@ -36,7 +37,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -49,7 +51,7 @@ void setup() {
   color->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -62,7 +64,6 @@ void setup() {
   // neopixel init
   pixels.begin();
   pixels.show();
-
 }
 
 void loop() {
@@ -72,7 +73,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever a 'color' message
@@ -86,10 +86,9 @@ void handleMessage(AdafruitIO_Data *data) {
 
   long color = data->toNeoPixel();
 
-  for(int i=0; i<PIXEL_COUNT; ++i) {
+  for (int i = 0; i < PIXEL_COUNT; ++i) {
     pixels.setPixelColor(i, color);
   }
 
   pixels.show();
-
 }

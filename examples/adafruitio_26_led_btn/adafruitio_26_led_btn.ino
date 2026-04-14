@@ -48,7 +48,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -62,7 +63,7 @@ void setup() {
   led->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -71,7 +72,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   led->get();
-
 }
 
 void loop() {
@@ -83,22 +83,22 @@ void loop() {
   io.run();
 
   // grab the btn_state state of the button.
-  if(digitalRead(BUTTON_PIN) == LOW)
+  if (digitalRead(BUTTON_PIN) == LOW)
     btn_state = false;
   else
     btn_state = true;
 
   // return if the btn state hasn't changed
-  if(btn_state == prv_btn_state)
+  if (btn_state == prv_btn_state)
     return;
 
   // save the btn_state state to the 'button' feed on adafruit io
-  Serial.print("sending button -> "); Serial.println(btn_state);
+  Serial.print("sending button -> ");
+  Serial.println(btn_state);
   button->save(btn_state);
 
   // store last button state
   prv_btn_state = btn_state;
-
 }
 
 // this function is called whenever a 'led' message
@@ -107,7 +107,7 @@ void loop() {
 void handleMessage(AdafruitIO_Data *data) {
   Serial.print("received <- ");
 
-  if(data->toPinLevel() == HIGH)
+  if (data->toPinLevel() == HIGH)
     Serial.println("HIGH");
   else
     Serial.println("LOW");

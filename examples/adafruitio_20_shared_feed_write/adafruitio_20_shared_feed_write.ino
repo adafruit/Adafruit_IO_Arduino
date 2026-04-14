@@ -1,7 +1,8 @@
 // Adafruit IO Shared Feeds Write Example
 // desc: Example of writing a button value to a shared feed.
 //
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-feeds/sharing-a-feed
+// Tutorial Link:
+// https://learn.adafruit.com/adafruit-io-basics-feeds/sharing-a-feed
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -28,7 +29,7 @@
 // the Adafruit IO username of whomever owns the feed
 #define FEED_OWNER "AIO_FEED_OWNER"
 
-// set up a shared feed between you and the FEED_OWNER 
+// set up a shared feed between you and the FEED_OWNER
 // make sure you have both read AND write access to this feed
 AdafruitIO_Feed *sharedFeed = io.feed("FEED-NAME", FEED_OWNER);
 
@@ -45,14 +46,15 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -60,7 +62,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -74,13 +75,13 @@ void loop() {
   // grab the current state of the button.
   // we have to flip the logic because we are
   // using a pullup resistor.
-  if(digitalRead(BUTTON_PIN) == LOW)
+  if (digitalRead(BUTTON_PIN) == LOW)
     current = true;
   else
     current = false;
 
   // return if the value hasn't changed
-  if(current == last)
+  if (current == last)
     return;
 
   // save the current state to the 'sharedFeed' feed on adafruit io
@@ -90,5 +91,4 @@ void loop() {
 
   // store last button state
   last = current;
-
 }

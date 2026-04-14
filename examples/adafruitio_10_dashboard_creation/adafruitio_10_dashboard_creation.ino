@@ -31,14 +31,15 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -48,10 +49,10 @@ void setup() {
   Serial.println(io.statusText());
 
   // create the example feed if it doesn't exist
-  if(feed->exists()) {
+  if (feed->exists()) {
     Serial.println("Example feed exists.");
   } else {
-    if(feed->create()) {
+    if (feed->create()) {
       Serial.println("Example feed created.");
     } else {
       Serial.println("Example feed creation failed.");
@@ -59,10 +60,10 @@ void setup() {
   }
 
   // create the example dashboard if it doesn't exist
-  if(dashboard->exists()) {
+  if (dashboard->exists()) {
     Serial.println("Example dashboard exists.");
   } else {
-    if(dashboard->create()) {
+    if (dashboard->create()) {
       Serial.println("Example dashboard created.");
       // add blocks to the dashboard using the function below
       addBlocks();
@@ -70,7 +71,6 @@ void setup() {
       Serial.println("Example dashboard creation failed.");
     }
   }
-
 }
 
 void loop() {
@@ -80,7 +80,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 void addBlocks() {
@@ -137,7 +136,7 @@ void addBlocks() {
 
   Serial.print("Adding stream block... ");
   StreamBlock *stream = dashboard->addStreamBlock(feed);
-  stream->fontSize = "small"; // small, medium, or large
+  stream->fontSize = "small";  // small, medium, or large
   stream->fontColor = "green"; // green or white
   stream->showErrors = true;
   stream->showTimestamp = true;
@@ -161,5 +160,4 @@ void addBlocks() {
   ImageBlock *image = dashboard->addImageBlock(feed);
   added = image->save();
   Serial.println(added ? "added" : "failed");
-
 }

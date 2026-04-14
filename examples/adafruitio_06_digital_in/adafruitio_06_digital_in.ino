@@ -39,14 +39,15 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -54,7 +55,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -68,13 +68,13 @@ void loop() {
   // grab the current state of the button.
   // we have to flip the logic because we are
   // using a pullup resistor.
-  if(digitalRead(BUTTON_PIN) == LOW)
+  if (digitalRead(BUTTON_PIN) == LOW)
     current = true;
   else
     current = false;
 
   // return if the value hasn't changed
-  if(current == last)
+  if (current == last)
     return;
 
   // save the current state to the 'digital' feed on adafruit io
@@ -84,5 +84,4 @@ void loop() {
 
   // store last button state
   last = current;
-
 }

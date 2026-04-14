@@ -25,10 +25,11 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while (!Serial);
+  while (!Serial)
+    ;
   Serial.println("Adafruit IO + DeepSleep");
-  
-  // connect to the Adafruit IO Library 
+
+  // connect to the Adafruit IO Library
   connectAIO();
 
   // set up and write to deepsleep feed
@@ -36,22 +37,20 @@ void setup() {
 
   // let's go back to sleep for DEEPSLEEP_DURATION seconds...
   Serial.println("sleeping...");
-  // Put the Huzzah into deepsleep for DEEPSLEEP_DURATION
-  // NOTE: Make sure Pin 16 is connected to RST
-  #if defined(ESP8266)
-    ESP.deepSleep(1000000 * 2);
-  #else
-    Serial.println("This example is not compatible with your hardware.");
-  #endif
+// Put the Huzzah into deepsleep for DEEPSLEEP_DURATION
+// NOTE: Make sure Pin 16 is connected to RST
+#if defined(ESP8266)
+  ESP.deepSleep(1000000 * 2);
+#else
+  Serial.println("This example is not compatible with your hardware.");
+#endif
 }
 
 // NOOP
-void loop() {
-}
+void loop() {}
 
-
-void feedWrite(){
-   // set up `deepsleep` feed
+void feedWrite() {
+  // set up `deepsleep` feed
   AdafruitIO_Feed *deepsleep = io.feed("deepsleep");
   Serial.println("sending value to feed 'deepsleep");
   // send data to deepsleep feed

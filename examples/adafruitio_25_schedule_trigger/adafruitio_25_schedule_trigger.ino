@@ -1,5 +1,6 @@
 // Adafruit IO Schedule Trigger Example
-// Tutorial Link: https://learn.adafruit.com/adafruit-io-basics-scheduled-triggers/
+// Tutorial Link:
+// https://learn.adafruit.com/adafruit-io-basics-scheduled-triggers/
 //
 // Adafruit invests time and resources providing this open source code.
 // Please support Adafruit and open source hardware by purchasing
@@ -20,7 +21,6 @@
 
 /************************ Example Starts Here *******************************/
 
-
 // Relay is connected to PyPortal's D3 connector
 #define RELAY_POWER_PIN 3
 
@@ -33,7 +33,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO");
 
@@ -47,7 +48,7 @@ void setup() {
   relay->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -58,7 +59,6 @@ void setup() {
 
   // Get the last known value from the feed
   relay->get();
-
 }
 
 void loop() {
@@ -68,7 +68,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever an 'relay' feed message
@@ -81,15 +80,14 @@ void handleMessage(AdafruitIO_Data *data) {
 
   // Check to see if the morning scheduled trigger has executed
   if (strcmp(data->toChar(), "1") == 0) {
-      Serial.println("Turning lights ON");
-      digitalWrite(RELAY_POWER_PIN, HIGH);
+    Serial.println("Turning lights ON");
+    digitalWrite(RELAY_POWER_PIN, HIGH);
   }
   // Check to see if the evening scheduled trigger has executed
   else if (strcmp(data->toChar(), "0") == 0) {
-      Serial.println("Turning lights OFF");
-      digitalWrite(RELAY_POWER_PIN, LOW);
-  }
-  else {
-      Serial.println("Unexpected data received from Adafruit IO");
+    Serial.println("Turning lights OFF");
+    digitalWrite(RELAY_POWER_PIN, LOW);
+  } else {
+    Serial.println("Unexpected data received from Adafruit IO");
   }
 }

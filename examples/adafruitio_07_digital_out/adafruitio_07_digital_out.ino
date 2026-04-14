@@ -27,14 +27,15 @@
 AdafruitIO_Feed *digital = io.feed("digital");
 
 void setup() {
-  
+
   pinMode(LED_PIN, OUTPUT);
-  
+
   // start the serial connection
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -47,7 +48,7 @@ void setup() {
   digital->onMessage(handleMessage);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -56,7 +57,6 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
   digital->get();
-
 }
 
 void loop() {
@@ -66,7 +66,6 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
 
 // this function is called whenever an 'digital' feed message
@@ -76,11 +75,10 @@ void handleMessage(AdafruitIO_Data *data) {
 
   Serial.print("received <- ");
 
-  if(data->toPinLevel() == HIGH)
+  if (data->toPinLevel() == HIGH)
     Serial.println("HIGH");
   else
     Serial.println("LOW");
-
 
   digitalWrite(LED_PIN, data->toPinLevel());
 }

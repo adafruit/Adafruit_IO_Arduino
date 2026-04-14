@@ -28,7 +28,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   Serial.print("Connecting to Adafruit IO...");
 
@@ -36,7 +37,7 @@ void setup() {
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -50,7 +51,7 @@ void setup() {
 
   WiFi.macAddress(mac);
   Serial.print("MAC Address: ");
-  for(int i=0;i<6;i++) {
+  for (int i = 0; i < 6; i++) {
     Serial.print(mac[i], HEX);
   }
   Serial.println();
@@ -71,12 +72,8 @@ void setup() {
   Serial.println(IO_USERNAME);
   Serial.print("IO Key: ");
   Serial.println(IO_KEY);
-  Serial.print("IO Status: ");  
+  Serial.print("IO Status: ");
   Serial.println(io.statusText());
-
 }
 
-void loop(){
-  
-}
-
+void loop() {}

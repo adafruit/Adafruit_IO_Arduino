@@ -36,14 +36,15 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
   io.connect();
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -51,7 +52,6 @@ void setup() {
   // we are connected
   Serial.println();
   Serial.println(io.statusText());
-
 }
 
 void loop() {
@@ -66,7 +66,7 @@ void loop() {
   current = analogRead(PHOTOCELL_PIN);
 
   // return if the value hasn't changed
-  if(current == last)
+  if (current == last)
     return;
 
   // save the current state to the analog feed

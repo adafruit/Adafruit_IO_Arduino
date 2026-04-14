@@ -28,7 +28,8 @@ void setup() {
   Serial.begin(115200);
 
   // wait for serial monitor to open
-  while(! Serial);
+  while (!Serial)
+    ;
 
   // connect to io.adafruit.com
   Serial.print("Connecting to Adafruit IO");
@@ -38,7 +39,7 @@ void setup() {
   group->onMessage("count-2", two);
 
   // wait for a connection
-  while(io.status() < AIO_CONNECTED) {
+  while (io.status() < AIO_CONNECTED) {
     Serial.print(".");
     delay(500);
   }
@@ -47,7 +48,8 @@ void setup() {
   Serial.println();
   Serial.println(io.statusText());
 
-  // force IO to update our MQTT subscription with the current values of all feeds
+  // force IO to update our MQTT subscription with the current values of all
+  // feeds
   group->get();
 }
 
@@ -58,9 +60,7 @@ void loop() {
   // function. it keeps the client connected to
   // io.adafruit.com, and processes any incoming data.
   io.run();
-
 }
-
 
 // this function is called whenever a 'counter-1' message
 // is received from Adafruit IO. it was attached to
