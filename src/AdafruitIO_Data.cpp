@@ -823,6 +823,21 @@ char **parse_csv(const char *line) {
       fQuote = 1;
       continue;
     case '\0':
+      // Emit the final field. Previously this was dropped on the floor
+      // because the null terminator only set fEnd and broke the loop,
+      // so parse_csv() returned one fewer field than count_fields()
+      // reported. Callers reading fields[n-1] would then dereference NULL.
+      *tptr = '\0';
+      *bptr = strdup(tmp);
+      if (!*bptr) {
+        for (bptr--; bptr >= buf; bptr--) {
+          free(*bptr);
+        }
+        free(buf);
+        free(tmp);
+        return NULL;
+      }
+      bptr++;
       fEnd = 1;
       break;
     case ',':
@@ -890,12 +905,12 @@ bool AdafruitIO_Data::_parseCSV() {
     }
 
     if (field_count > 0) {
-      _lon = atof(fields[1]);
+      _lon = atof(fields[2]);
       field_count--;
     }
 
     if (field_count > 0) {
-      _ele = atof(fields[1]);
+      _ele = atof(fields[3]);
       field_count--;
     }
 
@@ -910,6 +925,4 @@ bool AdafruitIO_Data::_parseCSV() {
   } else {
     return false;
   }
-
-  return true;
 }
