@@ -25,7 +25,7 @@
 /* NOTE - Projects that require "Secure MQTT" (TLS/SSL) also require a new
  * SSL certificate every year. If adding Secure MQTT to your ESP8266 project is
  * important  - please switch to using the modern ESP32 (and related models)
- * instead of the ESP8266 to avoid updating the SSL fingerprint every 6months.
+ * instead of the ESP8266 to avoid updating the SSL fingerprint every 6 months.
  *
  * If you've read through this and still want to use "Secure MQTT" with your
  * ESP8266 project, we've left the "WiFiClientSecure" lines commented out. To
