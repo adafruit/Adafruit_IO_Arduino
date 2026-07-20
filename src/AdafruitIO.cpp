@@ -428,9 +428,7 @@ char *AdafruitIO::userAgent() {
 aio_status_t AdafruitIO::mqttStatus(bool fail_fast) {
   // if the connection failed,
   // return so we don't hammer IO
-  if (_status == AIO_CONNECT_FAILED) {
-    AIO_ERROR_PRINT("mqttStatus() failed to connect");
-    AIO_ERROR_PRINTLN(_mqtt->connectErrorString(_status));
+  if (_status == AIO_CONNECT_FAILED || _status == AIO_AUTH_FAILED) {
     return _status;
   }
 
@@ -441,14 +439,20 @@ aio_status_t AdafruitIO::mqttStatus(bool fail_fast) {
   if (_last_mqtt_connect == 0 ||
       millis() - _last_mqtt_connect > AIO_THROTTLE_RECONNECT_INTERVAL) {
     _last_mqtt_connect = millis();
-    switch (_mqtt->connect(_username, _key)) {
+    int connect_status = _mqtt->connect(_username, _key);
+    if (connect_status != 0) {
+      AIO_ERROR_PRINT("_mqtt->connect() failed to connect: ");
+      AIO_ERROR_PRINTLN(_mqtt->connectErrorString(connect_status));
+    }
+    switch (connect_status) {
     case 0:
       return AIO_CONNECTED;
     case 1: // invalid mqtt protocol
     case 2: // client id rejected
     case 4: // malformed user/pass
-    case 5: // unauthorized
       return AIO_CONNECT_FAILED;
+    case 5: // unauthorized
+      return AIO_AUTH_FAILED;
     case 3: // mqtt service unavailable
     case 6: // throttled
     case 7: // banned -> all MQTT bans are temporary, so eventual retry is
