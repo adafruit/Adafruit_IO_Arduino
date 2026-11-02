@@ -434,6 +434,9 @@ aio_status_t AdafruitIO::mqttStatus(bool fail_fast) {
     return _status;
   }
 
+  if (networkStatus() != AIO_NET_CONNECTED)
+    return AIO_DISCONNECTED;
+
   if (_mqtt->connected())
     return AIO_CONNECTED;
 
