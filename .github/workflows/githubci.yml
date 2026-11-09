@@ -11,14 +11,14 @@ jobs:
                            "pyportal", "metro_m4_airliftlite",
                            "picow_rp2040_tinyusb"]
 
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     
     steps:
-    - uses: actions/setup-python@v4
+    - uses: actions/setup-python@v7
       with:
         python-version: '3.x'
-    - uses: actions/checkout@v3
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v7
+    - uses: actions/checkout@v7
       with:
          repository: adafruit/ci-arduino
          path: ci
